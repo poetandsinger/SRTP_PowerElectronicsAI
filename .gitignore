@@ -1,0 +1,16 @@
+# LLM Wiki — qmd search index (regeneratable)
+.qmd/
+
+# Obsidian workspace (local UI state, not content)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Project tooling (local config, not content)
+.claude/
+.hermes/
+IDEA.md
