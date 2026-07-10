@@ -23,6 +23,11 @@ tags: [ee, index]
 - [[ee/traction-inverter/matlab-modeling]] — MATLAB/Simulink modeling
 - [[ee/traction-inverter/simulation-toolbox]] — Simulation tool landscape
 - [[ee/traction-inverter/open-problems]] — Research frontiers
+- [[ee/traction-inverter/research-synthesis-2025-2026]] — **Hub:** 2025-2026 research synthesis (fragmented into 6 topic notes)
+- [[ee/traction-inverter/topology-landscape-2025-2026]] — Topology & semiconductor landscape
+- [[ee/traction-inverter/simulation-workflows-2025-2026]] — Simulation tools & design workflow
+- [[ee/traction-inverter/standards-landscape-2025-2026]] — Standards (IEC, ISO, AEC-Q, AQG 324)
+- [[ee/traction-inverter/market-trends-2025-2026]] — Market trends & key players
 
 ## Problem Statement
 
@@ -30,7 +35,7 @@ tags: [ee, index]
 
 ## Audit
 
-- [[changelog/audit-changelog-traction-inverter]] — Literature audit changelog
+- [[_lint/audit-changelog-traction-inverter]] — Literature audit changelog
 
 ## Sources (ee/)
 

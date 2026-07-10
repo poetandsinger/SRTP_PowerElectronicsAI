@@ -15,7 +15,9 @@ tags: [cs, index]
 - [[cs/traction-inverter-mas-integration]] — **NEW (2026-07-10):** Comprehensive integration architecture: 7-agent MAS for traction inverter design with confidence-ranked claims (C1-C5), 7 domain guardrails, 8 evidence gates, red-team block
 - [[cs/implementation-research]] — **NEW (2026-07-10):** Implementation research: verified APIs (MATLAB Engine, Nexar, PaperQA2, PySpice), code patterns, technology decisions, identified gaps
 - [[cs/claim-multi-agent-outperforms-single]] — **NEW:** Claim: multi-agent > single-agent for complex engineering design (C4, supported/replicated)
-- [[cs/claim-hybrid-architecture-token-reduction]] — **NEW:** Claim: hybrid LangGraph-CrewAI reduces tokens 76% (C4, supported/single-study)
+- [[cs/claim-hybrid-architecture-token-reduction]] — Claim: hybrid LangGraph-CrewAI reduces tokens 76% (C4, supported/single-study)
+- [[cs/ai-ml-power-electronics-2025-2026]] — **NEW:** 16 AI/ML applications in power electronics design (from 2025-2026 synthesis)
+- [[cs/design-automation-gaps-2025-2026]] — **NEW:** 10 design automation gaps, 11 AI augmentation opportunities
 
 ## Multi-Agent Synthesis
 - [[cs/multi-agent-synthesis]] — Synthesis of multi-agent design patterns from 7 harnesses + updated with 2026-07-10 research pass

@@ -18,9 +18,13 @@
 - [[ee/traction-inverter/simulation-toolbox]] — unverified/single-study — Simulation toolbox landscape for traction inverters
 - [[ee/traction-inverter/matlab-modeling]] — unverified/single-study — MATLAB/Simulink modeling approaches
 - [[ee/traction-inverter/open-problems]] — unverified/single-study — Unsolved problems and research frontiers
-- [[ee/traction-inverter/research-synthesis-2025-2026]] — unverified/single-study — Comprehensive 2025-2026 traction inverter research synthesis (538 lines)
+- [[ee/traction-inverter/research-synthesis-2025-2026]] — index — Hub page pointing to 6 extracted topic notes (was 538-line synthesis, now fragmented)
+- [[ee/traction-inverter/topology-landscape-2025-2026]] — unverified/single-study — Topology & semiconductor landscape: 2L/3L/multilevel, SiC vs GaN vs Si, 800V trends
+- [[ee/traction-inverter/simulation-workflows-2025-2026]] — unverified/single-study — 10 simulation tools compared, 10-phase design workflow, pain points
+- [[ee/traction-inverter/standards-landscape-2025-2026]] — unverified/single-study — 11 core standards (IEC 61800, ISO 26262, AEC-Q, AQG 324, CISPR 25)
+- [[ee/traction-inverter/market-trends-2025-2026]] — unverified/single-study — $8.75B→$36.8B market, 17.3% CAGR, supplier deep dives
 - [[ee/problem-statement/problem statement index]] — unverified/single-study — AI for traction inverter design: problem definition
-- [[changelog/audit-changelog-traction-inverter]] — Research audit changelog for traction inverter literature
+- [[_lint/audit-changelog-traction-inverter]] — Research audit changelog for traction inverter literature
 
 ### Unverified / Theoretical
 - [[ee/traction-inverter/control-how-to]] — unverified/theoretical — Practical guide: tuning and implementing FOC
@@ -69,6 +73,8 @@
 ### NEW Claim Notes (2026-07-10)
 - [[cs/claim-multi-agent-outperforms-single]] — **supported/replicated** — Multi-agent outperforms single-agent for complex engineering design (C4)
 - [[cs/claim-hybrid-architecture-token-reduction]] — **supported/single-study** — Hybrid LangGraph-CrewAI reduces tokens 76% vs pure CrewAI (C4)
+- [[cs/ai-ml-power-electronics-2025-2026]] — unverified/single-study — 16 AI application areas in PE design with quantitative results
+- [[cs/design-automation-gaps-2025-2026]] — unverified/single-study — 10 design automation gaps, 11 AI augmentation opportunities
 
 ## Operational (no status — project docs)
 
@@ -103,4 +109,4 @@
 - [[README]] — SRTP Power Electronics AI project overview
 - [[citations]] — Master bibliography (42 refs)
 - [[SCHEMA]] — Schema, taxonomy, conventions
-- [[log]] — Append-only action log
+- [[changelog/log]] — Append-only action log

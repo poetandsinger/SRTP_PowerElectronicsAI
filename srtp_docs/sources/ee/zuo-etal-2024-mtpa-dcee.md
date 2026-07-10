@@ -19,4 +19,4 @@ The audit confirmed this paper supports online RLS-based MTPA with better dynami
 ## Vault References
 - [[ee/traction-inverter/control-schemes]] — MTPA section
 - [[ee/traction-inverter/open-problems]] — MTPA tracking challenges
-- [[changelog/audit-changelog-traction-inverter]] — Correction documented
+- [[_lint/audit-changelog-traction-inverter]] — Correction documented

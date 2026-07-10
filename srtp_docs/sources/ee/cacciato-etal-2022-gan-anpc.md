@@ -18,4 +18,4 @@ The paper presents a straightforward modelling approach to compute the power los
 
 ## Vault References
 - [[ee/traction-inverter/components]] — GaN HEMT device section
-- [[changelog/audit-changelog-traction-inverter]] — Correction documented
+- [[_lint/audit-changelog-traction-inverter]] — Correction documented

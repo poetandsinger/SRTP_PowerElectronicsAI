@@ -5,12 +5,39 @@
 > Actions: ingest, update, query, lint, create, archive, delete, restructure, cross-link
 > When this file exceeds 500 entries, rotate: rename to log-YYYY.md, start fresh.
 
+## [2026-07-10] session | Full research session — PE-MAS review, CrewAI verification, directory cleanup
+- **PE-MAS review:** Cloned PE-MAS (github.com/spongelovesorange/PE-MAS, 173 files, 518KB). Reviewed graph.py, state.py, knowledge_guardrails.py, skills_manager.py, validator.py, lifelong_memory.py. Validated 12 architectural proposals with working code. Captured source note: sources/cs/pe-mas-flyback-mas.md. Added Section 6b to implementation plan.
+- **CrewAI memory source verification:** Cloned CrewAI (21K files). Memory system completely rewritten — no more short/long/entity. Now unified `Memory` class with LLM-inferred scoping, composite scoring (recency 30% + semantic 50% + importance 20%), LanceDB storage, adaptive-depth RecallFlow. Corrected crewai.md (2 locations) and synthesis note §3.3.
+- **Directory cleanup:** Fixed `channelog/` typo → `changelog/` (5 wikilinks). Moved traction_inverter_research_synthesis.md → ee/traction-inverter/. Removed cloned repos (~219MB freed). Moved log.md → changelog/log.md per user convention.
+- **README refresh:** Updated architecture (LangGraph + PySpice + LiteLLM), A1-A5 decisions, vault structure, 5-phase plan references.
+- **Index updates:** _index/ee.md added research-synthesis entry. _index/cs.md already current.
+- **Gitignore:** Added .claude/, .hermes/, IDEA.md.
+- Files created: sources/cs/pe-mas-flyback-mas.md
+- Files modified: README.md, catalog.md, _index/ee.md, cs/multi-agent-synthesis.md, cs/harness/crewai.md, implementation/plans/multi-agent-architecture.md, .gitignore, changelog/log.md
+- Files moved: channelog/ → changelog/, traction_inverter_research_synthesis.md → ee/traction-inverter/research-synthesis-2025-2026.md, log.md → changelog/log.md
+
+## [2026-07-10] restructure | Fragmented 538-line research synthesis into 8 topic notes
+- Broke `ee/traction-inverter/research-synthesis-2025-2026.md` (538 lines, 42KB) into separate topic notes by field:
+  - **EE:** topology-landscape-2025-2026, simulation-workflows-2025-2026, standards-landscape-2025-2026, market-trends-2025-2026
+  - **CS:** ai-ml-power-electronics-2025-2026, design-automation-gaps-2025-2026
+  - **Appended:** §2 Design Parameters → open-problems.md, §4 Control Strategies → control-schemes.md
+- Original converted to hub/index page linking all extracted notes
+- All new notes have YAML frontmatter, wikilinks, sources. ai-ml-power-electronics has red-team block.
+- Updated catalog.md, _index/ee.md, _index/cs.md
+- Files created: 6 (topology-landscape, simulation-workflows, standards-landscape, market-trends, ai-ml-power-electronics, design-automation-gaps)
+- Files modified: 5 (research-synthesis hub, open-problems, control-schemes, catalog, 2 indices)
+
 ## [2026-07-10] cleanup | Directory fix + cloned repo removal
 - Fixed typo: `channelog/` → `changelog/` (5 wikilinks updated: catalog, _index/ee, 3 source notes)
 - Moved `traction_inverter_research_synthesis.md` → `ee/traction-inverter/research-synthesis-2025-2026.md`
 - Removed cloned repos: `pe_mas_review/` (201MB), `crewai_review/` (18MB) — source notes already captured
 - Updated catalog.md with new research-synthesis entry
 - Project root clean: only `srtp_docs/`, `.hermes/`, `.claude/`, `IDEA.md`, `.gitignore`
+
+## [2026-07-10] update | README + indexes refreshed for current state
+- README.md: Updated architecture (LangGraph + PySpice + LiteLLM), status (research complete), A1-A5 decisions, vault structure (18 sources, 10 ee notes), 5-phase plan references
+- _index/ee.md: Added research-synthesis-2025-2026 entry
+- .gitignore: Added .claude/, .hermes/, IDEA.md
 
 ## [2026-07-10] plan | Rewrote implementation plans based on comprehensive research
 

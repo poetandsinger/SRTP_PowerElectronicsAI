@@ -328,6 +328,65 @@ Speed loop update:    1–5 ms (much slower outer loop)
 
 ---
 
+## Control Strategies Comparison — 2025-2026 Update (from [[ee/traction-inverter/research-synthesis-2025-2026|Research Synthesis]])
+
+## 4. Control Strategies Comparison
+
+### 4.1 Head-to-Head Comparison
+
+| Metric | FOC (Field-Oriented Control) | DTC (Direct Torque Control) | MPC (Model Predictive Control) |
+|--------|------|------|------|
+| **Dynamic response** | Good | Good | Excellent (real-time optimization) |
+| **Torque ripple** | Low | Higher | Low to moderate |
+| **Steady-state precision** | High | Moderate | High |
+| **Parameter sensitivity** | Moderate (sensitive to rotor flux) | Low (less dependent on motor params) | High (requires precise model) |
+| **Computational load** | Moderate (PWM + PI loops) | Low (hysteresis + switching table) | High (optimization in real-time) |
+| **Low-speed stability** | Good | Moderate | Good |
+| **Implementation complexity** | Moderate | Low | High |
+| **Efficiency** | High | Moderate-High | High |
+| **Robustness** | Moderate | High | Moderate |
+| **Switching frequency** | Fixed (deterministic) | Variable (hysteresis-based) | Variable (FCS-MPC) or Fixed (CCS-MPC) |
+| **Industry adoption** | Dominant (~80-85% of production) | Moderate (~10-15%) | Growing (~5%, mainly research/high-end) |
+| **Hardware requirement** | Standard MCU/DSP | Standard MCU/DSP | High-performance DSP/FPGA |
+
+*Sources: Nature Scientific Reports 2025 - Table 2 comparison [Reliability: High (peer-reviewed)]; IEEE Conference Aug 2025 review [Reliability: Medium-High]; MDPI WEVJ Oct 2025 [Reliability: High]*
+
+### 4.2 Detailed findings from 2025 Literature
+
+**FOC (Field-Oriented Control):**
+- Remains the industry workhorse for production EVs
+- Decouples torque and flux control for good dynamic response
+- Mature ecosystem: extensive literature, proven implementations, broad MCU support
+- Requires position sensor or high-performance observer for sensorless operation
+
+**DTC (Direct Torque Control):**
+- Simplest implementation (no PWM modulator, no coordinate transforms)
+- Less dependent on motor parameters (more robust)
+- Higher torque ripple and variable switching frequency limit efficiency at light load
+- Still used in some industrial drives but declining in automotive
+
+**MPC (Model Predictive Control):**
+- **FCS-MPC (Finite Control Set):** Less complex, directly selects inverter switching states; reduces inverter losses but has higher THD and lower robustness to parameter variations
+- **CCS-MPC (Continuous Control Set):** Better performance but higher complexity, potentially limiting real-time implementation
+- **Key 2025 result (Aalborg University, IEEE ITEC+EATS):** Adaptive switching-frequency MPCC achieved 91.17% system efficiency vs 87.69% for standard MPCC and fixed-frequency FOC
+- **Multi-Vector MPC + LMC (IEEE Trans. IA, Oct 2025):** Low switching frequency with reduced inverter-motor system losses, outperforming MTPA+FOC
+- **Limitation:** The main barrier to MPC adoption is computational complexity; new reduced-computation FCS-MPC variants (~40% faster) are emerging
+
+**Sensorless Control:**
+- Essential for cost reduction (eliminates resolver/encoder)
+- Standard methods: back-EMF observers (MRAS, SMO) at medium/high speed; signal injection at zero/low speed
+- Active research area: AI-enhanced observers (ANN, fuzzy logic) for improved low-speed performance
+- Industry adoption: Many production inverters use sensorless FOC, typically with rotor position observer
+
+### 4.3 Emerging AI-Enhanced Control (2025)
+
+- **ANN-aided VSVPWM (IEEE Trans. IA, May 2025):** Artificial neural network assists virtual-space-vector PWM for 3-level NPC inverters; validated via Simulink/PLECS co-simulation; designed for TI C2000 and STM32
+- **Deep Q-Network RL (ICIESC 2025):** RL-based inverter control achieving 1.8% THD (vs 3.9% PI, 2.4% MPC), 2.7% efficiency improvement, 35% faster dynamic response
+- **LMC + Multi-Vector MPC (IEEE Trans. IA, Oct 2025):** AI-assisted loss minimization combined with MPC
+
+---
+
+
 ## Red Team
 
 **Steelman against:** This note catalogues control theory as established fact, but virtually every claim about what "automotive traction inverters universally use" comes from [T]-tagged training knowledge, not verified production teardowns or OEM documentation. Automotive OEMs treat their control architectures as proprietary — public knowledge is approximate. The specific PI tuning rules, MTPA LUT implementations, and overmodulation strategies used in production may differ materially from the textbook versions described here.

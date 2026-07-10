@@ -122,6 +122,39 @@ The traction inverter is a mature field, but several design tensions remain unre
 
 ---
 
+## Design Parameters & Optimization Targets (from [[ee/traction-inverter/research-synthesis-2025-2026|2025-2026 Synthesis]])
+
+## 2. Key Design Parameters & Optimization Targets
+
+### 2.1 Critical KPIs Traced in Industry Design Workflows
+
+| Parameter | Typical Target | Measurement Method |
+|-----------|---------------|-------------------|
+| Inverter efficiency | >98% (SiC), >99% target | PLECS + experimental calorimetric |
+| Power density | >30 kW/L (target for 2025+ systems) | CAD volume + power rating |
+| DC bus voltage ripple | <20V at max power | Simulation + oscilloscope |
+| Bus bar temperature rise | <10degC | 3D CFD conjugate heat transfer |
+| SiC junction temperature | <150degC (continuous), <175degC (peak) | Cauer/Foster thermal network + PLECS |
+| Torque response time | <5 ms (FOC), <2 ms (MPC) | HIL + dynamometer |
+| THD (total harmonic distortion) | <5% at rated power | Power analyzer |
+| EMI compliance | CISPR 25 Class 4/5 | Shielded chamber + LISN |
+| Functional safety | ASIL C to D | ISO 26262 process + TUV assessment |
+| Drive cycle range accuracy | <3% error vs EPA/WLTP | Full vehicle simulation + ROMs |
+
+*Sources: Siemens Simcenter workflow blog [Reliability: High]; TI TIDM-02009 reference design [Reliability: High]*
+
+### 2.2 Optimization Targets
+
+**Multi-objective optimization typically considers:**
+1. **Efficiency vs. power density** (trade-off: higher switching frequency reduces magnetics but increases switching losses)
+2. **Thermal performance vs. cost** (better cooling adds complexity and cost)
+3. **Switching frequency vs. EMI** (higher frequency reduces filter size but increases EMI challenges)
+4. **Component derating vs. reliability** (more derating improves lifetime but increases cost/size)
+5. **Control complexity vs. performance** (MPC gives better dynamics but requires more computational resources)
+
+---
+
+
 > **References:** [[citations]]
 
 ## Red Team
