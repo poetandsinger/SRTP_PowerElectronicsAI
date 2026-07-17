@@ -1,70 +1,100 @@
+---
+title: Schema
+type: schema
+field: root
+created: 2026-07-06
+updated: 2026-07-17
+tags: [schema, index]
+---
+
 # SRTP Research Vault — Schema
 
-> Science Research Vault conventions for power electronics + AI agent architecture research.
-> Every claim carries truth-status, evidence-strength, and a red-team block.
-> Part of: `RESEARCH_VAULT` = `D:\Engineering Projects\AI\SRTP_PowerElectronicsAI\srtp_docs`
+> The rules every file in this vault obeys. Folder names are plain English, every
+> file carries metadata, and every research claim carries truth-status, evidence-strength,
+> and a red-team block.
+> Vault root: `D:\Engineering Projects\AI\SRTP_PowerElectronicsAI\srtp_docs`
 
-## Fields
+---
 
-| Field | Folder | Domain |
-|-------|--------|--------|
-| `ee` | `ee/` | Power electronics — traction inverter design: topologies, semiconductors (SiC/GaN/Si), modulation, thermal, control, MATLAB modeling |
-| `cs` | `cs/` | AI agent architectures — Claude Code, Codex CLI, OpenCode, Hermes Agent, LangGraph, CrewAI, AutoGen, research agents, architecture patterns |
+## 1. Folder = Field
 
-Field folders are the only Layer-2 content locations. All claim/topic notes live under a field folder.
+Folder names are self-explanatory. The folder a note lives in **is** its `field` value — no lookup table, no abbreviations.
 
-## Note Types
+| Folder | `field` value | Holds |
+|--------|---------------|-------|
+| `power-electronics/` | `power-electronics` | Traction inverter design: topologies, semiconductors (SiC/GaN/Si), modulation, thermal, control, MATLAB modeling |
+| `ai-agents/` | `ai-agents` | AI agent architectures: Claude Code, Codex CLI, OpenCode, Hermes, LangGraph, CrewAI, AutoGen, research agents, MAS patterns |
+| `sources/<field>/` | matches subfolder | Immutable raw captures of one paper/source each |
+| `maps/` | matches the map's subject | Navigation hubs (field and topic indexes) |
+| `project/` | `project` | Operational docs: implementation plans, changelog |
+| `audits/` | `project` | Lint reports and self-audits of the vault |
+| root (`/`) | `root` | Singletons: `README`, `SCHEMA`, `catalog`, `citations` |
 
-| Type | Folder | Purpose | Red-team? |
-|------|--------|---------|-----------|
-| `source` | `sources/<field>/` | Immutable raw capture of one paper/source. Never edited. | no |
-| `claim` | `<field>/` | One defensible finding + evidence + red-team. Carries status + evidence. | **required** |
-| `topic` | `<field>/` | Synthesis across claims/papers. State of knowledge on a subject. | required if it advances a position |
-| `index` | `_index/` | Field/topic hub linking key notes. Navigation only. | no |
+Field content notes (`claim`, `topic`, `source`) live **only** under `power-electronics/`, `ai-agents/`, or `sources/`.
 
-**Claim vs topic:** a claim defends *one* checkable finding ("SiC switching losses ~40% below Si IGBT at 100 kHz, 650 V"). A topic synthesizes many ("state of wide-bandgap adoption in traction inverters"). One sharp result → claim. A landscape → topic linking its claims.
+---
 
-**Append-first:** before creating a note, search the vault. If the idea extends an existing note, append and bump `updated` (re-run the red-team if status could shift). Only spawn a new note when the finding is genuinely distinct.
+## 2. Every File Has Metadata
 
-## Frontmatter
+No file ships without a YAML frontmatter block. Four **identity** keys are mandatory on every `.md` file, plus a **date** — `created` + `updated` for authored notes, or `captured` for source captures (one date, not three):
 
-### Claim / Topic / Index notes (Layer 2):
 ```yaml
 ---
-title: Note Title
-type: claim | topic | index
-field: ee | cs
-created: YYYY-MM-DD
-updated: YYYY-MM-DD
-status: supported | contested | refuted | unverified
-evidence: replicated | single-study | theoretical | disputed
-tags: [from taxonomy]
-sources: [sources/ee/foo.md, doi:10.1234/xyz, arxiv:2401.01234]
-contradicts: [slug-of-conflicting-note]
-review_by: YYYY-MM-DD
+title: Human-readable title
+type: <see §3>
+field: power-electronics | ai-agents | project | root
+created: YYYY-MM-DD        # authored notes
+updated: YYYY-MM-DD        # authored notes
+tags: [from the taxonomy in §8]
 ---
 ```
 
-### Source notes (Layer 1):
+Two note kinds extend this block:
+
+**Claim / topic notes** add the research fields:
 ```yaml
----
-title: Paper Title
+status: supported | contested | refuted | unverified
+evidence: replicated | single-study | theoretical | disputed
+sources: [sources/ai-agents/foo, doi:10.1234/xyz, arxiv:2401.01234]
+contradicts: [slug-of-conflicting-note]   # omit if none
+review_by: YYYY-MM-DD
+```
+
+**Source notes** (`type: source`) keep the four identity keys (`title`, `type`, `field`, `tags`) but date with a single `captured` instead of `created`/`updated`, and add capture provenance:
+```yaml
 authors: [...]
 year: YYYY
 venue: "journal / conference / preprint server"
-doi: 10.1234/xyz          # or:
-arxiv: 2401.01234
-pmid: 12345678
-captured: YYYY-MM-DD
+doi: 10.1234/xyz          # or arxiv: / pmid:
+captured: YYYY-MM-DD       # the source's one date
 reliability: high | medium | low | unknown
-peer_reviewed: true
+peer_reviewed: true | false
 motivated: true            # omit if not
 reliability_note: "..."
-sha256: <hash>
----
 ```
 
-## Truth-Status
+---
+
+## 3. Note Types
+
+| `type` | Lives in | Purpose | Red-team? |
+|--------|----------|---------|-----------|
+| `source` | `sources/<field>/` | Immutable raw capture of one paper/source. Never edited. | no |
+| `claim` | `<field>/` | One defensible finding + evidence + red-team. Carries status + evidence. | **required** |
+| `topic` | `<field>/` | Synthesis across claims/papers. State of knowledge on a subject. | required if it advances a position |
+| `map` | `maps/`, `<field>/` | Navigation hub linking related notes. Pure wayfinding. | no |
+| `plan` | `project/plans/` | Implementation plan or architecture decision. Operational. | no |
+| `changelog` | `project/changelog/` | Dated record of what changed. Operational. | no |
+| `audit` | `audits/` | Lint report or self-audit of the vault. Operational. | no |
+| `catalog` / `schema` / `citations` | root | The three root singletons besides README. | no |
+
+**Claim vs topic:** a claim defends *one* checkable finding ("SiC switching losses ~40% below Si IGBT at 100 kHz, 650 V"). A topic synthesizes many ("state of wide-bandgap adoption in traction inverters"). One sharp result → claim. A landscape → topic linking its claims.
+
+**Operational vs research:** `plan`, `changelog`, and `audit` notes are project docs. They carry the base metadata block but **no** truth-status, evidence-strength, or red-team — they record decisions, not defensible findings.
+
+---
+
+## 4. Truth-Status (claim/topic only)
 
 - `supported` — corroborated by 2+ independent credible sources; red-team failed to break it.
 - `contested` — credible sources disagree, OR the red-team raised a serious unresolved objection.
@@ -73,27 +103,27 @@ sha256: <hash>
 
 **New claims default to `unverified`.** Never default to `supported` — earn it.
 
-## Evidence-Strength
+## 5. Evidence-Strength (claim/topic only)
 
 - `replicated` — independent groups reproduced it; meta-analysis or multiple confirmations.
-- `single-study` — one (or a few, but not independently reproduced) papers; no independent replication yet.
+- `single-study` — one (or a few, not independently reproduced) papers.
 - `theoretical` — derived/modeled/simulated, not yet empirically tested.
 - `disputed` — replication attempts conflict or have failed.
 
-## Source Reliability
+## 6. Source Reliability
 
-- **high** — primary/original: peer-reviewed papers in credible venues, replicated datasets, standards bodies, direct experimental reports.
-- **medium** — solid secondary: reputable preprints (arxiv from known groups), review articles, textbooks, well-run reproductions reported informally.
-- **low** — weak/motivated: press releases, vendor whitepapers, marketing, single blog posts, un-refereed theses, popular-science coverage.
+- **high** — primary/original: peer-reviewed papers in credible venues, standards bodies, direct experimental reports.
+- **medium** — solid secondary: reputable preprints, review articles, textbooks, well-run informal reproductions.
+- **low** — weak/motivated: press releases, vendor whitepapers, marketing, single blog posts, un-refereed theses.
 - **unknown** — provenance unassessable.
 
 `peer_reviewed: false` (preprint) does not automatically mean low — a preprint from a strong group is often `medium` — but it caps a single-source claim at `unverified` until peer-reviewed or independently reproduced.
 
-**`motivated` is orthogonal to reliability** — a vendor's own well-run benchmark can be `high` *and* `motivated: true`. Motivation does NOT gate status.
+**`motivated` is orthogonal to reliability** — a vendor's own well-run benchmark can be `high` *and* `motivated: true`. Motivation does NOT gate status. **Reliability gates status:** a `low`/`unknown` source can't push a claim past `unverified` on its own.
 
-**Reliability gates status:** a `low`/`unknown` source can't push a claim past `unverified` on its own.
+---
 
-## Red-Team Block (mandatory on claim notes)
+## 7. Red-Team Block (mandatory on claim notes)
 
 ```markdown
 ## Red Team
@@ -103,15 +133,19 @@ sha256: <hash>
 **Residual doubt:** [One line — what still nags after reading.]
 ```
 
-## Tag Taxonomy
+No red-team, no claim.
 
-Every tag on a note must exist here. Add first, then use.
+---
+
+## 8. Tag Taxonomy
+
+Every tag on a note must exist here. Add to this list first, then use.
 
 ### Fields
-- `ee` — power electronics
-- `cs` — computer science / AI
+- `power-electronics` — power electronics
+- `ai-agents` — AI agent architecture
 
-### EE: Power Electronics
+### Power Electronics
 - **Topologies:** `topology`, `inverter`, `two-level`, `three-level`, `multilevel`, `npc`, `t-type`, `anpc`
 - **Components:** `mosfet`, `igbt`, `gan`, `sic`, `diode`, `capacitor`, `dc-link`, `gate-driver`
 - **Modulation:** `pwm`, `svpwm`, `dpwm`, `she-pwm`, `hysteresis`, `mpc`
@@ -122,26 +156,36 @@ Every tag on a note must exist here. Add first, then use.
 - **Domain:** `traction-inverter`, `market-research`
 - **Method:** `tuning`
 
-### CS: AI / Agent Architecture
-- **Agent frameworks:** `claude-code`, `codex-cli`, `opencode`, `hermes-agent`, `langgraph`, `crewai`, `autogen`
-- **Agent concepts:** `multi-agent`, `tool-calling`, `delegation`, `orchestration`, `subagent`
+### AI / Agent Architecture
+- **Frameworks:** `claude-code`, `codex-cli`, `opencode`, `hermes-agent`, `langgraph`, `crewai`, `autogen`
+- **Concepts:** `multi-agent`, `tool-calling`, `delegation`, `orchestration`, `subagent`
 - **Architecture:** `architecture`, `patterns`, `comparison`, `integration`, `gui-vs-cli`
-- **Engineering AI:** `matlab-integration`, `simulation`, `code-generation`, `design-automation`
+- **Engineering AI:** `matlab-integration`, `simulation`, `code-generation`, `design-automation`, `engineering-ai`
 
 ### Cross-cutting
 - **Method:** `experiment`, `simulation`, `theory`, `dataset`, `benchmark`, `review`
 - **Evidence:** `replication`, `reproducibility`, `ablation`, `baseline`, `n-size`
-- **Meta:** `contested`, `open-problem`, `sota`, `prediction`, `preprint`, `retracted`, `index`, `comparison`, `audit`
+- **Meta:** `contested`, `open-problem`, `sota`, `prediction`, `preprint`, `retracted`, `index`, `audit`, `synthesis`
+- **Operational:** `plan`, `changelog`
 
-## Page Thresholds
-- **Create** when a finding is distinct and defensible (not covered in an existing note)
-- **Append** when extending an existing note's scope
-- **Split** when a note exceeds ~200 lines
-- **Archive** when content is fully superseded → `_archive/`, remove from catalog
+---
 
-## Implementation Notes (operational)
+## 9. Naming & Linking
 
-The `implementation/` folder contains project plans, changelogs, and architecture decisions.
-These are **operational documents**, not research claims. They do not carry truth-status,
-evidence-strength, or red-team blocks. They are tracked here for project context but sit
-outside the research vault proper.
+- **Filenames are kebab-case.** No spaces, no capitals: `traction-inverter-index.md`, not `Traction Inverter Index.md`.
+- **Wikilinks are path-based** from the vault root: `[[power-electronics/traction-inverter/components]]`, not the bare basename. Display text and anchors are fine: `[[path|Label]]`, `[[path#Section]]`.
+- **Sources are referenced by path** in the `sources:` frontmatter list, matching the file under `sources/<field>/`.
+
+---
+
+## 10. Lifecycle
+
+- **Append-first.** Before creating a note, search the vault. If the idea extends an existing note, append and bump `updated` (re-run the red-team if status could shift). Only spawn a new note when the finding is genuinely distinct.
+- **Create** when a finding is distinct and defensible.
+- **Split** when a note exceeds ~200 lines.
+- **Contradictions surface, never overwrite** — set `contradicts:` and let both notes stand.
+- **Delete** superseded operational docs (git preserves history). **Never delete** a research note that was ever `supported` or `contested` — mark it `refuted` and link its replacement.
+
+---
+
+← [[README]] | [[catalog]] | [[maps/power-electronics]] | [[maps/ai-agents]]

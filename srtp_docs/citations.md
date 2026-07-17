@@ -1,6 +1,6 @@
 ---
 title: Citations
-type: index
+type: citations
 field: root
 created: 2026-07-06
 updated: 2026-07-10
@@ -17,39 +17,39 @@ tags: [index, ieee]
 
 ## Agent Harnesses — Operational Platforms
 
-### Hermes Agent — [[cs/harness/hermes-agent]]
+### Hermes Agent — [[ai-agents/harness/hermes-agent]]
 - [1] Nous Research. (2025–2026). *Hermes Agent*. GitHub. https://github.com/NousResearch/hermes-agent — **MIT**
 - [2] Nous Research. (2025–2026). *Hermes Agent Docs*. https://hermes-agent.nousresearch.com/docs/
 
-### Claude Code — [[cs/harness/claude-code]]
+### Claude Code — [[ai-agents/harness/claude-code]]
 - [3] Anthropic. (2025–2026). *Claude Code*. GitHub. https://github.com/anthropics/claude-code — **Proprietary**
 - [4] Anthropic. (2025–2026). *Claude Code CLI Reference*. https://code.claude.com/docs/en/cli-reference
 
-### OpenCode — [[cs/harness/opencode]]
+### OpenCode — [[ai-agents/harness/opencode]]
 - [5] AnomalyCo. (2025–2026). *OpenCode*. GitHub. https://github.com/anomalyco/opencode — **MIT**
 
-### Codex CLI — [[cs/harness/codex-cli]]
+### Codex CLI — [[ai-agents/harness/codex-cli]]
 - [6] OpenAI. (2025–2026). *Codex CLI*. GitHub. https://github.com/openai/codex — **Apache 2.0**
 
 ---
 
 ## Agent Frameworks — Libraries
 
-### LangGraph — [[cs/harness/langgraph]]
+### LangGraph — [[ai-agents/harness/langgraph]]
 - [7] LangChain. (2024–2026). *LangGraph*. GitHub. https://github.com/langchain-ai/langgraph — **MIT**
 - [8] LangChain. (2024–2026). *LangGraph Docs*. https://langchain-ai.github.io/langgraph/
 
-### CrewAI — [[cs/harness/crewai]]
+### CrewAI — [[ai-agents/harness/crewai]]
 - [9] CrewAI. (2024–2026). *CrewAI*. GitHub. https://github.com/crewAIInc/crewAI — **MIT**
 
-### AutoGen — [[cs/harness/autogen]]
+### AutoGen — [[ai-agents/harness/autogen]]
 - [10] Microsoft. (2023–2026). *AutoGen*. GitHub. https://github.com/microsoft/autogen — **CC-BY-4.0**
   — ⚠️ Maintenance mode since v0.7.5 (Sept 2025). Microsoft recommends Microsoft Agent Framework (MAF) for new projects.
 
 ### LangChain
 - [11] LangChain. (2023–2026). *LangChain*. GitHub. https://github.com/langchain-ai/langchain — **MIT**
 
-### smolagents — [[cs/harness/research-agents]]
+### smolagents — [[ai-agents/harness/research-agents]]
 - [12] HuggingFace. (2025–2026). *smolagents*. GitHub. https://github.com/huggingface/smolagents — **Apache 2.0**
 
 ### Others
@@ -64,7 +64,7 @@ tags: [index, ieee]
 
 ---
 
-## Research-Specific Agents — [[cs/harness/research-agents]]
+## Research-Specific Agents — [[ai-agents/harness/research-agents]]
 - [17] FutureHouse. (2024–2026). *PaperQA2*. GitHub. https://github.com/Future-House/paper-qa — **Apache 2.0**
 - [18] GPT Researcher. (2024–2026). *GPT Researcher*. GitHub. https://github.com/assafelovic/gpt-researcher — **Apache 2.0**
 - [19] Stanford OVAL. (2024–2026). *STORM*. GitHub. https://github.com/stanford-oval/storm — **MIT**
@@ -91,15 +91,15 @@ tags: [index, ieee]
 ### Industry / Standards / Documentation
 
 - [26] **MathWorks**, "Get Started with MATLAB Engine API for Python," *MATLAB Documentation*, R2026a. https://www.mathworks.com/help/matlab/matlab_external/get-started-with-matlab-engine-for-python.html
-- [28] **C. Sachs and M. Neuburger**, "A Data-Based Review of Battery Electric Vehicle and Traction Inverter Trends," *arXiv:2508.14224v1*, Aug. 2025. [[sources/ee/sachs-neuburger-2025-3l-tnpc]]
+- [28] **C. Sachs and M. Neuburger**, "A Data-Based Review of Battery Electric Vehicle and Traction Inverter Trends," *arXiv:2508.14224v1*, Aug. 2025. [[sources/power-electronics/sachs-neuburger-2025-3l-tnpc]]
 - [29] **Yole Group**, "Power SiC Market Report," 2024. https://www.yolegroup.com/product/report/power-sic-market-report/ — Paywalled; public summaries cite automotive SiC ~$2B (2024) → >$6B (2029).
 - [30] **J. G. Hayes and G. A. Goodarzi**, *Electric Powertrain: Energy Systems, Power Electronics and Drives for Hybrid, Electric and Fuel Cell Vehicles*, Wiley, 2017. ISBN 978-1119063643.
-- [43] **C. Sachs, F. Stamer, J. Allgeier, D. Thrimawithana, and M. Neuburger**, "Optimization-Based Comparative System Evaluation of Single and Dual Traction Inverters with Focus on Partial Load Efficiency and Chip Area," in *Proc. IEEE ECCE*, 2024. DOI: 10.1109/ECCE55643.2024.10861318. [[sources/ee/sachs-etal-2025-single-dual-inverter]]
-- [44] **M. Cacciato, G. Aiello, F. Gennaro, S. Mita, D. Patti, G. Scelba, and A. Sujeeth**, "Power Loss Modelling of GaN HEMT based 3L ANPC Three Phase Inverter for different PWM Techniques," in *Proc. IEEE EPE ECCE Europe*, 2022. arXiv:2212.05246v1. [[sources/ee/cacciato-etal-2022-gan-anpc]]
-- [45] **Y. Zuo, Y. Yu, J. Yang, and W.-H. Chen**, "Auto-Optimized Maximum Torque Per Ampere Control of IPMSM Using Dual Control for Exploration and Exploitation," *arXiv:2404.18176v1*, Apr. 2024. [[sources/ee/zuo-etal-2024-mtpa-dcee]]
+- [43] **C. Sachs, F. Stamer, J. Allgeier, D. Thrimawithana, and M. Neuburger**, "Optimization-Based Comparative System Evaluation of Single and Dual Traction Inverters with Focus on Partial Load Efficiency and Chip Area," in *Proc. IEEE ECCE*, 2024. DOI: 10.1109/ECCE55643.2024.10861318. [[sources/power-electronics/sachs-etal-2025-single-dual-inverter]]
+- [44] **M. Cacciato, G. Aiello, F. Gennaro, S. Mita, D. Patti, G. Scelba, and A. Sujeeth**, "Power Loss Modelling of GaN HEMT based 3L ANPC Three Phase Inverter for different PWM Techniques," in *Proc. IEEE EPE ECCE Europe*, 2022. arXiv:2212.05246v1. [[sources/power-electronics/cacciato-etal-2022-gan-anpc]]
+- [45] **Y. Zuo, Y. Yu, J. Yang, and W.-H. Chen**, "Auto-Optimized Maximum Torque Per Ampere Control of IPMSM Using Dual Control for Exploration and Exploitation," *arXiv:2404.18176v1*, Apr. 2024. [[sources/power-electronics/zuo-etal-2024-mtpa-dcee]]
 - [51] **MathWorks**, "Embedded Coder — Generate C and C++ Code from Simulink and MATLAB," *Simulink Documentation*, R2026a. https://www.mathworks.com/products/embedded-coder.html
 - [54] **A. von Jouanne, D. Rendusara, P. Enjeti, and W. Gray**, "Filtering Techniques to Minimize the Effect of Long Motor Leads on PWM Inverter-Fed AC Motor Drive Systems," *IEEE Trans. Ind. Appl.*, vol. 32, no. 4, pp. 919–926, Jul./Aug. 1996. DOI: 10.1109/28.511650
-- [55] **S. Pimpale and S. Mahadik**, "Active Short Circuit and Safe Discharge Mechanisms in Multi-Phase Inverters During Critical Failures," *arXiv:2511.08405v1*, Nov. 2025. [[sources/ee/pimpale-mahadik-2025-asc-discharge]]
+- [55] **S. Pimpale and S. Mahadik**, "Active Short Circuit and Safe Discharge Mechanisms in Multi-Phase Inverters During Critical Failures," *arXiv:2511.08405v1*, Nov. 2025. [[sources/power-electronics/pimpale-mahadik-2025-asc-discharge]]
 - [56] **IEC CISPR 25**, "Vehicles, boats and internal combustion engines — Radio disturbance characteristics — Limits and methods of measurement for the protection of on-board receivers," Ed. 5.0, 2021. — Standard document, not freely accessible.
 - [58] **Plexim GmbH**, "PLECS — Piecewise Linear Electrical Circuit Simulation," Product Documentation, 2024. https://www.plexim.com/support
 
@@ -139,26 +139,26 @@ tags: [index, ieee]
 
 ### Peer-Reviewed Papers
 
-- [59] **Khan, Khan, Sharif, Yasmin**, "Beyond Single-Framework Architectures: A Systematic Evaluation and Hybrid Design for Scalable Multi-Agent Coordination," *IEEE Access*, vol. 14, pp. 59688–59705, Apr. 2026. DOI: 10.1109/ACCESS.2026.3555705. — Hybrid LangGraph-CrewAI: 96.1% success rate, 76.2% token reduction. [[sources/cs/hybrid-langgraph-crewai-2026-ieee]]
-- [60] **PE-GPT (multi-institution)**, "A New Paradigm for Power Electronics Design," *IEEE Trans. Ind. Electron.*, vol. 72, Apr. 2025. DOI: 10.1109/TIE.2024.3454408. — LLM agent 22.2% better than human experts on PE design. [[sources/cs/pe-gpt-2025-multimodal-pe-design]]
-- [61] **AgenticTCAD (multi-institution)**, "Multi-Agent LLM Framework for Semiconductor TCAD Simulation and Design," in *Proc. DATE*, 2026. arXiv:2512.23742. — 40× speedup on 2nm semiconductor design. [[sources/cs/agentic-tcad-2026-date]]
-- [62] **ThermRAG**, "A Multimodal Knowledge-Enhanced Agent for Power Electronics Thermal Design," *IEEE*, 2025. DOI: IEEE Xplore 11516791. [[sources/cs/thermrag-2025-pe-thermal-agent]]
-- [63] **C. Zhang and R. Negri**, "AI-Assisted Multi-Physics Evaluation of Mission Profile-Based Traction Inverter Design for Sustainability," *World Electr. Veh. J.*, 2026. DOI: 10.3390/wevj17010020. [[sources/ee/zhang-negri-2026-ai-multiphysics-sustainability]]
-- [64] **Y. Yue, G. Zhang, B. Liu, G. Wan, K. Wang, D. Cheng, and Y. Qi**, "MasRouter: Learning to Route LLMs for Multi-Agent Systems," *arXiv:2502.11133v1*, Feb. 2025. [[sources/cs/masrouter-2025-llm-routing]]
-- [65] **S. Yuan, K. Song, J. Chen, X. Tan, D. Li, and D. Yang**, "EvoAgent: Towards Automatic Multi-Agent Generation via Evolutionary Algorithms," in *Proc. NAACL*, 2025. arXiv:2406.14228v3. [[sources/cs/evoagent-2025-evolutionary-delegation]]
+- [59] **Khan, Khan, Sharif, Yasmin**, "Beyond Single-Framework Architectures: A Systematic Evaluation and Hybrid Design for Scalable Multi-Agent Coordination," *IEEE Access*, vol. 14, pp. 59688–59705, Apr. 2026. DOI: 10.1109/ACCESS.2026.3555705. — Hybrid LangGraph-CrewAI: 96.1% success rate, 76.2% token reduction. [[sources/ai-agents/hybrid-langgraph-crewai-2026-ieee]]
+- [60] **PE-GPT (multi-institution)**, "A New Paradigm for Power Electronics Design," *IEEE Trans. Ind. Electron.*, vol. 72, Apr. 2025. DOI: 10.1109/TIE.2024.3454408. — LLM agent 22.2% better than human experts on PE design. [[sources/ai-agents/pe-gpt-2025-multimodal-pe-design]]
+- [61] **AgenticTCAD (multi-institution)**, "Multi-Agent LLM Framework for Semiconductor TCAD Simulation and Design," in *Proc. DATE*, 2026. arXiv:2512.23742. — 40× speedup on 2nm semiconductor design. [[sources/ai-agents/agentic-tcad-2026-date]]
+- [62] **ThermRAG**, "A Multimodal Knowledge-Enhanced Agent for Power Electronics Thermal Design," *IEEE*, 2025. DOI: IEEE Xplore 11516791. [[sources/ai-agents/thermrag-2025-pe-thermal-agent]]
+- [63] **C. Zhang and R. Negri**, "AI-Assisted Multi-Physics Evaluation of Mission Profile-Based Traction Inverter Design for Sustainability," *World Electr. Veh. J.*, 2026. DOI: 10.3390/wevj17010020. [[sources/power-electronics/zhang-negri-2026-ai-multiphysics-sustainability]]
+- [64] **Y. Yue, G. Zhang, B. Liu, G. Wan, K. Wang, D. Cheng, and Y. Qi**, "MasRouter: Learning to Route LLMs for Multi-Agent Systems," *arXiv:2502.11133v1*, Feb. 2025. [[sources/ai-agents/masrouter-2025-llm-routing]]
+- [65] **S. Yuan, K. Song, J. Chen, X. Tan, D. Li, and D. Yang**, "EvoAgent: Towards Automatic Multi-Agent Generation via Evolutionary Algorithms," in *Proc. NAACL*, 2025. arXiv:2406.14228v3. [[sources/ai-agents/evoagent-2025-evolutionary-delegation]]
 - [66] **VeriAgent**, "Evolved Memory for Multi-Agent RTL Code Generation," *arXiv:2603.17613*, 2026. — 3-agent generate-verify-optimize with evolving memory. [Source note pending]
 
 ### Preprints & Industry
 
-- [67] **Power Circuit AI (ABB Inc.)**, "Designing Power Electronic Circuits for Motor Drives with Generative AI," *engrXiv*, Apr. 2026. DOI: 10.31224/6706. [[sources/cs/power-circuit-ai-2026-abb-mas-pcb]]
-- [68] **DRCY (AllSpice)**, "Multi-Agent System for Schematic Connection Review Against Datasheets," *arXiv:2603.15672*, 2026. [[sources/cs/drcy-2026-allspice-mas-review]]
-- [69] **Y. Schneider (Diagrid)**, "Why Checkpoints Aren't Durable Execution," *Diagrid Blog*, Feb. 2026. https://www.diagrid.io/blog/checkpoints-are-not-durable-execution-why-langgraph-crewai-google-adk-and-others-fall-short-for-production-agent-workflows [[sources/cs/langgraph-production-gaps-2026-diagrid]]
-- [70] **Multi-Agent LLM Control Framework**, "Six-Agent Architecture for Power Electronics Control Design," *EmergentMind*, Jan. 2026. https://www.emergentmind.com/topics/multi-agent-llm-control [[sources/cs/multi-agent-llm-control-2026-pe]]
+- [67] **Power Circuit AI (ABB Inc.)**, "Designing Power Electronic Circuits for Motor Drives with Generative AI," *engrXiv*, Apr. 2026. DOI: 10.31224/6706. [[sources/ai-agents/power-circuit-ai-2026-abb-mas-pcb]]
+- [68] **DRCY (AllSpice)**, "Multi-Agent System for Schematic Connection Review Against Datasheets," *arXiv:2603.15672*, 2026. [[sources/ai-agents/drcy-2026-allspice-mas-review]]
+- [69] **Y. Schneider (Diagrid)**, "Why Checkpoints Aren't Durable Execution," *Diagrid Blog*, Feb. 2026. https://www.diagrid.io/blog/checkpoints-are-not-durable-execution-why-langgraph-crewai-google-adk-and-others-fall-short-for-production-agent-workflows [[sources/ai-agents/langgraph-production-gaps-2026-diagrid]]
+- [70] **Multi-Agent LLM Control Framework**, "Six-Agent Architecture for Power Electronics Control Design," *EmergentMind*, Jan. 2026. https://www.emergentmind.com/topics/multi-agent-llm-control [[sources/ai-agents/multi-agent-llm-control-2026-pe]]
 
 ### Open-Source Tools
 
-- [71] **cognitohazard**, "ltspice-mcp: MCP Server for LTspice/ngspice Simulation," *GitHub*, 2026. https://github.com/cognitohazard/ltspice-mcp — **GPL-3.0**. 51 MCP tools. Cloned 2026-07-10. [[sources/cs/ltspice-mcp-2026]]
-- [72] **spongelovesorange**, "PE-MAS: Power Electronics Multi-Agent Design Studio," *GitHub*, 2026. https://github.com/spongelovesorange/PE-MAS — LangGraph MAS for flyback converter design. [[sources/cs/pe-mas-flyback-mas]]
+- [71] **cognitohazard**, "ltspice-mcp: MCP Server for LTspice/ngspice Simulation," *GitHub*, 2026. https://github.com/cognitohazard/ltspice-mcp — **GPL-3.0**. 51 MCP tools. Cloned 2026-07-10. [[sources/ai-agents/ltspice-mcp-2026]]
+- [72] **spongelovesorange**, "PE-MAS: Power Electronics Multi-Agent Design Studio," *GitHub*, 2026. https://github.com/spongelovesorange/PE-MAS — LangGraph MAS for flyback converter design. [[sources/ai-agents/pe-mas-flyback-mas]]
 
 ### Engineering AI Benchmarks & Cost Optimization
 
