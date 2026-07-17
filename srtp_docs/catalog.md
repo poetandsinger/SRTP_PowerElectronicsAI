@@ -64,7 +64,7 @@ tags: [index]
 - [[ai-agents/harness/research-agents]] — unverified/single-study — research-specific agent patterns and tools
 
 ### Unverified / Theoretical
-- [[ai-agents/harness/matlab-integration]] — unverified/theoretical — strategies for integrating MATLAB with AI agent harnesses
+- [[ai-agents/harness/plecs-integration]] — unverified/single-study — strategies for integrating PLECS (XML-RPC/MCP) with AI agent harnesses
 
 ### Cross-cutting
 - [[ai-agents/multi-agent-synthesis]] — unverified/single-study — MAS design patterns synthesized from 7 harnesses + 2 papers
@@ -90,23 +90,18 @@ tags: [index]
 - [[sources/ai-agents/langgraph-production-gaps-2026-diagrid]] — LangGraph checkpointing ≠ durable execution (Diagrid 2026)
 - [[sources/ai-agents/multi-agent-llm-control-2026-pe]] — 6-agent LLM control framework for power electronics
 - [[sources/ai-agents/thermrag-2025-pe-thermal-agent]] — ThermRAG (IEEE 2025): multimodal agent for PE thermal design
+- [[sources/ai-agents/plecs-xmlrpc-scripting-interface]] — PLECS XML-RPC/JSON-RPC scripting API (the sim backend)
+- [[sources/ai-agents/plecs-ai-agent-integration-ordonez]] — direct AI+PLECS prior art: capability boundary + token economics
+- [[sources/ai-agents/phia-lpcomda-2026-physics-informed-pe-agent]] — PHIA/LP-COMDA (AAAI 2026): physics-informed PE agent, low-data surrogates
+- [[sources/ai-agents/analogsage-2025-self-evolving-analog-mas]] — AnalogSAGE: 3-stage EDA MAS + stratified self-evolving memory
+- [[sources/ai-agents/agent-frameworks-2026-currency]] — mid-2026 framework currency (LangGraph 1.0, MAF, AgentSlimming)
 
 ## Project (operational — no status)
 
 ### Plans
-- [[project/plans/plans-index]] — 5-phase implementation roadmap (CLI-first, 3 agents, PySpice primary)
-- [[project/plans/phase-0-foundation]] — Phase 0: foundation + A/B test (single vs multi-agent)
-- [[project/plans/phase-1-multi-agent]] — Phase 1: 3-agent LangGraph core with guardrails and evidence gates
-- [[project/plans/phase-2-simulation]] — Phase 2: MATLAB/PySpice dual-engine + ltspice-mcp device-level sim
-- [[project/plans/phase-3-knowledge]] — Phase 3: PaperQA2 literature + Nexar components + memory
-- [[project/plans/phase-4-production]] — Phase 4: watchdog, HITL, benchmark, CLI packaging
-- [[project/plans/multi-agent-architecture]] — multi-agent architecture plan
-- [[project/plans/architecture]] — architecture decision record
-- [[project/plans/tech-stack]] — technology stack decisions
-- [[project/plans/risks-metrics]] — risk register and success metrics
+- [[project/plans/ai-agent-mas-plan]] — **the AI-agent plan** — PLECS-backed MAS, 3-agent core, 5 phases (~12 weeks); stack + risks folded in
 
 ### Changelog
-- [[project/changelog/log]] — append-only action log
 - [[project/changelog/changelog-index]] — changelog index
 - [[project/changelog/2026-07-06-initial-setup]] — initial setup
 - [[project/changelog/2026-07-06-restructure]] — vault restructure
@@ -114,6 +109,7 @@ tags: [index]
 - [[project/changelog/2026-07-06-subagent-findings]] — subagent findings integrated
 
 ## Audits
+- [[audits/ai-agent-docs-audit-2026-07-17]] — **2026-07-17 brutal audit** — MATLAB→PLECS pivot, 7-vs-3 agents, confidence inflation, gap closures
 - [[audits/lint-report-2026-07-08]] — 2026-07-08 lint report
 - [[audits/multi-agent-audit-2026-07-09]] — 2026-07-09 self-audit of multi-agent synthesis
 - [[audits/multi-agent-traction-inverter-audit-2026-07-10]] — 2026-07-10 comprehensive audit + fresh research pass

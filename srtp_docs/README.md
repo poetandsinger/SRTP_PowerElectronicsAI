@@ -10,7 +10,7 @@ tags: [index]
 # SRTP Power Electronics AI
 
 > **AI-powered multi-agent system for traction inverter design.**
-> **Architecture:** LangGraph StateGraph + PySpice/ngspice + LiteLLM (CLI-first, provider-agnostic)
+> **Architecture:** LangGraph + **PLECS** (XML-RPC/MCP) + LiteLLM (CLI-first, provider-agnostic)
 > **Method:** Science Research Vault — every claim carries truth-status, evidence-strength, and a mandatory red-team block.
 > **Status:** 🟡 Research complete — Phase 0 implementation ready
 
@@ -47,11 +47,11 @@ srtp_docs/
 │   ├── power-electronics.md
 │   └── ai-agents.md
 │
-├── audits/                 # 4 lint reports + self-audits of the vault
+├── audits/                 # 5 lint reports + self-audits of the vault
 │
 └── project/                # OPERATIONAL (no truth-status — these are decisions, not findings)
-    ├── plans/              #   5 phase plans + architecture + tech-stack + risks
-    └── changelog/          #   Dated log of what changed
+    ├── plans/              #   ai-agent-mas-plan (the single plan)
+    └── changelog/          #   Dated setup milestones
 ```
 
 ## Research
@@ -59,21 +59,13 @@ srtp_docs/
 | Field | Hub | Content |
 |-------|-----|---------|
 | Power Electronics | [[maps/power-electronics]] | 15 traction inverter notes (red-teamed) + 6 source papers |
-| AI / Agent Architecture | [[maps/ai-agents]] | 12 harness deep dives, 12 source papers, 2 red-teamed claims, MAS bridge |
+| AI / Agent Architecture | [[maps/ai-agents]] | 12 harness deep dives, 17 source papers, 2 red-teamed claims, MAS bridge |
 
 ## Implementation
 
-Full roadmap: [[project/plans/plans-index]]
+**The plan:** [[project/plans/ai-agent-mas-plan]] — PLECS-backed MAS, 3-agent core (Orchestrator + PLECS Simulation + Reviewer), specialists earned, surrogates early, an explicit "build & validate per-topology PLECS models" workstream. 5 phases (~12 weeks) live inside that one document.
 
-| Phase | Plan | Goal |
-|-------|------|------|
-| 0 | [[project/plans/phase-0-foundation]] | Single-agent baseline + A/B test (PySpice/ngspice) |
-| 1 | [[project/plans/phase-1-multi-agent]] | 3-agent LangGraph core with guardrails |
-| 2 | [[project/plans/phase-2-simulation]] | MATLAB/PySpice dual-engine + ltspice-mcp |
-| 3 | [[project/plans/phase-3-knowledge]] | PaperQA2 + Nexar components + memory |
-| 4 | [[project/plans/phase-4-production]] | Watchdog, HITL, benchmark, CLI packaging |
-
-Supporting: [[project/plans/architecture]] · [[project/plans/tech-stack]] · [[project/plans/risks-metrics]] · [[ai-agents/implementation-research]]
+Grounded in: [[audits/ai-agent-docs-audit-2026-07-17]] · [[ai-agents/implementation-research]] · [[ai-agents/harness/plecs-integration]]
 
 ## Key Architecture Decisions
 
@@ -81,7 +73,7 @@ Supporting: [[project/plans/architecture]] · [[project/plans/tech-stack]] · [[
 |----|----------|-----------|
 | A1 | **CLI-first** (not GUI) | Remove UI complexity from the critical path. Prove the agent works first. |
 | A2 | **3 agents** (not 7) | Orchestrator + Simulation + Reviewer. Minimal decomposition for A/B test. |
-| A3 | **PySpice primary** (not MATLAB-only) | Free, no license dependency, works immediately. MATLAB added in Phase 2. |
+| A3 | **PLECS backend** (not MATLAB) | System-level PE sim with native PMSM/IM + FOC models; scriptable via XML-RPC/MCP. PySpice/ltspice-mcp for device-level only. (2026-07 pivot off MATLAB.) |
 | A4 | **SQLite** (not Postgres) | LangGraph checkpointer works with SQLite. Zero setup. |
 | A5 | **LiteLLM provider-agnostic** | Route to cheapest capable model per task (DeepSeek for sim scripts, Claude for review). |
 

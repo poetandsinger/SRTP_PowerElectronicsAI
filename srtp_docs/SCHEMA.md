@@ -160,7 +160,7 @@ Every tag on a note must exist here. Add to this list first, then use.
 - **Frameworks:** `claude-code`, `codex-cli`, `opencode`, `hermes-agent`, `langgraph`, `crewai`, `autogen`
 - **Concepts:** `multi-agent`, `tool-calling`, `delegation`, `orchestration`, `subagent`
 - **Architecture:** `architecture`, `patterns`, `comparison`, `integration`, `gui-vs-cli`
-- **Engineering AI:** `matlab-integration`, `simulation`, `code-generation`, `design-automation`, `engineering-ai`
+- **Engineering AI:** `plecs`, `simulation`, `code-generation`, `design-automation`, `engineering-ai`
 
 ### Cross-cutting
 - **Method:** `experiment`, `simulation`, `theory`, `dataset`, `benchmark`, `review`

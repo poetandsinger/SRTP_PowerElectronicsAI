@@ -2,7 +2,7 @@
 title: "PE-MAS: Power Electronics Multi-Agent Design Studio"
 type: source
 field: ai-agents
-tags: [ai-agents, preprint]
+tags: [ai-agents, preprint, plecs, multi-agent, langgraph, simulation, integration]
 authors: [spongelovesorange]
 year: 2026
 venue: "GitHub"
@@ -188,4 +188,34 @@ This is **direct prior art** — it implements almost exactly what our synthesis
 5. Plan-then-execute workflow
 6. Best-effort tracking across iterations
 
-Keep our differentiation: provider-agnostic, MATLAB/Simulink (not PLECS), traction inverter domain (not flyback), Hermes infrastructure (cron, gateway, cross-session memory).
+Keep our differentiation: provider-agnostic, **PLECS as primary simulation backend** (matching PE-MAS, per the 2026-07 pivot — see re-clone below), traction inverter domain (not flyback), Hermes infrastructure (cron, gateway, cross-session memory).
+
+---
+
+## 2026-07-17 Re-clone — PLECS MCP, model generation, and the honest model-registry
+
+Re-cloned at the user's direction to inspect the **PLECS MCP** (the repo grew substantially since the 2026-07-09 capture). This is the single strongest piece of prior art for the SRTP MATLAB→PLECS pivot: a **working** MCP + XML-RPC PLECS backend inside a power-electronics MAS.
+
+### Two PLECS access paths (selectable via `PE_MAS_PLECS_BACKEND=auto`)
+- **Direct XML-RPC** — `core/flyback_mas/tools/plecs_interface.py` (`run_plecs_simulation`).
+- **MCP** — standalone `plecs-mcp/` package (`run_plecs_simulation_via_mcp`).
+- `rpc.py` is a thin wrapper: `xmlrpc.client.ServerProxy(rpc_url(), allow_none=True)`, plus `call()`, and **`call_first_available(candidates)`** which tries multiple RPC method names — a robustness pattern for **PLECS-version drift** (different builds expose different RPC methods).
+
+### `plecs-mcp` tool surface (~29 FastMCP tools)
+- **Introspection/robustness:** `ping`, `list_methods`, `inspect_method`, `rpc_call`, `rpc_catalog`, `rpc_try_methods`, `rpc_profile`, `rpc_batch`, `discover_capabilities` — the server *probes* the live PLECS to learn what it supports.
+- **Model mgmt:** `open_model`, `close_model`, `list_open_models`, `save_model`, `save_model_as`.
+- **Simulation:** `simulate`, `simulate_advanced` (full optStruct), `simulate_flyback` (domain wrapper).
+- **Parameters:** `get_component_param`, `set_component_param`, `set_component_params_batch`.
+- **Scripting/editing:** `run_script` (language `plecs`/octave), `circuit_action`, `circuit_patch`, `script_transaction`.
+- **Console/UI:** `clear_console`, `get_console_output`, `ui_action_catalog`, `ui_invoke`, `ui_macro`.
+
+### Model generation — "XML injector" over a base template
+`core/flyback_mas/tools/plecs_generator.py` (`PLECSGenerator`) parses a **base `.plecs` template as XML** (`xml.etree.ElementTree`), indexes existing components, and **injects primitive components** (`inject_component` → `<Component><Type>…</Type><Param Name=…>…</Param></Component>`), writing a per-session model. Confirms the **template + XML-injection** path is real (not just `ModelVars` tuning) — but note it's basic and template-anchored, not free-form topology synthesis.
+
+### The honest bottleneck: `data/plecs/model_registry.json`
+Only **Flyback** is `status: available` (and `validation_status: unvalidated`). Buck/Boost/Buck-Boost/DAB are `not_in_release`/`planned` with the note: *"add a validated local model before claiming PLECS coverage."* **Lesson for SRTP:** the constraint is **validated per-topology PLECS models**, not the agent. Traction inverter coverage (2L-B6, 3L-NPC, 3L-TNPC, ANPC + PMSM/IM load) each needs a built-and-validated PLECS model before any "PLECS-backed evidence" can be claimed.
+
+### Evidence gates are corner-based
+`nodes/simulation.py` resolves a **simulation corner** (`low_line`/`high_line`/`nominal`) and `_build_evidence_closure` only closes the PLECS gate when waveforms exist across corners (`low_line_seen`, `high_line_seen`, `plecs_waveforms`). Directly implements the "≥3 operating points" evidence gate we specced.
+
+**Net:** the pivot is de-risked. A reference PLECS MCP exists; the remaining SRTP work is (a) traction-inverter PLECS model templates + validation, and (b) the topology/control/physics reasoning that Ordonez's agent (and this template-injector) do **not** do. See [[sources/ai-agents/plecs-xmlrpc-scripting-interface]] and [[sources/ai-agents/plecs-ai-agent-integration-ordonez]].

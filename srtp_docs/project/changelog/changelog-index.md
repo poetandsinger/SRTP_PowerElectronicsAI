@@ -23,4 +23,4 @@ tags: [index]
 
 ---
 
-← [[README]] | [[../plans/plans-index]]
+← [[README]] | [[../plans/ai-agent-mas-plan]]

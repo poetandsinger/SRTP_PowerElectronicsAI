@@ -185,4 +185,4 @@ Nine patterns identified across all surveyed harnesses. Key observations:
 > **References:** [[citations]]
 
 
-← [[matlab-integration|Prev: MATLAB Integration]] | [[citations|Next: References]] → | [[README]]
+← [[plecs-integration|Prev: PLECS Integration]] | [[citations|Next: References]] → | [[README]]

@@ -63,7 +63,7 @@ These are purpose-built for specific research tasks — ideal as sub-components:
 - [[comparative-analysis|Comparative Analysis]] — Side-by-side architecture comparison (all frameworks)
 - [[comparative-analysis|Comparative Analysis]] — Side-by-side architecture comparison + gap analysis
 - [[architecture-patterns|Architecture Patterns]] — Common patterns across harnesses
-- [[matlab-integration|MATLAB Integration Strategy]] — How to wrap MATLAB as an agent tool
+- [[plecs-integration|PLECS Integration Strategy]] — How to wrap PLECS as an agent tool
 - [[ai-agents/harness/langgraph|LangGraph Deep Dive]] — State-machine agent graphs
 - [[ai-agents/harness/crewai|CrewAI Deep Dive]] — Role-based multi-agent teams
 - [[research-agents|Research-Specific Agents]] — PaperQA2, GPT Researcher, STORM
@@ -81,7 +81,7 @@ These are purpose-built for specific research tasks — ideal as sub-components:
 
 5. **Specialized agents are components, not foundations** — PaperQA2 (8.8k★), GPT Researcher (28k★), and STORM (30k★) excel at specific tasks but lack simulation capabilities. They integrate as sub-agents.
 
-6. **No existing harness natively supports MATLAB/Simulink** — custom tool development is required regardless of choice. See [[matlab-integration|MATLAB Integration Strategy]] for architectural approaches.
+6. **No existing harness natively supports PLECS** — custom tool development (or PE-MAS's `plecs-mcp`) is required regardless of choice. See [[plecs-integration|PLECS Integration Strategy]] for architectural approaches.
 
 7. **Coding agents (Codex 96k★, Aider 47k★, Cline 64k★) are architecturally wrong for research** — their prompts, tools, and workflows are optimized for code editing, not scientific simulation.
 

@@ -22,7 +22,7 @@ sources:
   - power-electronics/traction-inverter/control-schemes
   - power-electronics/traction-inverter/open-problems
   - power-electronics/problem-statement/problem-statement-index
-  - project/plans/multi-agent-architecture
+  - project/plans/ai-agent-mas-plan
 review_by: 2026-08-10
 ---
 
@@ -31,6 +31,12 @@ review_by: 2026-08-10
 **This is the bridge note.** It synthesizes everything we know about multi-agent AI systems (cs/) and traction inverter design (ee/) into a concrete, falsifiable architecture for an AI agent that designs traction inverters. Every architectural claim is confidence-ranked. Every design decision is red-teamed.
 
 > **Status as of 2026-07-10:** The architecture is validated by 3 independent lines of evidence: (1) PE-MAS — working LangGraph MAS for flyback design, (2) PE-GPT — peer-reviewed LLM agent outperforming humans on power electronics design, (3) Power Circuit AI — ABB's production multi-agent PCB design system. Different domains, same patterns. The convergence is not accidental.
+
+> ⚠️ **2026-07-17 PLECS pivot + corrections (read first).** This note predates two decisions; the authoritative version is [[project/plans/ai-agent-mas-plan]] + [[audits/ai-agent-docs-audit-2026-07-17]]:
+> 1. **Backend is PLECS, not MATLAB.** Every "MATLAB Agent" below = the **PLECS Simulation Agent** (XML-RPC/MCP; see [[ai-agents/harness/plecs-integration]]). §5's "MATLAB/Simulink primary, PLECS optional" is **inverted** — PLECS is primary (native PMSM/IM models close gap G1).
+> 2. **Commit to the 3-agent core**, not 7. The 7-agent split is a *later*, earned option (§4 Claim 4 stays C2). See audit §2.
+> 3. **§2.5's "upgrades C3→C4" is withdrawn.** That evidence is a coding-benchmark; domain claims stay **C3** until a PE A/B test exists (audit §3).
+> 4. **Gaps closed:** G1 (PLECS motor models), G2 (physics-informed low-data surrogates, [[sources/ai-agents/phia-lpcomda-2026-physics-informed-pe-agent]]), G5 (template+`ModelVars`, not netlist authoring).
 
 ---
 
@@ -426,4 +432,4 @@ The original 4-phase plan (2026-07-09) is revised based on fresh evidence:
 
 > **References:** [[citations]] — See also [[ai-agents/multi-agent-synthesis]] for the foundational multi-agent analysis, [[sources/ai-agents/pe-mas-flyback-mas]] for closest prior art, [[power-electronics/problem-statement/problem-statement-index]] for domain motivation.
 
-← [[ai-agents/multi-agent-synthesis]] | [[project/plans/multi-agent-architecture]] →
+← [[ai-agents/multi-agent-synthesis]] | [[project/plans/ai-agent-mas-plan]] →

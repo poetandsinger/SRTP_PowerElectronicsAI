@@ -40,8 +40,8 @@ tags: [ai-agents, index]
 - [[ai-agents/harness/comparative-analysis]] — Feature matrix across all harnesses
 - [[ai-agents/harness/architecture-patterns]] — Recurring architecture patterns
 - [[ai-agents/harness/research-agents]] — Research-specific agents (PaperQA2, STORM, GPT Researcher)
-- [[ai-agents/harness/matlab-integration]] — MATLAB integration strategies
-- [[project/plans/multi-agent-architecture]] — Implementation plan: multi-agent system for SRTP
+- [[ai-agents/harness/plecs-integration]] — PLECS integration strategies (agent↔simulation backend)
+- [[project/plans/ai-agent-mas-plan]] — Implementation plan: multi-agent system for SRTP
 
 ## Agent Papers
 

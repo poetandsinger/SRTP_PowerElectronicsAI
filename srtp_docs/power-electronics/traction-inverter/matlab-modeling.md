@@ -335,7 +335,7 @@ eng.sim('traction_inverter_model', nargout=0)
 results = eng.workspace['logsout']
 ```
 
-Referenced in the project's [[ai-agents/harness/matlab-integration]] research [26].
+Referenced in the project's [[ai-agents/harness/plecs-integration]] research [26].
 
 ### 8.3 Data Export for AI/ML
 

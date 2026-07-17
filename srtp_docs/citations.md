@@ -3,7 +3,7 @@ title: Citations
 type: citations
 field: root
 created: 2026-07-06
-updated: 2026-07-10
+updated: 2026-07-17
 tags: [index, ieee]
 ---
 
@@ -11,7 +11,7 @@ tags: [index, ieee]
 
 > **Single source for all references, credits, and licenses. IEEE format.**
 > Wikilinks to related research notes and source notes.
-> **Last updated:** 2026-07-10
+> **Last updated:** 2026-07-17
 
 ---
 
@@ -170,3 +170,19 @@ tags: [index, ieee]
 ### Power Electronics Simulation
 
 - [77] **PA-PB**, "A Python Framework for Accelerated Design and Automated Analysis of LLC Resonant Converters," in *Proc. SEPOC*, 2025. https://github.com/PA-PB/Simulation_Framework — PySpice/ngspice production-ready for power converter design.
+
+---
+
+## 2026-07-17 Research Pass — PLECS Pivot & Fresh MAS SOTA
+
+### PLECS as the simulation backend
+- [78] **Plexim GmbH**, "Simulation Scripts — XML-RPC/JSON-RPC Interface," *PLECS 5.0 Documentation*, 2024. https://docs.plexim.com/plecs/5.0/scripting/ — scriptable backend replacing MATLAB Engine API. [[sources/ai-agents/plecs-xmlrpc-scripting-interface]]
+- [79] **M. Ordonez**, "How I Wired PLECS to an AI Coding Agent, And What I Actually Learned," *Substack (polyaxyellowbox)*, 2026. https://polyaxyellowbox.substack.com/p/how-i-wired-plecs-to-an-ai-coding — direct AI+PLECS prior art: capability boundary + token economics. [[sources/ai-agents/plecs-ai-agent-integration-ordonez]]
+- [80] **Plexim GmbH**, "Electric Machines (PMSM, Induction Machine) & FOC Demo Models," *PLECS Application Examples*, 2024–2026. https://www.plexim.com/support/application-examples/electric-machines — native motor-drive models (closes gap G1).
+
+### Fresh multi-agent SOTA (power electronics + EDA)
+- [81] **J. Liu, F. Lin, X. Li, K. H. Lim, S. Zhao**, "PHIA / LP-COMDA: Physics-Informed LLM-Agent for Automated Modulation Design in Power Electronics," in *Proc. AAAI*, 2026. arXiv:2411.14214. — physics-informed low-data (~10-sample) surrogates; >33× design-time reduction (closes gap G2). [[sources/ai-agents/phia-lpcomda-2026-physics-informed-pe-agent]]
+- [82] **Z. Wang, J. Gao, W. Fu, X. Guo, X. Zhang**, "AnalogSAGE: Self-evolving Analog Design Multi-Agents with Stratified Memory and Grounded Experience," *arXiv:2512.22435*, Dec. 2025. — 3-stage topology→refine→param-opt + stratified self-evolving memory + literature-RAG. [[sources/ai-agents/analogsage-2025-self-evolving-analog-mas]]
+
+### Framework currency (mid-2026)
+- [83] LangChain, Microsoft, CrewAI (docs) + ACL 2026 comparison surveys — LangGraph 1.0 durable execution; Microsoft Agent Framework 1.0 (native MCP/A2A, AutoGen successor); CrewAI 1.14. [[sources/ai-agents/agent-frameworks-2026-currency]]

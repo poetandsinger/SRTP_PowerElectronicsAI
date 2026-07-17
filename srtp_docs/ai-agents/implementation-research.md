@@ -23,6 +23,11 @@ review_by: 2026-08-10
 
 **This note translates the integration architecture into implementable engineering decisions.** Every technology choice is sourced and justified. Where we don't know something, it's marked as a gap with a research plan.
 
+> ⚠️ **2026-07-17 PLECS pivot + gap closures (read first).** Authoritative: [[project/plans/ai-agent-mas-plan]] + [[audits/ai-agent-docs-audit-2026-07-17]].
+> - **§1.1 is superseded:** the simulation backend is **PLECS** (XML-RPC/JSON-RPC + `plecs-mcp`), not MATLAB Engine API / dual-engine. See [[ai-agents/harness/plecs-integration]], [[sources/ai-agents/plecs-xmlrpc-scripting-interface]].
+> - **Gaps closed/changed:** **G1** (SPICE motor model) → PLECS ships native PMSM/IM + FOC. **G3** (MATLAB license) → now a PLECS-license check (installed: PLECS 4.8). **G5** (SPICE netlist gen) → mostly moot: template + `ModelVars`, not free-form authoring. **G2** (surrogate data) → physics-informed low-data surrogates work at ~10 sims ([[sources/ai-agents/phia-lpcomda-2026-physics-informed-pe-agent]]).
+> - LLM-routing / framework facts: refresh via [[sources/ai-agents/agent-frameworks-2026-currency]].
+
 ---
 
 ## 1. Technology Stack Decisions (Verified)

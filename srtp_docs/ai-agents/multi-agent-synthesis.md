@@ -7,7 +7,7 @@ updated: 2026-07-09
 status: unverified
 evidence: single-study
 tags: [ai-agents, multi-agent, architecture, patterns, synthesis, review]
-sources: [cs/harness/hermes-agent, cs/harness/claude-code, cs/harness/opencode, cs/harness/langgraph, cs/harness/crewai, cs/harness/autogen, sources/ai-agents/masrouter-2025-llm-routing, sources/ai-agents/evoagent-2025-evolutionary-delegation, sources/ai-agents/pe-mas-flyback-mas]
+sources: [ai-agents/harness/hermes-agent, ai-agents/harness/claude-code, ai-agents/harness/opencode, ai-agents/harness/langgraph, ai-agents/harness/crewai, ai-agents/harness/autogen, sources/ai-agents/masrouter-2025-llm-routing, sources/ai-agents/evoagent-2025-evolutionary-delegation, sources/ai-agents/pe-mas-flyback-mas]
 review_by: 2026-08-09
 ---
 
@@ -16,6 +16,12 @@ review_by: 2026-08-09
 **Synthesis across 7 harnesses (3 closed-source, 4 open-source) + 1 working prior art (PE-MAS). Extracted proven multi-agent orchestration patterns for the SRTP power-electronics research agent.**
 
 > **2026-07-09:** Discovered PE-MAS (github.com/spongelovesorange/PE-MAS) — a working LangGraph-based multi-agent system for flyback converter design. Validates 12 of our architectural proposals with real code. See [[sources/ai-agents/pe-mas-flyback-mas]] for full analysis.
+
+> ⚠️ **2026-07-17 PLECS pivot + corrections (read first).** Authoritative: [[project/plans/ai-agent-mas-plan]] + [[audits/ai-agent-docs-audit-2026-07-17]].
+> - Every **"MATLAB Agent" / "MATLAB Simulation Agent" / MATLAB Engine API** reference below is superseded by the **PLECS Simulation Agent** (XML-RPC/MCP; [[ai-agents/harness/plecs-integration]]).
+> - §5.1's "upgrades our architecture from C3 to C4" is **withdrawn** — the hybrid result is a coding benchmark; domain claims stay C3 (audit §3).
+> - Framework currency has moved: LangGraph 1.0 durable execution, MS Agent Framework, AgentSlimming — see [[sources/ai-agents/agent-frameworks-2026-currency]].
+> - Note: this file has duplicate section numbers (§4/§5 appear twice from successive appends) — a known structural debt, flagged for cleanup.
 
 ---
 
@@ -403,4 +409,4 @@ No single existing system combines these. The SRTP agent is a synthesis.
 
 ---
 
-← [[ai-agents/harness/comparative-analysis]] | [[project/plans/multi-agent-architecture|Implementation Plan →]]
+← [[ai-agents/harness/comparative-analysis]] | [[project/plans/ai-agent-mas-plan|AI-Agent MAS Plan →]]
