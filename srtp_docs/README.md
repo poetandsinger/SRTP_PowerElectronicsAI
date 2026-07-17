@@ -12,7 +12,7 @@ tags: [index]
 > **AI-powered multi-agent system for traction inverter design.**
 > **Architecture:** LangGraph + **PLECS** (XML-RPC/MCP) + LiteLLM (CLI-first, provider-agnostic)
 > **Method:** Science Research Vault — every claim carries truth-status, evidence-strength, and a mandatory red-team block.
-> **Status:** 🟡 Research complete — Phase 0 implementation ready
+> **Status:** 🟡 Knowledge base built (29-chapter textbook, cited [1]–[148]) + AI-agent architecture research complete; implementation plan is spec-level and phase-ready ([[ai-agent-mas-plan]]). **Next: PLECS license check → harness + first validated 2L-B6 model.**
 
 ---
 
@@ -29,14 +29,21 @@ srtp_docs/
 ├── catalog.md              # Every note, one line, grouped by field then status
 ├── citations.md            # Master bibliography (IEEE format)
 │
-├── power-electronics/      # FIELD: what to design
-│   ├── traction-inverter/  #   14 notes — topologies, components, control, sim, standards, market
-│   └── problem-statement/  #   Why AI for traction inverter design
+├── power-electronics/      # FIELD: what to design — traction-inverter ENGINEERING ONLY (29-chapter textbook)
+│   └── traction-inverter/  #   fundamentals · topologies · components · materials · machine · control ·
+│                           #   design-procedure · schematics · thermal · gate-drive · protection/safety ·
+│                           #   EMI/EMC · packaging · BOM+prices · trade-offs · 2 worked examples ·
+│                           #   4 reference designs · manufacturing/test · reliability · simulation · standards
+│
+├── problem-statement/      # PREFACE (not engineering): why AI for traction inverter design,
+│                           #   market, workforce, competitive landscape (moved out of power-electronics/ 2026-07-17)
 │
 ├── ai-agents/              # FIELD: how to build the designer
 │   ├── harness/            #   12 deep dives — Claude Code, Codex, LangGraph, CrewAI, AutoGen…
 │   ├── agent-papers/       #   Agent architectures from research papers
 │   ├── claim-*.md          #   Red-teamed claims (MAS > single-agent, token reduction)
+│   ├── agentic-workflow-patterns.md  #   2026 pattern catalog mapped to SRTP
+│   ├── design-loop-architecture.md   #   topology→refine→parameter-optimize (the key finding)
 │   └── *.md                #   MAS integration bridge, synthesis, implementation research
 │
 ├── sources/                # LAYER 1: immutable raw captures (never edited)
@@ -50,7 +57,9 @@ srtp_docs/
 ├── audits/                 # 5 lint reports + self-audits of the vault
 │
 └── project/                # OPERATIONAL (no truth-status — these are decisions, not findings)
-    ├── plans/              #   ai-agent-mas-plan (the single plan)
+    ├── plans/              #   ai-agent-mas-plan (hub) + 8 topic files (architecture, design-loop,
+    │                       #   knowledge-rag, plecs-harness, guardrails-and-evidence, memory,
+    │                       #   tech-stack, evaluation-and-benchmark) — no phases
     └── changelog/          #   Dated setup milestones
 ```
 
@@ -58,14 +67,17 @@ srtp_docs/
 
 | Field | Hub | Content |
 |-------|-----|---------|
-| Power Electronics | [[maps/power-electronics]] | 15 traction inverter notes (red-teamed) + 6 source papers |
-| AI / Agent Architecture | [[maps/ai-agents]] | 12 harness deep dives, 17 source papers, 2 red-teamed claims, MAS bridge |
+| Power Electronics | [[maps/power-electronics]] | **29-chapter traction-inverter textbook** (red-teamed, cited [1]–[148]) + 6 source papers |
+| Problem Statement (preface) | [[problem-statement/problem-statement-index]] | Why AI for traction inverter design: market, workforce, competitive landscape |
+| AI / Agent Architecture | [[maps/ai-agents]] | 12 harness deep dives, 19 source captures, 2 red-teamed claims, workflow-patterns + design-loop findings, MAS bridge |
+
+> **The textbook is grounded but not yet PLECS-validated:** design/thermal/loss numbers are closed-form or teardown/vendor figures, flagged in each chapter's Red Team. Turning them into simulation-backed evidence is the top depth-first task — see `HANDOFF-DEPTH-RESEARCH.md` (repo root).
 
 ## Implementation
 
-**The plan:** [[project/plans/ai-agent-mas-plan]] — PLECS-backed MAS, 3-agent core (Orchestrator + PLECS Simulation + Reviewer), specialists earned, surrogates early, an explicit "build & validate per-topology PLECS models" workstream. 5 phases (~12 weeks) live inside that one document.
+**The plan:** [[ai-agent-mas-plan]] (hub) — PLECS-backed MAS, 3-agent core (Planner + Designer + Validator, Orchestrator drives), RAG-first, evidence-gated. Split into **8 topic files, no phases**: [[architecture]] · [[design-loop]] · [[knowledge-rag]] · [[plecs-harness]] · [[guardrails-and-evidence]] · [[memory]] · [[tech-stack]] · [[evaluation-and-benchmark]]. The core mechanism is a **topology → refine → parameter-optimize** design loop with an *explicit numerical optimizer* over PLECS (the LLM picks structure, the optimizer picks numbers).
 
-Grounded in: [[audits/ai-agent-docs-audit-2026-07-17]] · [[ai-agents/implementation-research]] · [[ai-agents/harness/plecs-integration]]
+Grounded in: [[audits/plan-sufficiency-review-2026-07-17]] · [[audits/ai-agent-docs-audit-2026-07-17]] · [[ai-agents/design-loop-architecture]] · [[ai-agents/agentic-workflow-patterns]] · [[ai-agents/harness/plecs-integration]]
 
 ## Key Architecture Decisions
 
@@ -76,6 +88,7 @@ Grounded in: [[audits/ai-agent-docs-audit-2026-07-17]] · [[ai-agents/implementa
 | A3 | **PLECS backend** (not MATLAB) | System-level PE sim with native PMSM/IM + FOC models; scriptable via XML-RPC/MCP. PySpice/ltspice-mcp for device-level only. (2026-07 pivot off MATLAB.) |
 | A4 | **SQLite** (not Postgres) | LangGraph checkpointer works with SQLite. Zero setup. |
 | A5 | **LiteLLM provider-agnostic** | Route to cheapest capable model per task (DeepSeek for sim scripts, Claude for review). |
+| A6 | **Explicit optimizer** (LLM picks structure, optimizer picks numbers) | Every 2026 PE/analog design agent converges via a numerical optimizer (DE/PSO/BO), not LLM re-guessing. PLECS-only; surrogate is a deferred *search* accelerator, never evidence. See [[design-loop]]. |
 
 ## Conventions (see [[SCHEMA]])
 

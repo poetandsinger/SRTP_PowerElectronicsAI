@@ -154,29 +154,14 @@ See [[architecture-patterns]] for extracted reusable patterns across all harness
 
 ## Radar Chart Summary
 
-```
-                     Multi-Agent
-                         ▲
-                        /|\
-                       / | \
-                      /  |  \
-          Tool       /   |   \    Memory &
-        Extensibility    |    \   Persistence
-              \     Hermes Agent  /
-               \    ●────────●   /
-                \  ╱          ╲ /
-                 \╱    Codex    ╲
-                 ╱    ○         ╲
-                ╱ ╲              ╲
-               ╱   ╲ OpenCode    ╲
-              ╱     ╲ ○           ╲
-             ╱   Claude Code       ╲
-            ╱     ●                  ╲
-        Scheduling ─────────────── Provider
-                                      Flexibility
+Qualitative strength per dimension (● strong · ◐ medium · ○ weak). Rendered as a matrix rather than a mermaid radar chart, which is not reliably supported in Obsidian.
 
-        ● = Strong   ○ = Weak
-```
+| Harness | Multi-Agent | Memory & Persistence | Provider Flexibility | Scheduling | Tool Extensibility |
+|---------|:-----------:|:--------------------:|:--------------------:|:----------:|:------------------:|
+| **Hermes Agent** | ◐ | ● | ● | ● | ● |
+| **Claude Code** | ● | ○ | ○ | ○ | ● |
+| **OpenCode** | ◐ | ○ | ● | ○ | ◐ |
+| **Codex CLI** | ○ | ○ | ○ | ○ | ◐ |
 
 
 > **References:** [[citations]]

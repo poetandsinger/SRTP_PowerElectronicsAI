@@ -37,7 +37,7 @@ Key enabling insight: *"PLECS files are just XML"* and the control code lives in
 
 > topology design · control-strategy selection · physics interpretation · literature review
 
-This is the single most important scoping fact for SRTP: **an unaugmented coding agent handles parametric/regression/analysis work but not the creative-engineering and physics-reasoning work.** It maps directly onto our role split — cheap tool-calling models for the Simulation/parameter work, strong reasoning models (and RAG/literature grounding) for topology, control, and physics.
+The key scoping fact for SRTP: **an unaugmented coding agent handles parametric/regression/analysis work but not the creative-engineering and physics-reasoning work.** It maps directly onto our role split — cheap tool-calling models for the Simulation/parameter work, strong reasoning models (and RAG/literature grounding) for topology, control, and physics.
 
 ## Hard lessons (directional numbers)
 

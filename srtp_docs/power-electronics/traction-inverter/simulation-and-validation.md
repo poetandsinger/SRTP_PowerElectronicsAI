@@ -1,24 +1,20 @@
 ---
-title: "Traction Inverter Simulation & Modeling Workflows — 2025-2026"
+title: "Simulation & Validation"
 type: topic
 field: power-electronics
 created: 2026-07-10
-updated: 2026-07-10
+updated: 2026-07-17
 status: unverified
 evidence: single-study
-tags: [power-electronics, simulation, matlab, plecs, ansys, comsol, hil, workflow, review]
-sources:
-  - power-electronics/traction-inverter/simulation-toolbox
-  - power-electronics/traction-inverter/matlab-modeling
-  - power-electronics/traction-inverter/research-synthesis-2025-2026
-review_by: 2026-08-10
+tags: [power-electronics, simulation, plecs, review]
+review_by: 2026-10-17
 ---
 
-# Traction Inverter Simulation & Modeling Workflows — 2025-2026
+# Simulation & Validation
 
-> Extracted from [[power-electronics/traction-inverter/research-synthesis-2025-2026|Research Synthesis 2025-2026]]. Complements [[power-electronics/traction-inverter/simulation-toolbox]] and [[power-electronics/traction-inverter/matlab-modeling]].
+> How to model and validate a traction-inverter design. The project's simulator is **PLECS only** (MATLAB dropped) [80][58]; design inputs come from [[power-electronics/traction-inverter/design-procedure]], and validation closes the loop against the reference designs in [[power-electronics/traction-inverter/reference-designs-index]].
 
-## 3. Simulation & Modeling Workflows
+## Simulation & Modeling Workflows
 
 ### 3.1 Tools Landscape
 

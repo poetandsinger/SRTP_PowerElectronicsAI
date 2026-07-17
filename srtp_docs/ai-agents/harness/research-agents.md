@@ -176,23 +176,15 @@ report = storm.generate_report(
 
 These agents should **not** be the primary harness. Instead:
 
-```
-┌──────────────────────────────────────────────────┐
-│         PRIMARY HARNESS (Hermes/LangGraph/CrewAI) │
-│                                                    │
-│  ┌──────────────┐  ┌──────────┐  ┌─────────────┐ │
-│  │ PaperQA2     │  │ GPT      │  │ STORM       │ │
-│  │ Literature   │  │ Researcher│  │ Report      │ │
-│  │ Grounding    │  │ Component │  │ Generation  │ │
-│  │              │  │ Research  │  │             │ │
-│  └──────┬───────┘  └────┬─────┘  └──────┬──────┘ │
-│         │               │               │         │
-│         ▼               ▼               ▼         │
-│  ┌─────────────────────────────────────────────┐ │
-│  │         MATLAB SIMULATION ENGINE             │ │
-│  │  (Custom tool — the core differentiator)     │ │
-│  └─────────────────────────────────────────────┘ │
-└──────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph H["PRIMARY HARNESS (Hermes / LangGraph / CrewAI)"]
+        direction TB
+        P["PaperQA2<br/>Literature Grounding"] --> SIM
+        G["GPT Researcher<br/>Component Research"] --> SIM
+        S["STORM<br/>Report Generation"] --> SIM
+        SIM["PLECS SIMULATION ENGINE<br/>(custom tool — the core differentiator)"]
+    end
 ```
 
 **Flow:**

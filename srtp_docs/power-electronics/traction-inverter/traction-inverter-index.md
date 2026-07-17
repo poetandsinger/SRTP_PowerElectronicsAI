@@ -14,10 +14,30 @@ tags: [power-electronics, traction-inverter, index]
 | [[power-electronics/traction-inverter/what-is-a-traction-inverter]] | First principles: what it does, why it is needed, energy flow, vehicle context |
 | [[power-electronics/traction-inverter/circuit-topologies]] | Deep dive: 2L-B6, 3L-NPC, 3L-ANPC, 3L-TNPC — circuits, switching states, trade-off matrix |
 | [[power-electronics/traction-inverter/components]] | Power semiconductors (SiC/IGBT/GaN), gate drivers, DC-link caps, sensors, thermal management |
+| **[[power-electronics/traction-inverter/materials-and-properties]]** | **Property reference:** semiconductor / ceramic / die-attach / dielectric / magnet constants in one place |
 | [[power-electronics/traction-inverter/control-schemes]] | FOC, DTC, MTPA, SVPWM, DPWM, overmodulation, field weakening, ISO 26262 safety |
 | [[power-electronics/traction-inverter/control-how-to]] | Practical FOC recipe: parameter tuning, MTPA, field weakening, safety limits |
-| [[power-electronics/traction-inverter/matlab-modeling]] | Simulink/Simscape modeling at 4 fidelity levels, solver config, PLECS integration |
-| [[power-electronics/traction-inverter/simulation-toolbox]] | Tools, licenses, and hardware needed to run the simulations |
+| **[[power-electronics/traction-inverter/machine-and-load]]** | **The plant:** PMSM/IPMSM machine types, dq model, torque, operating regions, limits — what the control loop closes around |
+| **[[power-electronics/traction-inverter/reference-design-2l-b6-sic-800v]]** | **Design cluster anchor:** 800V SiC 2L-B6, 150 kW — spec, decisions, operating points, validation plan, alternatives |
+| **[[power-electronics/traction-inverter/design-procedure]]** | **End-to-end sizing:** switch → thermal → DC-link → gate-drive → sensing → protection → busbar, worked at the anchor |
+| **[[power-electronics/traction-inverter/schematics]]** | **Mermaid schematics:** system, power stage, half-bridge, gate driver, DC-link, sensing, control chain, ASC |
+| **[[power-electronics/traction-inverter/thermal-design]]** | **Thermal:** Rth chain (real values), Zth, Tj estimation, cooling, TIM, derating, worked example |
+| **[[power-electronics/traction-inverter/gate-driver-design]]** | **Gate drive:** rails, Rg/Ig/Pdrive, desat, isolation, bias, real ICs, CAB450 worked example |
+| **[[power-electronics/traction-inverter/protection-and-safety]]** | **Protection & safety factors:** cosmic-ray/thermal/SC/OV derating, ASC, ISO 26262, qual — with derating table |
+| **[[power-electronics/traction-inverter/emi-emc-design]]** | **EMI/EMC:** CISPR 25, CM/DM, input filter, dv/dt reflected wave, bearing currents, layout |
+| **[[power-electronics/traction-inverter/packaging-and-layout]]** | **Packaging/busbar/layout:** module stack, laminated busbar Lσ, Kelvin loop, creepage/clearance, enclosure |
+| **[[power-electronics/traction-inverter/bom]]** | **Component-class BOM:** function → part-class → sizing driver → citation, plus cost split |
+| **[[power-electronics/traction-inverter/bom-price-database]]** | **Priced BOM:** real dated distributor prices + volume-vs-distributor caveat |
+| **[[power-electronics/traction-inverter/reference-designs-index]]** | **Reference designs hub:** 1 synthetic anchor + 3 real (Wolfspeed/TI 300kW, Tesla, Nissan Leaf) |
+| **[[power-electronics/traction-inverter/reference-design-wolfspeed-ti-300kw-800v]]** | Real vendor CRD: 800V/300kW SiC, actual parts + measured metrics |
+| **[[power-electronics/traction-inverter/reference-design-tesla-model3-400v-sic]]** | Production teardown: 400V SiC, highest-volume inverter |
+| **[[power-electronics/traction-inverter/reference-design-nissan-leaf-400v-igbt]]** | Production teardown: 400V Si-IGBT baseline |
+| **[[power-electronics/traction-inverter/worked-example-400v-150kw]]** | **Second worked example:** 400V SiC 150kW — shows the current-doubling / conduction-loss penalty |
+| **[[power-electronics/traction-inverter/design-tradeoffs]]** | **How to compromise:** device / voltage / fsw / topology / cooling trade-offs + decision table |
+| **[[power-electronics/traction-inverter/manufacturing-and-test]]** | **Build & test:** module assembly (sinter/bond), busbar, double-pulse, HIL, EOL, production quality |
+| **[[power-electronics/traction-inverter/reliability-and-lifetime]]** | **Reliability:** power-cycling wear-out, Nf data, lifetime models (LESIT/CIPS08), mission-profile/Miner, SiC degradation |
+| [[power-electronics/traction-inverter/simulation-and-validation]] | PLECS-first simulation & validation workflow, corner tests |
+| [[power-electronics/traction-inverter/standards-and-compliance]] | Standards: IEC 61800, ISO 26262, AEC-Q, AQG 324, CISPR 25 |
 | [[power-electronics/traction-inverter/open-problems]] | Active research questions and design tensions |
 | [[power-electronics/audit-changelog-traction-inverter]] | Source-fidelity audit changelog (what was verified and what was fixed) |
 
@@ -27,8 +47,10 @@ tags: [power-electronics, traction-inverter, index]
 2. Read [[power-electronics/traction-inverter/circuit-topologies]] to learn the circuit options.
 3. Read [[power-electronics/traction-inverter/components]] to understand what physical parts make it work.
 4. Read [[power-electronics/traction-inverter/control-schemes]] for the theory, then [[power-electronics/traction-inverter/control-how-to]] for the practical implementation.
-5. Read [[power-electronics/traction-inverter/matlab-modeling]] and [[power-electronics/traction-inverter/simulation-toolbox]] to see how to model and validate it.
-6. Finish with [[power-electronics/traction-inverter/open-problems]] for the unresolved research questions.
+5. **Design cluster (how one is built):** anchor spec [[power-electronics/traction-inverter/reference-design-2l-b6-sic-800v]] → sizing math [[power-electronics/traction-inverter/design-procedure]] → wiring [[power-electronics/traction-inverter/schematics]]. Then the subsystem deep-dives: [[power-electronics/traction-inverter/thermal-design]], [[power-electronics/traction-inverter/gate-driver-design]], [[power-electronics/traction-inverter/protection-and-safety]], [[power-electronics/traction-inverter/emi-emc-design]], [[power-electronics/traction-inverter/packaging-and-layout]]. Parts & prices: [[power-electronics/traction-inverter/bom]] + [[power-electronics/traction-inverter/bom-price-database]]. How to compromise: [[power-electronics/traction-inverter/design-tradeoffs]]. Second example: [[power-electronics/traction-inverter/worked-example-400v-150kw]].
+6. **Compare against real designs:** [[power-electronics/traction-inverter/reference-designs-index]] — the Wolfspeed/TI 300kW CRD, Tesla Model 3, and Nissan Leaf across the 800V-SiC → 400V-SiC → 400V-IGBT spectrum.
+7. Read [[power-electronics/traction-inverter/simulation-and-validation]] to see how to model and validate it in PLECS.
+8. Finish with [[power-electronics/traction-inverter/open-problems]] for the unresolved research questions.
 
 ## Scope
 
@@ -197,6 +219,30 @@ The following summarizes each manufacturer's approach. Data from OEM teardowns (
 4. **Power density race** — 30-50 kW/L (2024) → 50-100 kW/L (2025 target) → 100+ kW/L (2030 target) via WBG + advanced packaging.
 5. **Vertical integration trend** — Tesla, BYD, and increasingly VW/Hyundai moving inverter design in-house. BYD unique in fabricating own semiconductors.
 
+
+## 2025–2026 Market Trends (consolidated)
+
+> Consolidated here from the former `market-trends-2025-2026` note (2026-07-17 audit). Dated market data; reliability tags are the capturing sources'.
+
+**Market size / growth (estimates vary 2–5× by scope):**
+
+| Source | 2025 size | Forecast | CAGR |
+|--------|-----------|----------|------|
+| Regal Intelligence / MAResearch | $8.75B | $36.8B (2033) | 17.3% |
+| HTF Market Intelligence | ~$8.2B | $18B (2033) | 13.0% |
+| Hengce Research | $29.22B (2024) | $144.29B (2031) | 26.0% |
+| SkyQuest | $2.73B (2024) | $5.92B (2033) | 9.0% |
+| QYResearch | $6.9B | $15.6B (2032) | 12.4% |
+
+**Volumes (TrendForce):** 2024 = 27.21M units; 2025 = 32.35M (+18.9%); Q1 2026 ~8M (+7–10% est). **Share (Q4 2025):** BYD ~17% (vertically integrated, in-house SiC/800V), Denso ~11% (Toyota group), Huawei 4–5%, Inovance 4–5%. **ASP** ~$531/unit (Q1 2026), down from $546 (Q4 2025).
+
+**Key players (2025–2026):** Tesla & BYD (OEM + in-house inverters); Infineon (HybridPACK Drive G2 750/1200V SiC, Rivian R2 design win, Kulim 200mm fab); Bosch, BorgWarner (Drivetek), Vitesco, ZF (e-axle); Denso (BluE Nexus JV); NXP (S32K39 MCU, GD316x drivers); Wolfspeed & ST (SiC modules); Navitas & VisIC (GaN, Hyundai/Kia investment, Q4 2026 target); TDK (CarXield CISPR 25 EMI filters).
+
+**Dynamics:** OEM vertical integration vs Tier-1s; 800V→SiC demand cascade (2026–2028); SiC supply tight but improving (200mm); Chinese supply chain (BYD/Huawei/Inovance) rising; U.S. tariff uncertainty driving localization; possible GaN main-drive inflection in 2026 if VisIC/Hyundai succeeds.
+
+*Sources: Regal Intelligence/MAResearch [Medium]; TrendForce [High]; Electronics Weekly (Rivian-Infineon) [High]; BorgWarner press [Medium].*
+
+---
 
 > **References:** [[citations]]
 

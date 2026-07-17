@@ -17,38 +17,19 @@ Despite being coding-focused, Claude Code has several architectural features tha
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    CLAUDE CODE CLI                      │
-│                                                         │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌─────────┐  │
-│  │  Hooks   │  │  MCP     │  │ Subagents│  │ CLAUDE  │  │
-│  │  System  │  │  Servers │  │  System  │  │ .md     │  │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬────┘  │
-│       │             │             │             │       │
-│  ┌────▼─────────────▼─────────────▼─────────────▼─────┐ │
-│  │              AGENT LOOP (ReAct)                    │ │
-│  │  System prompt → User message → LLM → Tools → Loop │ │
-│  │  Context compaction at 70%+ window usage           │ │
-│  └─────────────────────┬──────────────────────────────┘ │
-│                        │                                │
-│  ┌─────────────────────▼──────────────────────────────┐ │
-│  │                 TOOL SYSTEM                        │ │
-│  │  Read │ Write │ Edit │ Bash │ WebSearch │ WebFetch │ │
-│  │  + MCP tools (auto-discovered)                     │ │
-│  │  + Custom subagent tools                           │ │
-│  └─────────────────────┬──────────────────────────────┘ │
-│                        │                                │
-│  ┌─────────────────────▼──────────────────────────────┐ │
-│  │              PERMISSION SYSTEM                     │ │
-│  │  allow │ ask │ deny patterns + hook gates          │ │
-│  └────────────────────────────────────────────────────┘ │
-│                                                         │
-│  ┌────────────────────────────────────────────────────┐ │
-│  │              OUTPUT FORMATS                        │ │
-│  │  text │ json │ stream-json │ json-schema           │ │
-│  └────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph CC["CLAUDE CODE CLI"]
+        direction TB
+        H[Hooks System] --> AL
+        MCP[MCP Servers] --> AL
+        SA[Subagents System] --> AL
+        CM[CLAUDE.md] --> AL
+        AL["AGENT LOOP (ReAct)<br/>system prompt → user → LLM → tools → loop<br/>context compaction at 70%+ window"]
+        AL --> TS["TOOL SYSTEM<br/>Read | Write | Edit | Bash | WebSearch | WebFetch<br/>+ MCP tools (auto-discovered) + subagent tools"]
+        TS --> PS["PERMISSION SYSTEM<br/>allow | ask | deny patterns + hook gates"]
+        PS --> OF["OUTPUT FORMATS<br/>text | json | stream-json | json-schema"]
+    end
 ```
 
 ### Agent Loop
@@ -180,14 +161,16 @@ However, the **Anthropic-only lock-in** is a major concern for research where mo
 ## Architecture Patterns Worth Adopting
 
 ### Pattern: Post-Tool Validation Hook
-```
-Claude writes simulation script → PostToolUse hook triggers MATLAB validation
-→ MATLAB returns results → Results injected as tool output → Claude analyzes
+```mermaid
+flowchart LR
+    A[Claude writes sim script] --> B[PostToolUse hook<br/>triggers PLECS validation]
+    B --> C[PLECS returns results] --> D[injected as tool output] --> E[Claude analyzes]
 ```
 
-### Pattern: MCP MATLAB Server
-```
-Claude Code ←→ MCP Server (stdio) ←→ MATLAB Engine API for Python
+### Pattern: MCP PLECS Server
+```mermaid
+flowchart LR
+    A[Claude Code] <--> B["plecs-mcp (stdio)"] <--> C[PLECS XML-RPC]
 ```
 
 

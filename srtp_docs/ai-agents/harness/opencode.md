@@ -17,35 +17,18 @@ OpenCode ships with two built-in agent profiles (`build` for implementation, `pl
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────┐
-│               OPENCODE CLI                   │
-│                                              │
-│  ┌──────────┐  ┌──────────┐  ┌───────────┐ │
-│  │  Build   │  │  Plan    │  │  Custom   │ │
-│  │  Agent   │  │  Agent   │  │  Agents   │ │
-│  └────┬─────┘  └────┬─────┘  └─────┬─────┘ │
-│       │              │              │        │
-│  ┌────▼──────────────▼──────────────▼─────┐ │
-│  │           AGENT LOOP                    │ │
-│  │  Prompt → LLM → Tool calls → Repeat    │ │
-│  └──────────────────┬────────────────────┘ │
-│                     │                       │
-│  ┌──────────────────▼────────────────────┐ │
-│  │            TOOL SYSTEM                 │ │
-│  │  Read │ Write │ Edit │ Bash │ Search  │ │
-│  └──────────────────┬────────────────────┘ │
-│                     │                       │
-│  ┌──────────────────▼────────────────────┐ │
-│  │          PROVIDER LAYER                │ │
-│  │  OpenRouter │ Anthropic │ OpenAI │ …   │ │
-│  └───────────────────────────────────────┘ │
-│                                              │
-│  ┌───────────────────────────────────────┐ │
-│  │         SURFACES                       │ │
-│  │  CLI (opencode run) │ TUI (opencode)  │ │
-│  └───────────────────────────────────────┘ │
-└─────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph OC["OPENCODE CLI"]
+        direction TB
+        BA[Build Agent] --> AL
+        PA[Plan Agent] --> AL
+        CA[Custom Agents] --> AL
+        AL["AGENT LOOP<br/>prompt → LLM → tool calls → repeat"]
+        AL --> TS["TOOL SYSTEM<br/>Read | Write | Edit | Bash | Search"]
+        TS --> PL["PROVIDER LAYER<br/>OpenRouter | Anthropic | OpenAI | …"]
+        PL --> SF["SURFACES<br/>CLI (opencode run) | TUI (opencode)"]
+    end
 ```
 
 ### Agent Modes

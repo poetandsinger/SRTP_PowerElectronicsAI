@@ -19,6 +19,11 @@ tags: [ai-agents, index]
 - [[ai-agents/ai-ml-power-electronics-2025-2026]] — **NEW:** 16 AI/ML applications in power electronics design (from 2025-2026 synthesis)
 - [[ai-agents/design-automation-gaps-2025-2026]] — **NEW:** 10 design automation gaps, 11 AI augmentation opportunities
 
+## Workflow & Design-Loop Architecture (2026-07-17 depth-first pass)
+- [[ai-agents/agentic-workflow-patterns]] — **NEW:** the canonical 2026 pattern catalog (routing, orchestrator-workers, evaluator-optimizer, reflection…) mapped to SRTP; names what the plan uses, uses-unnamed, and is missing
+- [[ai-agents/design-loop-architecture]] — **NEW (key finding):** topology → refine → **parameter-optimize** is the field-standard PE/analog agent shape; the plan's missing explicit optimizer
+- [[audits/plan-sufficiency-review-2026-07-17]] — **NEW:** verdict on whether the plan is sufficient (strategy yes, build-spec no — 8 gaps)
+
 ## Multi-Agent Synthesis
 - [[ai-agents/multi-agent-synthesis]] — Synthesis of multi-agent design patterns from 7 harnesses + updated with 2026-07-10 research pass
 
@@ -41,7 +46,7 @@ tags: [ai-agents, index]
 - [[ai-agents/harness/architecture-patterns]] — Recurring architecture patterns
 - [[ai-agents/harness/research-agents]] — Research-specific agents (PaperQA2, STORM, GPT Researcher)
 - [[ai-agents/harness/plecs-integration]] — PLECS integration strategies (agent↔simulation backend)
-- [[project/plans/ai-agent-mas-plan]] — Implementation plan: multi-agent system for SRTP
+- [[ai-agent-mas-plan]] — Implementation plan **hub** (+ 8 topic files: architecture, design-loop, knowledge-rag, plecs-harness, guardrails-and-evidence, memory, tech-stack, evaluation-and-benchmark)
 
 ## Agent Papers
 
@@ -66,6 +71,10 @@ tags: [ai-agents, index]
 - [[sources/ai-agents/masrouter-2025-llm-routing]] — MasRouter: learned routing for MAS
 - [[sources/ai-agents/evoagent-2025-evolutionary-delegation]] — EvoAgent: evolutionary agent generation
 - [[sources/ai-agents/pe-mas-flyback-mas]] — PE-MAS: working flyback MAS
+
+### NEW: 2026-07-17 Depth-First Captures
+- [[sources/ai-agents/liu-2026-iet-llm-power-converter-framework]] — Liu et al. (IET PE 2026): universal circuit-encoding LLM framework for converter design
+- [[sources/ai-agents/context-engineering-2026]] — Context engineering (write/select/compress/isolate) + agent-memory survey; the discipline behind "summarize before the LLM"
 
 ## Cross-field Links
 

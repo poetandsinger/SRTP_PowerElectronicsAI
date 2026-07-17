@@ -296,6 +296,32 @@ These are documented for completeness but have fundamental limitations for tract
 
 ---
 
+## 7. 2025–2026 Topology Adoption & Voltage Architecture (consolidated)
+
+> Consolidated here from the former `topology-landscape-2025-2026` note (2026-07-17 audit). Dated data; reliability tags are the capturing sources'. Semiconductor detail lives in [[power-electronics/traction-inverter/components]] §7.
+
+### 7.1 Topology Adoption Trend
+
+| Topology | Application | Adoption trend | Note |
+|----------|-------------|----------------|------|
+| 2L-VSI (B6) | mainstream 400–800V | dominant (>80% share) | simplest, lowest cost |
+| 3L-NPC | higher power, 800V+ | growing with SiC | better harmonics, lower dv/dt, higher part count |
+| 3L-T-Type | medium power, OBC, some traction | niche, growing | lower switching loss in some ranges; GaN-compatible |
+| Multilevel (CHB, FC) | heavy-duty >200 kW | emerging | best harmonics; GaN-favored; highest cost |
+| CSI | specialized | research | reduced DC-link cap; not production-ready |
+
+*Sources: Soomro et al., Results in Engineering (Jun 2025) [Medium]; Kynix 2026 [Medium].* The 3L/multilevel shift accelerates with SiC because higher fsw makes improved harmonics more valuable — consistent with [28] and §4 (3L-TNPC).
+
+### 7.2 Voltage Architecture
+
+- **400V:** dominant by volume; SiC and D-Mode GaN competing here.
+- **800V:** mainstream in premium EVs; enables 200–350 kW charging. Q4 2025 ~14% of installs; Q1 2026 ~920k units (+21% YoY); forecast 25–30%+ by 2027.
+- **>550V** is the fastest-growing class; ≤300V declining (−11% YoY).
+
+*Sources: TrendForce Q1 2026 [High]; Compound Semiconductor News [Medium].*
+
+---
+
 ## Key References
 
 > **References:** [[citations]]

@@ -8,7 +8,6 @@ status: unverified
 evidence: single-study
 tags: [ai-agents, power-electronics, ai, machine-learning, design-automation, simulation, review]
 sources:
-  - power-electronics/traction-inverter/research-synthesis-2025-2026
   - sources/ai-agents/pe-gpt-2025-multimodal-pe-design
   - sources/ai-agents/thermrag-2025-pe-thermal-agent
   - sources/ai-agents/agentic-tcad-2026-date
@@ -17,9 +16,9 @@ review_by: 2026-08-10
 
 # AI/ML Applications in Power Electronics Design — 2025-2026
 
-> Extracted from [[power-electronics/traction-inverter/research-synthesis-2025-2026|Research Synthesis 2025-2026]].
+> AI-side companion to the engineering build manual in [[power-electronics/traction-inverter/traction-inverter-index]]; motivation in [[problem-statement/problem-statement-index]].
 
-## 7. AI/ML Applications in Power Electronics Design
+## AI/ML Applications in Power Electronics Design
 
 ### 7.1 Current Application Areas and Performance
 

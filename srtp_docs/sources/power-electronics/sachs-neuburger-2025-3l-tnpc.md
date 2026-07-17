@@ -24,4 +24,4 @@ Three inverter topologies are assessed: a conventional two-level (2L) six halfbr
 ## Vault References
 - [[power-electronics/traction-inverter/circuit-topologies]] — 3L-TNPC topology details
 - [[power-electronics/traction-inverter/open-problems]] — Partial-load efficiency gap
-- [[power-electronics/traction-inverter/matlab-modeling]] — Co-simulation methodology
+- [[power-electronics/traction-inverter/design-procedure]] — Sizing/loss method (multilevel comparison context)

@@ -122,7 +122,7 @@ The traction inverter is a mature field, but several design tensions remain unre
 
 ---
 
-## Design Parameters & Optimization Targets (from [[power-electronics/traction-inverter/research-synthesis-2025-2026|2025-2026 Synthesis]])
+## Design Parameters & Optimization Targets
 
 ## 2. Key Design Parameters & Optimization Targets
 
@@ -177,4 +177,4 @@ The traction inverter is a mature field, but several design tensions remain unre
 **Residual doubt:** The open problems are well-framed as research questions. But the note treats all questions as equally open when some are converging and others are genuinely unresolved. The AI/ML section in particular is outdated (written 2026-07-08, before the 2026-07-10 research pass found extensive new evidence).
 
 ---
-← [[power-electronics/traction-inverter/circuit-topologies]] | [[power-electronics/traction-inverter/simulation-toolbox]] →
+← [[power-electronics/traction-inverter/circuit-topologies]] | [[power-electronics/traction-inverter/simulation-and-validation]] →

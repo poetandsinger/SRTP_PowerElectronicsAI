@@ -1,13 +1,16 @@
 ---
-title: " Problem Statement, AI for Traction Inverter Design "
+title: "Why AI for Traction Inverter Design (Problem Statement)"
 type: topic
-field: power-electronics
+field: problem-statement
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-17
 status: unverified
 evidence: single-study
 tags: [power-electronics, market-research, review, design-automation]
+review_by: 2026-10-17
 ---
+
+> **Preface note.** This is project motivation, not engineering. Moved out of `power-electronics/` (2026-07-17) so that folder stays a pure traction-inverter build manual. The engineering knowledge base is [[power-electronics/traction-inverter/traction-inverter-index]].
 
 ## The Problem in One Paragraph
 
@@ -134,11 +137,11 @@ The AI's role is:
 
 ### Target Markets
 
-> **Source:** Precedence Research market reports (2025-2034), verified by subagent
+> **Source:** Precedence Research, *Traction Inverter Market* (2025–2034) [96] — re-verified 2026-07-17. The $24.5B→$96.6B / 16.5% CAGR figures match Precedence directly; other firms (GM Insights, Fortune, Spherical) span 14.7–18.5% CAGR on differing market definitions [96].
 
 | Market | Market Size (2025) | Projected (2034) | CAGR | AI Relevance |
 |--------|-------------------|-------------------|------|--------------|
-| **EV Traction Inverter** | $24.5B | $96.6B | 16.5% | Primary target |
+| **EV Traction Inverter** | $24.5B [96] | $96.6B [96] | 16.5% [96] | Primary target |
 | **Power Electronics (total)** | $51B | $89B | 5.75% | Addressable expansion |
 | **Electric Vehicle (total)** | $989B | $2,763B | 10.8% | Driver of demand |
 | **Industrial Motor Drives** | Part of $51B PE | — | ~6.5% | Secondary — similar topologies |
@@ -179,6 +182,24 @@ Three trends converge to make this viable now:
 > **AI offers a solution: an autonomous agent that combines LLM-based reasoning for design planning, automated simulation orchestration for physics-based validation, and multi-objective optimization for design space exploration. This agent can capture and apply domain expertise through persistent memory and self-improving skills, evaluate 100-1000× more design points than manual iteration, and maintain auditable design rationale.**
 >
 > **The opportunity is timely because (a) LLMs have reached capability thresholds for engineering reasoning, (b) simulation tool APIs are mature enough for programmatic control, and (c) the EV industry faces a critical shortage of power electronics expertise that automation can address.**
+
+## Why AI for Traction Inverter Design — 2026 Evidence Update
+
+> Direct answer to "why do we need AI to design traction inverters?", with the sourcing the original draft lacked. Where a claim can't be hard-sourced, it is marked `[T]` and softened.
+
+**1. The people don't exist.** ~40% of practicing electrical engineers are over 50 and near retirement; 74% of automotive/transport employers report trouble finding skilled talent (ManpowerGroup 2025); EE enrollment has fallen sharply versus CS [97]. The EV build-out needs *more* power-electronics engineers precisely as the senior cohort leaves — a structural gap hiring alone cannot close [97]. This is the strongest, best-sourced leg of the argument.
+
+**2. The market pull is real and large.** The traction-inverter market is ~$24.5B (2025) growing to ~$96.6B (2034) at ~16.5% CAGR [96]. Design throughput is a bottleneck on capturing it.
+
+**3. AI already beats or accelerates experts on parts of this problem** — no longer speculative:
+- **PE-GPT** (IEEE TIE 2025): LLM-agent designs **22.2% better than human experts** on a power-electronics task [60].
+- **PHIA / LP-COMDA** (AAAI 2026): physics-informed agent, **>33× design-time reduction** for modulation design [81].
+- **AgenticTCAD** (DATE 2026): **40× speedup** on semiconductor design [61]; **ThermRAG** for PE thermal design [62]; **Power Circuit AI** (ABB, 2026) for motor-drive PCBs [67].
+- Vendor **reference designs already cut time-to-market** by giving reusable, validated starting points [91][99] — an AI that composes and adapts them extends the same lever.
+
+**4. The honest scope (what AI does *not* do).** AI does not replace physics simulation — PLECS/measurement remains ground truth; the agent proposes, simulation disposes [79][80]. And the direct AI+PLECS prior art shows a coding-agent reliably does sweeps/refactoring/comparison but **not** topology invention, control-strategy selection, or physics interpretation [79]. The value is supplying *that* reasoning on top of simulation, cheaply (token-summarized), not autonomous approval [79][74].
+
+**5. Caveats on the pain figures.** The "$500K–$2M per cycle / 3–6 months" numbers below are industry-estimate `[T]`, unverified against a primary source, and likely apply to clean-sheet Tier-1 designs, not derivatives. The design-space "1.8×10¹⁰ combinations" is combinatorially true but experts prune >99.99% with basic rating constraints before any AI is needed. The case rests on **workforce [97] + demonstrated AI capability [60][81] + market pull [96]**, not on the inflated pain numbers.
 
 ## Research Questions This Problem Raises
 

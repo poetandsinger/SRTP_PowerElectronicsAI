@@ -17,33 +17,15 @@ Codex is the **most constrained** of the coding agents — it offers the fewest 
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────┐
-│                CODEX CLI                     │
-│                                              │
-│  ┌────────────────────────────────────────┐ │
-│  │           AGENT LOOP                    │ │
-│  │  Prompt → OpenAI Model → Tools → Loop  │ │
-│  └──────────────────┬─────────────────────┘ │
-│                     │                        │
-│  ┌──────────────────▼─────────────────────┐ │
-│  │            TOOL SYSTEM                  │ │
-│  │  file_read │ file_write │ bash │ grep  │ │
-│  │  + workspace-write (sandboxed)         │ │
-│  └──────────────────┬─────────────────────┘ │
-│                     │                        │
-│  ┌──────────────────▼─────────────────────┐ │
-│  │          SANDBOX LAYER                  │ │
-│  │  Default: bubblewrap/namespace isolation│ │
-│  │  --yolo: no sandbox (skip)             │ │
-│  │  --sandbox danger-full-access: process  │ │
-│  └────────────────────────────────────────┘ │
-│                                              │
-│  ┌────────────────────────────────────────┐ │
-│  │           SURFACES                      │ │
-│  │  CLI (codex exec) │ Interactive?        │ │
-│  └────────────────────────────────────────┘ │
-└─────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph CX["CODEX CLI"]
+        direction TB
+        AL["AGENT LOOP<br/>prompt → OpenAI model → tools → loop"]
+        AL --> TS["TOOL SYSTEM<br/>file_read | file_write | bash | grep<br/>+ workspace-write (sandboxed)"]
+        TS --> SB["SANDBOX LAYER<br/>default: bubblewrap / namespace isolation<br/>--yolo: no sandbox · --sandbox danger-full-access: process"]
+        SB --> SF["SURFACES<br/>CLI (codex exec) | interactive?"]
+    end
 ```
 
 ### Agent Loop

@@ -13,21 +13,16 @@ tags: [ai-agents, architecture, patterns, comparison, review]
 
 **Used by:** All surveyed harnesses
 
+```mermaid
+flowchart TD
+    A[1. Receive task / prompt] --> B[2. LLM reasons about next action]
+    B --> C[3. LLM selects tool + parameters]
+    C --> D[4. Tool executes, returns result]
+    D --> E[5. Result appended to context]
+    E -->|until task complete| B
+    E -.-> DONE([task complete])
 ```
-┌──────────────────────────────────────────┐
-│           REACT AGENT LOOP                │
-│                                           │
-│  1. Receive task/prompt                   │
-│  2. LLM reasons about next action         │
-│  3. LLM selects tool + parameters         │
-│  4. Tool executes, returns result         │
-│  5. Result appended to context            │
-│  6. Goto 2 (until task complete)          │
-│                                           │
-│  Configurable: max_turns, temperature,    │
-│  context compression threshold            │
-└──────────────────────────────────────────┘
-```
+<small>Configurable: max_turns, temperature, context-compression threshold.</small>
 
 **Relevance:** All surveyed harnesses implement this pattern. For research workflows, longer max_turns (50-100) accommodates multi-step simulation-analysis cycles, compared to coding tasks (10-30).
 
@@ -35,27 +30,13 @@ tags: [ai-agents, architecture, patterns, comparison, review]
 
 **Used by:** Hermes Agent only
 
-```
-┌──────────────────────────────────────────┐
-│           SKILLS LIFECYCLE                │
-│                                           │
-│  ┌─────────┐    ┌─────────┐    ┌───────┐ │
-│  │ CREATE  │ →  │  USE    │ →  │ STALE │ │
-│  │ (agent  │    │ (loaded │    │ (idle │ │
-│  │  writes)│    │  inctx) │    │  N days│ │
-│  └─────────┘    └─────────┘    └───┬───┘ │
-│       ▲                            │      │
-│       │         ┌─────────┐        │      │
-│       └─────────│ PATCH   │←───────┘      │
-│                 │ (fixes) │               │
-│                 └─────────┘               │
-│                       ↓                    │
-│                 ┌─────────┐               │
-│                 │ ARCHIVE │               │
-│                 │ (backed │               │
-│                 │  up)    │               │
-│                 └─────────┘               │
-└──────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    CREATE["CREATE<br/>(agent writes)"] --> USE["USE<br/>(loaded in context)"]
+    USE --> STALE["STALE<br/>(idle N days)"]
+    STALE --> PATCH["PATCH<br/>(fixes)"]
+    STALE --> ARCHIVE["ARCHIVE<br/>(backed up)"]
+    PATCH --> CREATE
 ```
 
 **Relevance:** Skills enable domain knowledge accumulation. Simulation workflows, topology selection heuristics, MATLAB debugging procedures, and loss analysis methodologies can all be encoded and improved over repeated use.
@@ -70,19 +51,16 @@ tags: [ai-agents, architecture, patterns, comparison, review]
 
 **Used by:** Claude Code
 
-```
-┌──────────────────────────────────────────┐
-│           HOOK EVENT TYPES                │
-│                                           │
-│  SessionStart ──→ Load project context    │
-│  UserPromptSubmit ──→ Validate input      │
-│  PreToolUse ──→ Security gate             │
-│  PostToolUse ──→ Auto-validate output     │
-│  Stop ──→ Log results                    │
-│  SubagentStop ──→ Chain next agent        │
-│  PreCompact ──→ Backup transcript         │
-│  Notification ──→ Alert user              │
-└──────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    SS[SessionStart] --> a[Load project context]
+    UP[UserPromptSubmit] --> b[Validate input]
+    PRE[PreToolUse] --> c[Security gate]
+    POST[PostToolUse] --> d[Auto-validate output]
+    ST[Stop] --> e[Log results]
+    SUB[SubagentStop] --> f[Chain next agent]
+    PC[PreCompact] --> g[Backup transcript]
+    NO[Notification] --> h[Alert user]
 ```
 
 **Relevance:** PostToolUse hooks enable automated output validation. After simulation: verify output file creation, check efficiency bounds (0-100%), validate waveform dimensions, and detect NaN/inf values. This catches garbage results before they pollute downstream analysis.
@@ -106,16 +84,10 @@ Write(*.slx)           # Only Simulink models
 
 **Used by:** Claude Code, Hermes Agent
 
-```
-┌──────────┐    MCP Protocol    ┌──────────────┐
-│  Agent   │←─────────────────→│  Tool Server  │
-│  (Hermes)│   stdio/HTTP/SSE  │  (MATLAB)     │
-└──────────┘                    └──────┬───────┘
-                                       │
-                                ┌──────▼───────┐
-                                │  MATLAB       │
-                                │  Engine API   │
-                                └──────────────┘
+```mermaid
+flowchart LR
+    A["Agent<br/>(Hermes)"] <-->|"MCP Protocol<br/>stdio / HTTP / SSE"| TS["Tool Server<br/>(plecs-mcp)"]
+    TS --> E["PLECS<br/>XML-RPC"]
 ```
 
 **Relevance:** MCP provides the cleanest integration pattern for external tools like MATLAB. A MATLAB MCP server wrapping the Engine API provides persistent sessions, structured tool definitions, and language-agnostic access.
@@ -124,20 +96,12 @@ Write(*.slx)           # Only Simulink models
 
 **Used by:** Hermes Agent (delegate_task), Claude Code (@agent-name)
 
-```
-┌──────────────────────────────────┐
-│         ORCHESTRATOR             │
-│   • Understands research goal    │
-│   • Decomposes into subtasks     │
-│   • Routes to specialists        │
-│   • Synthesizes results          │
-└────┬─────────┬─────────┬─────────┘
-     │         │         │
-     ▼         ▼         ▼
-┌─────────┐ ┌───────┐ ┌─────────┐
-│Literature│ │MATLAB │ │ Review  │
-│ Agent   │ │Agent  │ │ Agent   │
-└─────────┘ └───────┘ └─────────┘
+```mermaid
+flowchart TD
+    O["ORCHESTRATOR<br/>• understands research goal<br/>• decomposes into subtasks<br/>• routes to specialists<br/>• synthesizes results"]
+    O --> L[Literature Agent]
+    O --> S["Simulation Agent<br/>(PLECS)"]
+    O --> R[Review Agent]
 ```
 
 **Observed in:** Hermes Agent (delegate_task), Claude Code (@agent-name), CrewAI (role-based crews)

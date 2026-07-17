@@ -25,7 +25,7 @@ Automotive traction inverters universally use a **cascaded (nested) control arch
 
 ```
   ω_ref ──→ ┌──────────┐  Te_ref ──→ ┌────────────┐  idq_ref ──→ ┌────────────┐  vdq_ref ──→ ┌──────────┐
-            │  SPEED    │             │  TORQUE/    │              │  CURRENT     │              │  PWM +    │  → Motor
+            │  SPEED    │             │  TORQUE/    │              │  CURRENT       │              │  PWM +    │  → Motor
             │  CONTROL  │             │  MTPA/      │              │  CONTROL     │              │  INVERTER │
   ω_act ←── │  (PI)     │  idq_act ←─ │  FLUX-WEAK  │  idq_act ←─ │  (PI/PR)     │   S1–S6 ←── │  MODULATOR│
             └──────────┘              └────────────┘              └────────────┘              └──────────┘
@@ -328,7 +328,7 @@ Speed loop update:    1–5 ms (much slower outer loop)
 
 ---
 
-## Control Strategies Comparison — 2025-2026 Update (from [[power-electronics/traction-inverter/research-synthesis-2025-2026|Research Synthesis]])
+## Control Strategies Comparison (FOC / DTC / MPC — 2025–2026 literature)
 
 ## 4. Control Strategies Comparison
 
@@ -409,4 +409,4 @@ Speed loop update:    1–5 ms (much slower outer loop)
 ---
 > **References:** [[citations]]
 
-← [[power-electronics/traction-inverter/components]] | [[power-electronics/traction-inverter/matlab-modeling]] →
+← [[power-electronics/traction-inverter/components]] | [[power-electronics/traction-inverter/control-how-to]] →

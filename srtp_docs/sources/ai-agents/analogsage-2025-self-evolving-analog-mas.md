@@ -47,5 +47,5 @@ This is a concrete answer to two SRTP open questions: how memory should work acr
 - **Upgrade our memory model.** Current SRTP synthesis specs CrewAI unified memory + PE-MAS lifelong memory; AnalogSAGE shows the 2026 SOTA is *stratified* (cross-task evolution + within-task introspection + compression + RAG-grounded experience). Strong candidate to adopt.
 - **RAG-grounded topology reasoning** (10k-paper corpus) directly addresses the red-team's "training-knowledge dependence" objection to our EE notes.
 
-## Brutal caveats
+## Caveats
 Op-amp-only; generalization unproven; depends on a curated topology DB + knowledge corpus; 3-iteration cap; tied to SKY130/ngspice. No power-electronics or motor-drive evidence. Do **not** cite as proof for traction inverters — cite as the pattern to adapt. See [[ai-agents/multi-agent-synthesis]] and [[ai-agents/traction-inverter-mas-integration]].

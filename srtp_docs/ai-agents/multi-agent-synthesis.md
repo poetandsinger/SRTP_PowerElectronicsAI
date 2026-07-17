@@ -17,7 +17,7 @@ review_by: 2026-08-09
 
 > **2026-07-09:** Discovered PE-MAS (github.com/spongelovesorange/PE-MAS) — a working LangGraph-based multi-agent system for flyback converter design. Validates 12 of our architectural proposals with real code. See [[sources/ai-agents/pe-mas-flyback-mas]] for full analysis.
 
-> ⚠️ **2026-07-17 PLECS pivot + corrections (read first).** Authoritative: [[project/plans/ai-agent-mas-plan]] + [[audits/ai-agent-docs-audit-2026-07-17]].
+> ⚠️ **2026-07-17 PLECS pivot + corrections (read first).** Authoritative: [[ai-agent-mas-plan]] + [[audits/ai-agent-docs-audit-2026-07-17]].
 > - Every **"MATLAB Agent" / "MATLAB Simulation Agent" / MATLAB Engine API** reference below is superseded by the **PLECS Simulation Agent** (XML-RPC/MCP; [[ai-agents/harness/plecs-integration]]).
 > - §5.1's "upgrades our architecture from C3 to C4" is **withdrawn** — the hybrid result is a coding benchmark; domain claims stay C3 (audit §3).
 > - Framework currency has moved: LangGraph 1.0 durable execution, MS Agent Framework, AgentSlimming — see [[sources/ai-agents/agent-frameworks-2026-currency]].
@@ -29,16 +29,14 @@ review_by: 2026-08-09
 
 Every surveyed system falls on a spectrum of delegation depth and coordination model:
 
+```mermaid
+flowchart LR
+    FLAT["FLAT<br/>single orchestrator"]:::pole
+    DEEP["DEEP<br/>recursive / hierarchical"]:::pole
+    FLAT --- SM[smolagents ManagedAgent] --- CR[CrewAI Sequential / Hierarchical] --- HE[Hermes delegate_task] --- AG[AutoGen GroupChat] --- CC[Claude Code subagent + Teams] --- LG[LangGraph Subgraphs] --- DEEP
+    classDef pole fill:#334,color:#fff,font-weight:bold;
 ```
-FLAT (single orchestrator)                    DEEP (recursive/hierarchical)
-    │                                                  │
-    ├─ smolagents ManagedAgent ────────────────────────┤
-    ├─ CrewAI Sequential / Hierarchical ───────────────┤
-    ├─ Hermes delegate_task (leaf/orchestrator) ───────┤
-    ├─ AutoGen GroupChat (round-robin) ────────────────┤
-    ├─ Claude Code @subagent + Teams ──────────────────┤
-    └─ LangGraph Subgraphs (nested state machines) ────┘
-```
+<small>Each framework can operate anywhere on the flat↔deep axis; ordered here by typical delegation depth.</small>
 
 ### Key Finding
 **Flat delegation (one level of subagents) covers 90% of research workflows.** Deep recursion (subagent spawns subagent) adds complexity without proportional benefit for power electronics research. The SRTP agent should default to one-level orchestration with an orchestrator dispatching to N specialists.
@@ -285,87 +283,36 @@ The 2026-07-09 synthesis was built on 7 harnesses + 2 papers. The 2026-07-10 pas
 
 ### Agent Roles for SRTP
 
-```
-┌─────────────────────────────────────────────────────────┐
-│              RESEARCH ORCHESTRATOR                       │
-│  Decomposes research goal → routes to specialists         │
-│  Synthesizes results → decides iterate or conclude       │
-│  Model: deepseek-chat (provider-agnostic, cheap)         │
-└────┬──────────────┬──────────────┬──────────────────────┘
-     │              │              │
-     ▼              ▼              ▼
-┌──────────┐  ┌──────────┐  ┌──────────┐
-│LITERATURE│  │MATLAB    │  │REVIEWER  │
-│AGENT     │  │AGENT     │  │AGENT     │
-│          │  │          │  │          │
-│Model:    │  │Model:    │  │Model:    │
-│claude    │  │deepseek  │  │claude    │
-│Tools:    │  │Tools:    │  │Tools:    │
-│arXiv API │  │MATLAB    │  │Python    │
-│PaperQA2  │  │Engine API│  │analysis  │
-│WebSearch │  │Simulink  │  │Plotting  │
-│PDF read  │  │PLECS     │  │Compare   │
-│          │  │          │  │baselines │
-│Memory:   │  │Memory:   │  │          │
-│Papers DB │  │Component │  │          │
-│          │  │library   │  │          │
-└──────────┘  └──────────┘  └──────────┘
-     │              │              │
-     └──────────────┼──────────────┘
-                    │
-                    ▼
-          ┌──────────────┐
-          │REPORT WRITER │
-          │Model: gpt-4  │
-          │Tools: LaTeX  │
-          │IEEE template │
-          └──────────────┘
+```mermaid
+flowchart TD
+    ORCH["RESEARCH ORCHESTRATOR<br/>decompose goal → route → synthesize → iterate/conclude<br/><i>model: deepseek-chat (cheap)</i>"]
+    ORCH --> LIT
+    ORCH --> SIM
+    ORCH --> REV
+    LIT["LITERATURE AGENT<br/><i>model: claude</i><br/>tools: arXiv, PaperQA2, WebSearch, PDF<br/>memory: papers DB"]
+    SIM["SIMULATION AGENT (PLECS)<br/><i>model: deepseek</i><br/>tools: PLECS XML-RPC / MCP<br/>memory: component library"]
+    REV["REVIEWER AGENT<br/><i>model: claude</i><br/>tools: Python analysis, plotting, compare baselines"]
+    LIT --> RW
+    SIM --> RW
+    REV --> RW
+    RW["REPORT WRITER<br/><i>model: gpt-4</i><br/>tools: LaTeX, IEEE template"]
 ```
 
 ### Workflow State Machine
 
-```
-[START]
-   │
-   ▼
-┌──────────────┐
-│ SPEC_PARSE   │ ← Parse user requirements (Vdc, Pout, topology pref)
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│ LIT_REVIEW   │ ← Literature Agent: find relevant papers, baseline efficiencies
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐     ┌──────────────────┐
-│ DESIGN_REVIEW│────▶│ HUMAN_APPROVAL   │ (optional interrupt)
-└──────┬───────┘     └──────────────────┘
-       │
-       ▼
-┌──────────────┐
-│ COMPONENT    │ ← Literature Agent: find matching components (SiC modules, gate drivers)
-│ SELECTION    │
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│ SIMULATE     │ ← MATLAB Agent: build model, run simulation, validate
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│ ANALYZE      │ ← Reviewer Agent: efficiency, THD, losses, thermal, EMI
-└──────┬───────┘
-       │
-       ├── converged? ──YES──▶ ┌──────────────┐
-       │                        │ REPORT       │ ← Writer Agent: IEEE report
-       │                        └──────┬───────┘
-       │                               │
-       │                               ▼
-       │                          [END]
-       │
-       └── NO ──▶ replan (back to COMPONENT or LIT_REVIEW)
+```mermaid
+flowchart TD
+    START([START]) --> SP["SPEC_PARSE<br/>parse Vdc, Pout, topology pref"]
+    SP --> LR["LIT_REVIEW<br/><i>Literature Agent</i>: papers, baseline efficiencies"]
+    LR --> DR["DESIGN_REVIEW"]
+    DR -.->|"optional interrupt"| HA["HUMAN_APPROVAL"]
+    DR --> CS["COMPONENT_SELECTION<br/><i>Literature Agent</i>: SiC modules, gate drivers"]
+    CS --> SIM["SIMULATE<br/><i>Simulation Agent (PLECS)</i>: build, run, validate"]
+    SIM --> AN["ANALYZE<br/><i>Reviewer Agent</i>: efficiency, THD, losses, thermal, EMI"]
+    AN -->|converged| REP["REPORT<br/><i>Writer Agent</i>: IEEE report"]
+    REP --> END([END])
+    AN -->|"not converged → replan"| CS
+    AN -.->|"or back to"| LR
 ```
 
 **Checkpoints at every arrow.** If SIMULATE fails, resume from the last checkpoint.
@@ -409,4 +356,4 @@ No single existing system combines these. The SRTP agent is a synthesis.
 
 ---
 
-← [[ai-agents/harness/comparative-analysis]] | [[project/plans/ai-agent-mas-plan|AI-Agent MAS Plan →]]
+← [[ai-agents/harness/comparative-analysis]] | [[ai-agent-mas-plan|AI-Agent MAS Plan →]]

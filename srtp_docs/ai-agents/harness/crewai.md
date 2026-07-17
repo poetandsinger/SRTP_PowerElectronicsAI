@@ -17,56 +17,22 @@ For power electronics research, CrewAI's strength is the **natural mapping to re
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                       CREWAI                             │
-│                                                          │
-│  ┌────────────────────────────────────────────────────┐ │
-│  │                    CREW (Team)                      │ │
-│  │                                                     │ │
-│  │  ┌──────────────┐  ┌──────────────┐                │ │
-│  │  │  Researcher  │  │  Sim Engineer│                │ │
-│  │  │  Agent       │  │  Agent       │                │ │
-│  │  │              │  │              │                │ │
-│  │  │ Role: Power  │  │ Role: MATLAB │                │ │
-│  │  │ Electronics  │  │ Simulation   │                │ │
-│  │  │ Expert       │  │ Engineer     │                │ │
-│  │  │              │  │              │                │ │
-│  │  │ Tools:       │  │ Tools:       │                │ │
-│  │  │ • arXiv API  │  │ • MATLAB Eng │                │ │
-│  │  │ • PaperQA2   │  │ • Simulink   │                │ │
-│  │  │ • Web Search │  │ • PLECS API  │                │ │
-│  │  │ • PDF Reader │  │ • Python     │                │ │
-│  │  └──────┬───────┘  └──────┬───────┘                │ │
-│  │         │                 │                         │ │
-│  │  ┌──────▼───────┐  ┌──────▼───────┐                │ │
-│  │  │ Data Analyst │  │ Report Writer│                │ │
-│  │  │ Agent        │  │ Agent        │                │ │
-│  │  │              │  │              │                │ │
-│  │  │ Role: Power  │  │ Role: IEEE   │                │ │
-│  │  │ Electronics  │  │ Report       │                │ │
-│  │  │ Data Analyst │  │ Author       │                │ │
-│  │  │              │  │              │                │ │
-│  │  │ Tools:       │  │ Tools:       │                │ │
-│  │  │ • Pandas     │  │ • LaTeX      │                │ │
-│  │  │ • NumPy/SciPy│  │ • Matplotlib │                │ │
-│  │  │ • Plotting   │  │ • Templates  │                │ │
-│  │  └──────────────┘  └──────────────┘                │ │
-│  └────────────────────────────────────────────────────┘ │
-│                                                          │
-│  ┌────────────────────────────────────────────────────┐ │
-│  │              PROCESS MODES                          │ │
-│  │  • Sequential: Task A → Task B → Task C            │ │
-│  │  • Hierarchical: Manager agent delegates tasks     │ │
-│  └────────────────────────────────────────────────────┘ │
-│                                                          │
-│  ┌────────────────────────────────────────────────────┐ │
-│  │              MEMORY SYSTEM                          │ │
-│  │  • Short-term: Current conversation context        │ │
-│  │  • Long-term: Persistent across sessions           │ │
-│  │  • Entity: Facts about components, topologies      │ │
-│  └────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph CREWAI["CREWAI"]
+        direction TB
+        subgraph CREW["CREW (Team)"]
+            direction TB
+            R["Researcher Agent<br/>role: Power Electronics Expert<br/>tools: arXiv, PaperQA2, WebSearch, PDF"]
+            S["Sim Engineer Agent<br/>role: PLECS Simulation Engineer<br/>tools: PLECS XML-RPC / MCP, Python"]
+            DA["Data Analyst Agent<br/>role: PE Data Analyst<br/>tools: Pandas, NumPy/SciPy, plotting"]
+            RW["Report Writer Agent<br/>role: IEEE Report Author<br/>tools: LaTeX, Matplotlib, templates"]
+            R --> DA
+            S --> RW
+        end
+        CREW --> PM["PROCESS MODES<br/>Sequential: A → B → C · Hierarchical: manager delegates"]
+        PM --> MEM["MEMORY SYSTEM<br/>short-term · long-term · entity<br/>(now unified LLM-analyzed — see §3.3)"]
+    end
 ```
 
 ### Core Abstractions

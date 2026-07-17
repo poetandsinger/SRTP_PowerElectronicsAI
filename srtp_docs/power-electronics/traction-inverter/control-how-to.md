@@ -15,7 +15,7 @@ tags:
 
 ## 1. What This Note Is For
 
-This is a practical implementation guide for field-oriented control (FOC) of a traction inverter driving a PMSM. It assumes you have a Simulink model and want to know the exact steps to tune the current loop, set up MTPA, and implement safe operating limits. It is the bridge between the theory in [[power-electronics/traction-inverter/control-schemes]] and the modeling in [[power-electronics/traction-inverter/matlab-modeling]].
+This is a practical implementation guide for field-oriented control (FOC) of a traction inverter driving a PMSM. It gives the exact steps to tune the current loop, set up MTPA, and implement safe operating limits. It is the bridge between the theory in [[power-electronics/traction-inverter/control-schemes]] and the plant/modeling in [[power-electronics/traction-inverter/machine-and-load]] and [[power-electronics/traction-inverter/simulation-and-validation]].
 
 ## 2. Required Motor Parameters
 
@@ -193,4 +193,4 @@ Once the Simulink FOC is validated, the typical production path is [51]:
 ---
 > **References:** [[citations]]
 
-← [[power-electronics/traction-inverter/simulation-toolbox]] | [[power-electronics/traction-inverter/matlab-modeling]] →
+← [[power-electronics/traction-inverter/machine-and-load]] | [[power-electronics/traction-inverter/simulation-and-validation]] →

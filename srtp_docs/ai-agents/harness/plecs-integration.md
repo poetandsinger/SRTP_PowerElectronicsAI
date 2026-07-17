@@ -23,7 +23,7 @@ The research agent must be able to:
 3. **Retrieve results** — waveforms, efficiency, losses, Bode data — **summarized before the LLM sees them**.
 4. **Iterate** — parameter sweeps, corners (low/high line, load), optimization loops.
 
-> **The load-bearing constraint is not the interface — it is validated per-topology models.** Per PE-MAS's honest `model_registry.json`, an agent can only produce "PLECS-backed evidence" for topologies that have a *built and validated* PLECS model. See [[sources/ai-agents/pe-mas-flyback-mas]].
+> **The binding constraint is not the interface — it is validated per-topology models.** Per PE-MAS's `model_registry.json`, an agent can only produce "PLECS-backed evidence" for topologies that have a *built and validated* PLECS model. See [[sources/ai-agents/pe-mas-flyback-mas]].
 
 ## Integration Approaches
 

@@ -9,7 +9,7 @@ tags: [audit, ai-agents, multi-agent]
 
 # AI-Agent Docs Audit — 2026-07-17
 
-**Scope:** brutal audit of the `ai-agents/` notes, the AI-agent-facing `project/plans/`, and the `sources/ai-agents/` captures, against the project goal — **a multi-agent system (MAS) for traction inverter design** — plus a fresh 2026 research pass. No gaps hidden.
+**Scope:** audit of the `ai-agents/` notes, the AI-agent-facing `project/plans/`, and the `sources/ai-agents/` captures, against the project goal — **a multi-agent system (MAS) for traction inverter design** — plus a fresh 2026 research pass. No gaps hidden.
 
 **Bottom line:** the AI-agent research is broad, well-structured, and honestly red-teamed, but it is (1) **anchored to MATLAB**, which the project has now abandoned in favor of **PLECS**; (2) **internally contradictory** on agent count (7 vs 3); (3) **inflating confidence** off coding-benchmark papers; and (4) **~1 week to several months stale** on framework facts. The good news: the MATLAB→PLECS pivot is a *technical upgrade*, and three of the old "open gaps" are now largely closed by fresh evidence.
 

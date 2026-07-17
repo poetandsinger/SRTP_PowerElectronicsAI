@@ -8,7 +8,6 @@ status: unverified
 evidence: single-study
 tags: [ai-agents, power-electronics, design-automation, ai, gaps, simulation, review]
 sources:
-  - power-electronics/traction-inverter/research-synthesis-2025-2026
   - ai-agents/traction-inverter-mas-integration
   - ai-agents/implementation-research
 review_by: 2026-08-10
@@ -16,9 +15,9 @@ review_by: 2026-08-10
 
 # Design Automation Gaps & AI Augmentation Opportunities — 2025-2026
 
-> Extracted from [[power-electronics/traction-inverter/research-synthesis-2025-2026|Research Synthesis 2025-2026]]. Directly informs the SRTP multi-agent system design documented in [[ai-agents/traction-inverter-mas-integration]].
+> Directly informs the SRTP multi-agent system design in [[ai-agents/traction-inverter-mas-integration]]; engineering context in [[power-electronics/traction-inverter/traction-inverter-index]].
 
-## 8. Design Automation Gaps & AI Augmentation Opportunities
+## Design Automation Gaps & AI Augmentation Opportunities
 
 ### 8.1 Current Gaps in Design Automation
 

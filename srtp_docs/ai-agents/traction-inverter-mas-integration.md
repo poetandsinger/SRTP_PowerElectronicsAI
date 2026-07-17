@@ -21,7 +21,7 @@ sources:
   - power-electronics/traction-inverter/components
   - power-electronics/traction-inverter/control-schemes
   - power-electronics/traction-inverter/open-problems
-  - power-electronics/problem-statement/problem-statement-index
+  - problem-statement/problem-statement-index
   - project/plans/ai-agent-mas-plan
 review_by: 2026-08-10
 ---
@@ -32,7 +32,7 @@ review_by: 2026-08-10
 
 > **Status as of 2026-07-10:** The architecture is validated by 3 independent lines of evidence: (1) PE-MAS — working LangGraph MAS for flyback design, (2) PE-GPT — peer-reviewed LLM agent outperforming humans on power electronics design, (3) Power Circuit AI — ABB's production multi-agent PCB design system. Different domains, same patterns. The convergence is not accidental.
 
-> ⚠️ **2026-07-17 PLECS pivot + corrections (read first).** This note predates two decisions; the authoritative version is [[project/plans/ai-agent-mas-plan]] + [[audits/ai-agent-docs-audit-2026-07-17]]:
+> ⚠️ **2026-07-17 PLECS pivot + corrections (read first).** This note predates two decisions; the authoritative version is [[ai-agent-mas-plan]] + [[audits/ai-agent-docs-audit-2026-07-17]]:
 > 1. **Backend is PLECS, not MATLAB.** Every "MATLAB Agent" below = the **PLECS Simulation Agent** (XML-RPC/MCP; see [[ai-agents/harness/plecs-integration]]). §5's "MATLAB/Simulink primary, PLECS optional" is **inverted** — PLECS is primary (native PMSM/IM models close gap G1).
 > 2. **Commit to the 3-agent core**, not 7. The 7-agent split is a *later*, earned option (§4 Claim 4 stays C2). See audit §2.
 > 3. **§2.5's "upgrades C3→C4" is withdrawn.** That evidence is a coding-benchmark; domain claims stay **C3** until a PE A/B test exists (audit §3).
@@ -127,53 +127,27 @@ Khan et al. (2026) [[sources/ai-agents/hybrid-langgraph-crewai-2026-ieee]] demon
 
 The original 5-role system (Orchestrator, Literature, MATLAB, Reviewer, Writer) is expanded to 7 based on fresh 2026 research:
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                   RESEARCH ORCHESTRATOR                           │
-│   Decomposes spec → routes to specialists → synthesizes results   │
-│   Model: deepseek-chat (cheap coordination)                       │
-│   Confidence in routing: C2 [see Red Team §7]                     │
-└────┬──────────┬──────────┬──────────┬──────────┬─────────────────┘
-     │          │          │          │          │
-     ▼          ▼          ▼          ▼          ▼
-┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌──────────────┐
-│LIT      │ │TOPOLOGY │ │COMPONENT│ │MATLAB   │ │THERMAL       │
-│AGENT    │ │AGENT    │ │AGENT    │ │AGENT    │ │AGENT  [NEW]  │
-│         │ │  [NEW]  │ │         │ │         │ │              │
-│Model:   │ │Model:   │ │Model:   │ │Model:   │ │Model:        │
-│claude   │ │claude   │ │deepseek │ │deepseek │ │deepseek      │
-│sonnet   │ │sonnet   │ │         │ │         │ │              │
-│         │ │         │ │         │ │         │ │              │
-│Tools:   │ │Tools:   │ │Tools:   │ │Tools:   │ │Tools:        │
-│arXiv    │ │Topology │ │DigiKey  │ │MATLAB   │ │CFD-ROM       │
-│PaperQA2 │ │selector │ │API      │ │Engine   │ │Thermal net.  │
-│WebSearch│ │Loss calc│ │Octopart │ │Simulink │ │Datasheet     │
-│PDF read │ │Simulink │ │Datasheet│ │PLECS    │ │parser        │
-│         │ │         │ │         │ │         │ │              │
-│Memory:  │ │Memory:  │ │Memory:  │ │Memory:  │ │Memory:       │
-│Papers DB│ │Topology │ │Component│ │Sim cache│ │Thermal model │
-│         │ │library  │ │library  │ │         │ │library       │
-└─────────┘ └─────────┘ └─────────┘ └─────────┘ └──────────────┘
-     │          │          │          │          │
-     └──────────┼──────────┼──────────┼──────────┘
-                │          │          │
-                ▼          ▼          ▼
-          ┌─────────┐ ┌─────────┐ ┌──────────────┐
-          │REVIEWER │ │REPORT   │ │MULTI-PHYSICS │
-          │AGENT    │ │WRITER   │ │COORDINATOR   │
-          │         │ │         │ │    [NEW]     │
-          │Model:   │ │Model:   │ │              │
-          │claude   │ │gpt-4    │ │Model:        │
-          │sonnet   │ │         │ │claude sonnet │
-          │         │ │         │ │              │
-          │Tools:   │ │Tools:   │ │Detects cross-│
-          │Python   │ │LaTeX    │ │domain        │
-          │analysis │ │IEEE tmpl│ │conflicts     │
-          │Baseline │ │BibTeX   │ │(e.g., SiC    │
-          │compar.  │ │         │ │module too hot│
-          │         │ │         │ │→ triggers    │
-          │         │ │         │ │replan)       │
-          └─────────┘ └─────────┘ └──────────────┘
+```mermaid
+flowchart TD
+    ORCH["RESEARCH ORCHESTRATOR<br/>decompose spec → route → synthesize<br/><i>deepseek-chat; routing confidence C2 (§7)</i>"]
+    ORCH --> LIT
+    ORCH --> TOPO
+    ORCH --> COMP
+    ORCH --> SIM
+    ORCH --> THERM
+    LIT["LIT AGENT<br/><i>claude sonnet</i><br/>arXiv, PaperQA2, WebSearch, PDF<br/>mem: papers DB"]
+    TOPO["TOPOLOGY AGENT [NEW]<br/><i>claude sonnet</i><br/>topology selector, loss calc<br/>mem: topology library"]
+    COMP["COMPONENT AGENT<br/><i>deepseek</i><br/>DigiKey / Octopart API, datasheet<br/>mem: component library"]
+    SIM["SIMULATION AGENT (PLECS)<br/><i>deepseek</i><br/>PLECS XML-RPC / MCP<br/>mem: sim cache"]
+    THERM["THERMAL AGENT [NEW]<br/><i>deepseek</i><br/>CFD-ROM, thermal net, datasheet parser<br/>mem: thermal model library"]
+    LIT --> REV
+    TOPO --> REV
+    COMP --> REV
+    SIM --> REV
+    THERM --> REV
+    REV["REVIEWER AGENT<br/><i>claude sonnet</i><br/>Python analysis, baseline compare"] --> COORD
+    COORD["MULTI-PHYSICS COORDINATOR [NEW]<br/><i>claude sonnet</i><br/>detects cross-domain conflicts<br/>(e.g. SiC module too hot → triggers replan)"] --> RW
+    RW["REPORT WRITER<br/><i>gpt-4</i><br/>LaTeX, IEEE template, BibTeX"]
 ```
 
 **Two new agents justified by 2026 research:**
@@ -188,78 +162,26 @@ The original 5-role system (Orchestrator, Literature, MATLAB, Reviewer, Writer) 
 
 ### 3.3 Workflow State Machine (LangGraph, Expanded)
 
-```
-[START]
-   │
-   ▼
-┌────────────────┐
-│ SPEC_PARSE     │ ← Parse: Vdc, Pout, motor type, topology pref, constraints, drive cycle
-│ [C4: proven]   │
-└───────┬────────┘
-        │
-        ▼
-┌────────────────┐
-│ LIT_REVIEW     │ ← Lit Agent: baseline efficiencies, SOTA for this voltage/power class
-│ [C3: PE-GPT]   │
-└───────┬────────┘
-        │
-        ▼
-┌────────────────┐     ┌──────────────────┐
-│ PLAN_REVIEW    │────▶│ HUMAN_APPROVAL   │ ← Osprey pattern: plan before spend
-│ [C3: Osprey]   │     │ (optional HITL)  │
-└───────┬────────┘     └──────────────────┘
-        │
-        ▼
-┌────────────────┐
-│ TOPOLOGY       │ ← Topology Agent: evaluate 2L-B6, 3L-NPC, 3L-TNPC, ANPC for this spec
-│ SELECT         │    Uses PE-GPT style Model Zoo for rapid first-pass comparison
-│ [C2: new]      │
-└───────┬────────┘
-        │
-        ▼
-┌────────────────┐
-│ COMPONENT      │ ← Component Agent: real parts from DigiKey/Octopart
-│ SELECT         │    Power Circuit AI validated this agent role
-│ [C3: ABB]      │
-└───────┬────────┘
-        │
-        ▼
-┌────────────────┐
-│ MULTI-PHYSICS  │ ← Coordinator: before simulating, check cross-domain constraints
-│ COORDINATION   │    "Does the selected SiC module exceed Tj,max at worst-case?"
-│ [C2: new]      │    "Is the DC-link cap voltage rating sufficient with 20% margin?"
-└───────┬────────┘
-        │
-        ├── conflicts? ──YES──▶ back to COMPONENT or TOPOLOGY
-        │
-        ▼ NO
-┌────────────────┐
-│ SIMULATE       │ ← MATLAB Agent: build model, parameter sweep, validate convergence
-│ [C3: proven]   │    POST-SIM HOOK: validate efficiency ∈ [0,100]%, no NaN/inf
-└───────┬────────┘
-        │
-        ▼
-┌────────────────┐
-│ THERMAL        │ ← Thermal Agent: CFD-ROM or Foster/Cauer network, Tj verification
-│ SIM             │    ThermRAG pattern: datasheet→thermal parameters→simulation
-│ [C3: ThermRAG] │
-└───────┬────────┘
-        │
-        ▼
-┌────────────────┐
-│ ANALYZE        │ ← Reviewer Agent: efficiency vs baseline, THD, EMI, thermal margin
-│ [C3: proven]   │    Multi-perspective: electrical, thermal, EMI, cost
-└───────┬────────┘
-        │
-        ├── converged? (efficiency ≥ target AND Tj < 150°C AND THD < 5%) ──YES──▶ REPORT
-        │
-        └── NO ──▶ replan: which constraint failed? → route to responsible agent
-                       Thermal failure → Thermal Agent
-                       Efficiency gap → Topology Agent (try different topology?)
-                       THD failure → MATLAB Agent (adjust fs, modulation, filter)
-                       Component stress → Component Agent (select higher-rated part)
-
-[REPORT] ← Writer Agent: IEEE-format, all evidence gates closed, design rationale traced
+```mermaid
+flowchart TD
+    START([START]) --> SP["SPEC_PARSE<br/>Vdc, Pout, motor, topology pref, constraints, drive cycle<br/><i>[C4: proven]</i>"]
+    SP --> LR["LIT_REVIEW<br/><i>Lit Agent</i>: baselines, SOTA for class<br/><i>[C3: PE-GPT]</i>"]
+    LR --> PR["PLAN_REVIEW<br/><i>[C3: Osprey]</i>"]
+    PR -.->|"optional HITL"| HA["HUMAN_APPROVAL<br/>plan before spend"]
+    PR --> TS["TOPOLOGY_SELECT<br/><i>Topology Agent</i>: 2L-B6, 3L-NPC, 3L-TNPC, ANPC<br/><i>[C2: new]</i>"]
+    TS --> CS["COMPONENT_SELECT<br/><i>Component Agent</i>: DigiKey / Octopart<br/><i>[C3: ABB]</i>"]
+    CS --> MP{"MULTI-PHYSICS COORDINATION<br/>check cross-domain constraints<br/>(Tj,max? DC-link cap margin?)<br/><i>[C2: new]</i>"}
+    MP -->|conflicts| CS
+    MP -.->|"or re-topologize"| TS
+    MP -->|no conflicts| SIM["SIMULATE<br/><i>Simulation Agent (PLECS)</i>: build, sweep, validate<br/>post-sim hook: η∈[0,100]%, no NaN/inf<br/><i>[C3: proven]</i>"]
+    SIM --> TH["THERMAL_SIM<br/><i>Thermal Agent</i>: CFD-ROM / Foster-Cauer, Tj verify<br/><i>[C3: ThermRAG]</i>"]
+    TH --> AN{"ANALYZE<br/><i>Reviewer Agent</i>: η vs baseline, THD, EMI, thermal margin<br/><i>[C3: proven]</i>"}
+    AN -->|"converged: η≥target, Tj<150°C, THD<5%"| REP["REPORT<br/><i>Writer Agent</i>: IEEE, all evidence gates closed"]
+    REP --> END([END])
+    AN -->|"thermal fail → Thermal Agent"| TH
+    AN -->|"efficiency gap → Topology Agent"| TS
+    AN -->|"THD fail → Simulation Agent"| SIM
+    AN -->|"component stress → Component Agent"| CS
 ```
 
 **Checkpoints at every arrow.** This is 10 state transitions × ~1ms overhead = negligible.
@@ -430,6 +352,6 @@ The original 4-phase plan (2026-07-09) is revised based on fresh evidence:
 
 ---
 
-> **References:** [[citations]] — See also [[ai-agents/multi-agent-synthesis]] for the foundational multi-agent analysis, [[sources/ai-agents/pe-mas-flyback-mas]] for closest prior art, [[power-electronics/problem-statement/problem-statement-index]] for domain motivation.
+> **References:** [[citations]] — See also [[ai-agents/multi-agent-synthesis]] for the foundational multi-agent analysis, [[sources/ai-agents/pe-mas-flyback-mas]] for closest prior art, [[problem-statement/problem-statement-index]] for domain motivation.
 
-← [[ai-agents/multi-agent-synthesis]] | [[project/plans/ai-agent-mas-plan]] →
+← [[ai-agents/multi-agent-synthesis]] | [[ai-agent-mas-plan]] →

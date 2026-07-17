@@ -250,6 +250,41 @@ The interface between power module baseplate and heatsink:
 
 ---
 
+## 7. 2025–2026 Semiconductor Landscape (consolidated)
+
+> Consolidated here from the former `topology-landscape-2025-2026` note (2026-07-17 audit). Dated market/product data — reliability tags are the capturing sources', not verified against primary datasheets. `[T]`/vendor-claim caveats apply; see Red Team.
+
+### 7.1 SiC vs GaN vs Si IGBT (2025–2026 snapshot)
+
+| Parameter | Si IGBT | SiC MOSFET | GaN HEMT |
+|-----------|---------|------------|----------|
+| Peak efficiency (traction) | ~97% | >99% | 99.67% (VisIC claim) |
+| Switching frequency | 10–20 kHz | 20–100 kHz | 100–500 kHz |
+| Voltage rating | 600–1200V | 1200–1700V | 650–900V (Gen3); 1350V (Gen4 planned) |
+| Thermal conductivity | ~150 W/m·K | 370–490 W/m·K | ~130–150 W/m·K (GaN-on-Si) |
+| Max junction temp | 175 °C | 200 °C | ~150–175 °C |
+| Cost trend | stable/declining | −20–30%/yr | potentially < SiC at scale |
+| Main-drive maturity | mature | production-proven | emerging (2026 target) |
+
+*Sources: Infineon HybridPACK Drive G2 datasheets [High]; Kynix SiC-vs-GaN guide 2026 [Medium]; VisIC announcements Jan 2026 [Medium]; Semiconductor Today — Navitas AEC-Plus May 2025 [High].*
+
+- **SiC products:** Infineon HybridPACK Drive G2 CoolSiC — 750V/620A and 1200V/390A, up to 300 kW, Rds(on) ~1.03 mΩ (750V) / ~1.90 mΩ (1200V), Tj 175 °C cont / 190 °C peak; Navitas "AEC-Plus" SiC (May 2025), 650V/1200V, 2× the AEC-Q101 power-cycling requirement [89]. SiC penetration forecast ~70% of EV inverters by 2027 (analyst, `motivated`).
+- **GaN for traction (emerging):** VisIC D3GaN claims 99.67% peak at 400V; thermal bottleneck (~⅓ SiC thermal conductivity), high dv/dt on motor insulation [87], dynamic Rds(on), short-circuit concerns. Hyundai/Kia strategic investment in VisIC (Jan 2026); D3GaN ~$0.0065/A vs ~$0.0074/A SiC; 1200/1350V Gen4 roadmap; mass-production target Q4 2026; NXP GD317x gate drivers.
+
+### 7.2 "SiC AND GaN" Coexistence (2026+)
+
+| Function | Preferred device | Rationale |
+|----------|------------------|-----------|
+| Traction, 800V/>900V | SiC MOSFET | thermal endurance, avalanche ruggedness, motor-insulation compatibility |
+| Traction, 400V | SiC or D-Mode GaN | SiC dominant; GaN emerging via VisIC |
+| On-board charger | GaN HEMT | HF shrinks magnetics ~3× |
+| DC-DC | GaN HEMT | 100V AEC-Q101; 30–60% passive reduction |
+| Aux / 48V | GaN or Si MOSFET | low-power, space-constrained |
+
+*Sources: TrendForce Q1 2026 [High]; Kynix 2026 [Medium]; VisIC Jan 2026 [Medium].* Cross-refs: [[power-electronics/traction-inverter/circuit-topologies]] §7 (topology adoption), [[power-electronics/traction-inverter/traction-inverter-index]] (market).
+
+---
+
 > **References:** [[citations]]
 
 ## Red Team

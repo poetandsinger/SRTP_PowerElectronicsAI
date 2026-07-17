@@ -17,36 +17,19 @@ Unlike coding-specific agents (Claude Code, OpenCode, Codex), Hermes is a **gene
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      HERMES AGENT CORE                       │
-│                                                              │
-│  ┌──────────┐  ┌───────────┐  ┌──────────┐  ┌───────────┐  │
-│  │  Skills  │  │  Memory   │  │  Tools   │  │  Cron     │  │
-│  │  System  │  │  System   │  │  System  │  │  Scheduler│  │
-│  └────┬─────┘  └─────┬─────┘  └────┬─────┘  └─────┬─────┘  │
-│       │              │              │               │        │
-│  ┌────▼──────────────▼──────────────▼───────────────▼────┐  │
-│  │                   AGENT LOOP (run_agent.py)           │  │
-│  │  Build prompt → Call LLM → Dispatch tools → Repeat    │  │
-│  │  Context compression at token threshold               │  │
-│  └────────────────────────┬─────────────────────────────┘  │
-│                           │                                  │
-│  ┌────────────────────────▼─────────────────────────────┐  │
-│  │              TOOL DISPATCH (model_tools.py)           │  │
-│  │  Toolset filtering → Schema generation → Handler call │  │
-│  └────────────────────────┬─────────────────────────────┘  │
-│                           │                                  │
-│  ┌────────────────────────▼─────────────────────────────┐  │
-│  │                   SURFACE LAYER                       │  │
-│  │  CLI │ TUI │ Desktop (Electron) │ Web Dashboard │ ACP │  │
-│  └──────────────────────────────────────────────────────┘  │
-│                                                              │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │              GATEWAY (Messaging Platforms)             │  │
-│  │  Telegram │ Discord │ Slack │ WhatsApp │ iMessage │ … │  │
-│  └──────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph HC["HERMES AGENT CORE"]
+        direction TB
+        SK[Skills System] --> AL
+        MM[Memory System] --> AL
+        TL[Tools System] --> AL
+        CR[Cron Scheduler] --> AL
+        AL["AGENT LOOP (run_agent.py)<br/>build prompt → call LLM → dispatch tools → repeat<br/>context compression at token threshold"]
+        AL --> TD["TOOL DISPATCH (model_tools.py)<br/>toolset filtering → schema generation → handler call"]
+        TD --> SL["SURFACE LAYER<br/>CLI | TUI | Desktop (Electron) | Web Dashboard | ACP"]
+        SL --> GW["GATEWAY (messaging platforms)<br/>Telegram | Discord | Slack | WhatsApp | iMessage | …"]
+    end
 ```
 
 ### Agent Loop (`run_agent.py`)
@@ -154,27 +137,16 @@ Same agent core drives: CLI, Ink TUI, Electron desktop app, web dashboard, ACP s
 ## Architecture Patterns Relevant to Our Project
 
 ### Pattern 1: Research Pipeline via Cron + Skills
-```
-┌─────────────┐    ┌──────────────┐    ┌─────────────┐
-│ Cron: Daily │ →  │ Skill: Run   │ →  │ Memory:     │
-│ Literature  │    │ MATLAB sim   │    │ Store       │
-│ Scan        │    │ on new params│    │ Results     │
-└─────────────┘    └──────────────┘    └─────────────┘
+```mermaid
+flowchart LR
+    A["Cron: daily<br/>literature scan"] --> B["Skill: run PLECS sim<br/>on new params"] --> C["Memory:<br/>store results"]
 ```
 
 ### Pattern 2: Multi-Agent Research via Delegation
-```
-┌──────────────────┐
-│ Orchestrator     │
-│ (Research Lead)  │
-└──┬───────┬───────┘
-   │       │
-   ▼       ▼
-┌──────┐ ┌──────────┐
-│Sim   │ │Reviewer  │
-│Agent │ │Agent     │
-│MATLAB│ │Validate  │
-└──────┘ └──────────┘
+```mermaid
+flowchart TD
+    O["Orchestrator<br/>(Research Lead)"] --> S["Sim Agent<br/>(PLECS)"]
+    O --> R["Reviewer Agent<br/>(validate)"]
 ```
 
 

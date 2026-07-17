@@ -22,15 +22,16 @@ Folder names are self-explanatory. The folder a note lives in **is** its `field`
 
 | Folder | `field` value | Holds |
 |--------|---------------|-------|
-| `power-electronics/` | `power-electronics` | Traction inverter design: topologies, semiconductors (SiC/GaN/Si), modulation, thermal, control, MATLAB modeling |
+| `power-electronics/` | `power-electronics` | Traction-inverter **engineering** textbook: topologies, semiconductors/materials, control, design procedure & schematics, thermal, gate-drive, protection, EMI, packaging, BOM/prices, reference designs, manufacturing/test, reliability, PLECS validation, standards. (Simulator = PLECS; MATLAB dropped.) |
 | `ai-agents/` | `ai-agents` | AI agent architectures: Claude Code, Codex CLI, OpenCode, Hermes, LangGraph, CrewAI, AutoGen, research agents, MAS patterns |
 | `sources/<field>/` | matches subfolder | Immutable raw captures of one paper/source each |
 | `maps/` | matches the map's subject | Navigation hubs (field and topic indexes) |
-| `project/` | `project` | Operational docs: implementation plans, changelog |
+| `problem-statement/` | `problem-statement` | Project motivation & preface: why AI for traction inverter design, market context, competitive landscape (kept out of the engineering folders) |
+| `project/` | `project` | Operational docs: implementation plans (a **hub** `ai-agent-mas-plan` + topic files, split by subsystem — not by phase), changelog |
 | `audits/` | `project` | Lint reports and self-audits of the vault |
 | root (`/`) | `root` | Singletons: `README`, `SCHEMA`, `catalog`, `citations` |
 
-Field content notes (`claim`, `topic`, `source`) live **only** under `power-electronics/`, `ai-agents/`, or `sources/`.
+Field content notes (`claim`, `topic`, `source`) live **only** under `power-electronics/`, `ai-agents/`, `sources/`, or `problem-statement/`. Keep `power-electronics/` to traction-inverter **engineering** (build manual); motivation/market/preface goes in `problem-statement/`.
 
 ---
 
@@ -152,8 +153,9 @@ Every tag on a note must exist here. Add to this list first, then use.
 - **Thermal:** `thermal`, `heatsink`, `junction-temperature`, `cooling`, `thermal-resistance`
 - **Control:** `foc`, `dtc`, `sliding-mode`, `observer`, `sensorless`, `pi-control`
 - **Performance:** `efficiency`, `thd`, `ripple`, `emi`, `power-factor`, `dvdt`, `switching-loss`
-- **Standards:** `ieee`, `iec`, `iso`, `mil-std`, `aec-q`
+- **Standards:** `ieee`, `iec`, `iso`, `mil-std`, `aec-q`, `standards`
 - **Domain:** `traction-inverter`, `market-research`
+- **Design:** `design`, `reference-design`, `schematic`, `bom`, `sizing`, `busbar`, `protection`, `packaging`, `example`, `trade-off`, `reliability`
 - **Method:** `tuning`
 
 ### AI / Agent Architecture

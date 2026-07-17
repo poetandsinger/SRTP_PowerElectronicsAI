@@ -1,22 +1,20 @@
 ---
-title: "Traction Inverter Standards Landscape — 2025-2026"
+title: "Standards & Compliance"
 type: topic
 field: power-electronics
 created: 2026-07-10
-updated: 2026-07-10
+updated: 2026-07-17
 status: unverified
 evidence: single-study
-tags: [power-electronics, ieee, iec, iso, standards, aec-q, cispr-25, functional-safety, review]
-sources:
-  - power-electronics/traction-inverter/research-synthesis-2025-2026
-review_by: 2026-08-10
+tags: [power-electronics, ieee, iec, iso, aec-q, review]
+review_by: 2026-10-17
 ---
 
-# Traction Inverter Standards Landscape — 2025-2026
+# Standards & Compliance
 
-> Extracted from [[power-electronics/traction-inverter/research-synthesis-2025-2026|Research Synthesis 2025-2026]].
+> The standards a traction inverter must meet — safety, functional safety, EMC, device qualification — and what each one requires of the design. Standards are cited by designation; the texts are paywalled and not read in full [85][86][87][88][89].
 
-## 5. Standards Landscape
+## Standards Landscape
 
 ### 5.1 Core Standards for Traction Inverter Design
 
