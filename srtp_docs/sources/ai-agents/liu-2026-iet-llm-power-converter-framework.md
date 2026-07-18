@@ -26,11 +26,11 @@ reliability_note: "Peer-reviewed in IET Power Electronics (2026). Captured from 
 - **Accessibility framing:** targets non-expert users driving converter design from text (echoes PHIA's >33× design-time-reduction user-study motivation).
 
 ## Relevance / how SRTP should read it
-- **Confirms the encoding boundary.** SRTP's decision to use *validated per-topology PLECS templates + `ModelVars`/XML-injection* ([[ai-agents/harness/plecs-integration]]) is the low-risk instance of this paper's "universal encoding." A universal encoder is more ambitious (and more failure-prone) than SRTP needs — keep the template path, treat universal encoding as a **stretch/again-later** idea, not a Phase-0 dependency.
-- **Design→verify loop is field-standard.** Reinforces the [[ai-agents/design-loop-architecture]] finding that a bare PLAN→DESIGN→VALIDATE single pass is under-specified; the published systems all close a generate→simulate→check loop.
-- **Same author line as PE-GPT / PHIA** ([[sources/ai-agents/pe-gpt-2025-multimodal-pe-design]], [[sources/ai-agents/phia-lpcomda-2026-physics-informed-pe-agent]]) — weigh the `motivated` flag; this is one group iterating on its own paradigm, not independent replication.
+- **Confirms the encoding boundary.** SRTP's decision to use *validated per-topology PLECS templates + `ModelVars`/XML-injection* ([[plecs-integration]]) is the low-risk instance of this paper's "universal encoding." A universal encoder is more ambitious (and more failure-prone) than SRTP needs — keep the template path, treat universal encoding as a **stretch/again-later** idea, not a Phase-0 dependency.
+- **Design→verify loop is field-standard.** Reinforces the [[design-loop-architecture]] finding that a bare PLAN→DESIGN→VALIDATE single pass is under-specified; the published systems all close a generate→simulate→check loop.
+- **Same author line as PE-GPT / PHIA** ([[pe-gpt-2025-multimodal-pe-design]], [[phia-lpcomda-2026-physics-informed-pe-agent]]) — weigh the `motivated` flag; this is one group iterating on its own paradigm, not independent replication.
 
 ## Caveats
 Captured from abstract/index only (full text paywalled at capture). Do **not** cite specific quantitative claims until the PDF is read. Converter-class, not traction inverter — pattern evidence (C3), not domain proof. **To verify:** obtain the PDF, confirm the encoding scheme and whether any multi-agent decomposition is used, and record measured cost/accuracy.
 
-← [[ai-agents/harness/harness-index]] | [[ai-agents/design-loop-architecture]] | [[sources/ai-agents/phia-lpcomda-2026-physics-informed-pe-agent]]
+← [[harness-index]] | [[design-loop-architecture]] | [[phia-lpcomda-2026-physics-informed-pe-agent]]

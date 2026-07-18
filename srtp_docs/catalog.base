@@ -17,6 +17,8 @@ properties:
     displayName: Peer-reviewed
   review_by:
     displayName: Review by
+  file.folder:
+    displayName: Stage
 views:
   - type: table
     name: All notes by field
@@ -29,6 +31,19 @@ views:
       - status
       - evidence
       - file.folder
+    sort:
+      - property: type
+        direction: ASC
+  - type: table
+    name: By stage
+    groupBy:
+      property: file.folder
+      direction: ASC
+    order:
+      - file.name
+      - field
+      - type
+      - status
   - type: table
     name: Claims & topics
     filters:

@@ -17,39 +17,39 @@ tags: [index, ieee]
 
 ## Agent Harnesses — Operational Platforms
 
-### Hermes Agent — [[ai-agents/harness/hermes-agent]]
+### Hermes Agent — [[hermes-agent]]
 - [1] Nous Research. (2025–2026). *Hermes Agent*. GitHub. https://github.com/NousResearch/hermes-agent — **MIT**
 - [2] Nous Research. (2025–2026). *Hermes Agent Docs*. https://hermes-agent.nousresearch.com/docs/
 
-### Claude Code — [[ai-agents/harness/claude-code]]
+### Claude Code — [[claude-code]]
 - [3] Anthropic. (2025–2026). *Claude Code*. GitHub. https://github.com/anthropics/claude-code — **Proprietary**
 - [4] Anthropic. (2025–2026). *Claude Code CLI Reference*. https://code.claude.com/docs/en/cli-reference
 
-### OpenCode — [[ai-agents/harness/opencode]]
+### OpenCode — [[opencode]]
 - [5] AnomalyCo. (2025–2026). *OpenCode*. GitHub. https://github.com/anomalyco/opencode — **MIT**
 
-### Codex CLI — [[ai-agents/harness/codex-cli]]
+### Codex CLI — [[codex-cli]]
 - [6] OpenAI. (2025–2026). *Codex CLI*. GitHub. https://github.com/openai/codex — **Apache 2.0**
 
 ---
 
 ## Agent Frameworks — Libraries
 
-### LangGraph — [[ai-agents/harness/langgraph]]
+### LangGraph — [[langgraph]]
 - [7] LangChain. (2024–2026). *LangGraph*. GitHub. https://github.com/langchain-ai/langgraph — **MIT**
 - [8] LangChain. (2024–2026). *LangGraph Docs*. https://langchain-ai.github.io/langgraph/
 
-### CrewAI — [[ai-agents/harness/crewai]]
+### CrewAI — [[crewai]]
 - [9] CrewAI. (2024–2026). *CrewAI*. GitHub. https://github.com/crewAIInc/crewAI — **MIT**
 
-### AutoGen — [[ai-agents/harness/autogen]]
+### AutoGen — [[autogen]]
 - [10] Microsoft. (2023–2026). *AutoGen*. GitHub. https://github.com/microsoft/autogen — **CC-BY-4.0**
   — ⚠️ Maintenance mode since v0.7.5 (Sept 2025). Microsoft recommends Microsoft Agent Framework (MAF) for new projects.
 
 ### LangChain
 - [11] LangChain. (2023–2026). *LangChain*. GitHub. https://github.com/langchain-ai/langchain — **MIT**
 
-### smolagents — [[ai-agents/harness/research-agents]]
+### smolagents — [[research-agents]]
 - [12] HuggingFace. (2025–2026). *smolagents*. GitHub. https://github.com/huggingface/smolagents — **Apache 2.0**
 
 ### Others
@@ -64,7 +64,7 @@ tags: [index, ieee]
 
 ---
 
-## Research-Specific Agents — [[ai-agents/harness/research-agents]]
+## Research-Specific Agents — [[research-agents]]
 - [17] FutureHouse. (2024–2026). *PaperQA2*. GitHub. https://github.com/Future-House/paper-qa — **Apache 2.0**
 - [18] GPT Researcher. (2024–2026). *GPT Researcher*. GitHub. https://github.com/assafelovic/gpt-researcher — **Apache 2.0**
 - [19] Stanford OVAL. (2024–2026). *STORM*. GitHub. https://github.com/stanford-oval/storm — **MIT**
@@ -91,15 +91,15 @@ tags: [index, ieee]
 ### Industry / Standards / Documentation
 
 - [26] **MathWorks**, "Get Started with MATLAB Engine API for Python," *MATLAB Documentation*, R2026a. https://www.mathworks.com/help/matlab/matlab_external/get-started-with-matlab-engine-for-python.html
-- [28] **C. Sachs and M. Neuburger**, "A Data-Based Review of Battery Electric Vehicle and Traction Inverter Trends," *arXiv:2508.14224v1*, Aug. 2025. [[sources/power-electronics/sachs-neuburger-2025-3l-tnpc]]
+- [28] **C. Sachs and M. Neuburger**, "A Data-Based Review of Battery Electric Vehicle and Traction Inverter Trends," *arXiv:2508.14224v1*, Aug. 2025. [[sachs-neuburger-2025-3l-tnpc]]
 - [29] **Yole Group**, "Power SiC Market Report," 2024. https://www.yolegroup.com/product/report/power-sic-market-report/ — Paywalled; public summaries cite automotive SiC ~$2B (2024) → >$6B (2029).
 - [30] **J. G. Hayes and G. A. Goodarzi**, *Electric Powertrain: Energy Systems, Power Electronics and Drives for Hybrid, Electric and Fuel Cell Vehicles*, Wiley, 2017. ISBN 978-1119063643.
-- [43] **C. Sachs, F. Stamer, J. Allgeier, D. Thrimawithana, and M. Neuburger**, "Optimization-Based Comparative System Evaluation of Single and Dual Traction Inverters with Focus on Partial Load Efficiency and Chip Area," in *Proc. IEEE ECCE*, 2024. DOI: 10.1109/ECCE55643.2024.10861318. [[sources/power-electronics/sachs-etal-2025-single-dual-inverter]]
-- [44] **M. Cacciato, G. Aiello, F. Gennaro, S. Mita, D. Patti, G. Scelba, and A. Sujeeth**, "Power Loss Modelling of GaN HEMT based 3L ANPC Three Phase Inverter for different PWM Techniques," in *Proc. IEEE EPE ECCE Europe*, 2022. arXiv:2212.05246v1. [[sources/power-electronics/cacciato-etal-2022-gan-anpc]]
-- [45] **Y. Zuo, Y. Yu, J. Yang, and W.-H. Chen**, "Auto-Optimized Maximum Torque Per Ampere Control of IPMSM Using Dual Control for Exploration and Exploitation," *arXiv:2404.18176v1*, Apr. 2024. [[sources/power-electronics/zuo-etal-2024-mtpa-dcee]]
+- [43] **C. Sachs, F. Stamer, J. Allgeier, D. Thrimawithana, and M. Neuburger**, "Optimization-Based Comparative System Evaluation of Single and Dual Traction Inverters with Focus on Partial Load Efficiency and Chip Area," in *Proc. IEEE ECCE*, 2024. DOI: 10.1109/ECCE55643.2024.10861318. [[sachs-etal-2025-single-dual-inverter]]
+- [44] **M. Cacciato, G. Aiello, F. Gennaro, S. Mita, D. Patti, G. Scelba, and A. Sujeeth**, "Power Loss Modelling of GaN HEMT based 3L ANPC Three Phase Inverter for different PWM Techniques," in *Proc. IEEE EPE ECCE Europe*, 2022. arXiv:2212.05246v1. [[cacciato-etal-2022-gan-anpc]]
+- [45] **Y. Zuo, Y. Yu, J. Yang, and W.-H. Chen**, "Auto-Optimized Maximum Torque Per Ampere Control of IPMSM Using Dual Control for Exploration and Exploitation," *arXiv:2404.18176v1*, Apr. 2024. [[zuo-etal-2024-mtpa-dcee]]
 - [51] **MathWorks**, "Embedded Coder — Generate C and C++ Code from Simulink and MATLAB," *Simulink Documentation*, R2026a. https://www.mathworks.com/products/embedded-coder.html
 - [54] **A. von Jouanne, D. Rendusara, P. Enjeti, and W. Gray**, "Filtering Techniques to Minimize the Effect of Long Motor Leads on PWM Inverter-Fed AC Motor Drive Systems," *IEEE Trans. Ind. Appl.*, vol. 32, no. 4, pp. 919–926, Jul./Aug. 1996. DOI: 10.1109/28.511650
-- [55] **S. Pimpale and S. Mahadik**, "Active Short Circuit and Safe Discharge Mechanisms in Multi-Phase Inverters During Critical Failures," *arXiv:2511.08405v1*, Nov. 2025. [[sources/power-electronics/pimpale-mahadik-2025-asc-discharge]]
+- [55] **S. Pimpale and S. Mahadik**, "Active Short Circuit and Safe Discharge Mechanisms in Multi-Phase Inverters During Critical Failures," *arXiv:2511.08405v1*, Nov. 2025. [[pimpale-mahadik-2025-asc-discharge]]
 - [56] **IEC CISPR 25**, "Vehicles, boats and internal combustion engines — Radio disturbance characteristics — Limits and methods of measurement for the protection of on-board receivers," Ed. 5.0, 2021. — Standard document, not freely accessible.
 - [58] **Plexim GmbH**, "PLECS — Piecewise Linear Electrical Circuit Simulation," Product Documentation, 2024. https://www.plexim.com/support
 
@@ -139,26 +139,26 @@ tags: [index, ieee]
 
 ### Peer-Reviewed Papers
 
-- [59] **Khan, Khan, Sharif, Yasmin**, "Beyond Single-Framework Architectures: A Systematic Evaluation and Hybrid Design for Scalable Multi-Agent Coordination," *IEEE Access*, vol. 14, pp. 59688–59705, Apr. 2026. DOI: 10.1109/ACCESS.2026.3555705. — Hybrid LangGraph-CrewAI: 96.1% success rate, 76.2% token reduction. [[sources/ai-agents/hybrid-langgraph-crewai-2026-ieee]]
-- [60] **PE-GPT (multi-institution)**, "A New Paradigm for Power Electronics Design," *IEEE Trans. Ind. Electron.*, vol. 72, Apr. 2025. DOI: 10.1109/TIE.2024.3454408. — LLM agent 22.2% better than human experts on PE design. [[sources/ai-agents/pe-gpt-2025-multimodal-pe-design]]
-- [61] **AgenticTCAD (multi-institution)**, "Multi-Agent LLM Framework for Semiconductor TCAD Simulation and Design," in *Proc. DATE*, 2026. arXiv:2512.23742. — 40× speedup on 2nm semiconductor design. [[sources/ai-agents/agentic-tcad-2026-date]]
-- [62] **ThermRAG**, "A Multimodal Knowledge-Enhanced Agent for Power Electronics Thermal Design," *IEEE*, 2025. DOI: IEEE Xplore 11516791. [[sources/ai-agents/thermrag-2025-pe-thermal-agent]]
-- [63] **C. Zhang and R. Negri**, "AI-Assisted Multi-Physics Evaluation of Mission Profile-Based Traction Inverter Design for Sustainability," *World Electr. Veh. J.*, 2026. DOI: 10.3390/wevj17010020. [[sources/power-electronics/zhang-negri-2026-ai-multiphysics-sustainability]]
-- [64] **Y. Yue, G. Zhang, B. Liu, G. Wan, K. Wang, D. Cheng, and Y. Qi**, "MasRouter: Learning to Route LLMs for Multi-Agent Systems," *arXiv:2502.11133v1*, Feb. 2025. [[sources/ai-agents/masrouter-2025-llm-routing]]
-- [65] **S. Yuan, K. Song, J. Chen, X. Tan, D. Li, and D. Yang**, "EvoAgent: Towards Automatic Multi-Agent Generation via Evolutionary Algorithms," in *Proc. NAACL*, 2025. arXiv:2406.14228v3. [[sources/ai-agents/evoagent-2025-evolutionary-delegation]]
+- [59] **Khan, Khan, Sharif, Yasmin**, "Beyond Single-Framework Architectures: A Systematic Evaluation and Hybrid Design for Scalable Multi-Agent Coordination," *IEEE Access*, vol. 14, pp. 59688–59705, Apr. 2026. DOI: 10.1109/ACCESS.2026.3555705. — Hybrid LangGraph-CrewAI: 96.1% success rate, 76.2% token reduction. [[hybrid-langgraph-crewai-2026-ieee]]
+- [60] **PE-GPT (multi-institution)**, "A New Paradigm for Power Electronics Design," *IEEE Trans. Ind. Electron.*, vol. 72, Apr. 2025. DOI: 10.1109/TIE.2024.3454408. — LLM agent 22.2% better than human experts on PE design. [[pe-gpt-2025-multimodal-pe-design]]
+- [61] **AgenticTCAD (multi-institution)**, "Multi-Agent LLM Framework for Semiconductor TCAD Simulation and Design," in *Proc. DATE*, 2026. arXiv:2512.23742. — 40× speedup on 2nm semiconductor design. [[agentic-tcad-2026-date]]
+- [62] **ThermRAG**, "A Multimodal Knowledge-Enhanced Agent for Power Electronics Thermal Design," *IEEE*, 2025. DOI: IEEE Xplore 11516791. [[thermrag-2025-pe-thermal-agent]]
+- [63] **C. Zhang and R. Negri**, "AI-Assisted Multi-Physics Evaluation of Mission Profile-Based Traction Inverter Design for Sustainability," *World Electr. Veh. J.*, 2026. DOI: 10.3390/wevj17010020. [[zhang-negri-2026-ai-multiphysics-sustainability]]
+- [64] **Y. Yue, G. Zhang, B. Liu, G. Wan, K. Wang, D. Cheng, and Y. Qi**, "MasRouter: Learning to Route LLMs for Multi-Agent Systems," *arXiv:2502.11133v1*, Feb. 2025. [[masrouter-2025-llm-routing]]
+- [65] **S. Yuan, K. Song, J. Chen, X. Tan, D. Li, and D. Yang**, "EvoAgent: Towards Automatic Multi-Agent Generation via Evolutionary Algorithms," in *Proc. NAACL*, 2025. arXiv:2406.14228v3. [[evoagent-2025-evolutionary-delegation]]
 - [66] **VeriAgent**, "Evolved Memory for Multi-Agent RTL Code Generation," *arXiv:2603.17613*, 2026. — 3-agent generate-verify-optimize with evolving memory. [Source note pending]
 
 ### Preprints & Industry
 
-- [67] **Power Circuit AI (ABB Inc.)**, "Designing Power Electronic Circuits for Motor Drives with Generative AI," *engrXiv*, Apr. 2026. DOI: 10.31224/6706. [[sources/ai-agents/power-circuit-ai-2026-abb-mas-pcb]]
-- [68] **DRCY (AllSpice)**, "Multi-Agent System for Schematic Connection Review Against Datasheets," *arXiv:2603.15672*, 2026. [[sources/ai-agents/drcy-2026-allspice-mas-review]]
-- [69] **Y. Schneider (Diagrid)**, "Why Checkpoints Aren't Durable Execution," *Diagrid Blog*, Feb. 2026. https://www.diagrid.io/blog/checkpoints-are-not-durable-execution-why-langgraph-crewai-google-adk-and-others-fall-short-for-production-agent-workflows [[sources/ai-agents/langgraph-production-gaps-2026-diagrid]]
-- [70] **Multi-Agent LLM Control Framework**, "Six-Agent Architecture for Power Electronics Control Design," *EmergentMind*, Jan. 2026. https://www.emergentmind.com/topics/multi-agent-llm-control [[sources/ai-agents/multi-agent-llm-control-2026-pe]]
+- [67] **Power Circuit AI (ABB Inc.)**, "Designing Power Electronic Circuits for Motor Drives with Generative AI," *engrXiv*, Apr. 2026. DOI: 10.31224/6706. [[power-circuit-ai-2026-abb-mas-pcb]]
+- [68] **DRCY (AllSpice)**, "Multi-Agent System for Schematic Connection Review Against Datasheets," *arXiv:2603.15672*, 2026. [[drcy-2026-allspice-mas-review]]
+- [69] **Y. Schneider (Diagrid)**, "Why Checkpoints Aren't Durable Execution," *Diagrid Blog*, Feb. 2026. https://www.diagrid.io/blog/checkpoints-are-not-durable-execution-why-langgraph-crewai-google-adk-and-others-fall-short-for-production-agent-workflows [[langgraph-production-gaps-2026-diagrid]]
+- [70] **Multi-Agent LLM Control Framework**, "Six-Agent Architecture for Power Electronics Control Design," *EmergentMind*, Jan. 2026. https://www.emergentmind.com/topics/multi-agent-llm-control [[multi-agent-llm-control-2026-pe]]
 
 ### Open-Source Tools
 
-- [71] **cognitohazard**, "ltspice-mcp: MCP Server for LTspice/ngspice Simulation," *GitHub*, 2026. https://github.com/cognitohazard/ltspice-mcp — **GPL-3.0**. 51 MCP tools. Cloned 2026-07-10. [[sources/ai-agents/ltspice-mcp-2026]]
-- [72] **spongelovesorange**, "PE-MAS: Power Electronics Multi-Agent Design Studio," *GitHub*, 2026. https://github.com/spongelovesorange/PE-MAS — LangGraph MAS for flyback converter design. [[sources/ai-agents/pe-mas-flyback-mas]]
+- [71] **cognitohazard**, "ltspice-mcp: MCP Server for LTspice/ngspice Simulation," *GitHub*, 2026. https://github.com/cognitohazard/ltspice-mcp — **GPL-3.0**. 51 MCP tools. Cloned 2026-07-10. [[ltspice-mcp-2026]]
+- [72] **spongelovesorange**, "PE-MAS: Power Electronics Multi-Agent Design Studio," *GitHub*, 2026. https://github.com/spongelovesorange/PE-MAS — LangGraph MAS for flyback converter design. [[pe-mas-flyback-mas]]
 
 ### Engineering AI Benchmarks & Cost Optimization
 
@@ -176,24 +176,24 @@ tags: [index, ieee]
 ## 2026-07-17 Research Pass — PLECS Pivot & Fresh MAS SOTA
 
 ### PLECS as the simulation backend
-- [78] **Plexim GmbH**, "Simulation Scripts — XML-RPC/JSON-RPC Interface," *PLECS 5.0 Documentation*, 2024. https://docs.plexim.com/plecs/5.0/scripting/ — scriptable backend replacing MATLAB Engine API. [[sources/ai-agents/plecs-xmlrpc-scripting-interface]]
-- [79] **M. Ordonez**, "How I Wired PLECS to an AI Coding Agent, And What I Actually Learned," *Substack (polyaxyellowbox)*, 2026. https://polyaxyellowbox.substack.com/p/how-i-wired-plecs-to-an-ai-coding — direct AI+PLECS prior art: capability boundary + token economics. [[sources/ai-agents/plecs-ai-agent-integration-ordonez]]
+- [78] **Plexim GmbH**, "Simulation Scripts — XML-RPC/JSON-RPC Interface," *PLECS 5.0 Documentation*, 2024. https://docs.plexim.com/plecs/5.0/scripting/ — scriptable backend replacing MATLAB Engine API. [[plecs-xmlrpc-scripting-interface]]
+- [79] **M. Ordonez**, "How I Wired PLECS to an AI Coding Agent, And What I Actually Learned," *Substack (polyaxyellowbox)*, 2026. https://polyaxyellowbox.substack.com/p/how-i-wired-plecs-to-an-ai-coding — direct AI+PLECS prior art: capability boundary + token economics. [[plecs-ai-agent-integration-ordonez]]
 - [80] **Plexim GmbH**, "Electric Machines (PMSM, Induction Machine) & FOC Demo Models," *PLECS Application Examples*, 2024–2026. https://www.plexim.com/support/application-examples/electric-machines — native motor-drive models (closes gap G1).
 
 ### Fresh multi-agent SOTA (power electronics + EDA)
-- [81] **J. Liu, F. Lin, X. Li, K. H. Lim, S. Zhao**, "PHIA / LP-COMDA: Physics-Informed LLM-Agent for Automated Modulation Design in Power Electronics," in *Proc. AAAI*, 2026. arXiv:2411.14214. — physics-informed low-data (~10-sample) surrogates; >33× design-time reduction (closes gap G2). [[sources/ai-agents/phia-lpcomda-2026-physics-informed-pe-agent]]
-- [82] **Z. Wang, J. Gao, W. Fu, X. Guo, X. Zhang**, "AnalogSAGE: Self-evolving Analog Design Multi-Agents with Stratified Memory and Grounded Experience," *arXiv:2512.22435*, Dec. 2025. — 3-stage topology→refine→param-opt + stratified self-evolving memory + literature-RAG. [[sources/ai-agents/analogsage-2025-self-evolving-analog-mas]]
+- [81] **J. Liu, F. Lin, X. Li, K. H. Lim, S. Zhao**, "PHIA / LP-COMDA: Physics-Informed LLM-Agent for Automated Modulation Design in Power Electronics," in *Proc. AAAI*, 2026. arXiv:2411.14214. — physics-informed low-data (~10-sample) surrogates; >33× design-time reduction (closes gap G2). [[phia-lpcomda-2026-physics-informed-pe-agent]]
+- [82] **Z. Wang, J. Gao, W. Fu, X. Guo, X. Zhang**, "AnalogSAGE: Self-evolving Analog Design Multi-Agents with Stratified Memory and Grounded Experience," *arXiv:2512.22435*, Dec. 2025. — 3-stage topology→refine→param-opt + stratified self-evolving memory + literature-RAG. [[analogsage-2025-self-evolving-analog-mas]]
 
 ### Framework currency (mid-2026)
-- [83] LangChain, Microsoft, CrewAI (docs) + ACL 2026 comparison surveys — LangGraph 1.0 durable execution; Microsoft Agent Framework 1.0 (native MCP/A2A, AutoGen successor); CrewAI 1.14. [[sources/ai-agents/agent-frameworks-2026-currency]]
+- [83] LangChain, Microsoft, CrewAI (docs) + ACL 2026 comparison surveys — LangGraph 1.0 durable execution; Microsoft Agent Framework 1.0 (native MCP/A2A, AutoGen successor); CrewAI 1.14. [[agent-frameworks-2026-currency]]
 
 ---
 
 ## 2026-07-17 Design KB Pass — Sizing, Gate-Drive & Automotive Standards
 
-> Added to ground the traction-inverter **design cluster**: [[power-electronics/traction-inverter/design-procedure]], [[power-electronics/traction-inverter/schematics]], [[power-electronics/traction-inverter/bom]], [[power-electronics/traction-inverter/reference-design-2l-b6-sic-800v]]. Standards are cited by designation; the standards texts themselves are paywalled and were not read in full — claims tied to them are scoped to widely-documented summaries.
+> Added to ground the traction-inverter **design cluster**: [[design-procedure]], [[schematics]], [[bom]], [[reference-design-2l-b6-sic-800v]]. Standards are cited by designation; the standards texts themselves are paywalled and were not read in full — claims tied to them are scoped to widely-documented summaries.
 
-- [84] **J. W. Kolar and S. D. Round**, "Analytical calculation of the RMS current stress on the DC-link capacitor of voltage-source PWM converter systems," *IEE Proc. Electric Power Applications*, vol. 153, no. 4, pp. 535–543, Jul. 2006. DOI: 10.1049/ip-epa:20050458. — Canonical DC-link ripple-current derivation (supersedes the un-numbered "Kolar et al." reference in [[power-electronics/traction-inverter/components]] §3.2). *Reliability: high (peer-reviewed). DOI to re-verify against IET copy.*
+- [84] **J. W. Kolar and S. D. Round**, "Analytical calculation of the RMS current stress on the DC-link capacitor of voltage-source PWM converter systems," *IEE Proc. Electric Power Applications*, vol. 153, no. 4, pp. 535–543, Jul. 2006. DOI: 10.1049/ip-epa:20050458. — Canonical DC-link ripple-current derivation (supersedes the un-numbered "Kolar et al." reference in [[components]] §3.2). *Reliability: high (peer-reviewed). DOI to re-verify against IET copy.*
 - [85] **ISO 26262:2018**, "Road vehicles — Functional safety," International Organization for Standardization, 2018. — ASIL classification, safety goals, ASC/torque-monitoring requirements. *Standard document; paywalled — cited by designation.*
 - [86] **IEC 61800-5-1:2022**, "Adjustable speed electrical power drive systems — Part 5-1: Safety requirements — Electrical, thermal and energy," IEC, 2022. — Gate-driver isolation / clearance / creepage basis. *Paywalled — cited by designation.*
 - [87] **IEC 60034-18-41:2014**, "Rotating electrical machines — Part 18-41: Partial discharge free electrical insulation systems (Type I) used in inverter-fed machines," IEC, 2014. — Motor insulation rating vs inverter dv/dt. *Paywalled — cited by designation.*
@@ -278,7 +278,7 @@ tags: [index, ieee]
 
 ## 2026-07-18 Textbook Pass — Standards Substance & PLECS-MCP Grounding
 
-> Web-researched (subagent + verification) to fill the "names the standard but not its requirement" gap in [[power-electronics/traction-inverter/standards-and-compliance]]. Standard texts remain paywalled; values are from official base documents, standards-body summaries, or reputable app notes, tagged **[H]/[M]/[TPS]** in-text. Verify against purchased standard + the program's own spec before design freeze. Also grounds the PLECS-scriptability claim in [[power-electronics/traction-inverter/simulation-and-validation]] against the real PE-MAS PLECS-MCP server [72].
+> Web-researched (subagent + verification) to fill the "names the standard but not its requirement" gap in [[standards-and-compliance]]. Standard texts remain paywalled; values are from official base documents, standards-body summaries, or reputable app notes, tagged **[H]/[M]/[TPS]** in-text. Verify against purchased standard + the program's own spec before design freeze. Also grounds the PLECS-scriptability claim in [[simulation-and-validation]] against the real PE-MAS PLECS-MCP server [72].
 
 - [149] **Texas Instruments**, "SLUAAR5 — Isolation, Creepage and Clearance for High-Voltage Systems (IEC 61800-5-1 / IEC 60664-1)." https://www.ti.com/lit/pdf/sluaar5 — DVC concept (Table 3 of 61800-5-1), PD2 worked clearance (0.5 mm @1500 V → 5.5 mm @6000 V reinforced) and creepage (565 V → 5.6 mm reinforced); reinforced ≈ 2× basic. Extends [113]. *App note quoting standard clauses; `reliability: medium`.*
 - [150] **IEC 61800-5-2:2016 safety sub-functions** — SEW-Eurodrive (https://download.sew-eurodrive.com/download/html/30587239/en-EN/4014183898743621600907.html), Synapticon, SICK function definitions (STO/SS1/SS2/SOS/SLS/SDI/SLI/SLP/SBC…), SIL 1–3 per IEC 61508. *Vendor/standards summaries; `reliability: medium`. Standard paywalled.*
@@ -292,7 +292,7 @@ tags: [index, ieee]
 
 ## 2026-07-18 Worked-Examples Pass — Truck / Performance / Microcar (web-researched)
 
-> Gathered via research subagents for the three new application worked examples ([[power-electronics/traction-inverter/worked-example-truck-800v-sic]], [[power-electronics/traction-inverter/worked-example-performance-800v-sic]], [[power-electronics/traction-inverter/worked-example-microcar-96v-mosfet]]). Every figure tagged in-text **[H]** primary/OEM/DOE · **[M]** reputable secondary · **[TPS]** spec aggregator · **[mkt]** marketing. OEMs do **not** disclose production inverter device/module/cooling — those rows are inference, flagged hard. Accessed 2026-07-18.
+> Gathered via research subagents for the three new application worked examples ([[worked-example-truck-800v-sic]], [[worked-example-performance-800v-sic]], [[worked-example-microcar-96v-mosfet]]). Every figure tagged in-text **[H]** primary/OEM/DOE · **[M]** reputable secondary · **[TPS]** spec aggregator · **[mkt]** marketing. OEMs do **not** disclose production inverter device/module/cooling — those rows are inference, flagged hard. Accessed 2026-07-18.
 
 - [158] **Porsche Taycan Turbo GT** — Porsche Newsroom, 2025. https://newsroom.porsche.com/en/2025/products/porsche-taycan-turbo-gt-most-powerful-poduction-porsche-38431.html — **815 kW/2 s, 700 kW/10 s, 580 kW continuous**, 800 V, SiC pulse inverter, 900 A rear. The cleanest published *duration-gated peak* (Zth-pulse) datapoint. *`reliability: high` (OEM), power-claims `motivated`.*
 - [159] **DOE / ORNL electric-drive power-density trajectory** — OSTI, 2021. https://www.osti.gov/pages/servlets/purl/1763457 — inverter volumetric density **13.3 (2012) → 34 (2022) → 100 kW/L target (2025)**; $2.7/kW, 98% eff, 800 V. *`reliability: high` (roadmap; target-vs-actual).*

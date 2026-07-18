@@ -14,31 +14,31 @@ tags: [schema, index]
 
 ---
 
-## Folder = Field
+## Folder = Stage
 
-The folder a note lives in **is** its `field`. No abbreviations, no lookup table.
+The top-level folder a note lives in **is** its lifecycle **stage**. `field` lives in frontmatter, mirrored by one shallow subfolder inside `sources/` and `notes/`. Bases — not deep folders — do the indexing.
 
-| Folder | `field` | Holds |
-|--------|---------|-------|
-| `power-electronics/` | `power-electronics` | Traction-inverter **engineering** textbook — topologies, devices/materials, control, sizing, schematics, thermal, gate-drive, protection, EMI, packaging, BOM, reference designs, mfg/test, reliability, standards. Simulator = PLECS. |
-| `ai-agents/` | `ai-agents` | Agent architectures — Claude Code, Codex, OpenCode, Hermes, LangGraph, CrewAI, AutoGen, research agents, MAS patterns |
-| `problem-statement/` | `problem-statement` | Motivation/preface — why AI for inverter design, market, workforce. Kept **out** of the engineering folders. |
-| `sources/<field>/` | matches subfolder | Immutable raw capture, one per paper/source |
-| `project/` | `project` | Operational — plans (`ai-agent-mas-plan` hub + subsystem topic files) and changelog |
-| `audits/` | `project` | Lint reports and vault self-audits |
-| root `/` | `root` | Singletons — `README`, `SCHEMA`, `citations`, and `catalog.base` (live inventory) |
+| Folder | Stage | `field` | Holds |
+|--------|-------|---------|-------|
+| `sources/<field>/` | raw capture | matches subfolder | Immutable source, one per paper. Never edited. |
+| `notes/<field>/` | digested | matches subfolder | Claims, topics, maps. `<field>` = `power-electronics` (traction-inverter textbook), `ai-agents` (agent architectures), `problem-statement` (motivation/preface). |
+| `trials/` | applied | per note | Worked design examples + design-by-doing runs. Runnable artifacts live outside the vault in `worked-designs/`. |
+| `plans/` | plan | `project` | Implementation plans (`ai-agent-mas-plan` hub + subsystem topic files). |
+| `log/changelog/`, `log/audits/` | operational | `project` | Dated change records and vault self-audits. |
+| root `/` | index | `root` | Singletons — `README`, `SCHEMA`, `citations`, and the `.base` indexes (`catalog`, `notes`, `sources`, `trials`, `plans`). |
 
-Research content notes (`claim`/`topic`/`source`) live **only** under `power-electronics/`, `ai-agents/`, `sources/`, or `problem-statement/`. Navigation hubs (`type: map`) live inside their field folder (e.g. [[power-electronics/traction-inverter/traction-inverter-index]]), not a separate `maps/` folder. The old `maps/` and hand-kept `catalog.md` were retired for [[catalog.base]].
+Research content notes (`claim`/`topic`/`source`) live **only** under `sources/` or `notes/`. Navigation hubs (`type: map`) live in `notes/<field>/`. Indexing is base-driven: [[catalog.base]] is the master, one `.base` per stage. Deep per-topic folders (`harness/`, `traction-inverter/`) were flattened — the stage folder plus frontmatter + bases carry the structure.
 
 Every note flows through the same pipeline:
 
 ```mermaid
 graph LR
-    SRC["sources/<br/>raw capture · never edited"] --> CLM["claim / topic<br/>+ red-team"]
-    CLM --> MAP["map<br/>navigation hub"]
-    SRC -. auto-listed .-> CAT[("catalog.base<br/>live inventory")]
-    CLM -. auto-listed .-> CAT
-    MAP -. auto-listed .-> CAT
+    SRC["sources/<br/>raw capture · never edited"] --> NOTE["notes/<br/>claim · topic + red-team"]
+    NOTE --> TRIAL["trials/<br/>applied design run"]
+    NOTE --> MAP["map<br/>navigation hub"]
+    SRC -. auto-listed .-> CAT[("*.base<br/>live indexes")]
+    NOTE -. auto-listed .-> CAT
+    TRIAL -. auto-listed .-> CAT
 ```
 
 ---
@@ -108,13 +108,14 @@ reliability_note: "..."
 | `type` | Lives in | Purpose | Red-team? |
 |--------|----------|---------|-----------|
 | `source` | `sources/<field>/` | Immutable capture of one source. Never edited. | no |
-| `claim` | `<field>/` | One defensible finding + evidence. Carries status + evidence. | **required** |
-| `topic` | `<field>/` | Synthesis across claims/papers — state of knowledge. | if it advances a position |
-| `map` | `<field>/` | Navigation hub. Pure wayfinding. | no |
-| `plan` | `project/plans/` | Implementation plan / architecture decision. | no |
-| `changelog` | `project/changelog/` | Dated record of what changed. | no |
-| `audit` | `audits/` | Lint report or vault self-audit. | no |
-| `schema` / `citations` | root | Root singletons besides README. (Inventory is `catalog.base`, not a `.md`.) | no |
+| `claim` | `notes/<field>/` | One defensible finding + evidence. Carries status + evidence. | **required** |
+| `topic` | `notes/<field>/` | Synthesis across claims/papers — state of knowledge. | if it advances a position |
+| `map` | `notes/<field>/` | Navigation hub. Pure wayfinding. | no |
+| `trial` | `trials/` | Worked design example / design-by-doing run. | no |
+| `plan` | `plans/` | Implementation plan / architecture decision. | no |
+| `changelog` | `log/changelog/` | Dated record of what changed. | no |
+| `audit` | `log/audits/` | Lint report or vault self-audit. | no |
+| `schema` / `citations` | root | Root singletons besides README. Indexes are `.base`, not `.md`. | no |
 
 **Claim vs topic** — a claim defends *one* checkable finding ("SiC switching loss ~40% below Si IGBT at 100 kHz, 650 V"); a topic synthesizes many ("wide-bandgap adoption in traction inverters"). One sharp result → claim. A landscape → topic linking its claims.
 
@@ -209,7 +210,8 @@ Every tag must already exist here. Add to the list first, then use.
 ## Naming & Linking
 
 - **Filenames are kebab-case** — `traction-inverter-index.md`, never `Traction Inverter Index.md`.
-- **Wikilinks are path-based** from the root — `[[power-electronics/traction-inverter/components]]`, not the bare basename. Labels and anchors are fine: `[[path|Label]]`, `[[path#Section]]`.
+- **Basenames are globally unique.** This is the invariant that makes the next rule safe — check it before naming a new note.
+- **Wikilinks are bare basenames** — `[[components]]`, never a path. Files then move between folders without breaking a link. Labels and anchors are fine: `[[components|Label]]`, `[[components#Section]]`.
 - **Sources are referenced by path** in the `sources:` list, matching the file under `sources/<field>/`.
 
 ---
@@ -236,4 +238,4 @@ flowchart TD
 
 ---
 
-← [[README]] | [[catalog.base]] | [[power-electronics/traction-inverter/traction-inverter-index]] | [[ai-agents/harness/harness-index]]
+← [[README]] | [[catalog.base]] | [[traction-inverter-index]] | [[harness-index]]

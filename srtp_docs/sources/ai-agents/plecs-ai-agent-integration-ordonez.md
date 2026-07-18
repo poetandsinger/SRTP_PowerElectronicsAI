@@ -54,4 +54,4 @@ The key scoping fact for SRTP: **an unaugmented coding agent handles parametric/
 
 n=1, un-refereed, no code inspected, quantitative claims unmeasured. Use as a design compass, not evidence. **To verify:** locate any released repo, reproduce the 5-layer harness against a PLECS demo model, and measure the token delta ourselves.
 
-See [[sources/ai-agents/plecs-xmlrpc-scripting-interface]] for the API this rests on.
+See [[plecs-xmlrpc-scripting-interface]] for the API this rests on.

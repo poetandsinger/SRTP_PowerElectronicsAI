@@ -21,5 +21,5 @@ The transition to electric transportation demands efficient and cost-effective p
 This document introduces a novel optimization-based approach for enhancing partial load efficiency and minimizing chip area of single and dual traction inverters, indicating potential energy savings and cost reduction. Two promising topologies with the inherent capability of partial load optimization are evaluated regarding chip area and system efficiency to find the most suitable concept for future electric vehicle power trains.
 
 ## Vault References
-- [[audits/audit-changelog-traction-inverter]] — Originally misattributed the 0.67 kWh/100 km claim to this paper (corrected to [28])
-- [[power-electronics/traction-inverter/circuit-topologies]] — Topology comparison context
+- [[audit-changelog-traction-inverter]] — Originally misattributed the 0.67 kWh/100 km claim to this paper (corrected to [28])
+- [[circuit-topologies]] — Topology comparison context

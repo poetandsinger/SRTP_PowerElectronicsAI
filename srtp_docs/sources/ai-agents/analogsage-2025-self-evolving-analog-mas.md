@@ -48,4 +48,4 @@ This is a concrete answer to two SRTP open questions: how memory should work acr
 - **RAG-grounded topology reasoning** (10k-paper corpus) directly addresses the red-team's "training-knowledge dependence" objection to our EE notes.
 
 ## Caveats
-Op-amp-only; generalization unproven; depends on a curated topology DB + knowledge corpus; 3-iteration cap; tied to SKY130/ngspice. No power-electronics or motor-drive evidence. Do **not** cite as proof for traction inverters — cite as the pattern to adapt. See [[ai-agents/multi-agent-synthesis]] and [[ai-agents/traction-inverter-mas-integration]].
+Op-amp-only; generalization unproven; depends on a curated topology DB + knowledge corpus; 3-iteration cap; tied to SKY130/ngspice. No power-electronics or motor-drive evidence. Do **not** cite as proof for traction inverters — cite as the pattern to adapt. See [[multi-agent-synthesis]] and [[traction-inverter-mas-integration]].

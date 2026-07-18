@@ -74,4 +74,4 @@ results = proxy.plecs.simulate(mdl, [opts1, opts2, opts3])
 3. **`.plecs` files are XML** — topology can in principle be edited/generated as structured text, but the low-risk path is a parameterized template + `ModelVars`.
 4. **Blocking, single-request server** — the orchestrator must serialize PLECS calls or run multiple PLECS instances on different ports for true concurrency (the list-of-optStructs path is the supported parallel route).
 
-See [[sources/ai-agents/plecs-ai-agent-integration-ordonez]] for a practitioner report of doing exactly this, and [[ai-agents/implementation-research]] for where this slots into the stack.
+See [[plecs-ai-agent-integration-ordonez]] for a practitioner report of doing exactly this, and [[implementation-research]] for where this slots into the stack.

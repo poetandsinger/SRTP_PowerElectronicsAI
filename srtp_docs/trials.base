@@ -1,0 +1,24 @@
+filters:
+  and:
+    - file.inFolder("trials")
+    - file.ext == "md"
+properties:
+  file.name:
+    displayName: Trial
+  type:
+    displayName: Type
+  field:
+    displayName: Field
+  status:
+    displayName: Status
+  updated:
+    displayName: Updated
+views:
+  - type: table
+    name: All trials
+    order:
+      - file.name
+      - type
+      - field
+      - status
+      - updated

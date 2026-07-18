@@ -1,0 +1,39 @@
+filters:
+  and:
+    - file.inFolder("sources")
+    - file.ext == "md"
+properties:
+  file.name:
+    displayName: Source
+  field:
+    displayName: Field
+  year:
+    displayName: Year
+  reliability:
+    displayName: Reliability
+  peer_reviewed:
+    displayName: Peer-reviewed
+  venue:
+    displayName: Venue
+views:
+  - type: table
+    name: Sources by field
+    groupBy:
+      property: field
+      direction: ASC
+    order:
+      - file.name
+      - year
+      - reliability
+      - peer_reviewed
+      - venue
+  - type: table
+    name: By reliability
+    groupBy:
+      property: reliability
+      direction: ASC
+    order:
+      - file.name
+      - field
+      - year
+      - peer_reviewed

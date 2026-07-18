@@ -218,4 +218,4 @@ Only **Flyback** is `status: available` (and `validation_status: unvalidated`). 
 ### Evidence gates are corner-based
 `nodes/simulation.py` resolves a **simulation corner** (`low_line`/`high_line`/`nominal`) and `_build_evidence_closure` only closes the PLECS gate when waveforms exist across corners (`low_line_seen`, `high_line_seen`, `plecs_waveforms`). Directly implements the "≥3 operating points" evidence gate we specced.
 
-**Net:** the pivot is de-risked. A reference PLECS MCP exists; the remaining SRTP work is (a) traction-inverter PLECS model templates + validation, and (b) the topology/control/physics reasoning that Ordonez's agent (and this template-injector) do **not** do. See [[sources/ai-agents/plecs-xmlrpc-scripting-interface]] and [[sources/ai-agents/plecs-ai-agent-integration-ordonez]].
+**Net:** the pivot is de-risked. A reference PLECS MCP exists; the remaining SRTP work is (a) traction-inverter PLECS model templates + validation, and (b) the topology/control/physics reasoning that Ordonez's agent (and this template-injector) do **not** do. See [[plecs-xmlrpc-scripting-interface]] and [[plecs-ai-agent-integration-ordonez]].

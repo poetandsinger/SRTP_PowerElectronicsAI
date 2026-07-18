@@ -1,0 +1,37 @@
+filters:
+  and:
+    - 'file.ext == "md"'
+    - or:
+        - file.inFolder("plans")
+        - file.inFolder("log")
+properties:
+  file.name:
+    displayName: Doc
+  type:
+    displayName: Type
+  updated:
+    displayName: Updated
+  file.folder:
+    displayName: Folder
+views:
+  - type: table
+    name: Plans
+    filters:
+      and:
+        - file.inFolder("plans")
+    order:
+      - file.name
+      - type
+      - updated
+  - type: table
+    name: Changelog & audits
+    filters:
+      and:
+        - file.inFolder("log")
+    groupBy:
+      property: file.folder
+      direction: DESC
+    order:
+      - file.name
+      - type
+      - updated

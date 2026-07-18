@@ -15,12 +15,12 @@ reliability_note: "Version/feature facts sourced from vendor docs + 2026 compari
 
 # Agent Orchestration Framework Currency — mid-2026
 
-Refreshes the framework facts in [[ai-agents/implementation-research]] and [[ai-agents/multi-agent-synthesis]], several of which are ~1 week to several months stale.
+Refreshes the framework facts in [[implementation-research]] and [[multi-agent-synthesis]], several of which are ~1 week to several months stale.
 
 ## What changed since the 2026-07-10 pass
 
 - **LangGraph 1.0** — GA October 2025. **Q2 2026** added **per-node timeouts** and **durable streaming**. It remains the pick for durable execution: explicit graph nodes/edges, checkpointing, **resume-on-failure**, HITL interrupts, typed shared state.
-  - **Correction to our docs:** the "LangGraph checkpointing ≠ durable execution" concern ([[sources/ai-agents/langgraph-production-gaps-2026-diagrid]], Feb 2026) is **partially superseded** — 1.0 + Q2-2026 features narrow the gap. We still want a watchdog + idempotency keys, but the framework now does more of the work. **Re-verify against primary LangGraph docs before finalizing.**
+  - **Correction to our docs:** the "LangGraph checkpointing ≠ durable execution" concern ([[langgraph-production-gaps-2026-diagrid]], Feb 2026) is **partially superseded** — 1.0 + Q2-2026 features narrow the gap. We still want a watchdog + idempotency keys, but the framework now does more of the work. **Re-verify against primary LangGraph docs before finalizing.**
 - **Microsoft Agent Framework (MAF) 1.0** — released **April 3, 2026**, the unified successor merging Semantic Kernel + AutoGen. Ships **native MCP + A2A**. Confirms "AutoGen is EOL." **Relevant to SRTP:** our simulation backend is an MCP server (PLECS MCP), so a framework with native MCP is now a real option to weigh against LangGraph.
 - **CrewAI 1.14** — May–June 2026, pluggable backends. Still **no built-in checkpointing** for long-running workflows; role-based, fast to prototype (~10 min vs LangGraph ~45 min).
 

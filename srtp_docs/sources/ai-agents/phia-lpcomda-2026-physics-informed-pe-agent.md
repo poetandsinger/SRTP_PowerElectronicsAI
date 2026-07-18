@@ -44,4 +44,4 @@ Loop: LLM plans → PINN surrogate evaluates candidate modulations cheaply → m
 - **Resolves G2 directionally:** physics-informed surrogates are viable with ~10 sims, so a Traction-Inverter surrogate (efficiency/thermal) could be bootstrapped early (Phase 1–2), not deferred to Phase 4. This changes the plan.
 - **Adopt the two-tier PINN idea** for the Simulation/Surrogate agent: switch-level + system-level physics-embedded surrogates, trained on a handful of PLECS runs, then optimized with PSO/DE/GA instead of brute-force PLECS sweeps.
 - **Caveat — domain gap:** DAB modulation ≠ 3-phase traction inverter with a motor load. The PINN structure (ModNet/CirNet) is DAB-specific; a traction-inverter version must be re-derived. Cite as method evidence (C4), not domain proof.
-- Same group as [[sources/ai-agents/pe-gpt-2025-multimodal-pe-design]] — consistent line of work; weigh the `motivated` flag.
+- Same group as [[pe-gpt-2025-multimodal-pe-design]] — consistent line of work; weigh the `motivated` flag.

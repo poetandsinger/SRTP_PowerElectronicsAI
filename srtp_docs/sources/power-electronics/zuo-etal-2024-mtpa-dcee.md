@@ -20,6 +20,6 @@ In this paper, a maximum torque per ampere (MTPA) control strategy for the inter
 The audit confirmed this paper supports online RLS-based MTPA with better dynamic performance than extremum seeking. However, it does NOT explicitly state "noise and convergence risk" — that was authorial inference added to open-problems.md.
 
 ## Vault References
-- [[power-electronics/traction-inverter/control-schemes]] — MTPA section
-- [[power-electronics/traction-inverter/open-problems]] — MTPA tracking challenges
-- [[audits/audit-changelog-traction-inverter]] — Correction documented
+- [[control-schemes]] — MTPA section
+- [[open-problems]] — MTPA tracking challenges
+- [[audit-changelog-traction-inverter]] — Correction documented

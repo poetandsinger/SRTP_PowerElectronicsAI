@@ -20,5 +20,5 @@ The paper presents a straightforward modelling approach to compute the power los
 **Important correction:** The audit found that earlier vault notes claimed this paper says GaN is "not viable" for traction. The paper does NOT make that claim — it proposes an analytical loss-modelling approach for GaN HEMT 3L-ANPC inverters. The viability opinion was training-knowledge inference, not from this source.
 
 ## Vault References
-- [[power-electronics/traction-inverter/components]] — GaN HEMT device section
-- [[audits/audit-changelog-traction-inverter]] — Correction documented
+- [[components]] — GaN HEMT device section
+- [[audit-changelog-traction-inverter]] — Correction documented

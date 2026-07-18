@@ -1,0 +1,61 @@
+filters:
+  and:
+    - file.inFolder("notes")
+    - file.ext == "md"
+properties:
+  file.name:
+    displayName: Note
+  type:
+    displayName: Type
+  field:
+    displayName: Field
+  status:
+    displayName: Status
+  evidence:
+    displayName: Evidence
+  review_by:
+    displayName: Review by
+views:
+  - type: table
+    name: Digested notes by field
+    groupBy:
+      property: field
+      direction: ASC
+    order:
+      - file.name
+      - type
+      - status
+      - evidence
+  - type: table
+    name: Claims & topics
+    filters:
+      or:
+        - type == "claim"
+        - type == "topic"
+    groupBy:
+      property: status
+      direction: ASC
+    order:
+      - file.name
+      - field
+      - status
+      - evidence
+      - review_by
+  - type: table
+    name: Needs review
+    filters:
+      and:
+        - review_by != null
+    order:
+      - file.name
+      - field
+      - status
+      - review_by
+  - type: table
+    name: Maps
+    filters:
+      and:
+        - type == "map"
+    order:
+      - file.name
+      - field
