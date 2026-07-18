@@ -20,6 +20,8 @@ A worked example driven by **absolute BOM cost / lowest $-per-kW** — the A-seg
 
 ## 1. The Application (real-grounded)
 
+Full sourced survey: [[power-electronics/traction-inverter/segment-low-cost-city-car-inverters]].
+
 | Vehicle | Power | Bus | Device (class) | Source |
 |---------|------:|----:|----------------|--------|
 | **Wuling Mini EV** | 20–30 kW | **~96 V** | **LV Si MOSFET** *(inferred)* | [164][M/TPS] |

@@ -18,6 +18,8 @@ A worked example driven by **power density (kW/L) and how long a peak far above 
 
 ## 1. The Application (real-grounded)
 
+Full sourced survey: [[power-electronics/traction-inverter/segment-performance-motorsport-inverters]].
+
 | Item | Value | Basis |
 |------|-------|-------|
 | Bus | 800–900 V | Taycan 800 V [158]; Lucid/FE-Gen3 ~900 V [H] |

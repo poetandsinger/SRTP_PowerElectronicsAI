@@ -18,7 +18,7 @@ A worked example whose **workflow is the point**: a Class-8 long-haul e-truck in
 
 ## 1. The Application (real-grounded)
 
-Long-haul BEV tractors converge on **continuous power ~400 kW, peak ~600 kW** — the *opposite* emphasis from a car (huge brief peak). Mercedes eActros 600: **800 V, 600 kW peak / 400 kW continuous**, 621 kWh LFP [162][H]. Tesla Semi: 800 kW peak / ~525 kW sustained / ~1000 V [163][mkt]. **The "everything is 800 V" premise is only half true** — eActros/MAN = 800 V, Tesla Semi ~1000 V, Volvo FH <750 V, Freightliner eCascadia 400 V [163]. DOE's HEP program states the intent outright: **"800 V, 250 kW *continuous* SiC inverter… for high continuous loads and the shock/vibration of heavy-duty trucks"** [161][H].
+Full sourced survey: [[power-electronics/traction-inverter/segment-heavy-duty-truck-inverters]]. Long-haul BEV tractors converge on **continuous power ~400 kW, peak ~600 kW** — the *opposite* emphasis from a car (huge brief peak). Mercedes eActros 600: **800 V, 600 kW peak / 400 kW continuous**, 621 kWh LFP [162][H]. Tesla Semi: 800 kW peak / ~525 kW sustained / ~1000 V [163][mkt]. **The "everything is 800 V" premise is only half true** — eActros/MAN = 800 V, Tesla Semi ~1000 V, Volvo FH <750 V, Freightliner eCascadia 400 V [163]. DOE's HEP program states the intent outright: **"800 V, 250 kW *continuous* SiC inverter… for high continuous loads and the shock/vibration of heavy-duty trucks"** [161][H].
 
 | Item | Value | Basis |
 |------|-------|-------|

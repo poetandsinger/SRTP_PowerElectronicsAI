@@ -26,6 +26,15 @@ Extended the design-by-doing set from 1 to 4, deliberately spanning **different 
 - **[[citations]]** +[158]–[165] (Porsche, DOE OSTI ×2, Wolfspeed, eActros, HD-lifetime anchors, Wuling, city-car peers); every figure tagged [H]/[M]/[TPS]/[mkt]; OEM-undisclosed inverter internals flagged as inference.
 - **[[README]]** citation range → [1]–[165]; index updated.
 
+## Segment landscape notes (RAG backbone)
+
+The online-search findings belong *in* the traction-inverter RAG folder, not just compressed into citations + worked-example intros — the MAS retrieves them. Captured the full sourced industry survey per segment as standalone `topic` notes:
+- **[[power-electronics/traction-inverter/segment-heavy-duty-truck-inverters]]** — Class-8 power/voltage/battery per vehicle, mission profiles, lifetime targets; inverter internals undisclosed (flagged).
+- **[[power-electronics/traction-inverter/segment-performance-motorsport-inverters]]** — hypercar/FE peak-duration + power-density (verified vs marketing) + DSC cooling.
+- **[[power-electronics/traction-inverter/segment-low-cost-city-car-inverters]]** — tri-modal voltage, device-by-voltage, cost/volume; the least-sourced segment, honestly flagged.
+
+Each carries reliability tags on every figure and a Red Team about the disclosure gap. Worked examples now link to their segment survey.
+
 ## Honesty
 All quantitative results are self-authored quasi-static models with **class-typical/invented device params** — status `unverified`. Directional findings are robust device physics; magnitudes are computed hypotheses. The truck's absolute life is coefficient-dominated (±1–2 orders, stated loudly); the microcar's device+cost are the point where RAG+web data ran out.
 
