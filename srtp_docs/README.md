@@ -12,7 +12,7 @@ tags: [index]
 > **AI-powered multi-agent system for traction inverter design.**
 > **Architecture:** LangGraph + **PLECS** (XML-RPC/MCP) + LiteLLM (CLI-first, provider-agnostic)
 > **Method:** Science Research Vault — every claim carries truth-status, evidence-strength, and a mandatory red-team block.
-> **Status:** 🟡 Knowledge base built (29-chapter textbook, cited [1]–[157]) + AI-agent architecture research complete; implementation plan is spec-level and phase-ready ([[ai-agent-mas-plan]]). **PLECS confirmed licensed + XML-RPC-driveable (2026-07-18); a 2L-VSI+IPMSM+FOC drive retargeted to a family-car machine ran to completion (`worked-designs/family-car-400v-sic/`). Next: top-level outports → first quantitatively PLECS-validated 2L-B6 model.**
+> **Status:** 🟡 Knowledge base built (29-chapter textbook, cited [1]–[165]) + AI-agent architecture research complete; implementation plan is spec-level and phase-ready ([[ai-agent-mas-plan]]). **PLECS confirmed licensed + XML-RPC-driveable (2026-07-18); a 2L-VSI+IPMSM+FOC drive retargeted to a family-car machine ran to completion (`worked-designs/family-car-400v-sic/`). Next: top-level outports → first quantitatively PLECS-validated 2L-B6 model.**
 
 ---
 
@@ -65,7 +65,7 @@ srtp_docs/
 
 | Field | Hub | Content |
 |-------|-----|---------|
-| Power Electronics | [[power-electronics/traction-inverter/traction-inverter-index]] | **29-chapter traction-inverter textbook** (red-teamed, cited [1]–[157]) + 6 source papers |
+| Power Electronics | [[power-electronics/traction-inverter/traction-inverter-index]] | **29-chapter traction-inverter textbook** (red-teamed, cited [1]–[165]) + 6 source papers |
 | Problem Statement (preface) | [[problem-statement/problem-statement-index]] | Why AI for traction inverter design: market, workforce, competitive landscape |
 | AI / Agent Architecture | [[ai-agents/harness/harness-index]] | 12 harness deep dives, 19 source captures, 2 red-teamed claims, workflow-patterns + design-loop findings, MAS bridge |
 | *Full inventory* | [[catalog.base]] | Live table of every note (field · type · status · evidence), auto-generated |

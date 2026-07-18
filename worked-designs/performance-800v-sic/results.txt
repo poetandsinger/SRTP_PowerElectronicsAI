@@ -1,0 +1,21 @@
+========================================================================
+WE-2  PERFORMANCE INVERTER — POWER-DENSITY + TRANSIENT-THERMAL
+========================================================================
+module: SiC, fsw 15 kHz, coolant 60 C, Rth(steady) 0.300 K/W, Tj,max 175
+
+CONTINUOUS rating (steady Tj<=160): 415 kW  (steady Tj 160 C)
+
+PEAK-DURATION curve (Zth pulse, from 228 kW cruise baseline, Tj 96 C):
+  peak/cont | peak kW | sustainable burst
+   1.10x   |    457  |  15.0 s
+   1.25x   |    519  |   2.5 s
+   1.40x   |    581  |   1.0 s
+   1.60x   |    664  |   0.3 s
+  -> higher peak = shorter burst = the Porsche 815kW/2s, 700kW/10s, 580 cont shape.
+
+POWER DENSITY (peak rating 581 kW; volume from SOURCED densities):
+    33 kW/L [single-side SiC (Wolfspeed 300kW CRD ~33 kW/L [H])] -> 17.6 L
+    60 kW/L [double-side-cooled premium (~50-70 kW/L)] ->  9.7 L
+   100 kW/L [DOE 2025 target (DSC+microchannel)] ->  5.8 L
+DOE inverter density trajectory: 13.3 (2012) -> 34 (2022) -> 100 kW/L target [DOE OSTI].
+Driver = kW/L (packaging) + peak-duration (Zth thermal mass), NOT partial-load efficiency.

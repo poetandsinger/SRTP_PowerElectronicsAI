@@ -1,0 +1,19 @@
+========================================================================
+WE-1  CLASS-8 E-TRUCK INVERTER -- LIFETIME-DRIVEN
+========================================================================
+cruise 80 km/h flat:    85 kW
+6% grade @37t, 40 km/h:   270 kW sustained (the driver)
+Foster steady Rth/switch 0.240 K/W
+
+BASELINE (cost-sized, Rth~0.24)  Tj: min  25  max 140  mean  82 C
+Damage cycles ranked by contribution (dTj K, Tm C, n/day, Nf, damage/day):
+   dTj= 115  Tm=  82  n= 1.0  Nf=      5,294  dmg=1.89e-04 (96.9%)  COLD-START (daily)
+   dTj=  59  Tm= 111  n= 0.5  Nf=    120,400  dmg=4.15e-06 ( 2.1%)  grade soak
+   dTj=  56  Tm=  53  n= 0.5  Nf=    252,131  dmg=1.98e-06 ( 1.0%)  grade soak
+
+LC/day=1.950e-04 -> 5,128 days -> 4.36 M km to LC=1 (target 1 M km; margin 4.4x)
+
+--- LIFETIME-DRIVEN SIZING (upsize to cut dTj; Nf ~ dTj^-5) ---
+  baseline (hot)  : Tj,max 140 C  dTj_day 115 K  life   4.36 M km
+  +15% Si+cooling : Tj,max 125 C  dTj_day 100 K  life 401.23 M km
+  +30% Si+cooling : Tj,max 115 C  dTj_day  90 K  life 1302.97 M km

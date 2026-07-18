@@ -16,6 +16,7 @@ tags: [index]
 
 | Timestamp | Summary | Detail |
 |-----------|---------|--------|
+| 2026-07-18 | Three more worked examples across applications+workflows: Class-8 truck (lifetime/rainflow-Miner), hypercar (power-density/Zth-pulse, Porsche-anchored), 96V microcar (cost/voltage-lever). Web-researched sources [158]–[165]; process comparison folded into observed-workflow note (n→4) | [[2026-07-18-three-worked-examples]] |
 | 2026-07-18 | Design-by-doing: invented family-car 400V SiC inverter, ran a numerical model (efficiency/thermal/cycle, SiC-vs-IGBT), confirmed PLECS licensed + drive simulates. New worked-example + findings notes; `worked-designs/` artifacts | [[2026-07-18-family-car-design-by-doing]] |
 | 2026-07-18 | Depth-first traction-inverter pass: rewrote standards-and-compliance (actual requirements per standard) + simulation-and-validation (PLECS model layers + corner-test matrix); added Red Team to both; PLECS-MCP grounded against PE-MAS; citations → [1]–[157] | [[2026-07-18-standards-simulation-deepdive]] |
 | 2026-07-17 | Depth-first AI-agent pass: design-loop finding (topology→refine→parameter-optimize + explicit optimizer), workflow-pattern catalog, plan-sufficiency verdict; plan split into hub + 8 topic files (no phases) | [[2026-07-17-plan-split-design-loop]] |

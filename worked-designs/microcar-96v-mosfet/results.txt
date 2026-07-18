@@ -1,0 +1,29 @@
+========================================================================
+WE-3  CITY MICROCAR INVERTER — COST-DOWN (voltage is the lever)
+========================================================================
+
+                           96V LV-MOSFET    350V Si-IGBT
+phase current (rms)               278 A           76 A
+conduction loss                   233 W          196 W
+switching loss                     54 W          132 W
+busbar/connector I2R               93 W            7 W  <- LV penalty (13x)
+inverter efficiency             98.75 %        98.90 %
+  NOTE: switch efficiency is COMPETITIVE (LV MOSFET Rds is tiny); the 3.6x current
+  penalty of 96 V shows up in INTERCONNECT + DC-link ripple, not the semiconductors.
+
+--- WHY LOW VOLTAGE IS THE COST LEVER (structural, not $) ---
+  * 96 V draws 278 A vs 76 A at 350 V for the same 30 kW (3.6x current)
+    -> heavier busbar/connectors + larger DC-link RIPPLE current: the LV penalty.
+  * BUT the device: at <~200 V, low-voltage Si MOSFETs beat IGBTs on cost AND
+    conduction (no Vce0 knee); >200 V forces IGBT (or costly SiC). Voltage picks the device class.
+  * 96 V also relaxes isolation/creepage, shrinks the isolated-bias + gate-drive scope,
+    and cuts HV-safety content vs a 350-400 V design -> the real per-unit BOM saving.
+  * SiC appears in NONE of this class (research): its $/A never pays at cost-first, low-power.
+
+--- COST STRUCTURE (RELATIVE ONLY — absolute $ is UNSOURCED, do not fabricate) ---
+   100 V Si MOSFET (LV)    : 1.0x  (cheapest per kW at low V)
+   650-750 V Si IGBT       : ~1.5-2x
+   650-750 V SiC MOSFET    : ~3-4x (SemiInsight late-2025)
+  The trade: LV-MOSFET at 96 V spends EFFICIENCY and POWER DENSITY (huge current,
+  bulky DC-link/busbar) to buy the lowest device + isolation + safety BOM. That is
+  the defining signature of a cost-first inverter (Wuling ~$4.2k car, >1M units/yr).

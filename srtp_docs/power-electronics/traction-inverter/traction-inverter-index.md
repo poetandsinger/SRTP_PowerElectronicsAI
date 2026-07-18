@@ -35,6 +35,9 @@ tags: [power-electronics, traction-inverter, index]
 | **[[power-electronics/traction-inverter/worked-example-400v-150kw]]** | **Second worked example:** 400V SiC 150kW — shows the current-doubling / conduction-loss penalty |
 | **[[power-electronics/traction-inverter/worked-example-family-car-400v-sic]]** | **Design-by-doing:** invented family-car 400V SiC inverter, vehicle-grounded, **model-run** (efficiency/thermal/cycle numbers computed, SiC-vs-IGBT, PLECS-run) |
 | **[[power-electronics/traction-inverter/findings-family-car-design-by-doing]]** | **New knowledge** from that build: SiC's ~2× larger urban advantage, high-current conduction crossover, IGBT thermal margin, PLECS blocker cleared |
+| **[[power-electronics/traction-inverter/worked-example-truck-800v-sic]]** | **Design-by-doing (lifetime workflow):** Class-8 e-truck 800V SiC — mission→rainflow→Miner; daily cold-start dominates power-cycling; life is a ΔTj-ceiling problem |
+| **[[power-electronics/traction-inverter/worked-example-performance-800v-sic]]** | **Design-by-doing (power-density workflow):** hypercar 800V SiC — Zth-pulse duration-gated peak (Porsche-anchored), kW/L from sourced densities |
+| **[[power-electronics/traction-inverter/worked-example-microcar-96v-mosfet]]** | **Design-by-doing (cost workflow):** ~96V LV-MOSFET city car — voltage is the cost lever; LV penalty hits interconnect not switches; device/cost honestly unsourced |
 | **[[power-electronics/traction-inverter/design-tradeoffs]]** | **How to compromise:** device / voltage / fsw / topology / cooling trade-offs + decision table |
 | **[[power-electronics/traction-inverter/manufacturing-and-test]]** | **Build & test:** module assembly (sinter/bond), busbar, double-pulse, HIL, EOL, production quality |
 | **[[power-electronics/traction-inverter/reliability-and-lifetime]]** | **Reliability:** power-cycling wear-out, Nf data, lifetime models (LESIT/CIPS08), mission-profile/Miner, SiC degradation |
