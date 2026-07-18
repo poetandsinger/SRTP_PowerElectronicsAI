@@ -33,4 +33,4 @@ reliability_note: "Peer-reviewed in IET Power Electronics (2026). Captured from 
 ## Caveats
 Captured from abstract/index only (full text paywalled at capture). Do **not** cite specific quantitative claims until the PDF is read. Converter-class, not traction inverter — pattern evidence (C3), not domain proof. **To verify:** obtain the PDF, confirm the encoding scheme and whether any multi-agent decomposition is used, and record measured cost/accuracy.
 
-← [[maps/ai-agents]] | [[ai-agents/design-loop-architecture]] | [[sources/ai-agents/phia-lpcomda-2026-physics-informed-pe-agent]]
+← [[ai-agents/harness/harness-index]] | [[ai-agents/design-loop-architecture]] | [[sources/ai-agents/phia-lpcomda-2026-physics-informed-pe-agent]]

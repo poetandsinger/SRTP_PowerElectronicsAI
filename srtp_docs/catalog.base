@@ -1,0 +1,54 @@
+properties:
+  file.name:
+    displayName: Note
+  type:
+    displayName: Type
+  field:
+    displayName: Field
+  status:
+    displayName: Status
+  evidence:
+    displayName: Evidence
+  year:
+    displayName: Year
+  reliability:
+    displayName: Reliability
+  peer_reviewed:
+    displayName: Peer-reviewed
+  review_by:
+    displayName: Review by
+views:
+  - type: table
+    name: All notes by field
+    groupBy:
+      property: field
+      direction: ASC
+    order:
+      - file.name
+      - type
+      - status
+      - evidence
+      - file.folder
+  - type: table
+    name: Claims & topics
+    filters:
+      or:
+        - type == "claim"
+        - type == "topic"
+    order:
+      - file.name
+      - field
+      - status
+      - evidence
+      - review_by
+  - type: table
+    name: Sources
+    filters:
+      and:
+        - type == "source"
+    order:
+      - file.name
+      - field
+      - year
+      - reliability
+      - peer_reviewed

@@ -12,7 +12,7 @@ tags: [index]
 > **AI-powered multi-agent system for traction inverter design.**
 > **Architecture:** LangGraph + **PLECS** (XML-RPC/MCP) + LiteLLM (CLI-first, provider-agnostic)
 > **Method:** Science Research Vault — every claim carries truth-status, evidence-strength, and a mandatory red-team block.
-> **Status:** 🟡 Knowledge base built (29-chapter textbook, cited [1]–[148]) + AI-agent architecture research complete; implementation plan is spec-level and phase-ready ([[ai-agent-mas-plan]]). **Next: PLECS license check → harness + first validated 2L-B6 model.**
+> **Status:** 🟡 Knowledge base built (29-chapter textbook, cited [1]–[157]) + AI-agent architecture research complete; implementation plan is spec-level and phase-ready ([[ai-agent-mas-plan]]). **PLECS confirmed licensed + XML-RPC-driveable (2026-07-18); a 2L-VSI+IPMSM+FOC drive retargeted to a family-car machine ran to completion (`worked-designs/family-car-400v-sic/`). Next: top-level outports → first quantitatively PLECS-validated 2L-B6 model.**
 
 ---
 
@@ -26,7 +26,7 @@ Two research fields feeding one build. **Power electronics** research defines *w
 srtp_docs/
 ├── README.md               # This file
 ├── SCHEMA.md               # The rules: folders, metadata, status/evidence, red-team
-├── catalog.md              # Every note, one line, grouped by field then status
+├── catalog.base            # Live inventory (Obsidian Base) — auto-generated from note frontmatter
 ├── citations.md            # Master bibliography (IEEE format)
 │
 ├── power-electronics/      # FIELD: what to design — traction-inverter ENGINEERING ONLY (29-chapter textbook)
@@ -50,10 +50,6 @@ srtp_docs/
 │   ├── power-electronics/  #   6 source papers
 │   └── ai-agents/          #   12 source papers
 │
-├── maps/                   # Navigation hubs (one per field)
-│   ├── power-electronics.md
-│   └── ai-agents.md
-│
 ├── audits/                 # 5 lint reports + self-audits of the vault
 │
 └── project/                # OPERATIONAL (no truth-status — these are decisions, not findings)
@@ -63,13 +59,16 @@ srtp_docs/
     └── changelog/          #   Dated setup milestones
 ```
 
+> **Outside the vault** (repo root, non-markdown — executable artifacts can't carry frontmatter, so they live outside `srtp_docs/`): `worked-designs/` holds runnable design artifacts (Python loss models, `.plecs` files, results) that back the worked examples — e.g. `worked-designs/family-car-400v-sic/` behind [[power-electronics/traction-inverter/worked-example-family-car-400v-sic]]. `HANDOFF-DEPTH-RESEARCH.md` is the depth-research handoff.
+
 ## Research
 
 | Field | Hub | Content |
 |-------|-----|---------|
-| Power Electronics | [[maps/power-electronics]] | **29-chapter traction-inverter textbook** (red-teamed, cited [1]–[148]) + 6 source papers |
+| Power Electronics | [[power-electronics/traction-inverter/traction-inverter-index]] | **29-chapter traction-inverter textbook** (red-teamed, cited [1]–[157]) + 6 source papers |
 | Problem Statement (preface) | [[problem-statement/problem-statement-index]] | Why AI for traction inverter design: market, workforce, competitive landscape |
-| AI / Agent Architecture | [[maps/ai-agents]] | 12 harness deep dives, 19 source captures, 2 red-teamed claims, workflow-patterns + design-loop findings, MAS bridge |
+| AI / Agent Architecture | [[ai-agents/harness/harness-index]] | 12 harness deep dives, 19 source captures, 2 red-teamed claims, workflow-patterns + design-loop findings, MAS bridge |
+| *Full inventory* | [[catalog.base]] | Live table of every note (field · type · status · evidence), auto-generated |
 
 > **The textbook is grounded but not yet PLECS-validated:** design/thermal/loss numbers are closed-form or teardown/vendor figures, flagged in each chapter's Red Team. Turning them into simulation-backed evidence is the top depth-first task — see `HANDOFF-DEPTH-RESEARCH.md` (repo root).
 
@@ -103,7 +102,7 @@ Grounded in: [[audits/plan-sufficiency-review-2026-07-17]] · [[audits/ai-agent-
 
 | File | Content |
 |------|---------|
-| [[catalog]] | Every note, grouped by field then status |
+| [[catalog.base]] | Live inventory of every note (auto-generated from frontmatter) |
 | [[SCHEMA]] | Full conventions, taxonomy, status/evidence rules |
 | [[citations]] | Master bibliography, credits, licenses |
 
@@ -114,4 +113,4 @@ Grounded in: [[audits/plan-sufficiency-review-2026-07-17]] · [[audits/ai-agent-
 
 ---
 
-← [[catalog]] | [[maps/power-electronics]] | [[maps/ai-agents]]
+← [[catalog.base]] | [[power-electronics/traction-inverter/traction-inverter-index]] | [[ai-agents/harness/harness-index]]

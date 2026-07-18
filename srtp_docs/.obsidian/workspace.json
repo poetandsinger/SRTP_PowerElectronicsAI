@@ -11,17 +11,31 @@
             "id": "a3006644bff416df",
             "type": "leaf",
             "state": {
+              "type": "bases",
+              "state": {
+                "file": "catalog.base",
+                "viewName": "All notes by field"
+              },
+              "icon": "lucide-table",
+              "title": "catalog"
+            }
+          },
+          {
+            "id": "280b153db83e49a4",
+            "type": "leaf",
+            "state": {
               "type": "markdown",
               "state": {
-                "file": "project/changelog/2026-07-17-traction-inverter-textbook.md",
+                "file": "power-electronics/traction-inverter/protection-and-safety.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-07-17-traction-inverter-textbook"
+              "title": "protection-and-safety"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -181,43 +195,43 @@
       "bases:Create new base": false
     }
   },
-  "active": "a3006644bff416df",
+  "active": "45e4867bb00ebacc",
   "lastOpenFiles": [
-    "project/changelog/2026-07-06-architecture-pivot.md",
-    "problem-statement/problem-statement-index.md",
+    "README.md.tmp.38908.d011b3d346e1",
+    "citations.md",
+    "ai-agents/agentic-workflow-patterns.md",
+    "power-electronics/traction-inverter/worked-example-family-car-400v-sic.md",
+    "project/changelog/2026-07-18-family-car-design-by-doing.md.tmp.38908.72c41c64a98f",
+    "ai-agents/design-loop-architecture.md.tmp.38908.1842020d53d9",
+    "ai-agents/design-by-doing-observed-workflow.md",
+    "ai-agents/design-by-doing-observed-workflow.md.tmp.38908.19604635376a",
+    "project/changelog/2026-07-18-family-car-design-by-doing.md.tmp.38908.1b857989ff90",
+    "power-electronics/traction-inverter/findings-family-car-design-by-doing.md.tmp.38908.d68cbac010d6",
+    "project/plans/plecs-harness.md.tmp.38908.a1924b278a54",
+    "power-electronics/traction-inverter/simulation-and-validation.md.tmp.38908.b0f1ca9d5832",
+    "power-electronics/traction-inverter/simulation-and-validation.md.tmp.38908.c20ef5b36eda",
+    "power-electronics/traction-inverter/worked-example-family-car-400v-sic.md.tmp.38908.a2ec3e04e736",
+    "power-electronics/traction-inverter/findings-family-car-design-by-doing.md",
+    "power-electronics/traction-inverter/worked-example-400v-150kw.md",
+    "power-electronics/traction-inverter/open-problems.md",
+    "project/changelog/2026-07-18-family-car-design-by-doing.md.tmp.38908.5fbc6b7038ac",
+    "project/changelog/2026-07-18-family-car-design-by-doing.md",
     "README.md",
+    "power-electronics/traction-inverter/machine-and-load.md",
+    "power-electronics/traction-inverter/schematics.md",
+    "project/changelog/2026-07-18-standards-simulation-deepdive.md",
+    "power-electronics/traction-inverter/standards-and-compliance.md",
     "SCHEMA.md",
+    "project/plans/ai-agent-mas-plan.md",
+    "problem-statement/problem-statement-index.md",
+    "sources/ai-agents/langgraph-production-gaps-2026-diagrid.md",
+    "sources/ai-agents/drcy-2026-allspice-mas-review.md",
+    "sources/ai-agents/agent-frameworks-2026-currency.md",
+    "project/changelog/2026-07-17-traction-inverter-textbook.md",
+    "project/changelog/2026-07-06-architecture-pivot.md",
     "sources/ai-agents/context-engineering-2026.md",
     "sources/ai-agents/analogsage-2025-self-evolving-analog-mas.md",
     "maps/ai-agents.md",
-    "sources/ai-agents/liu-2026-iet-llm-power-converter-framework.md",
-    "power-electronics/traction-inverter/traction-inverter-index.md",
-    "project/plans/guardrails-and-evidence.md",
-    "power-electronics/traction-inverter/standards-and-compliance.md",
-    "ai-agents/harness/architecture-patterns.md",
-    "project/plans/ai-agent-mas-plan.md",
-    "project/plans/design-loop.md",
-    "project/plans/tech-stack.md",
-    "project/plans/ai-agent-mas-plan.md.tmp.17144.60576713862a",
-    "project/plans/ai-agent-mas-plan.md.tmp.17144.c0b039b7cc81",
-    "README.md.tmp.17144.828be3609a04",
-    "sources/ai-agents/plecs-ai-agent-integration-ordonez.md.tmp.17144.9d836b788b05",
-    "ai-agents/harness/plecs-integration.md.tmp.17144.dac655d83b0b",
-    "sources/ai-agents/analogsage-2025-self-evolving-analog-mas.md.tmp.17144.402b3e630b48",
-    "audits/ai-agent-docs-audit-2026-07-17.md.tmp.17144.3e34abaf20bd",
-    "project/changelog/2026-07-17-plan-split-design-loop.md.tmp.17144.8fd105463c11",
-    "maps/ai-agents.md.tmp.17144.56f70b15b9f4",
-    "catalog.md.tmp.17144.bfbef3d3dea4",
-    "project/plans/plecs-harness.md",
-    "project/plans/memory.md",
-    "project/plans/knowledge-rag.md",
-    "project/changelog/2026-07-17-plan-split-design-loop.md",
-    "project/plans/architecture.md",
-    "catalog.md",
-    "project/plans/evaluation-and-benchmark.md",
-    "audits/plan-sufficiency-review-2026-07-17.md",
-    "ai-agents/design-loop-architecture.md",
-    "ai-agents/agentic-workflow-patterns.md",
-    "project/changelog/2026-07-17-traction-inverter-textbook.md"
+    "sources/ai-agents/liu-2026-iet-llm-power-converter-framework.md"
   ]
 }

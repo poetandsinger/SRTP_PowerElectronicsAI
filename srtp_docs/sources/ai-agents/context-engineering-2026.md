@@ -32,4 +32,4 @@ Working (the live context window) · episodic (past design runs) · semantic (do
 - Compaction is not just the 36-number summary: **iteration reasoning traces** must also be compacted, or a long re-design loop reinflates the context (the AnalogSAGE "Compression Module" does exactly this — [[sources/ai-agents/analogsage-2025-self-evolving-analog-mas]]).
 - This is *engineering discipline*, not domain evidence — no PE-specific result here. Use as a design checklist, not a citation for design quality.
 
-← [[maps/ai-agents]] | [[ai-agents/agentic-workflow-patterns]] | [[project/plans/memory]]
+← [[ai-agents/harness/harness-index]] | [[ai-agents/agentic-workflow-patterns]] | [[project/plans/memory]]

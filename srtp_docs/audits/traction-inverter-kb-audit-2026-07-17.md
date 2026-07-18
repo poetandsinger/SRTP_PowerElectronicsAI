@@ -71,4 +71,4 @@ The folder is now a **dense, cited 2L-B6 SiC textbook** (**29 chapters**): funda
 
 > **References:** [[citations]]
 
-← [[power-electronics/traction-inverter/traction-inverter-index]] | [[catalog]] | [[audits/ai-agent-docs-audit-2026-07-17]]
+← [[power-electronics/traction-inverter/traction-inverter-index]] | [[catalog.base]] | [[audits/ai-agent-docs-audit-2026-07-17]]

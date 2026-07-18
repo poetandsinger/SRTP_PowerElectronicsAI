@@ -78,4 +78,4 @@ From the only direct AI+PLECS prior art ([[sources/ai-agents/plecs-ai-agent-inte
 | 6 | Structure | Fix duplicate §4/§5 headings in multi-agent-synthesis | #5 |
 | 7 | Model bottleneck | Add traction-inverter PLECS-model build+validate track to plan | #6 |
 
-← [[maps/ai-agents]] | [[ai-agents/traction-inverter-mas-integration]] | [[ai-agents/implementation-research]]
+← [[ai-agents/harness/harness-index]] | [[ai-agents/traction-inverter-mas-integration]] | [[ai-agents/implementation-research]]
