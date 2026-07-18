@@ -24,7 +24,7 @@ tags: [changelog, power-electronics, design, sic, plecs, simulation]
 - Confirmed the RPC surface has **no circuit-building methods** → agent-built models must parameterize a `.plecs` template, not assemble from scratch (informs [[plecs-harness]]).
 
 ## Miscellaneous PLECS-driving findings (captured)
-Verified by hand and written up as a reusable cheat-sheet — [[simulation-and-validation]] §1 "Driving PLECS headless" and [[plecs-harness]] §1:
+Verified by hand and written up as a reusable cheat-sheet — [[procedure-simulation-and-validation]] §1 "Driving PLECS headless" and [[plecs-harness]] §1:
 - **Launch:** `PLECS.exe -server <port>` (blocking, single-request).
 - **Method surface (4.8):** `load/set/get/simulate/getModelTree/scope/statistics/analyze/codegen/close` — **no `add`/`connect`/`eval`** (corrected an earlier note that listed `plecs.eval`).
 - **Readback gotcha:** `simulate` returns `Values` only from **top-level Outport** blocks; scope-only models return empty — templates must expose an outport per summarized signal.

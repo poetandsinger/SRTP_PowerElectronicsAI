@@ -47,7 +47,7 @@ Result (cost-sized module, `Rth`≈0.24 K/W, `Tj` swings **25→140 °C**):
 
 ## 3. Circuit / Device / BOM (deltas from the car)
 
-2L-B6, but sized for **continuous** current (~430 A rms at 400 kW/800 V) and **million-km fatigue**, not launch: **double-side-cooled, sintered-Ag, Cu-clip 1200 V SiC** module (Infineon HybridPACK DSC / Danfoss DCM class [163]) — the interconnect stack chosen for power-cycling life ([[reliability-and-lifetime]] §6). Hotter coolant (~75 °C) tolerated; ruggedized for shock/vibration [161]. Control (FOC/SVPWM/ASC) is the same family as [[control-how-to]]; the *thermal-management + derating* loop ([[thermal-design]] §6) is where the effort goes.
+2L-B6, but sized for **continuous** current (~430 A rms at 400 kW/800 V) and **million-km fatigue**, not launch: **double-side-cooled, sintered-Ag, Cu-clip 1200 V SiC** module (Infineon HybridPACK DSC / Danfoss DCM class [163]) — the interconnect stack chosen for power-cycling life ([[reliability-and-lifetime]] §6). Hotter coolant (~75 °C) tolerated; ruggedized for shock/vibration [161]. Control (FOC/SVPWM/ASC) is the same family as [[procedure-control]]; the *thermal-management + derating* loop ([[thermal-design]] §6) is where the effort goes.
 
 ## 4. New Knowledge  `[model]`
 

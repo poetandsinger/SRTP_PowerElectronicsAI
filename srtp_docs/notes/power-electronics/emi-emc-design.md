@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-Why a SiC inverter is an EMI source and how to tame it: standards, noise modes, input filter, motor-side dv/dt, bearing currents, layout. SiC's fast edges make this harder than for IGBT — the chapter the design-procedure only names ([[design-procedure]] §8).
+Why a SiC inverter is an EMI source and how to tame it: standards, noise modes, input filter, motor-side dv/dt, bearing currents, layout. SiC's fast edges make this harder than for IGBT — the chapter the procedure-design only names ([[procedure-design]] §8).
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge.
 
@@ -96,4 +96,4 @@ Order of levers: **layout → grounding → shielding → filtering** [118].
 
 > **References:** [[citations]]
 
-← [[design-procedure]] | [[packaging-and-layout]] | [[standards-and-compliance]] →
+← [[procedure-design]] | [[packaging-and-layout]] | [[standards-and-compliance]] →

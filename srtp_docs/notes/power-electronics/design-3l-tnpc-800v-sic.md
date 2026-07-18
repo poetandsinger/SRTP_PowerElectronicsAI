@@ -15,7 +15,7 @@ review_by: 2026-10-17
 
 **Track 2 topology unit** (`design-<topology>-<voltage>-<device>`): an 800 V-class **SiC 3-level T-type NPC** traction inverter, sized to the same 150 kW anchor as [[design-2l-b6-800v-sic]] for a like-for-like comparison. **Planned, not yet built** — this note is the home for TNPC's validated numbers; it is populated when Track 2 of [[depth-research-plan]] runs, after Track 1 (2L-B6) is validated and registered. Topology catalogue: [[circuit-topologies]] §4.
 
-**Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; **[derived]** → computed in [[design-procedure]]; **[TBD-PLECS]** → to be produced by the Track-2 model.
+**Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; **[derived]** → computed in [[procedure-design]]; **[TBD-PLECS]** → to be produced by the Track-2 model.
 
 ## Why This Topology (industry relevance)
 
@@ -40,8 +40,8 @@ The **leading multilevel candidate for automotive 800 V**: [28] reports **−0.6
 
 ## Planned PLECS Validation (Track 2)
 
-1. Build as a `.plecs` **text** variant of the Track-1 template (swap the 6-switch leg for the 12-switch T-type leg; add NP-balancing modulation). Top-level Outports per [[simulation-and-validation]] §1.
-2. Run the 9-corner matrix ([[simulation-and-validation]] §4) at 550/750/850 V.
+1. Build as a `.plecs` **text** variant of the Track-1 template (swap the 6-switch leg for the 12-switch T-type leg; add NP-balancing modulation). Top-level Outports per [[procedure-simulation-and-validation]] §1.
+2. Run the 9-corner matrix ([[procedure-simulation-and-validation]] §4) at 550/750/850 V.
 3. **Calibrate against the validated 2L-B6 baseline + [28]:** target the ~0.67 kWh/100 km drive-cycle delta and lower partial-load loss; confirm NP balance holds.
 4. Fold η/THD/dv/dt/NP-balance into [[circuit-topologies]] §5 and [[design-tradeoffs]]; register in `model_registry.json`.
 

@@ -409,4 +409,4 @@ Speed loop update:    1–5 ms (much slower outer loop)
 ---
 > **References:** [[citations]]
 
-← [[components]] | [[control-how-to]] →
+← [[components]] | [[procedure-control]] →

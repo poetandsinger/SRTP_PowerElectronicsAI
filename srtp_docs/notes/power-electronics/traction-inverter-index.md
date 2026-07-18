@@ -16,13 +16,13 @@ tags: [power-electronics, traction-inverter, index]
 | [[components]] | Power semiconductors (SiC/IGBT/GaN), gate drivers, DC-link caps, sensors, thermal management |
 | **[[materials-and-properties]]** | **Property reference:** semiconductor / ceramic / die-attach / dielectric / magnet constants in one place |
 | [[control-schemes]] | FOC, DTC, MTPA, SVPWM, DPWM, overmodulation, field weakening, ISO 26262 safety |
-| [[control-how-to]] | Practical FOC recipe: parameter tuning, MTPA, field weakening, safety limits |
+| [[procedure-control]] | Practical FOC recipe: parameter tuning, MTPA, field weakening, safety limits |
 | **[[machine-and-load]]** | **The plant:** PMSM/IPMSM machine types, dq model, torque, operating regions, limits — what the control loop closes around |
 | **[[design-2l-b6-800v-sic]]** | **Topology unit 1 (anchor):** 800V SiC 2L-B6, 150 kW — spec, decisions, operating points, validation plan |
 | [[design-3l-tnpc-800v-sic]] | **Topology unit 2 (scaffold):** 800V SiC 3L-TNPC, 12-switch — leading multilevel candidate |
 | [[design-3l-anpc-800v-sic]] | **Topology unit 3 (scaffold):** 800V SiC 3L-ANPC, 18-switch — the reference-PDF topology + RLC filter |
 | [[design-3l-npc-800v-sic]] | **Topology unit 4 (scaffold):** 800V SiC 3L-NPC, 12-switch + 6-diode — diode-clamped baseline |
-| **[[design-procedure]]** | **End-to-end sizing:** switch → thermal → DC-link → gate-drive → sensing → protection → busbar, worked at the anchor |
+| **[[procedure-design]]** | **End-to-end sizing:** switch → thermal → DC-link → gate-drive → sensing → protection → busbar, worked at the anchor |
 | **[[schematics]]** | **Mermaid schematics:** system, power stage, half-bridge, gate driver, DC-link, sensing, control chain, ASC |
 | **[[thermal-design]]** | **Thermal:** Rth chain (real values), Zth, Tj estimation, cooling, TIM, derating, worked example |
 | **[[gate-driver-design]]** | **Gate drive:** rails, Rg/Ig/Pdrive, desat, isolation, bias, real ICs, CAB450 worked example |
@@ -47,7 +47,7 @@ tags: [power-electronics, traction-inverter, index]
 | **[[design-tradeoffs]]** | **How to compromise:** device / voltage / fsw / topology / cooling trade-offs + decision table |
 | **[[manufacturing-and-test]]** | **Build & test:** module assembly (sinter/bond), busbar, double-pulse, HIL, EOL, production quality |
 | **[[reliability-and-lifetime]]** | **Reliability:** power-cycling wear-out, Nf data, lifetime models (LESIT/CIPS08), mission-profile/Miner, SiC degradation |
-| [[simulation-and-validation]] | PLECS-first simulation & validation workflow, corner tests |
+| [[procedure-simulation-and-validation]] | PLECS-first simulation & validation workflow, corner tests |
 | [[standards-and-compliance]] | Standards: IEC 61800, ISO 26262, AEC-Q, AQG 324, CISPR 25 |
 | [[open-problems]] | Active research questions and design tensions |
 | [[audit-changelog-traction-inverter]] | Source-fidelity audit changelog (what was verified and what was fixed) |
@@ -57,10 +57,10 @@ tags: [power-electronics, traction-inverter, index]
 1. Start with [[what-is-a-traction-inverter]] to understand *why* the inverter exists and what it controls.
 2. Read [[circuit-topologies]] to learn the circuit options.
 3. Read [[components]] to understand what physical parts make it work.
-4. Read [[control-schemes]] for the theory, then [[control-how-to]] for the practical implementation.
-5. **Design cluster (how one is built):** anchor spec [[design-2l-b6-800v-sic]] → sizing math [[design-procedure]] → wiring [[schematics]]. Then the subsystem deep-dives: [[thermal-design]], [[gate-driver-design]], [[protection-and-safety]], [[emi-emc-design]], [[packaging-and-layout]]. Parts & prices: [[bom]] + [[bom-price-database]]. How to compromise: [[design-tradeoffs]]. Second example: [[worked-example-400v-150kw]].
+4. Read [[control-schemes]] for the theory, then [[procedure-control]] for the practical implementation.
+5. **Design cluster (how one is built):** anchor spec [[design-2l-b6-800v-sic]] → sizing math [[procedure-design]] → wiring [[schematics]]. Then the subsystem deep-dives: [[thermal-design]], [[gate-driver-design]], [[protection-and-safety]], [[emi-emc-design]], [[packaging-and-layout]]. Parts & prices: [[bom]] + [[bom-price-database]]. How to compromise: [[design-tradeoffs]]. Second example: [[worked-example-400v-150kw]].
 6. **Compare against real designs:** [[reference-designs-index]] — the Wolfspeed/TI 300kW CRD, Tesla Model 3, and Nissan Leaf across the 800V-SiC → 400V-SiC → 400V-IGBT spectrum.
-7. Read [[simulation-and-validation]] to see how to model and validate it in PLECS.
+7. Read [[procedure-simulation-and-validation]] to see how to model and validate it in PLECS.
 8. Finish with [[open-problems]] for the unresolved research questions.
 
 ## Scope

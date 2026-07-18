@@ -34,7 +34,7 @@ The **Si-IGBT baseline**: a high-volume, cost-driven 400 V traction inverter wit
 
 ## What It Teaches
 
-- **IGBT needs more DC-link capacitance:** 1088 µF here [95] vs the ~300–600 µF the design procedure sizes for a *higher-power* SiC design [[design-procedure]] §4. Lower switching frequency and higher ripple demand more capacitance — a concrete illustration of the SiC "smaller passives" advantage [[components]] §1.2, §3.
+- **IGBT needs more DC-link capacitance:** 1088 µF here [95] vs the ~300–600 µF the design procedure sizes for a *higher-power* SiC design [[procedure-design]] §4. Lower switching frequency and higher ripple demand more capacitance — a concrete illustration of the SiC "smaller passives" advantage [[components]] §1.2, §3.
 - **~90–95% system efficiency** [95] vs >98% for SiC 800 V [91] — the efficiency gap that justifies the SiC premium at higher power/voltage [28].
 - **Cost/simplicity floor:** for <100 kW, 400 V, cost-sensitive vehicles, IGBT 2L stays rational — why [[circuit-topologies]] calls SiC a *high-power/high-voltage* win, not a universal one.
 

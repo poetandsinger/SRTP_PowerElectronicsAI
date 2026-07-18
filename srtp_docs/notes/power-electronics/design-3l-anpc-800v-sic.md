@@ -15,7 +15,7 @@ review_by: 2026-10-17
 
 **Track 3 topology unit** (`design-<topology>-<voltage>-<device>`): an 800 V-class **SiC 3-level Active NPC** traction inverter, sized to the same 150 kW anchor as [[design-2l-b6-800v-sic]]. **Planned, not yet built** — populated when Track 3 of [[depth-research-plan]] runs. This is the topology of the **reference study** (`scratchpad/ref_notes.txt`), so Track 3 reproduces that design directly — including its RLC/damped-LC output filter. Topology catalogue: [[circuit-topologies]] §3.
 
-**Citation convention:** `[NN]` → [[citations]]; `[T]` → training; **[derived]** → in [[design-procedure]]; **[TBD-PLECS]** → produced by the Track-3 model.
+**Citation convention:** `[NN]` → [[citations]]; `[T]` → training; **[derived]** → in [[procedure-design]]; **[TBD-PLECS]** → produced by the Track-3 model.
 
 ## Why This Topology (industry relevance)
 

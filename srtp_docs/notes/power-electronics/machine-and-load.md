@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-The inverter drives a motor; the motor is the **plant** the control loop closes around. Every FOC gain, MTPA table, and field-weakening limit is a function of machine parameters. This note documents that plant so the RAG base covers *how the control is made*, not just the power stage. Parameters feed [[control-how-to]]; the dq model here is the one [[control-schemes]] assumes.
+The inverter drives a motor; the motor is the **plant** the control loop closes around. Every FOC gain, MTPA table, and field-weakening limit is a function of machine parameters. This note documents that plant so the RAG base covers *how the control is made*, not just the power stage. Parameters feed [[procedure-control]]; the dq model here is the one [[control-schemes]] assumes.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; **[derived]** → shown from cited relations.
 
@@ -44,7 +44,7 @@ The inverter drives a motor; the motor is the **plant** the control loop closes 
 
 ## 3. Parameters the Inverter/Control Depend On
 
-Ranges for a ~150 kW IPMSM (mirror of [[control-how-to]] §2, textbook basis [47][50]):
+Ranges for a ~150 kW IPMSM (mirror of [[procedure-control]] §2, textbook basis [47][50]):
 
 | Parameter | Symbol | Typical | Role in control |
 |-----------|--------|---------|-----------------|
@@ -56,7 +56,7 @@ Ranges for a ~150 kW IPMSM (mirror of [[control-how-to]] §2, textbook basis [47
 | Saliency ratio | Lq/Ld | 1.5–3 | reluctance torque, sensorless HF injection |
 | Max current | Is,max | 300–500 A rms | thermal/demag limit |
 
-Basis: [47][50][45], [[control-how-to]] §2. All `[T]`-class until a real datasheet replaces them — this is the placeholder set the design procedure warns about ([[design-procedure]] §0).
+Basis: [47][50][45], [[procedure-control]] §2. All `[T]`-class until a real datasheet replaces them — this is the placeholder set the design procedure warns about ([[procedure-design]] §0).
 
 ---
 
@@ -105,7 +105,7 @@ flowchart LR
 
 **Hard limits the inverter must respect:**
 - **Irreversible demagnetization:** high temperature + large negative id can permanently weaken magnets → the current/temperature envelope is a safety limit, not just efficiency [T][47].
-- **Winding insulation vs inverter dv/dt:** SiC edges stress insulation → machine must be inverter-duty rated **IEC 60034-18-41** [87], [[design-procedure]] §8.
+- **Winding insulation vs inverter dv/dt:** SiC edges stress insulation → machine must be inverter-duty rated **IEC 60034-18-41** [87], [[procedure-design]] §8.
 - **Bearing currents:** common-mode dv/dt drives EDM pitting; mitigate with shaft grounding / ceramic bearings [54], [[circuit-topologies]] §1.
 
 ---
@@ -142,4 +142,4 @@ PLECS ships **native PMSM (with saturation lookup) and induction-machine models 
 
 > **References:** [[citations]]
 
-← [[control-schemes]] | [[control-how-to]] | [[design-2l-b6-800v-sic]] →
+← [[control-schemes]] | [[procedure-control]] | [[design-2l-b6-800v-sic]] →

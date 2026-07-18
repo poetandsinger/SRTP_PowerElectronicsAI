@@ -54,7 +54,7 @@ Cheap, Orchestrator-owned steps — not new agents:
 ## Confirmed (not new)
 - **Template + param-injection, not free-form authoring** — retargeted a *named* PLECS demo by `Value`/`plecs.set` (plan §2 ✓, [[plecs-harness]]).
 - **Explicit compute over LLM re-guessing** — the model, not prose, produced the numbers (design-loop ③ ✓).
-- **RAG-first grounding** — read the method files (design-procedure, machine-and-load, control-how-to, bom) *before* designing; the design instantiates the vault's method, it does not reinvent it.
+- **RAG-first grounding** — read the method files (procedure-design, machine-and-load, procedure-control, bom) *before* designing; the design instantiates the vault's method, it does not reinvent it.
 - **3-agent core sufficient** — the bookends are Orchestrator-owned steps, not agents.
 
 ## Four Passes, Four Workflows — the Process Comparison

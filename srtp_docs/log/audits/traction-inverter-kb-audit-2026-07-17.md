@@ -14,7 +14,7 @@ Audit of `power-electronics/traction-inverter/` after the 2026-07-17 design pass
 ## 1. What This Pass Did
 
 - **Restructured:** `power-electronics/` now holds **only** traction-inverter engineering. Moved `problem-statement/` → vault root (preface); confirmed `market-trends`/`matlab-modeling`/`simulation-toolbox`/`topology-landscape` already deleted (consolidated).
-- **Added design cluster:** [[design-procedure]], [[schematics]] (mermaid), [[bom]], [[bom-price-database]].
+- **Added design cluster:** [[procedure-design]], [[schematics]] (mermaid), [[bom]], [[bom-price-database]].
 - **Added reference designs:** [[reference-designs-index]] + 3 real ([[reference-design-wolfspeed-ti-300kw-800v|Wolfspeed/TI 300kW]], [[reference-design-tesla-model3-400v-sic|Tesla]], [[reference-design-nissan-leaf-400v-igbt|Nissan Leaf]]) alongside the synthetic anchor.
 - **Researched "why AI":** updated [[problem-statement-index]] with sourced workforce [97], market [96], and demonstrated-capability [60][81][61] evidence; softened the unsourced cost/time figures.
 - **Citations [91]–[100]** added for reference designs, prices, market, workforce.

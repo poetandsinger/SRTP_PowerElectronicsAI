@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-Every protection layer and the **safety factors / derating** behind them. Consolidates the safety threads from [[design-procedure]] §7, [[gate-driver-design]], and [[control-schemes]] §6. The baseline utilization — **800 V bus on 1200 V SiC = 67% of rating** — is the anchor; this chapter is why 67%, not 85%, is the sweet spot.
+Every protection layer and the **safety factors / derating** behind them. Consolidates the safety threads from [[procedure-design]] §7, [[gate-driver-design]], and [[control-schemes]] §6. The baseline utilization — **800 V bus on 1200 V SiC = 67% of rating** — is the anchor; this chapter is why 67%, not 85%, is the sweet spot.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge.
 
@@ -40,7 +40,7 @@ The hard reason SiC is not run near its rated voltage even when *static* blockin
 
 ## 4. Overvoltage
 
-- **Turn-off overshoot** `ΔV = Lσ·di/dt`, dominated by power-loop stray inductance; keep VDS peak within **±5% of bus** by low-`Lσ` layout + `Rg` tuning [110][125], [[design-procedure]] §8.
+- **Turn-off overshoot** `ΔV = Lσ·di/dt`, dominated by power-loop stray inductance; keep VDS peak within **±5% of bus** by low-`Lσ` layout + `Rg` tuning [110][125], [[procedure-design]] §8.
 - **Clamping:** active gate clamp (variable Rg/V/I), gate-drain TVS active clamp, Miller clamp, RC/RCD snubber [125].
 - **Regen bus pumping:** layered thresholds — brake chopper ON/OFF with hysteresis (e.g. 1170/1140 V on a 1200 V link), hard crowbar ~1250 V, trip at ~90–95% of the OV limit with 3–8% hysteresis; chopper needs its own diagnostics [125].
 
@@ -98,4 +98,4 @@ Common strategy: freewheel at low speed, ASC at high speed; hybrid schemes injec
 
 > **References:** [[citations]]
 
-← [[gate-driver-design]] | [[design-procedure]] | [[standards-and-compliance]] →
+← [[gate-driver-design]] | [[procedure-design]] | [[standards-and-compliance]] →

@@ -16,6 +16,7 @@ tags: [index]
 
 | Timestamp | Summary | Detail |
 |-----------|---------|--------|
+| 2026-07-19 | PLECS validation SOP (S1–S7 gates: convergence, steady-state window, energy balance, measured calibration, per-topology NP-balance); method notes → `procedure-*`; control/PLECS toolchain reconciled; SCHEMA/README updated | [[2026-07-19-validation-sop]] |
 | 2026-07-19 | Topology-unit naming: `design-<topology>-<voltage>-<device>` scheme; renamed 2L anchor to `design-2l-b6-800v-sic`; added TNPC/ANPC/NPC scaffolds; split reference-designs-index | [[2026-07-19-topology-units]] |
 | 2026-07-19 | Vault refactor: stage-based folders (`sources`/`notes`/`trials`/`plans`/`log`), 867 links → bare basenames (files move without breaking), per-stage `.base` indexes, density pass over 70 notes. No information lost (verified) | [[2026-07-19-vault-refactor]] |
 | 2026-07-18 | Three more worked examples across applications+workflows: Class-8 truck (lifetime/rainflow-Miner), hypercar (power-density/Zth-pulse, Porsche-anchored), 96V microcar (cost/voltage-lever). Web-researched sources [158]–[165]; process comparison folded into observed-workflow note (n→4) | [[2026-07-18-three-worked-examples]] |

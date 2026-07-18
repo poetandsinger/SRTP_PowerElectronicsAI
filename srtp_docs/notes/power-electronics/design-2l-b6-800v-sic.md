@@ -13,9 +13,9 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-**Track 1 topology unit** (`design-<topology>-<voltage>-<device>`) and the anchor of the design cluster: an 800 V-class **SiC 2-level B6** traction inverter, 150 kW, driving an IPMSM. Collects the spec, key decisions, and validation plan in one place. This is the first of four topology units ([[circuit-topologies]]); sizing math in [[design-procedure]], diagrams in [[schematics]], parts in [[bom]]. See [[depth-research-plan]] for the serial build order.
+**Track 1 topology unit** (`design-<topology>-<voltage>-<device>`) and the anchor of the design cluster: an 800 V-class **SiC 2-level B6** traction inverter, 150 kW, driving an IPMSM. Collects the spec, key decisions, and validation plan in one place. This is the first of four topology units ([[circuit-topologies]]); sizing math in [[procedure-design]], diagrams in [[schematics]], parts in [[bom]]. See [[depth-research-plan]] for the serial build order.
 
-**Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; **[derived]** → computed in [[design-procedure]].
+**Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; **[derived]** → computed in [[procedure-design]].
 
 ---
 
@@ -41,7 +41,7 @@ The **highest-*volume* SiC design today is 400 V** (Tesla Model 3/Y class) [31],
 | Max phase current | 300 A rms (424 A pk) | [derived §1][T] |
 | Switching frequency | 16 kHz | [50], circuit-topologies §1 |
 | Modulation | SVPWM + DPWM at high load, overmod to six-step | [[control-schemes]] §4 |
-| Control | FOC, MTPA + field weakening, resolver | [[control-how-to]] |
+| Control | FOC, MTPA + field weakening, resolver | [[procedure-control]] |
 | DC-link cap | ~500 µF film, ≥900 Vdc | [derived §4][41] |
 | Cooling | pin-fin water-glycol, 65 °C inlet | [T], components §6.1 |
 | Motor | IPMSM, 8-pole (params `[T]`) | [T][47][50] |
@@ -51,7 +51,7 @@ The **highest-*volume* SiC design today is 400 V** (Tesla Model 3/Y class) [31],
 
 ## Computed Operating Points (first-pass, replace with PLECS)
 
-All **[derived]** in [[design-procedure]]; these are algebra on `[T]` assumptions, not measurements [80].
+All **[derived]** in [[procedure-design]]; these are algebra on `[T]` assumptions, not measurements [80].
 
 | Quantity | Value | Where |
 |----------|-------|-------|
@@ -121,7 +121,7 @@ The multilevel cases matter most **at 800 V**, which is why this anchor is 800 V
 1. **No validated model exists yet** — the efficiency/THD/thermal figures are unverified estimates [80]; the handoff is explicit that these must come from PLECS.
 2. **800-vs-400 framing is a choice.** If the goal were to match the highest-volume production inverter, 400 V (Tesla-class) would be the anchor [31]. We chose 800 V for forward relevance and instructiveness; a reviewer could reasonably prefer 400 V.
 3. **The 3L-TNPC advantage rests on one preprint** [28] — see the Red Team in [[circuit-topologies]]; the alternatives table inherits that single-source risk.
-4. **Motor parameters `[T]`** propagate into every operating point; a real datasheet could shift currents and PF materially [[control-how-to]] §8.
+4. **Motor parameters `[T]`** propagate into every operating point; a real datasheet could shift currents and PF materially [[procedure-control]] §8.
 
 **What would change my mind:** A PLECS-validated 2L-B6 model at the three corners; a real IPMSM datasheet; and, for the anchor choice, an explicit human decision on 400 V vs 800 V as the primary target (flagged as an open question in the handoff).
 
@@ -131,4 +131,4 @@ The multilevel cases matter most **at 800 V**, which is why this anchor is 800 V
 
 > **References:** [[citations]]
 
-← [[design-procedure]] | [[schematics]] | [[bom]] | [[traction-inverter-index]] →
+← [[procedure-design]] | [[schematics]] | [[bom]] | [[traction-inverter-index]] →

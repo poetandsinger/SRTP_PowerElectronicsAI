@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-The thermal chapter: how heat leaves the die, how hot the junction gets, and how that caps continuous torque. Deep-dive behind [[components]] §6 and [[design-procedure]] §3. Reference device: Wolfspeed CAB450M12XM3 (1200 V/450 A SiC, Tj,max 175 °C) [92].
+The thermal chapter: how heat leaves the die, how hot the junction gets, and how that caps continuous torque. Deep-dive behind [[components]] §6 and [[procedure-design]] §3. Reference device: Wolfspeed CAB450M12XM3 (1200 V/450 A SiC, Tj,max 175 °C) [92].
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; `[derived]` → computed here.
 
@@ -44,7 +44,7 @@ Steady state is series-additive: **`Tj = Tcoolant + P·(Rth,jc + Rth,cs + Rth,s-
 | **NTC** (on DBC near dies) | slow (100s ms–s) | reads *substrate*, not Tj | cheap, robust, EMI-immune; needs chip→NTC model; misses transients/hot-die [106] |
 | **TSEP** (Vds(on), Vth, turn-on delay) | fast (µs–cycle) | good with calibration | needs sense circuitry, EMI-sensitive, gives **lumped average** across paralleled dies (misses hottest) [106] |
 
-Production split: **NTC for slow protection/derating; TSEP/model-based for fast condition monitoring** [106]. NTC lag is why the design-procedure derating loop uses a thermal model on top of the NTC ([[design-procedure]] §6).
+Production split: **NTC for slow protection/derating; TSEP/model-based for fast condition monitoring** [106]. NTC lag is why the procedure-design derating loop uses a thermal model on top of the NTC ([[procedure-design]] §6).
 
 ## 4. Cooling Technologies (performance)
 
@@ -104,4 +104,4 @@ Mid-load `P_loss ≈ 500 W/switch`, coolant `Tc = 65 °C`, pin-fin WEG:
 
 > **References:** [[citations]]
 
-← [[components]] | [[design-procedure]] | [[packaging-and-layout]] →
+← [[components]] | [[procedure-design]] | [[packaging-and-layout]] →

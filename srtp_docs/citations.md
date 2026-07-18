@@ -191,7 +191,7 @@ tags: [index, ieee]
 
 ## 2026-07-17 Design KB Pass — Sizing, Gate-Drive & Automotive Standards
 
-> Added to ground the traction-inverter **design cluster**: [[design-procedure]], [[schematics]], [[bom]], [[design-2l-b6-800v-sic]]. Standards are cited by designation; the standards texts themselves are paywalled and were not read in full — claims tied to them are scoped to widely-documented summaries.
+> Added to ground the traction-inverter **design cluster**: [[procedure-design]], [[schematics]], [[bom]], [[design-2l-b6-800v-sic]]. Standards are cited by designation; the standards texts themselves are paywalled and were not read in full — claims tied to them are scoped to widely-documented summaries.
 
 - [84] **J. W. Kolar and S. D. Round**, "Analytical calculation of the RMS current stress on the DC-link capacitor of voltage-source PWM converter systems," *IEE Proc. Electric Power Applications*, vol. 153, no. 4, pp. 535–543, Jul. 2006. DOI: 10.1049/ip-epa:20050458. — Canonical DC-link ripple-current derivation (supersedes the un-numbered "Kolar et al." reference in [[components]] §3.2). *Reliability: high (peer-reviewed). DOI to re-verify against IET copy.*
 - [85] **ISO 26262:2018**, "Road vehicles — Functional safety," International Organization for Standardization, 2018. — ASIL classification, safety goals, ASC/torque-monitoring requirements. *Standard document; paywalled — cited by designation.*
@@ -278,7 +278,7 @@ tags: [index, ieee]
 
 ## 2026-07-18 Textbook Pass — Standards Substance & PLECS-MCP Grounding
 
-> Web-researched (subagent + verification) to fill the "names the standard but not its requirement" gap in [[standards-and-compliance]]. Standard texts remain paywalled; values are from official base documents, standards-body summaries, or reputable app notes, tagged **[H]/[M]/[TPS]** in-text. Verify against purchased standard + the program's own spec before design freeze. Also grounds the PLECS-scriptability claim in [[simulation-and-validation]] against the real PE-MAS PLECS-MCP server [72].
+> Web-researched (subagent + verification) to fill the "names the standard but not its requirement" gap in [[standards-and-compliance]]. Standard texts remain paywalled; values are from official base documents, standards-body summaries, or reputable app notes, tagged **[H]/[M]/[TPS]** in-text. Verify against purchased standard + the program's own spec before design freeze. Also grounds the PLECS-scriptability claim in [[procedure-simulation-and-validation]] against the real PE-MAS PLECS-MCP server [72].
 
 - [149] **Texas Instruments**, "SLUAAR5 — Isolation, Creepage and Clearance for High-Voltage Systems (IEC 61800-5-1 / IEC 60664-1)." https://www.ti.com/lit/pdf/sluaar5 — DVC concept (Table 3 of 61800-5-1), PD2 worked clearance (0.5 mm @1500 V → 5.5 mm @6000 V reinforced) and creepage (565 V → 5.6 mm reinforced); reinforced ≈ 2× basic. Extends [113]. *App note quoting standard clauses; `reliability: medium`.*
 - [150] **IEC 61800-5-2:2016 safety sub-functions** — SEW-Eurodrive (https://download.sew-eurodrive.com/download/html/30587239/en-EN/4014183898743621600907.html), Synapticon, SICK function definitions (STO/SS1/SS2/SOS/SLS/SDI/SLI/SLP/SBC…), SIL 1–3 per IEC 61508. *Vendor/standards summaries; `reliability: medium`. Standard paywalled.*

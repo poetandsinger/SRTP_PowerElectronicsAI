@@ -1,21 +1,17 @@
 ---
-title: Control How-To ,Tuning and Implementing FOC for a Traction Inverter
+title: "Control Procedure — Tuning & Implementing FOC for a Traction Inverter"
 type: topic
 field: power-electronics
 created: 2026-07-08
 updated: 2026-07-19
 status: unverified
 evidence: theoretical
-tags:
-  - ee
-  - foc
-  - pi-control
-  - tuning
+tags: [power-electronics, traction-inverter, foc, pi-control, tuning, design]
 ---
 
 ## 1. What This Note Is For
 
-A practical implementation guide for field-oriented control (FOC) of a traction inverter driving a PMSM. It gives the exact steps to tune the current loop, set up MTPA, and implement safe operating limits — the bridge between the theory in [[control-schemes]] and the plant/modeling in [[machine-and-load]] and [[simulation-and-validation]].
+A practical implementation guide for field-oriented control (FOC) of a traction inverter driving a PMSM. It gives the exact steps to tune the current loop, set up MTPA, and implement safe operating limits — the bridge between the theory in [[control-schemes]] and the plant/modeling in [[machine-and-load]] and [[procedure-simulation-and-validation]].
 
 ## 2. Required Motor Parameters
 
@@ -127,11 +123,13 @@ Apply dead time (1–2 µs for IGBT, 0.2–0.5 µs for SiC) and insert it into t
 
 ## 4. Tuning Procedure in Simulation
 
+These closed-loop checks run in the **PLECS drive model** — PLECS hosts the FOC controller (or PLECS plant + external C controller). The project sim backend is **PLECS, not Simulink** [79][80]; the MATLAB-style code above is illustrative pseudocode for the math. Every quantitative check here obeys the run-validity gates of the [[procedure-simulation-and-validation]] SOP §4 (numerical convergence → steady-state integer-cycle window → energy balance) before its numbers count.
+
 1. **Open-loop voltage test:** Apply small Vd, Vq to verify transforms and PWM direction.
 2. **Current loop only:** Set speed loop to manual; apply step in Id_ref and Iq_ref. Tune Kp/Ki for ~10–20% overshoot and fast settling.
 3. **Add speed loop:** Tune speed PI with bandwidth ~10–50 Hz. Speed loop should be much slower than current loop.
 4. **Add MTPA/field weakening:** Verify torque-per-amp is maximized at low speed and voltage limit is respected at high speed.
-5. **Drive-cycle test:** Run WLTP or EPA cycle profile and verify efficiency, temperature, and fault-free operation.
+5. **Drive-cycle test:** averaged model (SOP §3), WLTP/US06 profile; measure efficiency, temperature, and fault-free operation over **settled integer cycles only** (SOP S2).
 
 ## 5. Common Mistakes
 
@@ -155,13 +153,15 @@ Apply dead time (1–2 µs for IGBT, 0.2–0.5 µs for SiC) and insert it into t
 | Thermal steady-state | Tj < 150°C for IGBT, < 175°C for SiC |
 | Fault injection | Safe state reached within 100 ms |
 
+**Acceptance vs sanity:** these bands are sanity checks. The pass/fail test is against the topology's **validated baseline** — η within **±1 pt**, loss split within **±10 %**, `Tj` within **±5 °C** ([[procedure-simulation-and-validation]] §4.2). A run also must clear the SOP gates (S1–S3) and, for a `validated` label, match the measured Wolfspeed anchor (S5).
+
 ## 7. From Simulation to ECU
 
-Once the Simulink FOC is validated, the typical production path is [51]:
+Once the FOC is validated in the **PLECS drive model** (§4), the typical production path is [51]. This is the *embedded-controller* workflow — MATLAB/Simulink was dropped as the **sim backend** (PLECS replaces it [79][80]) but may still be used for controller code-gen only:
 
 1. **Fixed-point conversion:** Scale all signals to fixed-point arithmetic (e.g., Q15, Q31) for automotive MCUs.
-2. **Code generation:** Use Simulink Coder / Embedded Coder to generate C code.
-3. **SIL test:** Run generated code in Simulink (Software-in-the-Loop) against the plant model.
+2. **Code generation:** auto-code the controller (PLECS Coder / Embedded Coder / hand-written C).
+3. **SIL test:** run the generated controller code against the **PLECS plant model** (Software-in-the-Loop).
 4. **PIL test:** Compile and run on target MCU with plant still simulated.
 5. **HIL test:** Connect real ECU to real-time motor/inverter simulator.
 6. **Vehicle test:** Calibrate on dynamometer, then road test.
@@ -193,4 +193,4 @@ Once the Simulink FOC is validated, the typical production path is [51]:
 ---
 > **References:** [[citations]]
 
-← [[machine-and-load]] | [[simulation-and-validation]] →
+← [[machine-and-load]] | [[procedure-simulation-and-validation]] →

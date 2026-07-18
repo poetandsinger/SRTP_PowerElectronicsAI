@@ -35,9 +35,10 @@ srtp_docs/
 │   └── ai-agents/          #   19 source papers
 │
 ├── notes/                  # digested: claims · topics · maps
-│   ├── power-electronics/  #   traction-inverter textbook — topologies, devices, control,
-│   │                       #   design-procedure, thermal, gate-drive, protection, EMI, packaging,
-│   │                       #   BOM, trade-offs, 4 reference designs, mfg/test, reliability, standards
+│   ├── power-electronics/  #   traction-inverter engineering — topologies, devices, machine, control;
+│   │                       #   4 topology-unit designs (2L-B6 + 3L TNPC/ANPC/NPC) + 3 external refs;
+│   │                       #   procedures: procedure-design, procedure-control, procedure-simulation-and-validation (SOP);
+│   │                       #   thermal, gate-drive, protection, EMI, packaging, BOM, reliability, standards
 │   ├── ai-agents/          #   harness deep dives (Claude Code, Codex, LangGraph, CrewAI, AutoGen…),
 │   │                       #   agent-paper notes, red-teamed claims, workflow-patterns, design-loop
 │   └── problem-statement/  #   preface: why AI for inverter design — market, workforce
@@ -58,12 +59,12 @@ srtp_docs/
 
 | Field | Hub | Content |
 |-------|-----|---------|
-| Power Electronics | [[traction-inverter-index]] | **29-chapter traction-inverter textbook** (red-teamed, cited [1]–[165]) + 6 source papers |
+| Power Electronics | [[traction-inverter-index]] | **Traction-inverter engineering** (red-teamed, cited [1]–[165]): 4 topology-unit designs, procedures + PLECS validation SOP, subsystem chapters, 3 external reference designs + 6 source papers |
 | Problem Statement (preface) | [[problem-statement-index]] | Why AI for traction inverter design: market, workforce, competitive landscape |
 | AI / Agent Architecture | [[harness-index]] | 12 harness deep dives, 19 source captures, 2 red-teamed claims, workflow-patterns + design-loop findings, MAS bridge |
 | *Full inventory* | [[catalog.base]] | Live table of every note (field · type · status · evidence), auto-generated |
 
-> **The textbook is grounded but not yet PLECS-validated:** design/thermal/loss numbers are closed-form or teardown/vendor figures, flagged in each chapter's Red Team. Turning them into simulation-backed evidence is the top depth-first task — see [[depth-research-plan]].
+> **Grounded but not yet PLECS-validated:** design/thermal/loss numbers are closed-form or teardown/vendor figures, flagged in each Red Team. Turning them into simulation-backed evidence is the top task, now governed by a **PLECS validation SOP** ([[procedure-simulation-and-validation]] §4, gates S1–S7) and a **serial 4-topology build program** ([[depth-research-plan]]: 2L-B6 → TNPC → ANPC → NPC).
 
 ## Implementation
 

@@ -67,7 +67,7 @@ C-segment front-drive BEV crossover (VW ID.4 / Kona-EV class). Road load `F = mg
 
 ## 5. Control (FOC, instantiated)
 
-Per [[control-how-to]]: FOC + MTPA + field-weakening, SVPWM, resolver, ASC safe state. **IMC current-loop gains** at BW = 2π·1.5 kHz [derived §3, control-how-to §3]: `Kp_d`=1.41, `Kp_q`=2.83 V/A, `Ki_d=Ki_q`=141 V/(A·s). 12 kHz → 83 µs PWM, double-update 42 µs, current-loop BW ~1/8 of update. MTPA runs `id<0` for reluctance torque (saliency 2.0); field-weakening from ~4500 rpm base to 12 000 rpm. Safety: resolver-fault / torque-mismatch → **ASC** (bus would otherwise pump via body diodes at speed) [55], [[protection-and-safety]] §5.
+Per [[procedure-control]]: FOC + MTPA + field-weakening, SVPWM, resolver, ASC safe state. **IMC current-loop gains** at BW = 2π·1.5 kHz [derived §3, procedure-control §3]: `Kp_d`=1.41, `Kp_q`=2.83 V/A, `Ki_d=Ki_q`=141 V/(A·s). 12 kHz → 83 µs PWM, double-update 42 µs, current-loop BW ~1/8 of update. MTPA runs `id<0` for reluctance torque (saliency 2.0); field-weakening from ~4500 rpm base to 12 000 rpm. Safety: resolver-fault / torque-mismatch → **ASC** (bus would otherwise pump via body diodes at speed) [55], [[protection-and-safety]] §5.
 
 ## 6. BOM — the actual parts and why
 
@@ -90,7 +90,7 @@ Class-level method in [[bom]]; here are the **specific parts chosen for this des
 
 ## 7. PLECS Status
 
-PLECS Standalone is **licensed and driveable via XML-RPC** here (`plecs.load/set/simulate`) — this **clears the vault's flagged "PLECS license check"** blocker [[README]]. The `permanent_magnet_synchronous_machine` FOC demo was **retargeted to this machine** (`Rs`=15 mΩ, salient `Ld/Lq`, `λ`=0.075, 355 V) and **simulated to completion** (`worked-designs/family-car-400v-sic/pmsm_mycar.plecs`) [58][78][72]. Quantitative readback needs top-level outports on torque/current/loss — the documented next step ([[simulation-and-validation]] §4). Until then §4 numbers are the analytic model, equivalent to PLECS's *averaged* thermal-loss layer, pending its *switching-resolved* confirmation.
+PLECS Standalone is **licensed and driveable via XML-RPC** here (`plecs.load/set/simulate`) — this **clears the vault's flagged "PLECS license check"** blocker [[README]]. The `permanent_magnet_synchronous_machine` FOC demo was **retargeted to this machine** (`Rs`=15 mΩ, salient `Ld/Lq`, `λ`=0.075, 355 V) and **simulated to completion** (`worked-designs/family-car-400v-sic/pmsm_mycar.plecs`) [58][78][72]. Quantitative readback needs top-level outports on torque/current/loss — the documented next step ([[procedure-simulation-and-validation]] §4). Until then §4 numbers are the analytic model, equivalent to PLECS's *averaged* thermal-loss layer, pending its *switching-resolved* confirmation.
 
 ## 8. The Report — Compromises
 

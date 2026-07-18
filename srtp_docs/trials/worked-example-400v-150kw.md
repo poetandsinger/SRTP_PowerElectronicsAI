@@ -12,9 +12,9 @@ review_by: 2026-10-17
 
 ## What This Is
 
-The [[design-procedure]] applied a **second time**, at 400 V, for the same 150 kW as the 800 V anchor ([[design-2l-b6-800v-sic]]). Side by side, it shows the biggest voltage-class lesson: **halving the bus doubles the current, and I²R conduction loss dominates.** Grounded against the 400 V production designs [94][95].
+The [[procedure-design]] applied a **second time**, at 400 V, for the same 150 kW as the 800 V anchor ([[design-2l-b6-800v-sic]]). Side by side, it shows the biggest voltage-class lesson: **halving the bus doubles the current, and I²R conduction loss dominates.** Grounded against the 400 V production designs [94][95].
 
-**Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; `[derived]` → computed here from the cited relations in [[design-procedure]].
+**Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; `[derived]` → computed here from the cited relations in [[procedure-design]].
 
 ## Spec (400 V variant)
 
@@ -51,7 +51,7 @@ The [[design-procedure]] applied a **second time**, at 400 V, for the same 150 k
 ## DC-Link & Busbar [derived]
 
 - **Ripple current** ≈ 0.6·410 ≈ **246 A rms** — ~2× the 800 V case → a **bigger cap bank** (≈600–1000 µF class). This matches the ~1088 µF seen in the 400 V IGBT Leaf [95] (IGBT's lower fsw needs even more) [84].
-- **Busbar:** 2× current makes the `Lσ < 15 nH` budget harder and I²R busbar loss 4× — laminated busbar and short commutation loops are more critical, not less [25], [[design-procedure]] §8.
+- **Busbar:** 2× current makes the `Lσ < 15 nH` budget harder and I²R busbar loss 4× — laminated busbar and short commutation loops are more critical, not less [25], [[procedure-design]] §8.
 
 ## When 400 V Still Wins
 
@@ -74,4 +74,4 @@ Despite the penalty, 400 V is rational for **cost-first, <100–150 kW, high-vol
 
 > **References:** [[citations]]
 
-← [[design-procedure]] | [[reference-design-tesla-model3-400v-sic]] | [[design-tradeoffs]] →
+← [[procedure-design]] | [[reference-design-tesla-model3-400v-sic]] | [[design-tradeoffs]] →

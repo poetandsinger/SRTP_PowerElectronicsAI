@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-How the inverter is **built and verified** — module assembly, system integration, and the test pyramid from double-pulse to HIL to end-of-line. The step between a validated design and a shippable part. Pairs with [[packaging-and-layout]] (what the structure is) and [[simulation-and-validation]] (model-side V&V).
+How the inverter is **built and verified** — module assembly, system integration, and the test pyramid from double-pulse to HIL to end-of-line. The step between a validated design and a shippable part. Pairs with [[packaging-and-layout]] (what the structure is) and [[procedure-simulation-and-validation]] (model-side V&V).
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge.
 
@@ -48,7 +48,7 @@ Solder/sinter fatigue and wire-bond lift-off are the leading power-cycling wear-
 
 ## 4. The V-Model — MIL → SIL → PIL → HIL
 
-Design (left) maps to verification (right) [135]: **MIL** (control+plant as models) → **SIL** (compiled code on host) → **PIL** (code on the target processor — timing/memory/precision) → **HIL** (full ECU vs real-time plant) → dyno → vehicle; extended MiL→SiL→PiL→HiL→**DiL→ViL** [135]. This is the software/system side of [[simulation-and-validation]].
+Design (left) maps to verification (right) [135]: **MIL** (control+plant as models) → **SIL** (compiled code on host) → **PIL** (code on the target processor — timing/memory/precision) → **HIL** (full ECU vs real-time plant) → dyno → vehicle; extended MiL→SiL→PiL→HiL→**DiL→ViL** [135]. This is the software/system side of [[procedure-simulation-and-validation]].
 
 ## 5. HIL — Timestep Is the Spec
 
@@ -92,4 +92,4 @@ Tested: control stability, PWM/dead-time, fault injection (SC, overcurrent, sens
 
 > **References:** [[citations]]
 
-← [[packaging-and-layout]] | [[simulation-and-validation]] | [[reliability-and-lifetime]] →
+← [[packaging-and-layout]] | [[procedure-simulation-and-validation]] | [[reliability-and-lifetime]] →

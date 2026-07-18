@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 # Simulation & Validation
 
-> How to model and validate a traction-inverter design. The project's simulator is **PLECS only** (MATLAB dropped) [80][58]. This chapter is the *model side* of V&V — how PLECS represents the inverter, and the corner tests that turn a sizing spec ([[design-procedure]]) into evidence. The *hardware side* (double-pulse bench, HIL, EOL) lives in [[manufacturing-and-test]]; validation closes the loop against [[reference-designs-index]].
+> How to model and validate a traction-inverter design. The project's simulator is **PLECS only** (MATLAB dropped) [80][58]. This chapter is the *model side* of V&V — how PLECS represents the inverter, and the corner tests that turn a sizing spec ([[procedure-design]]) into evidence. The *hardware side* (double-pulse bench, HIL, EOL) lives in [[manufacturing-and-test]]; validation closes the loop against [[reference-designs-index]].
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge.
 
@@ -63,23 +63,58 @@ Pick the coarsest model that answers the question; the two live in one file [T][
 
 A full **WLTP cycle** (~1800 s) is only tractable in the averaged model; the switched model validates the loss/thermal tables at a handful of operating points that the averaged model then reuses [T][63]. This two-tier approach (switched for point accuracy, averaged for cycle coverage) is standard practice [63][143].
 
-## 4. The Corner-Test Matrix — What to Actually Simulate
+## 4. The Validation SOP
 
-A design is "PLECS-validated" only when it survives these runs. Each maps to a design-procedure step and a pass criterion:
+A design's numbers are **evidence only after this procedure**. The order is deliberate: **run-validity gates (S1–S3) first** — a run that fails them is *discarded, not reported* — then the corner matrix (S4), the non-circular calibration (S5), the fidelity reconciliation (S6), and registration (S7). **S1–S7 are topology-general;** §4.4 lists what a topology *adds*.
 
-| # | Test | Setup | Pass criterion | Ties to |
-|---|------|-------|----------------|---------|
-| 1 | **Double-pulse (virtual)** | switched, one leg, clamped inductive load | Eon/Eoff, `Vds` overshoot within device SOA | [[design-procedure]] §2–3 |
-| 2 | **Efficiency at 3 corners** | switched, low-line / nominal / high-line | η matches hand estimate ±; loss split sane | design-proc §3 |
-| 3 | **Thermal / continuous** | coupled, hold `Is,max` launch | `Tj` < 175 °C at `Zth`-limited duration | §2, thermal-design §6 |
-| 4 | **DC-link ripple** | switched, worst `m`/cosφ | `I_cap,rms` < rating; ΔVdc < 1–2% | design-proc §4 |
-| 5 | **Overmodulation / six-step** | switched, MI > 0.907 | fundamental & THD vs field-weakening need | [[control-schemes]] §4.4 |
-| 6 | **Field-weakening sweep** | plant, speed 0→max | torque holds ~1/ω; current within limit | machine-and-load §5 |
-| 7 | **Fault: short-circuit** | switched, shoot-through | fault current & `I²t` vs SCWT budget (<3 µs) | [[protection-and-safety]] §3 |
-| 8 | **Fault: ASC entry** | plant, short all low-side at speed | entry transient, drag torque, no bus overvolt | protection-and-safety §5 |
-| 9 | **Drive-cycle** | averaged, WLTP/US06 | cycle-average η; `Tj` history for lifetime | reliability-and-lifetime |
+### 4.1 Run-validity gates (every switched run passes these before its numbers count)
 
-**Corner 2 is the handoff contract:** [[design-procedure]] declares its closed-form efficiency/THD/thermal numbers *provisional* until PLECS reproduces them at these three line corners [80]. Corner 9 feeds the `Tj` mission profile into the rainflow→Miner lifetime pipeline [143], [[reliability-and-lifetime]].
+- **S1 — Numerical convergence.** Halve the switched `max-timestep` (and tighten `reltol`) until η and THD change **< 0.1 pt** and **< 0.2 %abs** between refinements; record the converged step. At `fsw`=16 kHz resolve edges to **≤ ~50–100 ns**. A non-converged run is invalid. (The reference study fixes Gear / `maxord=2` / `reltol=1e-4` / 100 ns for this reason.)
+- **S2 — Steady state + integer-cycle window.** Run **≥ 5 fundamental periods** past startup (until half-bus, `Tj`, and RMS currents settle), then measure **only over an integer number of fundamental cycles** (e.g. the last 2). Startup or non-integer windows give wrong η/THD/ripple — the failure that made the reference doc's 5.59 ms (0.56-cycle) run unusable.
+- **S3 — Energy balance.** Verify **P_in = P_out + P_loss within ±1 %** (PLECS reports all three independently — mind the source-current sign). A mismatch means a sign error, a missing loss term, or a bad window: fix before reporting η.
+
+### 4.2 Acceptance tolerances
+
+| Metric | Tolerance | Against |
+|--------|-----------|---------|
+| Efficiency η | **±1 pt** | measured reference (S5); hand estimate = sanity only |
+| Convergence Δη / ΔTHD | < 0.1 pt / < 0.2 %abs | timestep halving (S1) |
+| Loss split (cond / sw) | ±10 % | reference / baseline |
+| Junction temp `Tj` | ±5 °C | reference / baseline |
+| Energy balance | ±1 % | P_in vs P_out+P_loss (S3) |
+| DC-link ripple ΔVdc | < 1–2 % | rating |
+| Averaged vs switched | ±10 % | shared operating points (S6) |
+
+### 4.3 S4 — Corner matrix (each corner pins a (Vdc, load) point + a numeric criterion)
+
+| # | Test | Operating point (Vdc, load) | Pass criterion | Ties to |
+|---|------|-----------------------------|----------------|---------|
+| 1 | **Double-pulse** | 850 V, I≈`Ipk` (~424 A), `Tj` hot | Eon/Eoff extracted; `Vds,pk` within switching-SOA (≤~83 % BV) | [[procedure-design]] §2–3 |
+| 2 | **Efficiency** | {550, 750, 850} V × {peak 150 kW, cont 70 kW} | η within ±1 pt of baseline; loss split ±10 %; **energy-balanced (S3)** | design-proc §3 |
+| 3 | **Thermal / continuous** | 850 V, **launch 300 A rms**, `Tcool`=65 °C | `Tj` < 175 °C over `Zth`-limited duration | thermal-design §6 |
+| 4 | **DC-link ripple** | worst `m`/cosφ at launch | `I_cap,rms` < rating; ΔVdc < 1–2 % | design-proc §4 |
+| 5 | **Overmodulation / six-step** | 550 V (low line), MI > 0.907 | fundamental & THD vs field-weakening need | [[control-schemes]] §4.4 |
+| 6 | **Field-weakening sweep** | 750 V, speed 0→max | torque ~1/ω; `Vd²+Vq² ≤ Vmax²`; current within limit | machine-and-load §5 |
+| 7 | **Fault: short-circuit** | 850 V, shoot-through, `Tj` hot | fault current & `I²t` vs SCWT budget (< 3 µs SiC) | [[protection-and-safety]] §3 |
+| 8 | **Fault: ASC entry** | short all low-side at max speed | entry transient, drag torque, **no bus overvolt** | protection-and-safety §5 |
+| 9 | **Drive-cycle** | averaged, WLTP / US06 | cycle-average η; `Tj` history for lifetime | reliability-and-lifetime |
+
+S1 applies to every switched corner; S2 to 2/4/5/6/9; S3 to 2/9. The launch corner (300 A rms / 424 A pk), not peak power, drives the thermal/ripple worst case [[procedure-design]] §1.
+
+### 4.4 Per-topology additions (when the topology opens new specs)
+
+The 9 corners are topology-general. A topology **adds**, it does not replace:
+
+- **All 3-level (NPC / TNPC / ANPC):** **Corner 10 — neutral-point balance.** At worst `m`/load, capacitor-voltage divergence must stay bounded — run **with and without** balancing (the ANPC reference shows the half-bus drifting 477→534 V un-balanced). A first-order stress/stability spec 2L does not have.
+- **ANPC:** verify **redundant-zero-state loss/`Tj` equalisation** across the four main switches, and sweep the **RLC/damped-LC output filter** (f0, attenuation at `fsw`, 100 Hz drop) per the reference study.
+- **TNPC:** confirm the **outer switches block full Vdc** (1200 V device stress) while the NP branch sees Vdc/2.
+- **NPC:** quantify the **inner-vs-outer switch loss asymmetry** (the flaw ANPC fixes).
+
+### 4.5 S5–S7 — calibrate, reconcile, register
+
+- **S5 — Calibrate against measured data (the non-circular anchor).** Closed-form hand estimates share the model's `[T]` device/machine assumptions, so agreement proves *self-consistency, not correctness*. Before a model is `validated`, at least one corner must match the **measured Wolfspeed/TI CRD** — >98 % η, 32 kW/L, 175 °C — within **±1 pt η / ±10 % loss / ±10 % density** [91], [[reference-design-wolfspeed-ti-300kw-800v]].
+- **S6 — Averaged↔switched reconciliation.** The averaged model must reproduce the switched model's loss and `Tj` at the shared operating points within **±10 %** before its drive-cycle result (Corner 9) is trusted [63].
+- **S7 — Summarise & register.** Reduce to the ~36-number summary; regression-check against the topology's validated baseline; pass/fail exit; write the registry entry with **model hash + solver settings + loss-table source** ([[plecs-harness]] §3–4). Only now is the number evidence, and Corner 9 feeds the `Tj` mission profile into rainflow→Miner [143], [[reliability-and-lifetime]].
 
 ## 5. Tool Landscape (PLECS-first, others for what PLECS can't do)
 
@@ -112,12 +147,12 @@ A design is "PLECS-validated" only when it survives these runs. Each maps to a d
 4. **No EMC/parasitic coverage:** the biggest compliance risk (CISPR 25) is not in scope here — a structural gap, not a tuning error.
 5. **Single-vendor lock-in:** "PLECS only" is a project decision [79], not an independent finding that PLECS is most accurate; a SPICE/FEA cross-check would strengthen any number.
 
-**What would change my mind:** a PLECS 2L-B6 model whose efficiency, THD, and `Tj` at three corners match *measured* double-pulse + calorimetric data on the real module within a few %; a flux-map LUT from machine FEA replacing the `[T]` parameters.
+**What would change my mind:** a PLECS 2L-B6 model that clears the S1–S7 SOP and whose efficiency, THD, and `Tj` at three corners match *measured* double-pulse + calorimetric data on the real module (S5) within a few %; a flux-map LUT from machine FEA replacing the `[T]` parameters.
 
-**Residual doubt:** The *workflow* (four layers → fidelity choice → corner matrix → close against reference designs) is sound and is the right RAG substrate for an AI design agent. But "PLECS-validated" is a bounded claim: circuit + thermal + control, with EMC, parasitics, and fatigue explicitly out of scope and pushed to FEA and hardware.
+**Residual doubt:** The SOP now closes the *procedural* gaps — run-validity gates (S1–S3) stop a coarse-timestep or non-steady-state run from counting, and S5 breaks the hand-estimate circularity by requiring a measured anchor. Two bounded doubts remain: (a) **execution** — no model has yet cleared S1–S7; the numbers are provisional until one does; (b) **scope** — "PLECS-validated" still means circuit + thermal + control only, with EMC, parasitics, and fatigue explicitly out of scope and pushed to FEA and hardware.
 
 ---
 
 > **References:** [[citations]]
 
-← [[design-procedure]] | [[manufacturing-and-test]] | [[reliability-and-lifetime]] →
+← [[procedure-design]] | [[manufacturing-and-test]] | [[reliability-and-lifetime]] →

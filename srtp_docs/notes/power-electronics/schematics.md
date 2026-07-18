@@ -13,11 +13,11 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-Connectivity/block **schematics** for a 2L-B6 SiC traction inverter, drawn in Mermaid so they render in Obsidian and stay diff-able for RAG. They anchor the reference design in [[design-2l-b6-800v-sic]] and the sizing math in [[design-procedure]].
+Connectivity/block **schematics** for a 2L-B6 SiC traction inverter, drawn in Mermaid so they render in Obsidian and stay diff-able for RAG. They anchor the reference design in [[design-2l-b6-800v-sic]] and the sizing math in [[procedure-design]].
 
 **Scope limit:** Mermaid is a graph/flow renderer, not a schematic-capture tool. These diagrams show **what connects to what and the signal/power flow** — not exact analog symbols, net names, or component footprints. The transistor-level switching arrangement (anti-parallel body diode, complementary switch pairs, switching states) is in [[circuit-topologies]] as ASCII circuits. For a real board you capture these in KiCad/Altium and datasheet-check the connections (cf. [[drcy-2026-allspice-mas-review]] [68]); these are the intent, not the netlist.
 
-**Citation convention (this note and the whole design cluster):** `[NN]` → numbered entry in [[citations]]; `[T]` → training knowledge, not verified against a primary source; **derived values** (currents, capacitance, loss, Lσ budget) are computed in [[design-procedure]] and cited there — the diagram labels reproduce those results, so read the referenced §. No value here is meant to stand without one of these markers.
+**Citation convention (this note and the whole design cluster):** `[NN]` → numbered entry in [[citations]]; `[T]` → training knowledge, not verified against a primary source; **derived values** (currents, capacitance, loss, Lσ budget) are computed in [[procedure-design]] and cited there — the diagram labels reproduce those results, so read the referenced §. No value here is meant to stand without one of these markers.
 
 ---
 
@@ -127,7 +127,7 @@ flowchart TB
   SW --> PH["To motor phase"]
 ```
 
-The **commutation loop** is `DC+ → Q_H → Q_L → DC- → Cdc → DC+`. Its stray inductance `Lσ` sets turn-off overshoot (`V = Lσ·di/dt`) and ringing — target `Lσ < 10–15 nH` for SiC [derived in [[design-procedure]] §8; loss/thermal basis [25], general PE [50]]. The Kelvin-source requirement for fast SiC switching is a gate-driver design rule [40][50].
+The **commutation loop** is `DC+ → Q_H → Q_L → DC- → Cdc → DC+`. Its stray inductance `Lσ` sets turn-off overshoot (`V = Lσ·di/dt`) and ringing — target `Lσ < 10–15 nH` for SiC [derived in [[procedure-design]] §8; loss/thermal basis [25], general PE [50]]. The Kelvin-source requirement for fast SiC switching is a gate-driver design rule [40][50].
 
 ---
 
@@ -151,7 +151,7 @@ flowchart LR
   GATE -.->|"Kelvin source ref"| DRV
 ```
 
-Drive-rail (+15 V / −4 V), peak gate current (±10 A class), desat blanking (<1.5 µs), and reinforced isolation (≥5 kV) are gate-driver design values from IC application data [40] and the isolation-safety basis [86]; primitives (desat, Miller clamp, UVLO, soft turn-off) are detailed in [[components]] §2 and sized in [[design-procedure]] §5.
+Drive-rail (+15 V / −4 V), peak gate current (±10 A class), desat blanking (<1.5 µs), and reinforced isolation (≥5 kV) are gate-driver design values from IC application data [40] and the isolation-safety basis [86]; primitives (desat, Miller clamp, UVLO, soft turn-off) are detailed in [[components]] §2 and sized in [[procedure-design]] §5.
 
 ---
 
@@ -197,7 +197,7 @@ Two-sensor vs three-sensor: two phase currents suffice (`Ia+Ib+Ic=0`) [50], but 
 
 ## 7. Control Signal Chain (FOC → gate)
 
-The compute path executed every current-loop tick (25–50 µs). Math detail in [[control-schemes]] and [[control-how-to]].
+The compute path executed every current-loop tick (25–50 µs). Math detail in [[control-schemes]] and [[procedure-control]].
 
 ```mermaid
 flowchart LR
@@ -255,4 +255,4 @@ stateDiagram-v2
 
 > **References:** [[citations]]
 
-← [[circuit-topologies]] | [[design-2l-b6-800v-sic]] | [[design-procedure]] →
+← [[circuit-topologies]] | [[design-2l-b6-800v-sic]] | [[procedure-design]] →

@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-The physical build: module internals, the laminated busbar, gate/power-loop layout, creepage/clearance, and enclosure. These are where the `Lσ<15 nH`, thermal, and EMI targets are met or lost — the design-procedure treats them as budgets ([[design-procedure]] §8); this chapter is how you hit them.
+The physical build: module internals, the laminated busbar, gate/power-loop layout, creepage/clearance, and enclosure. These are where the `Lσ<15 nH`, thermal, and EMI targets are met or lost — the procedure-design treats them as budgets ([[procedure-design]] §8); this chapter is how you hit them.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge.
 

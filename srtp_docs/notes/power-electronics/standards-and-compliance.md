@@ -46,7 +46,7 @@ review_by: 2026-10-17
 | 565 V working | — | 2.8 mm → **5.6 mm** | [149] |
 | **~800 V DC working, reinforced** | **~5.5–8 mm** | **~8–11.4 mm** | [113][149] |
 
-**Stored-energy discharge:** after HV disconnect, the DC-link (hundreds of µF) must bleed to the touch-safe **≤60 V within 5 s** (or ~1 s where quicker access is possible); active discharge meets the window, a passive bleeder is the minutes-range backup [149][157] **[TPS]**. ISO 6469-3 also caps accessible **stored energy at ≤0.2 J** for the no-shock class [157] **[M]**. This is the standards basis for the ASC/safe-discharge duty in [[protection-and-safety]] §5 and [[design-procedure]] §7. **Isolation resistance:** ≥**100 Ω/V for the DC bus**, ≥500 Ω/V AC [157] **[H]**. Dielectric withstand (HiPot) to representative **1500 V AC** per ISO 16750-2 [137] **[TPS]**.
+**Stored-energy discharge:** after HV disconnect, the DC-link (hundreds of µF) must bleed to the touch-safe **≤60 V within 5 s** (or ~1 s where quicker access is possible); active discharge meets the window, a passive bleeder is the minutes-range backup [149][157] **[TPS]**. ISO 6469-3 also caps accessible **stored energy at ≤0.2 J** for the no-shock class [157] **[M]**. This is the standards basis for the ASC/safe-discharge duty in [[protection-and-safety]] §5 and [[procedure-design]] §7. **Isolation resistance:** ≥**100 Ω/V for the DC bus**, ≥500 Ω/V AC [157] **[H]**. Dielectric withstand (HiPot) to representative **1500 V AC** per ISO 16750-2 [137] **[TPS]**.
 
 ## 3. Functional Safety — ISO 26262 + IEC 61800-5-2
 

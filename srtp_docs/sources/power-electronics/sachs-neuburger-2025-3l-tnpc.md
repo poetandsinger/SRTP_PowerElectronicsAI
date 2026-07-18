@@ -24,4 +24,4 @@ Three inverter topologies are assessed: a conventional two-level (2L) six halfbr
 ## Vault References
 - [[circuit-topologies]] — 3L-TNPC topology details
 - [[open-problems]] — Partial-load efficiency gap
-- [[design-procedure]] — Sizing/loss method (multilevel comparison context)
+- [[procedure-design]] — Sizing/loss method (multilevel comparison context)

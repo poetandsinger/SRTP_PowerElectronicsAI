@@ -34,7 +34,7 @@ A **real, published, buildable** 800 V / 300 kW SiC traction-inverter reference 
 | Motor speed supported | >20,000 rpm |
 | Cooling | pin-fin, water-glycol |
 
-This confirms the design-procedure order of magnitude: an 800 V SiC 2L inverter reaches >98% efficiency at ~30 kW/L with 1200 V modules — consistent with [[design-procedure]] §3 [derived] and the SiC-2L ranges in [[traction-inverter-index]] [28].
+This confirms the procedure-design order of magnitude: an 800 V SiC 2L inverter reaches >98% efficiency at ~30 kW/L with 1200 V modules — consistent with [[procedure-design]] §3 [derived] and the SiC-2L ranges in [[traction-inverter-index]] [28].
 
 ---
 
@@ -55,10 +55,10 @@ This confirms the design-procedure order of magnitude: an 800 V SiC 2L inverter 
 
 ## How It Maps to Our Design Notes
 
-- **Module = 1200 V/450 A**, exactly the class the sizing procedure lands on for an 800 V bus [[design-procedure]] §2 [92].
+- **Module = 1200 V/450 A**, exactly the class the sizing procedure lands on for an 800 V bus [[procedure-design]] §2 [92].
 - **Gate driver = UCC5880-Q1** implements the desat / adjustable-drive / functional-safety primitives described in [[schematics]] §4 and [[components]] §2 [93].
-- **Low power-loop inductance (5.3 nH)** meets the `Lσ < 10–15 nH` busbar budget [[design-procedure]] §8 [91].
-- **360 A rms @ 300 kW** scales linearly to ~180 A rms @ 150 kW — matching the anchor design's peak-power current corner [derived, design-procedure §1].
+- **Low power-loop inductance (5.3 nH)** meets the `Lσ < 10–15 nH` busbar budget [[procedure-design]] §8 [91].
+- **360 A rms @ 300 kW** scales linearly to ~180 A rms @ 150 kW — matching the anchor design's peak-power current corner [derived, procedure-design §1].
 
 ---
 

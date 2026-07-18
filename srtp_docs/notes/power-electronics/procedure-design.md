@@ -21,7 +21,7 @@ The **end-to-end sizing method** for a 2L-B6 SiC traction inverter: from a spec 
 
 ## 0. Design Inputs (the spec vector)
 
-The anchor spec. Motor parameters are typical-IPMSM placeholders `[T]` (from the ranges in [[control-how-to]] §2, textbook [30][50]) until a real datasheet replaces them.
+The anchor spec. Motor parameters are typical-IPMSM placeholders `[T]` (from the ranges in [[procedure-control]] §2, textbook [30][50]) until a real datasheet replaces them.
 
 | Input | Symbol | Value | Basis |
 |-------|--------|-------|-------|
@@ -135,7 +135,7 @@ Governed by ISO 26262; unintended-torque and position-loss are ASIL-C/D [85], [[
 
 ## 9. Control Integration
 
-fsw=16 kHz → PWM period 62.5 µs; current loop **double-update** at 31.25 µs; current-loop bandwidth ~1–2 kHz (10–20× below update rate) [50][47], [[control-schemes]] §7.2. PI gains from IMC (`Kp=ωc·L`, `Ki=ωc·Rs`), MTPA + field-weakening LUTs — full recipe in [[control-how-to]].
+fsw=16 kHz → PWM period 62.5 µs; current loop **double-update** at 31.25 µs; current-loop bandwidth ~1–2 kHz (10–20× below update rate) [50][47], [[control-schemes]] §7.2. PI gains from IMC (`Kp=ωc·L`, `Ki=ωc·Rs`), MTPA + field-weakening LUTs — full recipe in [[procedure-control]].
 
 ---
 
@@ -168,7 +168,7 @@ The loop closes on **PLECS validation at ≥3 corners** (low-line / nominal / hi
 
 **How it could be false:**
 1. **Loss model is first-order.** [25]-style analytic loss ignores current-dependent Eon/Eoff nonlinearity, dead-time/reverse-recovery detail, and thermal coupling between dice — real losses can differ 20–40% [25].
-2. **Motor parameters are placeholders `[T]`.** Ld/Lq/λPM drive the current and power-factor corners; ±20–30% saturation/temperature swings move I_ph and thus every downstream size [[control-how-to]] §8.
+2. **Motor parameters are placeholders `[T]`.** Ld/Lq/λPM drive the current and power-factor corners; ±20–30% saturation/temperature swings move I_ph and thus every downstream size [[procedure-control]] §8.
 3. **Ripple-current worst case** from [84] assumes ideal sinusoidal currents and a specific m; real drive-cycle ripple with dead-time distortion and FW operation differs.
 4. **The Lσ<15 nH budget is a layout claim**, unverifiable from a sizing note — turn-off overshoot must be measured/simulated.
 5. **Standards cited by designation** [85][86][87][88][89] — the texts are paywalled and were not read in full; requirements are paraphrased from public summaries and could be imprecise.

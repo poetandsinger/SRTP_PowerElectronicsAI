@@ -19,7 +19,7 @@ The four production/candidate topologies, same 800 V / 150 kW anchor, built and 
 
 | Topology unit | Topology | Switches | Track | State |
 |---------------|----------|---------:|:-----:|-------|
-| [[design-2l-b6-800v-sic]] | 2L-B6 | 6 | 1 | anchor — sizing worked in [[design-procedure]]; **first to validate** |
+| [[design-2l-b6-800v-sic]] | 2L-B6 | 6 | 1 | anchor — sizing worked in [[procedure-design]]; **first to validate** |
 | [[design-3l-tnpc-800v-sic]] | 3L-TNPC | 12 | 2 | scaffold — leading multilevel candidate [28] |
 | [[design-3l-anpc-800v-sic]] | 3L-ANPC | 18 | 3 | scaffold — the reference-PDF topology (+ RLC filter) |
 | [[design-3l-npc-800v-sic]] | 3L-NPC | 12 + 6 D | 4 | scaffold — diode-clamped baseline |
@@ -34,7 +34,7 @@ The four production/candidate topologies, same 800 V / 150 kW anchor, built and 
 
 ## How To Read Them
 
-1. **Learn the method** on [[design-2l-b6-800v-sic]] + [[design-procedure]].
+1. **Learn the method** on [[design-2l-b6-800v-sic]] + [[procedure-design]].
 2. **Validate it** against the Wolfspeed/TI CRD — the measured anchor [91].
 3. **Compare topologies** across the four `design-*` units once each is validated ([[circuit-topologies]] §5).
 4. **See the voltage/device trade-space** across the external refs: 800 V-SiC → 400 V-SiC → 400 V-IGBT — device voltage, DC-link size, efficiency, and cost move together.
@@ -44,4 +44,4 @@ The four production/candidate topologies, same 800 V / 150 kW anchor, built and 
 
 > **References:** [[citations]]
 
-← [[traction-inverter-index]] | [[design-procedure]] | [[bom]] →
+← [[traction-inverter-index]] | [[procedure-design]] | [[bom]] →

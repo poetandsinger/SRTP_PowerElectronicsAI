@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-A **component-class BOM** for the 800V-class SiC 2L-B6 reference design ([[design-2l-b6-800v-sic]]), organized by function. Each line gives the sizing driver, a **representative part/part-class**, and its citation. Intentionally *class-level, not procurement-level*: exact MPNs, prices, and stock go stale fast and are better pulled live by the DigiKey/Nexar adapters noted in the handoff. Sizing rationale for every quantity is in [[design-procedure]].
+A **component-class BOM** for the 800V-class SiC 2L-B6 reference design ([[design-2l-b6-800v-sic]]), organized by function. Each line gives the sizing driver, a **representative part/part-class**, and its citation. Intentionally *class-level, not procurement-level*: exact MPNs, prices, and stock go stale fast and are better pulled live by the DigiKey/Nexar adapters noted in the handoff. Sizing rationale for every quantity is in [[procedure-design]].
 
 > **Priced version:** [[bom-price-database]] carries real, dated distributor prices for these parts (and the distributor-vs-volume caveat). A real, buildable instantiation of this BOM — with vendor part numbers — is the Wolfspeed/TI CRD in [[reference-design-wolfspeed-ti-300kw-800v]].
 
@@ -22,7 +22,7 @@ A **component-class BOM** for the 800V-class SiC 2L-B6 reference design ([[desig
 
 ## 1. Power Stage
 
-| # | Function | Qty | Sizing driver (see [design-procedure]) | Representative class | Cite |
+| # | Function | Qty | Sizing driver (see [[procedure-design]]) | Representative class | Cite |
 |---|----------|-----|----------------------------------------|----------------------|------|
 | 1.1 | Main switch | 6 (or 3 half-bridge modules) | 1200 V, ~450 A, hot Rds(on)~5 mΩ; §2 | SiC MOSFET module — Wolfspeed XM3 / onsemi VE-Trac Direct / Infineon CoolSiC HybridPACK class | [38][39][36], [[components]] §1.2 |
 | 1.2 | Freewheel path | intrinsic | body diode / co-pack SBD, dead-time conduction; §3 | integral to SiC module | [T], components §1.2 |
@@ -123,4 +123,4 @@ Not a quote — a **relative** allocation to guide design effort, from public te
 
 > **References:** [[citations]]
 
-← [[design-procedure]] | [[design-2l-b6-800v-sic]] | [[components]] →
+← [[procedure-design]] | [[design-2l-b6-800v-sic]] | [[components]] →

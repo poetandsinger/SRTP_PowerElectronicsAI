@@ -223,9 +223,10 @@ Where a family of notes shares a shape, the filename follows a fixed scheme so t
 |--------|-----|---------|
 | `design-<topology>-<voltage>-<device>` | **topology units** — our own PLECS-validated designs, one per topology | `design-2l-b6-800v-sic`, `design-3l-tnpc-800v-sic`, `design-3l-anpc-800v-sic`, `design-3l-npc-800v-sic` |
 | `reference-design-<source>-<class>` | **external references** — vendor CRDs and production teardowns we cite/calibrate against | `reference-design-wolfspeed-ti-300kw-800v`, `reference-design-tesla-model3-400v-sic` |
+| `procedure-<method>` | **method / how-to notes** — the repeatable procedures a design follows | `procedure-design` (sizing), `procedure-control` (FOC), `procedure-simulation-and-validation` (the PLECS validation SOP) |
 | `segment-<market>-inverters` | market-segment landscapes | `segment-heavy-duty-truck-inverters` |
 
-Keep our validated designs (`design-*`) distinct from external references (`reference-design-*`): the first are evidence we produce, the second are anchors we cite.
+Keep the three cluster families distinct: our validated designs (`design-*`, evidence we produce), external references (`reference-design-*`, anchors we cite), and procedures (`procedure-*`, the method the designs follow). PLECS-derived numbers are evidence only after clearing the SOP in `procedure-simulation-and-validation` §4 (S1–S7).
 
 ---
 

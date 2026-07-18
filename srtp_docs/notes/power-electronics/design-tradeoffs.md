@@ -13,9 +13,9 @@ review_by: 2026-10-17
 
 ## What This Is
 
-No traction inverter maximizes every objective — each choice buys one metric by spending another. This chapter is the **compromise map**: the recurring decisions, what each trades, and the rule of thumb for resolving it. It sits on top of [[design-procedure]] (which sizes a *fixed* choice) and the reference designs (which are *points* on these trade curves).
+No traction inverter maximizes every objective — each choice buys one metric by spending another. This chapter is the **compromise map**: the recurring decisions, what each trades, and the rule of thumb for resolving it. It sits on top of [[procedure-design]] (which sizes a *fixed* choice) and the reference designs (which are *points* on these trade curves).
 
-**Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; `[derived]` → from [[design-procedure]].
+**Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; `[derived]` → from [[procedure-design]].
 
 ## The Objective Vector
 
@@ -87,7 +87,7 @@ You are optimizing, simultaneously and in tension:
 2. Fix **device** from cost-vs-cycle-efficiency priority (IGBT vs SiC).
 3. Fix **topology** — default 2L unless partial-load efficiency is the top objective and budget allows 3L.
 4. Set **fsw** to the lowest value meeting THD+NVH+passive-size.
-5. Size everything ([[design-procedure]]), then **validate the compromise in PLECS** at 3 corners — the trade-offs only become real numbers there [80].
+5. Size everything ([[procedure-design]]), then **validate the compromise in PLECS** at 3 corners — the trade-offs only become real numbers there [80].
 
 ## Red Team
 
@@ -107,4 +107,4 @@ You are optimizing, simultaneously and in tension:
 
 > **References:** [[citations]]
 
-← [[design-procedure]] | [[reference-designs-index]] | [[circuit-topologies]] →
+← [[procedure-design]] | [[reference-designs-index]] | [[circuit-topologies]] →
