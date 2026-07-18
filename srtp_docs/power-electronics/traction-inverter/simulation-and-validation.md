@@ -3,112 +3,111 @@ title: "Simulation & Validation"
 type: topic
 field: power-electronics
 created: 2026-07-10
-updated: 2026-07-17
+updated: 2026-07-18
 status: unverified
 evidence: single-study
-tags: [power-electronics, simulation, plecs, review]
+sources: [sources/ai-agents/plecs-ai-agent-integration-ordonez, sources/ai-agents/phia-lpcomda-2026-physics-informed-pe-agent, sources/ai-agents/pe-mas-flyback-mas]
+tags: [power-electronics, simulation, plecs, review, design]
 review_by: 2026-10-17
 ---
 
 # Simulation & Validation
 
-> How to model and validate a traction-inverter design. The project's simulator is **PLECS only** (MATLAB dropped) [80][58]; design inputs come from [[power-electronics/traction-inverter/design-procedure]], and validation closes the loop against the reference designs in [[power-electronics/traction-inverter/reference-designs-index]].
+> How to model and validate a traction-inverter design. The project's simulator is **PLECS only** (MATLAB dropped) [80][58]. This chapter is the *model side* of V&V — how PLECS represents the inverter, and the corner tests that turn a sizing spec ([[power-electronics/traction-inverter/design-procedure]]) into evidence. The *hardware side* (double-pulse bench, HIL, EOL) lives in [[power-electronics/traction-inverter/manufacturing-and-test]]; validation closes the loop against [[power-electronics/traction-inverter/reference-designs-index]].
 
-## Simulation & Modeling Workflows
+**Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge.
 
-### 3.1 Tools Landscape
+## 1. Why PLECS, and Where It Stops
 
-| Tool | Primary Use | Key Strengths | Limitations |
-|------|-------------|---------------|-------------|
-| **PLECS** | Circuit-level power electronics + thermal | Fast circuit simulation, thermal networks, C-code generation; native Simulink integration via PLECS Blockset | Limited 3D/field solving capability |
-| **MATLAB/Simulink** | Control system design, vehicle system modeling | Industry standard for controls; broad ecosystem; drive cycle simulation | Not optimized for power electronics switching transients alone |
-| **Simcenter Amesim** | System-level pre-sizing, vehicle energy management | Multi-physics system simulation, requirements cascading | Steeper learning curve |
-| **ANSYS (Maxwell + Simplorer/Twin Builder)** | Electromagnetic FEA, multi-physics | High-fidelity EM + thermal + structural coupling | Computationally expensive; requires expertise |
-| **COMSOL Multiphysics** | Coupled EM-thermal-fluid-structural | Extremely flexible physics coupling | Slower than dedicated tools; high license cost |
-| **JMAG** | Motor + inverter co-design | Excellent motor FEA; integrated loss calculation | Limited to magnetics-focused workflows |
-| **Keysight ADS 2025** | Power electronics + RF/mixed-signal | Python automation APIs; GaN model extraction; ERC with current density sorting | More RF-oriented; less common in traction workflows |
-| **Siemens EDA (Xpedition)** | PCB layout, gate driver design | ECAD-MCAD integration | Part of larger Siemens toolchain |
-| **dSPACE SCALEXIO** | HIL / Power HIL | Real-time validation; supports SiC switching models | High cost; requires specialized setup |
-| **Typhoon HIL** | HIL / Power HIL | Faster setup than dSPACE; good for rapid prototyping | Less established in automotive |
+**PLECS is chosen** because it does the two things a traction-inverter model needs together: piecewise-linear switching-circuit simulation (fast, no SPICE convergence pain) *and* a coupled thermal network driven by device loss tables [58][80]. It ships native **PMSM (with saturation LUT) and induction-machine models plus an FOC traction demo**, so the plant is a library block, not a from-scratch build [80], [[power-electronics/traction-inverter/machine-and-load]] §8. It is scriptable over XML-RPC/JSON-RPC — the canonical surface is `plecs.load`, `plecs.simulate(model, {ModelVars, StartTime, StopTime})`, `plecs.set/get`, and `plecs.eval` [78] — which is what lets an agent drive it: an MCP wrapper exposes those calls as tools and sweeps designs by passing `ModelVars`, as demonstrated in the PE-MAS PLECS MCP server [72][79].
 
-*Sources: CSDN PLECS-Simulink Integration Guide 2025 [Reliability: Medium]; Siemens Simcenter Blog [Reliability: High]; Bologna University Thesis 2025 [Reliability: Medium-High]*
+**Where it stops:** PLECS is a circuit+thermal solver, not a 3-D field solver. It does **not** give you parasitic extraction, EMI radiated fields, mechanical stress, or CFD coolant flow — those need FEA/CFD tools (§5) and, ultimately, hardware. Loop inductance `Lσ`, CM-capacitance, and EMI spectra enter PLECS only as *numbers you supply from elsewhere*, not results it derives [T], [[power-electronics/traction-inverter/emi-emc-design]].
 
-### 3.2 Typical Design Workflow (10 Phases)
+## 2. How PLECS Models the Inverter — the Four Layers
 
-The following workflow is synthesized from Siemens Simcenter, academic literature (Bologna, FHNW), and industry practice:
-
-```
-Phase 1: Requirements Definition
-  |-- Vehicle-level targets cascaded to inverter level (power, voltage, thermal limits)
-  |-- Drive cycle selection (WLTP, EPA, NEDC, US06)
-  |-- ASIL target assignment (ISO 26262)
-  V
-Phase 2: Pre-Sizing & Topology Selection
-  |-- Analytical modeling in PLECS/Simulink
-  |-- Topology comparison (2L vs 3L vs multilevel)
-  |-- Semiconductor technology selection (Si vs SiC vs GaN)
-  |-- Initial DC-link and bus bar sizing
-  V
-Phase 3: Component Selection
-  |-- Power module selection (e.g., Infineon HybridPACK, ST ACEPACK)
-  |-- DC-link capacitor (film vs electrolytic)
-  |-- Gate driver IC selection
-  |-- Heatsink/cooling approach
-  V
-Phase 4: Circuit Simulation (PLECS + Simulink Co-simulation)
-  |-- Switching transient analysis
-  |-- Conduction and switching loss extraction
-  |-- Thermal network modeling (Cauer/Foster)
-  |-- Parasitic extraction and impact analysis
-  |-- PWM strategy comparison (SVPWM, SPWM, THIPWM, VSVPWM)
-  V
-Phase 5: Control Algorithm Development (MATLAB/Simulink)
-  |-- FOC/DTC/MPC implementation
-  |-- Current/torque/speed loop tuning
-  |-- PWM modulation generation
-  |-- Sensorless observer design
-  |-- Safety monitoring (ASC, FW, desaturation detection)
-  V
-Phase 6: ECAD/MCAD Design
-  |-- Schematic capture (Siemens EDA, KiCad, Altium)
-  |-- PCB layout with parasitic minimization
-  |-- 3D mechanical assembly and interference checking
-  |-- DC bus bar routing (molded with filters)
-  V
-Phase 7: Multi-Physics 3D Validation (FEA/CFD)
-  |-- Electro-thermal (conjugate heat transfer: fluid + conduction + radiation)
-  |-- Thermo-mechanical (strain/displacement from temperature mapping)
-  |-- EMI/EMC analysis (parasitic, CM/DM noise paths)
-  |-- Magnetic component design (JMAG/Ansys Maxwell)
-  V
-Phase 8: Reduced-Order Model Generation
-  |-- BCI-ROM (Boundary Condition Independent ROM) for thermal models
-  |-- Quasi-static drivetrain ROMs
-  |-- Enables full drive cycle simulation in minutes (5 min for 41-min FTP-75)
-  V
-Phase 9: HIL / Power HIL Validation
-  |-- RCP (Rapid Control Prototyping)
-  |-- SIL (Software-in-the-Loop)
-  |-- HIL (Hardware-in-the-Loop) with dSPACE/Typhoon
-  |-- Power HIL for high-power testing
-  V
-Phase 10: Full Vehicle Integration & Drive Cycle Validation
-  |-- Complete vehicle energy balance (battery + inverter + motor + HVAC)
-  |-- WLTP/EPA range prediction
-  |-- Thermal stress analysis over real-world cycles
+```mermaid
+flowchart TD
+  C["1. Circuit layer<br/>piecewise-linear switches, DC-link, motor"] --> L["2. Loss layer<br/>Eon/Eoff/Econd lookup vs (V, I, Tj)"]
+  L --> T["3. Thermal layer<br/>Foster/Cauer RC → Tj feeds back to loss"]
+  T --> L
+  C --> P["4. Plant layer<br/>native PMSM+FOC demo as the load"]
 ```
 
-### 3.3 Pain Points in Current Workflows
+| Layer | What it is | Where the data comes from | Cite |
+|-------|-----------|---------------------------|------|
+| **Circuit** | ideal PWL switch (on-R, threshold, off = open); DC-link cap+ESR/ESL; 3-phase bridge | topology from [[power-electronics/traction-inverter/circuit-topologies]] | [58] |
+| **Loss** | 3-D lookup: `Eon,Eoff = f(Vblock, I, Tj)` and `Vf/Rds = f(I, Tj)` — the *thermal description* | **datasheet DPT curves** of the chosen module (e.g. CAB450M12XM3 [92]); extracted by double-pulse [133] | [58][133][25] |
+| **Thermal** | Foster (fit to datasheet Zth) or Cauer (physical layers) RC chain; junction→case→cooler | datasheet `Zth,jc`; TIM+cold-plate `Rth` [101] | [101][143] |
+| **Plant** | native PMSM (dq + saturation LUT) + FOC controller demo | PLECS library; machine params from [[power-electronics/traction-inverter/machine-and-load]] §3 | [80] |
 
-1. **Toolchain fragmentation:** ECAD, MCAD, circuit simulation, and system simulation tools are from different vendors with limited interoperability
-2. **Multi-physics coupling complexity:** Electrical, thermal, mechanical, and electromagnetic domains have different time scales (nanoseconds to hours), making co-simulation challenging
-3. **Long simulation times:** High-fidelity 3D FEA/CFD can take hours to days; ROMs help but require expertise to build
-4. **Data transfer between fidelity levels:** 3D simulation results must be reduced to 1D/0D models for system-level analysis, losing detail
-5. **Late-stage design changes:** A thermal or EMI issue found in Phase 7 can require revisiting Phase 2-4, causing significant rework
-6. **SiC/GaN modeling complexity:** WBG device models are more complex than Si IGBTs; accurate parasitic extraction is critical
-7. **EMI prediction accuracy:** AI-based EMI prediction is noted as an "early design and margin-assessment tool" only; formal certification still requires physical testing
-8. **Verification bottleneck:** Every topology or parameter set from an optimizer must still be traceable to circuit constraints and device ratings before acceptance
+**The loss↔thermal coupling is the point.** Loss raises `Tj`; higher `Tj` raises `Rds(on)` and switching energy; that raises loss again. A model with a *fixed* `Tj` understates hot-corner loss — the coupled network is what makes the efficiency and `Tj` numbers trustworthy [25][58]. Loss tables are **only as good as the datasheet DPT data**; a bench double-pulse on the real module is what closes the gap [133], [[power-electronics/traction-inverter/manufacturing-and-test]] §3.
 
-*Sources: arXiv survey on AI in power converters (Jun 2026) [Reliability: High (peer-review survey)]; Siemens Simcenter blog [Reliability: High]*
+## 3. Model Fidelity — Switching vs Averaged
+
+Pick the coarsest model that answers the question; the two live in one file [T][58]:
+
+| Model | Timestep | Answers | Blind to |
+|-------|----------|---------|----------|
+| **Switched** (every edge resolved) | ~10–100 ns | switching loss, THD, dv/dt-at-node, ripple, dead-time | slow — minutes per electrical second |
+| **Averaged** (duty-cycle sources) | ~10–100 µs | drive-cycle efficiency, thermal over a cycle, control stability | anything inside a switching period |
+
+A full **WLTP cycle** (~1800 s) is only tractable in the averaged model; the switched model validates the loss/thermal tables at a handful of operating points that the averaged model then reuses [T][63]. This two-tier approach (switched for point accuracy, averaged for cycle coverage) is standard practice [63][143].
+
+## 4. The Corner-Test Matrix — What to Actually Simulate
+
+A design is "PLECS-validated" only when it survives these runs. Each maps to a design-procedure step and a pass criterion:
+
+| # | Test | Setup | Pass criterion | Ties to |
+|---|------|-------|----------------|---------|
+| 1 | **Double-pulse (virtual)** | switched, one leg, clamped inductive load | Eon/Eoff, `Vds` overshoot within device SOA | [[power-electronics/traction-inverter/design-procedure]] §2–3 |
+| 2 | **Efficiency at 3 corners** | switched, low-line / nominal / high-line | η matches hand estimate ±; loss split sane | design-proc §3 |
+| 3 | **Thermal / continuous** | coupled, hold `Is,max` launch | `Tj` < 175 °C at `Zth`-limited duration | §2, thermal-design §6 |
+| 4 | **DC-link ripple** | switched, worst `m`/cosφ | `I_cap,rms` < rating; ΔVdc < 1–2% | design-proc §4 |
+| 5 | **Overmodulation / six-step** | switched, MI > 0.907 | fundamental & THD vs field-weakening need | [[power-electronics/traction-inverter/control-schemes]] §4.4 |
+| 6 | **Field-weakening sweep** | plant, speed 0→max | torque holds ~1/ω; current within limit | machine-and-load §5 |
+| 7 | **Fault: short-circuit** | switched, shoot-through | fault current & `I²t` vs SCWT budget (<3 µs) | [[power-electronics/traction-inverter/protection-and-safety]] §3 |
+| 8 | **Fault: ASC entry** | plant, short all low-side at speed | entry transient, drag torque, no bus overvolt | protection-and-safety §5 |
+| 9 | **Drive-cycle** | averaged, WLTP/US06 | cycle-average η; `Tj` history for lifetime | reliability-and-lifetime |
+
+**Corner 2 is the handoff contract:** [[power-electronics/traction-inverter/design-procedure]] declares its closed-form efficiency/THD/thermal numbers *provisional* until PLECS reproduces them at these three line corners [80]. Corner 9 feeds the `Tj` mission profile into the rainflow→Miner lifetime pipeline [143], [[power-electronics/traction-inverter/reliability-and-lifetime]].
+
+## 5. Tool Landscape (PLECS-first, others for what PLECS can't do)
+
+| Tool | Role here | Why not primary |
+|------|-----------|-----------------|
+| **PLECS** | circuit + thermal + machine — the workhorse [58][80] | — |
+| MATLAB/Simulink | *dropped* as sim backend; controls-design reference only | not PE-switching-optimized; licensing/agent-cost [79] |
+| ANSYS Maxwell / Icepak, COMSOL | EM parasitic extraction, CFD coolant, magnetics | slow; feed *numbers into* PLECS, not replace it |
+| JMAG / Motor-CAD | machine FEA → flux maps (`Ld,Lq,λ` vs i) | supplies the saturation LUT PLECS consumes [80] |
+| Typhoon / dSPACE / OPAL-RT | real-time HIL — see [[power-electronics/traction-inverter/manufacturing-and-test]] §5 | hardware-in-loop, not desktop design |
+
+*Sources: Plexim PLECS docs [58][80] [Reliability: High/vendor]; Ordonez AI+PLECS [79] [Medium]; Zhang & Negri AI multi-physics [63] [High].*
+
+## 6. Pain Points (why this is not push-button)
+
+1. **Loss tables gate everything.** Wrong DPT data → wrong η and `Tj`; must trace to the *orderable* module datasheet, ideally bench-verified [133].
+2. **Switched↔averaged handoff** loses detail; the averaged model inherits any error in the point-validated tables [63].
+3. **Parasitics are exogenous.** `Lσ`, CM-cap, and EMI come from layout/FEA, not PLECS — a PLECS-clean design can still fail EMC [T], [[power-electronics/traction-inverter/emi-emc-design]].
+4. **Machine params are provisional.** `[T]` IPMSM values (design-proc §0) swing torque/current; a real flux-map LUT is needed for MTPA/field-weakening accuracy [45][80].
+5. **Sim ≠ silicon.** Every PLECS number is a hypothesis until double-pulse + HIL + dyno confirm it [133][134].
+
+## Red Team
+
+**Steelman against:** This chapter sells PLECS as *the* validator, but PLECS validates only the slice of the design that is a circuit+thermal problem. The failure modes that actually kill traction inverters in the field — EMC non-compliance, `Lσ` overshoot, bearing currents, power-cycling fatigue, control edge cases — are largely **outside** what PLECS resolves. Calling a design "PLECS-validated" risks false confidence: it means the loss/thermal/ripple math checks out with *assumed* device and machine data, nothing more.
+
+**How it could be false:**
+1. **Garbage-in on loss tables:** datasheet DPT is measured on a reference layout at a fixed `Lσ`; the real inverter's overshoot and `Eoff` differ — sim understates loss until bench-corrected [133].
+2. **Machine model is linear-ish:** even the saturation LUT is FEA- or datasheet-derived; if that data is `[T]` (as in the anchor), corners 5–8 rest on placeholder physics [45].
+3. **Averaged drive-cycle η** hides switching-period effects (dead-time distortion, reverse recovery) that shift real cycle loss by several %  [63].
+4. **No EMC/parasitic coverage:** the biggest compliance risk (CISPR 25) is not in scope here — a structural gap, not a tuning error.
+5. **Single-vendor lock-in:** "PLECS only" is a project decision [79], not an independent finding that PLECS is most accurate; a SPICE/FEA cross-check would strengthen any number.
+
+**What would change my mind:** a PLECS 2L-B6 model whose efficiency, THD, and `Tj` at three corners match *measured* double-pulse + calorimetric data on the real module within a few %; a flux-map LUT from machine FEA replacing the `[T]` parameters.
+
+**Residual doubt:** The *workflow* (four layers → fidelity choice → corner matrix → close against reference designs) is sound and is the right RAG substrate for an AI design agent. But "PLECS-validated" is a bounded claim: circuit + thermal + control, with EMC, parasitics, and fatigue explicitly out of scope and pushed to FEA and hardware.
 
 ---
+
+> **References:** [[citations]]
+
+← [[power-electronics/traction-inverter/design-procedure]] | [[power-electronics/traction-inverter/manufacturing-and-test]] | [[power-electronics/traction-inverter/reliability-and-lifetime]] →

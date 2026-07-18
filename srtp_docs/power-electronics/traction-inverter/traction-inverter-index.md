@@ -3,7 +3,7 @@ title: Traction Inverter Industry Research
 type: map
 field: power-electronics
 created: 2026-07-07
-updated: 2026-07-08
+updated: 2026-07-18
 tags: [power-electronics, traction-inverter, index]
 ---
 
@@ -39,7 +39,7 @@ tags: [power-electronics, traction-inverter, index]
 | [[power-electronics/traction-inverter/simulation-and-validation]] | PLECS-first simulation & validation workflow, corner tests |
 | [[power-electronics/traction-inverter/standards-and-compliance]] | Standards: IEC 61800, ISO 26262, AEC-Q, AQG 324, CISPR 25 |
 | [[power-electronics/traction-inverter/open-problems]] | Active research questions and design tensions |
-| [[power-electronics/audit-changelog-traction-inverter]] | Source-fidelity audit changelog (what was verified and what was fixed) |
+| [[audits/audit-changelog-traction-inverter]] | Source-fidelity audit changelog (what was verified and what was fixed) |
 
 ## Reading Order
 

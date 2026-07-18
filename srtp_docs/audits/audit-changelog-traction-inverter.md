@@ -3,7 +3,7 @@ title: Research Audit Changelog — Traction Inverter
 type: topic
 field: power-electronics
 created: 2026-07-08
-updated: 2026-07-08
+updated: 2026-07-18
 tags: [power-electronics, audit, review]
 status: unverified
 evidence: single-study
@@ -78,3 +78,31 @@ These are training-knowledge or note claims that could not be verified against l
 2. Validate MATLAB/Simulink modeling recipes on a machine with MATLAB + Simscape Electrical installed.
 3. Verify the textbook references ([47]–[50]) against current editions via a library or publisher source.
 4. Add a dedicated “Single vs. Dual Traction Inverter” note if [43] becomes a central source.
+
+---
+
+## 2026-07-18 Pass — Standards Substance + Simulation Deep-Dive
+
+**Scope:** depth-first re-read of every index topic to find the "names it but never says what it is" gap. Two chapters were the real offenders; both rewritten. Detail: [[2026-07-18-standards-simulation-deepdive]].
+
+### Method
+1. Read every traction-inverter note; classified each as *substantive* vs *name-only*.
+2. Dispatched one research subagent for the actual standard requirements (12 standards); cross-checked its two hardest outputs (ISO 26262 SPFM/LFM/PMHF; CISPR 25 Class-5 dBµV) against an independent second source before committing.
+3. Cloned PE-MAS [72] locally to read its real PLECS-MCP server rather than assert PLECS scriptability from memory.
+
+### Verification status (this pass)
+- **Broken wikilinks in the two rewritten files:** 0 (12/12 resolve).
+- **Undefined citations in the two files:** 0. Added **[149]–[157]**; reused [85][86][88][89][113][114][115][124][137][141].
+- **Red Team blocks:** added to both `standards-and-compliance` and `simulation-and-validation` (previously missing; both are position-advancing `topic`s that SCHEMA requires to carry one).
+- **Reliability discipline:** every standards number tagged **[H]/[M]/[TPS]**; paywalled/NOT-FOUND values (exact DVC boundaries, *stated* 800 V creepage, LV123 sub-classes, AQG 324 DGS/DRB voltages, full CISPR 25 table) explicitly flagged in-text and in the Red Team.
+
+### Fixed en route
+| Issue | Fix |
+|---|---|
+| Index linked `[[power-electronics/audit-changelog-traction-inverter]]` but file lives in `audits/` | Repointed to `[[audits/audit-changelog-traction-inverter]]`. |
+| README citation range stale ([1]–[148]) | Bumped to [1]–[157]. |
+| `simulation-and-validation` duplicated the manufacturing V-model/HIL content | Deduplicated; simulation now owns the *model* side, manufacturing the *hardware* side. |
+
+### Still open
+- `[TPS]`/NOT-FOUND standards values await confirmation against purchased standard texts + the program's own EMC/HV spec.
+- `what-is-a-traction-inverter.md` ASCII diagrams → mermaid (cosmetic; content correct).

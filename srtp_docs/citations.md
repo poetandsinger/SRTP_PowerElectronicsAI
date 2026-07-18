@@ -3,7 +3,7 @@ title: Citations
 type: citations
 field: root
 created: 2026-07-06
-updated: 2026-07-17
+updated: 2026-07-18
 tags: [index, ieee]
 ---
 
@@ -11,7 +11,7 @@ tags: [index, ieee]
 
 > **Single source for all references, credits, and licenses. IEEE format.**
 > Wikilinks to related research notes and source notes.
-> **Last updated:** 2026-07-17
+> **Last updated:** 2026-07-18
 
 ---
 
@@ -275,3 +275,17 @@ tags: [index, ieee]
 - [146] **H3TRB / humidity** — Power Electronics News, "H3TRB Reliability Tests for SiC" (85 °C/85% RH, 1000 h, ~80% Vds); Wang et al., "SiC degradation under HV-H3TRB," *J. Power Electronics* (Springer), 2023. https://link.springer.com/article/10.1007/s43236-023-00726-9
 - [147] **Die-attach / interconnect lifetime uplift** — sintered-Ag PC creep-fatigue, *Eng. Failure Analysis*, 2023 (https://www.sciencedirect.com/science/article/abs/pii/S1350630723005794); Danfoss DBB ≈15× vs Al wire; onsemi sinter+Cu-clip ≈3× (https://www.danfoss.com/en/industries/automotive/dsp/electric-traction-inverter-hevev/). *mixed peer-reviewed + vendor; baseline-dependent.*
 - [148] **Condition monitoring / RUL** — "AC Power Cycling Test Setup and Condition Monitoring for SiC Traction Inverters," arXiv:2307.10110, 2023. https://arxiv.org/pdf/2307.10110 — VDS(on) & Rth precursors. Body-diode stacking-fault degradation context: ScienceDirect S2709472325000620, 2025.
+
+## 2026-07-18 Textbook Pass — Standards Substance & PLECS-MCP Grounding
+
+> Web-researched (subagent + verification) to fill the "names the standard but not its requirement" gap in [[power-electronics/traction-inverter/standards-and-compliance]]. Standard texts remain paywalled; values are from official base documents, standards-body summaries, or reputable app notes, tagged **[H]/[M]/[TPS]** in-text. Verify against purchased standard + the program's own spec before design freeze. Also grounds the PLECS-scriptability claim in [[power-electronics/traction-inverter/simulation-and-validation]] against the real PE-MAS PLECS-MCP server [72].
+
+- [149] **Texas Instruments**, "SLUAAR5 — Isolation, Creepage and Clearance for High-Voltage Systems (IEC 61800-5-1 / IEC 60664-1)." https://www.ti.com/lit/pdf/sluaar5 — DVC concept (Table 3 of 61800-5-1), PD2 worked clearance (0.5 mm @1500 V → 5.5 mm @6000 V reinforced) and creepage (565 V → 5.6 mm reinforced); reinforced ≈ 2× basic. Extends [113]. *App note quoting standard clauses; `reliability: medium`.*
+- [150] **IEC 61800-5-2:2016 safety sub-functions** — SEW-Eurodrive (https://download.sew-eurodrive.com/download/html/30587239/en-EN/4014183898743621600907.html), Synapticon, SICK function definitions (STO/SS1/SS2/SOS/SLS/SDI/SLI/SLP/SBC…), SIL 1–3 per IEC 61508. *Vendor/standards summaries; `reliability: medium`. Standard paywalled.*
+- [151] **ISO 26262:2018 ASIL determination & HW metrics** — PiEmbSysTech "ASIL Levels Explained" (https://piembsystech.com/asil-levels-explained/); MosChip FuSa primer; iso26262.academy hardware-metrics. S×E×C→ASIL; SPFM ≥90/97/99%, LFM ≥60/80/90%, PMHF <100/<100/<10 FIT (B/C/D); 12 parts (Part 11 semiconductors). Extends [85]. *Secondary technical; `reliability: medium`, metrics multi-source-corroborated.*
+- [152] **AEC-Q101 Rev-E (2021)**, "Failure-Mechanism-Based Stress-Test Qualification for Discrete Semiconductors," Automotive Electronics Council. http://www.aecouncil.com/Documents/AEC_Q101_Rev_E_Base_Document.pdf — HTRB/HTGB/H3TRB/HTSL/TC/PTC-IOL/autoclave/ESD conditions (JEDEC JESD22 methods). Extends/details [89]. *Official base document; `reliability: high`.*
+- [153] **AEC-Q100** temperature grades & test groups — Infineon KB (https://community.infineon.com/t5/Knowledge-Base-Articles/What-is-AEC-Q100-and-it-s-Specifications/ta-p/248018); Embien. Grade 0 −40…+150 °C … Grade 4 0…+70 °C; HTOL 1000 h; test groups A–G. *Secondary; `reliability: medium`.*
+- [154] **AEC-Q200 Rev-E (2023)**, "Stress Test Qualification for Passive Components," Automotive Electronics Council. http://www.aecouncil.com/Documents/AEC_Q200_Rev_E_Base_Document.pdf — R/C/L qual: 85/85 humidity-bias, temperature cycling, endurance/HTOL, ESD, board-flex. Relevant to DC-link film cap + EMI-filter passives. *Official base document; `reliability: high`.*
+- [155] **ISO 7637-2 / ISO/TS 7637-4 conducted transients** — TestUps (https://www.testups.com/), EliteTest HV-transient overviews. -2: Pulses 1/2a/2b/3a/3b (12/24 V); -4: HV 60–1500 V DC, Pulse A (HF burst) / Pulse B (LF sinusoidal). *Secondary; `reliability: medium`. Standard paywalled.*
+- [156] **LV123 / LV124 + ZVEI voltage classes** — ZVEI, "Voltage Classes for Electric Mobility," 2014 (https://www.zvei.org/fileadmin/user_upload/Presse_und_Medien/Publikationen/2014/april/Voltage_Classes_for_Electric_Mobility/Voltage_Classes_for_Electric_Mobility.pdf): VC A ≤30 V AC/≤60 V DC, VC B 30<U≤1000 V AC / 60<U≤1500 V DC. LV123 = HV-component electrical/safety test points; LV124 = 12 V electrical+environmental. *ZVEI [H]; LV123/124 are access-restricted OEM specs [M].*
+- [157] **ISO 6469-3:2018 / UN ECE R100** EV electrical safety — R100 rev.3 summaries (isolation ≥100 Ω/V DC, ≥500 Ω/V AC; post-crash ≤60 V DC within 5 s; ≤0.2 J stored-energy shock class; IPXXB). Corroborated by ResearchGate "Automotive Battery Pack Standards" derived-requirements review (arXiv:2503.12566). *Regulation summaries; `reliability: medium`, thresholds corroborated.*

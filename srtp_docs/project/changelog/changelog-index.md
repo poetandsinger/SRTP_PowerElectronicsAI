@@ -3,7 +3,7 @@ title: Changelog Index
 type: map
 field: project
 created: 2026-07-06
-updated: 2026-07-17
+updated: 2026-07-18
 tags: [index]
 ---
 
@@ -16,6 +16,7 @@ tags: [index]
 
 | Timestamp | Summary | Detail |
 |-----------|---------|--------|
+| 2026-07-18 | Depth-first traction-inverter pass: rewrote standards-and-compliance (actual requirements per standard) + simulation-and-validation (PLECS model layers + corner-test matrix); added Red Team to both; PLECS-MCP grounded against PE-MAS; citations → [1]–[157] | [[2026-07-18-standards-simulation-deepdive]] |
 | 2026-07-17 | Depth-first AI-agent pass: design-loop finding (topology→refine→parameter-optimize + explicit optimizer), workflow-pattern catalog, plan-sufficiency verdict; plan split into hub + 8 topic files (no phases) | [[2026-07-17-plan-split-design-loop]] |
 | 2026-07-17 | Traction-inverter engineering textbook built (29 chapters, cited [1]–[148]); problem-statement moved to root; meta files removed | [[2026-07-17-traction-inverter-textbook]] |
 | 2026-07-06 23:45 | Restructured vault: single citations.md, descriptive indexes, plans/changelog folders | [[2026-07-06-restructure]] |
