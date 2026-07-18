@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-Connectivity/block **schematics** for a 2L-B6 SiC traction inverter, drawn in Mermaid so they render in Obsidian and stay diff-able for RAG. They anchor the reference design in [[reference-design-2l-b6-sic-800v]] and the sizing math in [[design-procedure]].
+Connectivity/block **schematics** for a 2L-B6 SiC traction inverter, drawn in Mermaid so they render in Obsidian and stay diff-able for RAG. They anchor the reference design in [[design-2l-b6-800v-sic]] and the sizing math in [[design-procedure]].
 
 **Scope limit:** Mermaid is a graph/flow renderer, not a schematic-capture tool. These diagrams show **what connects to what and the signal/power flow** — not exact analog symbols, net names, or component footprints. The transistor-level switching arrangement (anti-parallel body diode, complementary switch pairs, switching states) is in [[circuit-topologies]] as ASCII circuits. For a real board you capture these in KiCad/Altium and datasheet-check the connections (cf. [[drcy-2026-allspice-mas-review]] [68]); these are the intent, not the netlist.
 
@@ -255,4 +255,4 @@ stateDiagram-v2
 
 > **References:** [[citations]]
 
-← [[circuit-topologies]] | [[reference-design-2l-b6-sic-800v]] | [[design-procedure]] →
+← [[circuit-topologies]] | [[design-2l-b6-800v-sic]] | [[design-procedure]] →

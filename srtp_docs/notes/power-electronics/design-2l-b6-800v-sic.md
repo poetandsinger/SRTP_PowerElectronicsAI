@@ -1,5 +1,5 @@
 ---
-title: Reference Design — 800V SiC 2L-B6, 150 kW
+title: "2L-B6 · 6-switch · 800 V SiC Traction Inverter — Design & PLECS Validation"
 type: topic
 field: power-electronics
 created: 2026-07-17
@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-The **anchor reference design** for the design cluster: an 800V-class **SiC 2-level B6** traction inverter, 150 kW, driving an IPMSM. Collects the spec, key decisions, and validation plan in one place. Sizing math in [[design-procedure]], diagrams in [[schematics]], parts in [[bom]].
+**Track 1 topology unit** (`design-<topology>-<voltage>-<device>`) and the anchor of the design cluster: an 800 V-class **SiC 2-level B6** traction inverter, 150 kW, driving an IPMSM. Collects the spec, key decisions, and validation plan in one place. This is the first of four topology units ([[circuit-topologies]]); sizing math in [[design-procedure]], diagrams in [[schematics]], parts in [[bom]]. See [[depth-research-plan]] for the serial build order.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; **[derived]** → computed in [[design-procedure]].
 

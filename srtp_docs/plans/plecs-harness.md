@@ -42,7 +42,7 @@ Per PE-MAS's `model_registry.json`, **validated per-topology models are the bott
   "template": "templates/2l_b6_sic_pmsm.plecs",
   "status": "available | planned | not_in_release",
   "validation_status": "validated | unvalidated",
-  "validated_against": "reference-design-2l-b6-sic-800v",
+  "validated_against": "design-2l-b6-800v-sic",
   "tolerance": {"eta_pts": 1.0, "loss_pct": 10},
   "corners_seen": ["low_line","nominal","high_line"],
   "rag_coverage_sources": 6 }

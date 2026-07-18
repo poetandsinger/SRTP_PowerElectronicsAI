@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-A **component-class BOM** for the 800V-class SiC 2L-B6 reference design ([[reference-design-2l-b6-sic-800v]]), organized by function. Each line gives the sizing driver, a **representative part/part-class**, and its citation. Intentionally *class-level, not procurement-level*: exact MPNs, prices, and stock go stale fast and are better pulled live by the DigiKey/Nexar adapters noted in the handoff. Sizing rationale for every quantity is in [[design-procedure]].
+A **component-class BOM** for the 800V-class SiC 2L-B6 reference design ([[design-2l-b6-800v-sic]]), organized by function. Each line gives the sizing driver, a **representative part/part-class**, and its citation. Intentionally *class-level, not procurement-level*: exact MPNs, prices, and stock go stale fast and are better pulled live by the DigiKey/Nexar adapters noted in the handoff. Sizing rationale for every quantity is in [[design-procedure]].
 
 > **Priced version:** [[bom-price-database]] carries real, dated distributor prices for these parts (and the distributor-vs-volume caveat). A real, buildable instantiation of this BOM — with vendor part numbers — is the Wolfspeed/TI CRD in [[reference-design-wolfspeed-ti-300kw-800v]].
 
@@ -123,4 +123,4 @@ Not a quote — a **relative** allocation to guide design effort, from public te
 
 > **References:** [[citations]]
 
-← [[design-procedure]] | [[reference-design-2l-b6-sic-800v]] | [[components]] →
+← [[design-procedure]] | [[design-2l-b6-800v-sic]] | [[components]] →

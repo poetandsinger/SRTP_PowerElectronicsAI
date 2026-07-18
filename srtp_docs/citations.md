@@ -191,7 +191,7 @@ tags: [index, ieee]
 
 ## 2026-07-17 Design KB Pass — Sizing, Gate-Drive & Automotive Standards
 
-> Added to ground the traction-inverter **design cluster**: [[design-procedure]], [[schematics]], [[bom]], [[reference-design-2l-b6-sic-800v]]. Standards are cited by designation; the standards texts themselves are paywalled and were not read in full — claims tied to them are scoped to widely-documented summaries.
+> Added to ground the traction-inverter **design cluster**: [[design-procedure]], [[schematics]], [[bom]], [[design-2l-b6-800v-sic]]. Standards are cited by designation; the standards texts themselves are paywalled and were not read in full — claims tied to them are scoped to widely-documented summaries.
 
 - [84] **J. W. Kolar and S. D. Round**, "Analytical calculation of the RMS current stress on the DC-link capacitor of voltage-source PWM converter systems," *IEE Proc. Electric Power Applications*, vol. 153, no. 4, pp. 535–543, Jul. 2006. DOI: 10.1049/ip-epa:20050458. — Canonical DC-link ripple-current derivation (supersedes the un-numbered "Kolar et al." reference in [[components]] §3.2). *Reliability: high (peer-reviewed). DOI to re-verify against IET copy.*
 - [85] **ISO 26262:2018**, "Road vehicles — Functional safety," International Organization for Standardization, 2018. — ASIL classification, safety goals, ASC/torque-monitoring requirements. *Standard document; paywalled — cited by designation.*

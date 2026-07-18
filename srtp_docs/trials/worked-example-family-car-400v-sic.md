@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-A **design-by-doing** worked example: invent a common family 4-wheeler, size its traction inverter end-to-end with the vault's method, then **actually run a numerical model** (`worked-designs/family-car-400v-sic/familycar_inverter.py`) to produce the efficiency/thermal/cycle numbers the other worked examples defer to PLECS ([[reference-design-2l-b6-sic-800v]], [[worked-example-400v-150kw]]). New here vs those: (1) operating points are **derived from vehicle road-load physics**, not assumed; (2) a **SiC-vs-IGBT drive-cycle comparison is computed**; (3) the design was **loaded and simulated in PLECS**. Findings distilled in [[findings-family-car-design-by-doing]].
+A **design-by-doing** worked example: invent a common family 4-wheeler, size its traction inverter end-to-end with the vault's method, then **actually run a numerical model** (`worked-designs/family-car-400v-sic/familycar_inverter.py`) to produce the efficiency/thermal/cycle numbers the other worked examples defer to PLECS ([[design-2l-b6-800v-sic]], [[worked-example-400v-150kw]]). New here vs those: (1) operating points are **derived from vehicle road-load physics**, not assumed; (2) a **SiC-vs-IGBT drive-cycle comparison is computed**; (3) the design was **loaded and simulated in PLECS**. Findings distilled in [[findings-family-car-design-by-doing]].
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training/undergrad common knowledge; `[model]` → computed by the model script (datasheet-class loss model, params in §3); `[derived]` → from the cited relations.
 

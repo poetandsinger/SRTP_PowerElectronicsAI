@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-The [[design-procedure]] applied a **second time**, at 400 V, for the same 150 kW as the 800 V anchor ([[reference-design-2l-b6-sic-800v]]). Side by side, it shows the biggest voltage-class lesson: **halving the bus doubles the current, and I²R conduction loss dominates.** Grounded against the 400 V production designs [94][95].
+The [[design-procedure]] applied a **second time**, at 400 V, for the same 150 kW as the 800 V anchor ([[design-2l-b6-800v-sic]]). Side by side, it shows the biggest voltage-class lesson: **halving the bus doubles the current, and I²R conduction loss dominates.** Grounded against the 400 V production designs [94][95].
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; `[derived]` → computed here from the cited relations in [[design-procedure]].
 

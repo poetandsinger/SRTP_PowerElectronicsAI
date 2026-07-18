@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-The **end-to-end sizing method** for a 2L-B6 SiC traction inverter: from a spec vector to switch, thermal, DC-link, gate-drive, sensing, protection, and busbar numbers. Each step gives the governing relation, its citation, and a **worked value** at the reference-design anchor. It is the math behind [[reference-design-2l-b6-sic-800v]]; the diagrams are in [[schematics]]; the parts are in [[bom]].
+The **end-to-end sizing method** for a 2L-B6 SiC traction inverter: from a spec vector to switch, thermal, DC-link, gate-drive, sensing, protection, and busbar numbers. Each step gives the governing relation, its citation, and a **worked value** at the reference-design anchor. It is the math behind [[design-2l-b6-800v-sic]]; the diagrams are in [[schematics]]; the parts are in [[bom]].
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge (unverified vs a primary source); **[derived]** → computed here from cited relations. Every number carries one marker. Formula results are **hand estimates to be replaced by PLECS** — the handoff mandates that efficiency/THD/thermal numbers come from a validated PLECS model, not from these closed-form checks [80].
 
@@ -181,4 +181,4 @@ The loop closes on **PLECS validation at ≥3 corners** (low-line / nominal / hi
 
 > **References:** [[citations]]
 
-← [[schematics]] | [[reference-design-2l-b6-sic-800v]] | [[bom]] →
+← [[schematics]] | [[design-2l-b6-800v-sic]] | [[bom]] →

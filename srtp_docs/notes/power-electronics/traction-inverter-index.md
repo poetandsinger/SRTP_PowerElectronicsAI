@@ -18,7 +18,10 @@ tags: [power-electronics, traction-inverter, index]
 | [[control-schemes]] | FOC, DTC, MTPA, SVPWM, DPWM, overmodulation, field weakening, ISO 26262 safety |
 | [[control-how-to]] | Practical FOC recipe: parameter tuning, MTPA, field weakening, safety limits |
 | **[[machine-and-load]]** | **The plant:** PMSM/IPMSM machine types, dq model, torque, operating regions, limits — what the control loop closes around |
-| **[[reference-design-2l-b6-sic-800v]]** | **Design cluster anchor:** 800V SiC 2L-B6, 150 kW — spec, decisions, operating points, validation plan, alternatives |
+| **[[design-2l-b6-800v-sic]]** | **Topology unit 1 (anchor):** 800V SiC 2L-B6, 150 kW — spec, decisions, operating points, validation plan |
+| [[design-3l-tnpc-800v-sic]] | **Topology unit 2 (scaffold):** 800V SiC 3L-TNPC, 12-switch — leading multilevel candidate |
+| [[design-3l-anpc-800v-sic]] | **Topology unit 3 (scaffold):** 800V SiC 3L-ANPC, 18-switch — the reference-PDF topology + RLC filter |
+| [[design-3l-npc-800v-sic]] | **Topology unit 4 (scaffold):** 800V SiC 3L-NPC, 12-switch + 6-diode — diode-clamped baseline |
 | **[[design-procedure]]** | **End-to-end sizing:** switch → thermal → DC-link → gate-drive → sensing → protection → busbar, worked at the anchor |
 | **[[schematics]]** | **Mermaid schematics:** system, power stage, half-bridge, gate driver, DC-link, sensing, control chain, ASC |
 | **[[thermal-design]]** | **Thermal:** Rth chain (real values), Zth, Tj estimation, cooling, TIM, derating, worked example |
@@ -55,7 +58,7 @@ tags: [power-electronics, traction-inverter, index]
 2. Read [[circuit-topologies]] to learn the circuit options.
 3. Read [[components]] to understand what physical parts make it work.
 4. Read [[control-schemes]] for the theory, then [[control-how-to]] for the practical implementation.
-5. **Design cluster (how one is built):** anchor spec [[reference-design-2l-b6-sic-800v]] → sizing math [[design-procedure]] → wiring [[schematics]]. Then the subsystem deep-dives: [[thermal-design]], [[gate-driver-design]], [[protection-and-safety]], [[emi-emc-design]], [[packaging-and-layout]]. Parts & prices: [[bom]] + [[bom-price-database]]. How to compromise: [[design-tradeoffs]]. Second example: [[worked-example-400v-150kw]].
+5. **Design cluster (how one is built):** anchor spec [[design-2l-b6-800v-sic]] → sizing math [[design-procedure]] → wiring [[schematics]]. Then the subsystem deep-dives: [[thermal-design]], [[gate-driver-design]], [[protection-and-safety]], [[emi-emc-design]], [[packaging-and-layout]]. Parts & prices: [[bom]] + [[bom-price-database]]. How to compromise: [[design-tradeoffs]]. Second example: [[worked-example-400v-150kw]].
 6. **Compare against real designs:** [[reference-designs-index]] — the Wolfspeed/TI 300kW CRD, Tesla Model 3, and Nissan Leaf across the 800V-SiC → 400V-SiC → 400V-IGBT spectrum.
 7. Read [[simulation-and-validation]] to see how to model and validate it in PLECS.
 8. Finish with [[open-problems]] for the unresolved research questions.

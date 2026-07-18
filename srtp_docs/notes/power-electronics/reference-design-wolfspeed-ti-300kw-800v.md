@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-A **real, published, buildable** 800 V / 300 kW SiC traction-inverter reference design co-developed by Wolfspeed and Texas Instruments — vendor part numbers, schematic, and BOM are public [91]. The closest thing to a "known-good answer" for the anchor class in [[reference-design-2l-b6-sic-800v]], and the best template for the PLECS 2L-B6 SiC model on the critical path.
+A **real, published, buildable** 800 V / 300 kW SiC traction-inverter reference design co-developed by Wolfspeed and Texas Instruments — vendor part numbers, schematic, and BOM are public [91]. The closest thing to a "known-good answer" for the anchor class in [[design-2l-b6-800v-sic]], and the best template for the PLECS 2L-B6 SiC model on the critical path.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; prices are single-unit distributor snapshots (2026-07-17) [98], **not** automotive volume pricing.
 
@@ -86,4 +86,4 @@ The **template to replicate in PLECS**: build 2L-B6 with a 1200 V SiC model (CAB
 
 > **References:** [[citations]]
 
-← [[reference-designs-index]] | [[reference-design-2l-b6-sic-800v]] | [[bom-price-database]] →
+← [[reference-designs-index]] | [[design-2l-b6-800v-sic]] | [[bom-price-database]] →

@@ -142,4 +142,4 @@ PLECS ships **native PMSM (with saturation lookup) and induction-machine models 
 
 > **References:** [[citations]]
 
-← [[control-schemes]] | [[control-how-to]] | [[reference-design-2l-b6-sic-800v]] →
+← [[control-schemes]] | [[control-how-to]] | [[design-2l-b6-800v-sic]] →

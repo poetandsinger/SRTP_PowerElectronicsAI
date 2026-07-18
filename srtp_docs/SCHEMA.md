@@ -3,7 +3,7 @@ title: Schema
 type: schema
 field: root
 created: 2026-07-06
-updated: 2026-07-18
+updated: 2026-07-19
 tags: [schema, index]
 ---
 
@@ -213,6 +213,19 @@ Every tag must already exist here. Add to the list first, then use.
 - **Basenames are globally unique.** This is the invariant that makes the next rule safe — check it before naming a new note.
 - **Wikilinks are bare basenames** — `[[components]]`, never a path. Files then move between folders without breaking a link. Labels and anchors are fine: `[[components|Label]]`, `[[components#Section]]`.
 - **Sources are referenced by path** in the `sources:` list, matching the file under `sources/<field>/`.
+- **Titles are specific** — the `title:` names the exact subject, not a generic word (`3L-ANPC · 18-switch · 800 V SiC Traction Inverter`, not `ANPC`).
+
+### Naming schemes (power-electronics design cluster)
+
+Where a family of notes shares a shape, the filename follows a fixed scheme so the set groups and sorts together:
+
+| Scheme | For | Example |
+|--------|-----|---------|
+| `design-<topology>-<voltage>-<device>` | **topology units** — our own PLECS-validated designs, one per topology | `design-2l-b6-800v-sic`, `design-3l-tnpc-800v-sic`, `design-3l-anpc-800v-sic`, `design-3l-npc-800v-sic` |
+| `reference-design-<source>-<class>` | **external references** — vendor CRDs and production teardowns we cite/calibrate against | `reference-design-wolfspeed-ti-300kw-800v`, `reference-design-tesla-model3-400v-sic` |
+| `segment-<market>-inverters` | market-segment landscapes | `segment-heavy-duty-truck-inverters` |
+
+Keep our validated designs (`design-*`) distinct from external references (`reference-design-*`): the first are evidence we produce, the second are anchors we cite.
 
 ---
 
