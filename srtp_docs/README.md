@@ -52,7 +52,7 @@ srtp_docs/
     └── audits/             #   lint reports + vault self-audits
 ```
 
-> **Outside the vault** (repo root, non-markdown — executable artifacts can't carry frontmatter, so they live outside `srtp_docs/`): `worked-designs/` holds runnable design artifacts (Python loss models, `.plecs` files, results) that back the worked examples — e.g. `worked-designs/family-car-400v-sic/` behind [[worked-example-family-car-400v-sic]]. `HANDOFF-DEPTH-RESEARCH.md` is the depth-research handoff.
+> **Outside the vault** (repo root, non-markdown — executable artifacts can't carry frontmatter, so they live outside `srtp_docs/`): `worked-designs/` holds runnable design artifacts (Python loss models, `.plecs` files, results) that back the worked examples — e.g. `worked-designs/family-car-400v-sic/` behind [[worked-example-family-car-400v-sic]]. The depth-research roadmap is [[depth-research-plan]].
 
 ## Research
 
@@ -63,7 +63,7 @@ srtp_docs/
 | AI / Agent Architecture | [[harness-index]] | 12 harness deep dives, 19 source captures, 2 red-teamed claims, workflow-patterns + design-loop findings, MAS bridge |
 | *Full inventory* | [[catalog.base]] | Live table of every note (field · type · status · evidence), auto-generated |
 
-> **The textbook is grounded but not yet PLECS-validated:** design/thermal/loss numbers are closed-form or teardown/vendor figures, flagged in each chapter's Red Team. Turning them into simulation-backed evidence is the top depth-first task — see `HANDOFF-DEPTH-RESEARCH.md` (repo root).
+> **The textbook is grounded but not yet PLECS-validated:** design/thermal/loss numbers are closed-form or teardown/vendor figures, flagged in each chapter's Red Team. Turning them into simulation-backed evidence is the top depth-first task — see [[depth-research-plan]].
 
 ## Implementation
 

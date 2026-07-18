@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "plecs": {
+      "command": "D:\\Engineering Projects\\AI\\PE-MAS\\plecs-mcp\\.venv\\Scripts\\plecs-mcp-server.exe",
+      "args": [],
+      "env": {
+        "PLECS_RPC_URL": "http://localhost:1080"
+      }
+    }
+  }
+}
