@@ -19,9 +19,19 @@ review_by: 2026-10-17
 
 ## 1. Why PLECS, and Where It Stops
 
-**PLECS is chosen** because it does the two things a traction-inverter model needs together: piecewise-linear switching-circuit simulation (fast, no SPICE convergence pain) *and* a coupled thermal network driven by device loss tables [58][80]. It ships native **PMSM (with saturation LUT) and induction-machine models plus an FOC traction demo**, so the plant is a library block, not a from-scratch build [80], [[power-electronics/traction-inverter/machine-and-load]] §8. It is scriptable over XML-RPC/JSON-RPC — the canonical surface is `plecs.load`, `plecs.simulate(model, {ModelVars, StartTime, StopTime})`, `plecs.set/get`, and `plecs.eval` [78] — which is what lets an agent drive it: an MCP wrapper exposes those calls as tools and sweeps designs by passing `ModelVars`, as demonstrated in the PE-MAS PLECS MCP server [72][79].
+**PLECS is chosen** because it does the two things a traction-inverter model needs together: piecewise-linear switching-circuit simulation (fast, no SPICE convergence pain) *and* a coupled thermal network driven by device loss tables [58][80]. It ships native **PMSM (with saturation LUT) and induction-machine models plus an FOC traction demo**, so the plant is a library block, not a from-scratch build [80], [[power-electronics/traction-inverter/machine-and-load]] §8. It is scriptable over XML-RPC (`PLECS.exe -server <port>`); an MCP wrapper exposes those calls as agent tools and sweeps designs by passing `ModelVars`, as in the PE-MAS PLECS MCP server [72][78][79]. The **verified** call surface is below.
 
 **Where it stops:** PLECS is a circuit+thermal solver, not a 3-D field solver. It does **not** give you parasitic extraction, EMI radiated fields, mechanical stress, or CFD coolant flow — those need FEA/CFD tools (§5) and, ultimately, hardware. Loop inductance `Lσ`, CM-capacitance, and EMI spectra enter PLECS only as *numbers you supply from elsewhere*, not results it derives [T], [[power-electronics/traction-inverter/emi-emc-design]].
+
+### Driving PLECS headless — verified surface (PLECS 4.8, 2026-07-18)
+
+Confirmed by directly driving the installed Standalone build (basis for [[power-electronics/traction-inverter/worked-example-family-car-400v-sic]] §7):
+
+- **Launch:** `PLECS.exe -server 1080` starts the XML-RPC server (blocking, one request at a time — batch or run parallel instances on separate ports).
+- **Methods present:** `plecs.load`, `plecs.set`, `plecs.get`, `plecs.simulate`, `plecs.getModelTree`, `plecs.scope`, `plecs.statistics`, `plecs.analyze`, `plecs.codegen`, `plecs.close`. **No circuit-building or script-eval methods** — `plecs.add`/`connect`/`eval` are **absent in 4.8** (PE-MAS probes for them because they are build-dependent [72]). ⇒ **parameterize a `.plecs` template; you cannot assemble a netlist over RPC.**
+- **Readback gotcha:** `plecs.simulate('model')` returns `{Time, Values}` where `Values` come **only from top-level Outport blocks**. A scope-only model returns **empty** — a template must expose an Outport for *every* signal the summarizer reads ([[project/plans/plecs-harness]] §4).
+- **`.plecs` is ASCII:** `Component{Type,Name,Position,Parameter{Variable,Value}}` + `Connection{SrcComponent,SrcTerminal,Dst…}`; parameters live per-block or in a model-level `InitializationCommands` script. Retarget by text-replacing `Value` fields or via `plecs.set`. Library/`Reference` blocks carry parameter overrides (e.g. PMSM `R`, `L=[Ld Lq]`, `phi`, `p`).
+- **Demo library = ready templates** [80] to seed from: `permanent_magnet_synchronous_machine` (clean 2L-VSI + PMSM + FOC, ~1500 lines), `electric_vehicle_with_active_damping` (full EV drive), `look_up_table_based_pmsm` (saturation LUT), `two_axle_vehicle_with_driving_profile`, `induction_machine_drive_controlled_with_dtc`.
 
 ## 2. How PLECS Models the Inverter — the Four Layers
 

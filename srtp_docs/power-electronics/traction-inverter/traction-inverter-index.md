@@ -33,6 +33,8 @@ tags: [power-electronics, traction-inverter, index]
 | **[[power-electronics/traction-inverter/reference-design-tesla-model3-400v-sic]]** | Production teardown: 400V SiC, highest-volume inverter |
 | **[[power-electronics/traction-inverter/reference-design-nissan-leaf-400v-igbt]]** | Production teardown: 400V Si-IGBT baseline |
 | **[[power-electronics/traction-inverter/worked-example-400v-150kw]]** | **Second worked example:** 400V SiC 150kW — shows the current-doubling / conduction-loss penalty |
+| **[[power-electronics/traction-inverter/worked-example-family-car-400v-sic]]** | **Design-by-doing:** invented family-car 400V SiC inverter, vehicle-grounded, **model-run** (efficiency/thermal/cycle numbers computed, SiC-vs-IGBT, PLECS-run) |
+| **[[power-electronics/traction-inverter/findings-family-car-design-by-doing]]** | **New knowledge** from that build: SiC's ~2× larger urban advantage, high-current conduction crossover, IGBT thermal margin, PLECS blocker cleared |
 | **[[power-electronics/traction-inverter/design-tradeoffs]]** | **How to compromise:** device / voltage / fsw / topology / cooling trade-offs + decision table |
 | **[[power-electronics/traction-inverter/manufacturing-and-test]]** | **Build & test:** module assembly (sinter/bond), busbar, double-pulse, HIL, EOL, production quality |
 | **[[power-electronics/traction-inverter/reliability-and-lifetime]]** | **Reliability:** power-cycling wear-out, Nf data, lifetime models (LESIT/CIPS08), mission-profile/Miner, SiC degradation |

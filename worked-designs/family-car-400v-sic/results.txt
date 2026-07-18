@@ -1,0 +1,44 @@
+==========================================================================
+VEHICLE / MOTOR SANITY
+==========================================================================
+Top-speed 160 km/h: road force    972 N -> power  43.2 kW (steady)
+  motor at top speed:  11937 rpm,  35.6 Nm
+Peak motor torque (Is_max, low speed):  345.4 Nm  (id=-295, iq=483 A)
+Peak power at 4500 rpm base: 138.9 kW (T=295 Nm, mi=0.99)
+
+==========================================================================
+EFFICIENCY AT 3 DC CORNERS  (peak-power operating point)
+==========================================================================
+  low-line  SiC 750V    : P_el=124.4kW Irms=397A mi=0.99 loss= 2433W (cond 2230/sw 202) eta=98.08%
+  low-line  Si-IGBT 750V: P_el=124.4kW Irms=397A mi=0.99 loss= 2602W (cond 2122/sw 480) eta=97.95%
+  nominal   SiC 750V    : P_el=135.5kW Irms=335A mi=1.00 loss= 1805W (cond 1588/sw 217) eta=98.69%
+  nominal   Si-IGBT 750V: P_el=135.5kW Irms=335A mi=1.00 loss= 2155W (cond 1641/sw 513) eta=98.44%
+  high-line SiC 750V    : P_el=134.1kW Irms=290A mi=0.99 loss= 1410W (cond 1188/sw 222) eta=98.96%
+  high-line Si-IGBT 750V: P_el=134.1kW Irms=290A mi=0.99 loss= 1849W (cond 1323/sw 525) eta=98.64%
+
+==========================================================================
+THERMAL (per-switch loss -> Tj, coolant 65C)
+==========================================================================
+  continuous 55kW  SiC 750V    : loss   363W  Tj~   83C
+  continuous 55kW  Si-IGBT 750V: loss   696W  Tj~  100C
+  peak 130kW       SiC 750V    : loss  1805W  Tj~  155C
+  peak 130kW       Si-IGBT 750V: loss  2155W  Tj~  173C
+
+==========================================================================
+DC-LINK RIPPLE
+==========================================================================
+  Iph=335A rms, m=1.00, cosphi=0.93 -> I_cap,rms ~ 170 A
+
+==========================================================================
+DRIVE CYCLES (synthetic, representative; NOT official WLTP traces)
+==========================================================================
+
+  URBAN-heavy  (448 s, 3.39 km, mean 27.3 km/h, motoring 68%)
+    SiC 750V    : inv-loss  23.8 Wh  cycle-avg inv-eff 98.16%
+    Si-IGBT 750V: inv-loss  43.8 Wh  cycle-avg inv-eff 96.65%
+    -> SiC saves  20.1 Wh = 590.9 Wh/100km (inverter only)
+
+  MIXED  (421 s, 8.01 km, mean 68.5 km/h, motoring 81%)
+    SiC 750V    : inv-loss  21.2 Wh  cycle-avg inv-eff 98.99%
+    Si-IGBT 750V: inv-loss  43.7 Wh  cycle-avg inv-eff 97.95%
+    -> SiC saves  22.5 Wh = 280.8 Wh/100km (inverter only)
