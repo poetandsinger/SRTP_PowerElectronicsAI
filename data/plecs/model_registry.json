@@ -41,8 +41,9 @@
       "loss_layer_recipe": "data/plecs/LOSS_LAYER_BUILD.md",
       "tolerance": {"eta_pts": 1.0, "loss_pct": 10, "tj_c": 5, "density_pct": 10},
       "corners_seen": [],
-      "loss_layer_status": "ACTIVATED 2026-07-19 — official CAB450M12XM3 model copied to harness _plecs/, assigned therm=file:CAB450M12XM3 + Rth + T_init=65, loads+simulates cleanly on the library converter block",
-      "not_yet": ["wire PlecsProbe(Tj)+SwitchLossCalculator(P_cond/P_sw)+DC-ammeter into the ToFile mux", "800V SiC retarget + defined steady operating point", "S1-S7 SOP + 9-corner matrix + Wolfspeed S5 calibration", "fill design-2l-b6-800v-sic, set validation_status=validated"]
+      "loss_layer_status": "ACTIVATED 2026-07-19 — official CAB450M12XM3 model loads+simulates on the library converter block. BUT the library block HIDES its per-device losses: SwitchLossCalculator (can't descend into the block) and PlecsProbe both read 0. A validated model needs DISCRETE Mosfet blocks (each therm=file:CAB450M12XM3, on a HeatSink) — recommended base: retarget the three_phase_grid_connected_pv_inverter (or t_type) thermal demo. See LOSS_LAYER_BUILD.md 'Structural fork'.",
+      "build_findings_2026_07_19": "Loss path chosen: DISCRETE Mosfet blocks (user decision). CAB450 requires Type Mosfet (Igbt + library IGBT converter reject its gate-dependent conduction). Mosfet terminals: 1=drain(+), 2=source(-/phase), 3=gate. Loss/Tj via SwitchLossCalculator/PlecsProbe works on discrete switches (buck demo). Headless raw-text RETARGET of complex demos is unreliable (geometry collisions, block-class rejection, probe-width coupling) — build FROM SCRATCH (empty canvas) or interactively. First target: single-leg double-pulse (SOP corner 1) validating Eon/Eoff vs datasheet. See LOSS_LAYER_BUILD.md §2b.",
+      "not_yet": ["build a from-scratch single-leg CAB450 double-pulse (SOP corner 1: Eon/Eoff vs datasheet)", "replicate leg x3 -> 2L-B6 bridge + 800V + PMSM/FOC + defined operating point", "S1-S7 SOP + 9-corner matrix + Wolfspeed S5 calibration", "fill design-2l-b6-800v-sic, set validation_status=validated"]
     }
   ]
 }

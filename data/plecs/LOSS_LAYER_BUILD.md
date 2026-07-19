@@ -99,6 +99,35 @@ Steps:
    thermal port to a `HeatSink` + case-heatsink `ThermalResistor` (DAB pattern). PLECS then
    reports per-device conduction + switching loss and Tj.
 
+## 2b. Execution notes — build MOSFET-based, prefer from-scratch or interactive
+
+Verified 2026-07-19 while attempting the discrete build headless (raw `.plecs` text +
+RPC). Three distinct fragilities make **retargeting a complex demo headless unreliable**;
+build the bridge **from scratch on an empty canvas** (deliberate coordinates, no inherited
+couplings) or **interactively in the PLECS GUI** (see + fix the schematic):
+
+1. **Geometry collisions** — inserting a block at a guessed coordinate, or into the wrong
+   nested `Schematic`, throws *"Unconnected terminals overlapped"*. Insert only at the
+   top-level schematic; on an empty canvas there is nothing to collide with.
+2. **Block class** — `Igbt` and the library `2-Level IGBT Conv.` reject the CAB450 MOSFET
+   description (§2). Use `Type Mosfet`.
+3. **Probe-width coupling** — swapping `Igbt`→`Mosfet` changes a device's probe-signal set
+   (e.g. `"IGBT junction temp"` → a MOSFET temp signal), so a demo's existing
+   `PlecsProbe`→`Demux`→scope wiring breaks on a width mismatch. A from-scratch model has no
+   such inherited wiring.
+
+**`Mosfet` block terminal map** (from the DAB demo): terminal **1 = drain** (to +rail),
+**2 = source** (to −rail / phase), **3 = gate** (signal in); a separate thermal port connects
+to the `HeatSink`. `DCVoltageSource`: 1 = +, 2 = −. Connections are **by component name +
+terminal index** (the `Points` are cosmetic), so a from-scratch netlist is deterministic once
+the indices are known.
+
+**Recommended first target: a single-leg switching-loss / double-pulse test** (SOP corner 1) —
+DC source (test V) → load inductor → one `Mosfet` (CAB450) DUT, gate it, on a `HeatSink`;
+read `SwitchLossCalculator`(DUT)→ToFile for Eon/Eoff/conduction loss and validate vs the
+CAB450 tabulated values (`E_on 25.4 / E_off 7.51 mJ @600 V,450 A,25 °C`,
+[[wolfspeed-cab450m12xm3-datasheet]]). Then replicate the leg ×3 for the full 2L bridge.
+
 ## 3. Retarget to the 800 V SiC operating point
 
 - **Bus:** `V_dc` 355 → 750 V nom (corners 550 / 750 / 850 V).
@@ -135,10 +164,40 @@ run-validity gates, **calibrate ≥1 corner to the measured Wolfspeed/TI CRD** (
 `validation_status: validated` and fill `design-2l-b6-800v-sic` with the numbers,
 replacing every `[derived]`. Only then are they evidence.
 
-## Open structural question to resolve during the build
-- Does the library **IGBT** converter accept a `MOSFET`-class `file:` description? If it
-  rejects it, switch to a MOSFET 2-level converter block, or build the bridge from
-  discrete `Mosfet` blocks (the DAB demo's approach) each referencing the XML. This is
-  the one remaining unknown — everything else (loss/Tj signal names, readback, XML
-  schema, assignment) is resolved above. Probe/loss signal names confirmed from the
-  `buck_converter_with_thermal_model` demo (§4).
+## Structural fork — RESOLVED 2026-07-19 (empirical): the library converter block hides its losses
+
+The library `2-Level IGBT Conv.` block **accepts** the CAB450 `MOSFET with Diode`
+description and simulates, **but its per-device conduction/switching loss and Tj are NOT
+externally readable**: a top-level `SwitchLossCalculator` probing the block (with `Path`
+into the subsystem) returns **0** (it can't descend into the block's internal switches),
+and a `PlecsProbe` on the block exposes only 1 trivial signal (also 0). So the block is
+fine for *system* behaviour but **cannot back a loss/thermal-validated model** on its own.
+
+**⇒ DEFINITIVE (2026-07-19): CAB450 requires a `Mosfet` block.** The CAB450 model has
+**gate-dependent conduction** (`ConductionLoss gate="on"` + `gate="off"` — the SiC 3rd-quadrant
+channel). An `Igbt` block **rejects** it at sim time: *"Gate dependent conduction losses are
+not supported for this device type."* The library `2-Level IGBT Conv.` block is IGBT-type
+internally — that is why it "ran" but reported **zero** loss. So the bridge must be built from
+discrete **`Mosfet`** blocks (`Type Mosfet`, `thermal=file:CAB450M12XM3`,
+`CustomVariables "struct('Rgon',4,'Rgoff',0)"`, `Ron=0.0036`), on a shared `HeatSink`. The
+`SwitchLossCalculator`/`PlecsProbe` loss+Tj readout is confirmed to work on **discrete** switches
+(the `buck_converter_with_thermal_model` demo reads its discrete switch's losses fine).
+
+**⇒ Path for the validated build:**
+1. **Discrete switches (recommended for a *validated* model).** Build the 3-phase 2-level
+   bridge from 6 discrete `Mosfet` blocks, each with `therm=file:CAB450M12XM3`, on a shared
+   `HeatSink`. Then `SwitchLossCalculator`/`PlecsProbe` read per-device loss split + Tj
+   directly (needed for SOP corners 1-4: thermal, loss split). **Don't hand-author the
+   geometry** — start from a PLECS demo that already has a discrete-switch 3-phase VSI +
+   thermal + heatsink: `three_phase_grid_connected_pv_inverter` or `three_phase_t_type_inverter`
+   (both in the thermal-demo set), and retarget device→CAB450, bus→800 V, load→IPMSM/300 kW.
+2. **Thermal-port heat-flow (total loss only).** Wire the converter block's thermal port to
+   a heat-flow meter → `HeatSink` at 65 °C; the meter reads total device loss (no cond/sw
+   split, no per-device Tj). Cheapest, but insufficient for the thermal/loss-split corners.
+3. **Energy balance (efficiency only).** Add a DC ammeter (P_dc=V_dc·I_dc) + 3-phase output
+   power; η = P_ac/P_dc, loss = P_dc−P_ac. Robust for η (SOP S3) but no split/Tj.
+
+Everything else is resolved: readback (ToFile→CSV), XML assignment + search path, and the
+official CAB450 model loading+running. Loss/Tj signal wiring (`SwitchLossCalculator`,
+`PlecsProbe`) is confirmed from `buck_converter_with_thermal_model` (§4) — it works on
+**discrete** switches, which is why option 1 is the validated path.
