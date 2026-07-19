@@ -97,6 +97,36 @@ flowchart LR
 
 ---
 
+## PLECS Validation — Status & First Results (2026-07-19)
+
+> A **runnable, confirmed-coupled 2L-B6 SiC PLECS model now exists**:
+> `data/plecs/2l_b6_rainflow_base/2l_b6_cab450_rainflow.plecs` (the PLECS `rainflow_counting`
+> 2L-B6 demo retargeted headlessly to the **Wolfspeed CAB450M12XM3** [166]). It clears the hard
+> blocker — device→heat-sink coupling — but is **not yet calibrated to the CRD operating point**;
+> see the honest status below. Method + full record: `data/plecs/HANDOFF.md`, memory `wolfspeed-plecs-models`.
+
+**What PLECS confirms (evidence):**
+- **Device model matches the datasheet [sim][166].** Vds across the DUT gives **Ron = 3.6 mΩ**,
+  exactly the CAB450 datasheet `R_DS(on)`@25 °C — the CAB450 loss model is loaded and correct.
+- **Device→heat-sink coupling works [sim].** Junction temperature is **bounded at ambient
+  (Tj ≈ 65 °C = Ta)**, not the runaway (684 °C) of an un-coupled device — the loss→thermal path is live.
+- **CAB450 conduction loss at an 800 V bus [sim]:** ~1.34 W mean / 30.9 W peak **per switch** at the
+  demo's (light-load) operating point. Magnitude is physically sensible for a lightly-loaded SiC leg.
+
+**What is NOT yet validated (the honest gap — supersedes the closed-form `[derived]` numbers only when closed):**
+- **Not at the CRD operating point.** The base is a small **240 V grid → ~340–800 V DC → DTC induction-machine
+  drive**; the machine draws light current, so it **cannot reach the CRD's 360 A rms / 300 kW / >98 % η**
+  point. A defensible **S5 calibration** ([[procedure-simulation-and-validation]] §4.5) needs the machine
+  replaced by a 300 kW-class load (or a defined 360 A 3-phase load) + SVPWM — a substantial rebuild.
+- Therefore **efficiency, THD, loss-split, and Tj-at-launch are still `[derived]`/`[T]`** (table above),
+  not yet PLECS-confirmed at the design's operating point. The 9-corner matrix (§Validation Plan) is not run.
+
+**Registry:** `model_registry.json` → 2L-B6 entry: model **runs + coupling confirmed**, `validation_status`
+**remains `unvalidated`** until S5 passes. Per the project rule, a number is evidence only after its model
+is validated — so these first-results are reported as `[sim]` device/coupling facts, not as a validated design.
+
+---
+
 ## Alternatives (noted, not built — per scope)
 
 Same procedure, different anchor. Captured so the KB is complete; only 2L-B6 gets full treatment now.
@@ -118,14 +148,14 @@ The multilevel cases matter most **at 800 V**, which is why this anchor is 800 V
 **Steelman against:** Calling this a "reference design" overstates it. It is a spec plus first-pass algebra plus decisions justified from literature — no PLECS run, no hardware, `[T]` motor parameters. Every performance number is provisional. The industry-relevance argument for 800 V is also contestable: by units shipped, 400 V is more representative, so "most industry relevant" is a judgment, not a fact.
 
 **How it could be false:**
-1. **No validated model exists yet** — the efficiency/THD/thermal figures are unverified estimates [80]; the handoff is explicit that these must come from PLECS.
+1. **No CRD-calibrated model yet** — a confirmed-coupled 2L-B6 CAB450 PLECS model now runs (§PLECS Validation), which verifies the *device* (Ron=3.6 mΩ) and the *coupling* (Tj bounded), but the efficiency/THD/thermal-at-launch figures are **still `[derived]`**: the model's operating point is a small light-load IM drive, not the CRD's 360 A/300 kW/>98 % η point. Those numbers count only after the S5 calibration (machine/load rebuild) closes.
 2. **800-vs-400 framing is a choice.** If the goal were to match the highest-volume production inverter, 400 V (Tesla-class) would be the anchor [31]. We chose 800 V for forward relevance and instructiveness; a reviewer could reasonably prefer 400 V.
 3. **The 3L-TNPC advantage rests on one preprint** [28] — see the Red Team in [[circuit-topologies]]; the alternatives table inherits that single-source risk.
 4. **Motor parameters `[T]`** propagate into every operating point; a real datasheet could shift currents and PF materially [[procedure-control]] §8.
 
 **What would change my mind:** A PLECS-validated 2L-B6 model at the three corners; a real IPMSM datasheet; and, for the anchor choice, an explicit human decision on 400 V vs 800 V as the primary target (flagged as an open question in the handoff).
 
-**Residual doubt:** Solid as the organizing spine of the design KB and the input to the first PLECS model. Its numbers are a hypothesis to be tested, not a result.
+**Residual doubt:** The hardest blocker is cleared — a **confirmed-coupled 2L-B6 CAB450 PLECS model exists and runs headless**, and the device+coupling are PLECS-verified. But the *design's performance numbers* (η/THD/loss-split/Tj at the 550/750/850 V corners and the launch point) remain a **hypothesis**: they need the model driven at the CRD-scale operating point (360 A rms), which requires replacing the base's small IM with a 300 kW-class load + SVPWM and passing S5. Until then `status: unverified` stands and the numbers are `[derived]`, not results.
 
 ---
 
