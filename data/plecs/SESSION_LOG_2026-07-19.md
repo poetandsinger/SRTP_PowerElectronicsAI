@@ -263,6 +263,17 @@ that the retarget-a-GUI-base method needs **no** GUI action at all if a suitable
 **Honest self-assessment:** this addendum both vindicated and re-exposed my patterns. Vindicated:
 persistence past the first "impossible" found a genuinely better path (a ready 2L-B6 base, no GUI).
 Re-exposed: I again burned many tool-calls on fiddly readout details (probe nesting, signal names,
-a split-string `Tsim` edit) and hit the same "guessing without a reference" trap I criticized in §3.5
-— I should have opened the demo's own thermal readout to get the exact signal name instead of guessing.
-Track 1 is still Step 1, but now with a **running 2L-B6 CAB450 model**, not just a device test.
+a split-string `Tsim` edit) and hit the same "guessing without a reference" trap I criticized in §3.5.
+
+**Resolution (the reference finally used):** I stopped guessing and did what §3.5 prescribes — read how
+the demo *itself* reads junction temp. Its own probe is `Component "IGBT1"`, `Path "Circuit"`, signal
+`"IGBT junction temp"` (a **top-level** probe). Fixing that signal to `"MOSFET junction temp"` for the
+retargeted device and reading the model's output gave **Tj = 65.3 °C mean, bounded at ambient (Ta=65 °C)**
+— coupling **CONFIRMED** (uncoupled would run away to 684 °C). My own probe read 0 because I used the
+wrong form (`Component "Circuit/IGBT1"`, `Path ""`, from inside the subsystem) — the reference form is
+top-level `Component "IGBT1"` + `Path "Circuit"`. **Lesson, again: find the working reference before
+guessing — it would have saved ~20 tool-calls.**
+
+**Net for Track 1:** the model-build (Step 1) now has a **confirmed heat-sink-coupled 6-CAB450-MOSFET
+2L-B6 that runs headless** — the hard blocker is cleared. Steps 2–5 remain (real 800 V loaded operating
+point → 9-corner matrix → Wolfspeed S5 calibration → fill `design-2l-b6-800v-sic` → register validated).

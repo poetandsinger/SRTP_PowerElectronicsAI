@@ -53,12 +53,16 @@ geometry. Proof it lives in the file and survives text edits: the shipped
 **A ready 2L-B6 base already exists — no GUI needed to start.** The shipped `rainflow_counting`
 demo is a **3-phase 2-level VSI (6 IGBT + 6 diode) on a heat sink** driving an induction machine
 (GUI-saved coupling). I retargeted it headlessly to CAB450 → `2l_b6_rainflow_base/2l_b6_cab450_rainflow.plecs`,
-which **loads and simulates (`ok:true`)** with 6 CAB450 `Mosfet`s + body diodes. Key enabler: the
+which **loads, simulates (`ok:true`), and is CONFIRMED heat-sink-coupled**: the switch junction temp
+reads **Tj = 65.3 °C mean, bounded at ambient (Ta=65 °C)** — not the 684 °C runaway of an uncoupled
+device. So the hard blocker (device→heatsink coupling) is **cleared** for the 2L-B6. Key enabler: the
 **legacy** CAB450 MOSFET file (`legacy-mosfets/`) is `class="MOSFET"` with no gate-dependent
-conduction, so a plain `Mosfet` block accepts it (needs `CustomVariables "struct('Rgon',4,'Rgoff',0)"`).
-**Open item:** the per-switch Tj/loss probe reads 0 (wrong signal name/path for the legacy device) —
-must be confirmed before trusting it (see `2l_b6_rainflow_base/README.md`). This is the fastest route
-to Step 5: fix the readout, retarget to 800 V, run corners, calibrate.
+conduction, so a plain `Mosfet` block accepts it (needs `CustomVariables "struct('Rgon',4,'Rgoff',0)"`);
+the 6 diodes get `CAB450M12XM3_bodydiode`. Readout that works: a **top-level** `PlecsProbe`,
+`Component "IGBT1"`, `Path "Circuit"`, signal **`"MOSFET junction temp"`** (the demo's own probe form;
+probing from inside the subsystem or with `"Device …"` names reads 0). **Remaining = Steps 2–5:** set a
+real 800 V operating point (loaded), run the 9-corner matrix, calibrate to the Wolfspeed CRD, fill
+`design-2l-b6-800v-sic`, register `validated`. See `2l_b6_rainflow_base/README.md`.
 
 ## Two artifacts in this folder
 

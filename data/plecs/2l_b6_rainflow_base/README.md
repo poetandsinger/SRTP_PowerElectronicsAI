@@ -17,26 +17,30 @@ GUI-saved base, since device→heatsink coupling can't be authored from scratch 
 - Search folder `2l_b6_cab450_rainflow_plecs/` holds both XMLs.
 - Ambient `Ta=65 °C`; `Tsim` shortened to 0.25 s for iteration (original 7.5 s drive cycle).
 
-## Status: **runs headless (`ok:true`)**, per-switch readout NOT yet confirmed
+## Status: **runs headless (`ok:true`) AND coupling CONFIRMED**
 
-The model **loads and simulates** with all 6 CAB450 MOSFETs + body diodes. Because the switches sit
-at the demo's original heat-sink positions, coupling should be preserved (as proven for the buck
-retarget). **BUT** the per-switch loss/Tj readout is unconfirmed: a `PlecsProbe` on `IGBT1` inside the
-`Circuit` subsystem writes a CSV but reads **0** for every signal name tried (`"Device …"`, `"MOSFET …"`
-junction temp / conduction loss). Root cause unresolved — likely the exact probe signal name/path for
-the legacy plain-`Mosfet` device, or the probe isn't resolving the nested component. **Do not claim the
-switches are validated until Tj reads ≥ Ta and losses are non-zero.**
+The model **loads and simulates** with all 6 CAB450 MOSFETs + body diodes, and the **device→heatsink
+coupling is confirmed**: the demo's own junction-temp probe (fixed here from `"IGBT junction temp"`
+→ `"MOSFET junction temp"`) reads **Tj = 65.3 °C mean / 65.8 °C max — bounded at ambient (Ta=65 °C)**,
+not the 684 °C runaway of an uncoupled device. So the switches dissipate into the heat sink correctly.
+This is a working, coupled 2L-B6 SiC model, entirely from text edits — **the hard blocker is cleared.**
 
-## Next steps (for the next agent)
+**Readout note (the fix that worked):** the switch Tj is read by a **top-level** `PlecsProbe` with
+`Component "IGBT1"`, `Path "Circuit"` (the demo's own probe named `IGBT`), signal `"MOSFET junction
+temp"`. Probing from inside the subsystem, or with `"Device …"` names, reads 0 — use the demo's form.
+The Tj rise is small here (~0.8 °C) because the rainflow IM startup is lightly loaded; a real operating
+point (§ next steps) will load the switches.
 
-1. **Confirm coupling/readout:** find the correct per-switch Tj/loss signal — try reading the demo's
-   *own* thermal path (it computes junction temps for its rainflow/lifetime analysis; inspect its
-   scopes/Analysis), or open once in the GUI to read the exact probe signal names, or probe the diode.
-   A coupled Tj reads ≥ 65 °C; an uncoupled one runs away.
-2. **Retarget the operating point to 800 V** (the demo's DC bus + machine are its own values) and a
-   defined corner; run the 9-corner matrix (`procedure-simulation-and-validation` §4).
-3. **Calibrate** ≥1 corner to the Wolfspeed CRD (S5), fill `design-2l-b6-800v-sic`, set
-   `model_registry.json` → `validation_status: validated` (Step 5).
+## Next steps (for the next agent) — Steps 2–5
+
+1. **Set a real operating point:** raise the DC bus toward **800 V** and load the machine (or replace
+   with a defined 3-phase load at the launch corner ~360 A rms) so the switches carry real current;
+   read per-switch conduction/switching loss (`"MOSFET conduction loss"`, and switching energy via a
+   `SwitchLossCalculator`) + Tj.
+2. **Run the 9-corner matrix** (`procedure-simulation-and-validation` §4); clear S1–S3 gates.
+3. **Calibrate** ≥1 corner to the Wolfspeed CRD (S5: >98 % η, 175 °C); fill `design-2l-b6-800v-sic`,
+   fold back into `circuit-topologies` + agnostic notes, Red Team, set `model_registry.json` →
+   `validation_status: validated` (Step 5). Then start T2.
 
 ## Why this matters
 

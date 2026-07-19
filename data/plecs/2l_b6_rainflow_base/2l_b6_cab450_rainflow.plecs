@@ -807,50 +807,6 @@ Plecs {
           }
         }
         Component {
-          Type          PlecsProbe
-          Name          "devprb"
-          Show          on
-          Position      [300, 300]
-          Direction     right
-          Flipped       off
-          LabelPosition south
-          Probe {
-            Component     "IGBT1"
-            Path          ""
-            Signals       {"MOSFET junction temp"}
-          }
-        }
-        Component {
-          Type          ToFile
-          Name          "devcap"
-          Show          on
-          Position      [400, 300]
-          Direction     right
-          Flipped       off
-          LabelPosition south
-          Parameter {
-            Variable      "Filename"
-            Value         "PLECS_devout.csv"
-            Show          off
-            Evaluate      off
-          }
-          Parameter {
-            Variable      "FileType"
-            Value         "1"
-            Show          off
-          }
-          Parameter {
-            Variable      "WriteSignalNames"
-            Value         "1"
-            Show          off
-          }
-          Parameter {
-            Variable      "SampleTime"
-            Value         "1e-5"
-            Show          off
-          }
-        }
-        Component {
           Type          Mosfet
           Name          "IGBT1"
           Show          off
@@ -1263,13 +1219,6 @@ Plecs {
             Value         "Ta"
             Show          off
           }
-        }
-        Connection {
-          Type          Signal
-          SrcComponent  "devprb"
-          SrcTerminal   1
-          DstComponent  "devcap"
-          DstTerminal   1
         }
         Connection {
           Type          Wire
@@ -4038,9 +3987,9 @@ Plecs {
       Flipped       off
       LabelPosition south
       Probe {
-        Component     "Circuit/IGBT1"
-        Path          ""
-        Signals       {"IGBT junction temp"}
+        Component     "IGBT1"
+        Path          "Circuit"
+        Signals       {"MOSFET junction temp"}
       }
     }
     Component {
