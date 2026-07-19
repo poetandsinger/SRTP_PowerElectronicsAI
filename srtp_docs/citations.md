@@ -17,39 +17,39 @@ tags: [index, ieee]
 
 ## Agent Harnesses — Operational Platforms
 
-### Hermes Agent — [[hermes-agent]]
+### Hermes Agent — [[harness-hermes-agent]]
 - [1] Nous Research. (2025–2026). *Hermes Agent*. GitHub. https://github.com/NousResearch/hermes-agent — **MIT**
 - [2] Nous Research. (2025–2026). *Hermes Agent Docs*. https://hermes-agent.nousresearch.com/docs/
 
-### Claude Code — [[claude-code]]
+### Claude Code — [[harness-claude-code]]
 - [3] Anthropic. (2025–2026). *Claude Code*. GitHub. https://github.com/anthropics/claude-code — **Proprietary**
 - [4] Anthropic. (2025–2026). *Claude Code CLI Reference*. https://code.claude.com/docs/en/cli-reference
 
-### OpenCode — [[opencode]]
+### OpenCode — [[harness-opencode]]
 - [5] AnomalyCo. (2025–2026). *OpenCode*. GitHub. https://github.com/anomalyco/opencode — **MIT**
 
-### Codex CLI — [[codex-cli]]
+### Codex CLI — [[harness-codex-cli]]
 - [6] OpenAI. (2025–2026). *Codex CLI*. GitHub. https://github.com/openai/codex — **Apache 2.0**
 
 ---
 
 ## Agent Frameworks — Libraries
 
-### LangGraph — [[langgraph]]
+### LangGraph — [[harness-langgraph]]
 - [7] LangChain. (2024–2026). *LangGraph*. GitHub. https://github.com/langchain-ai/langgraph — **MIT**
 - [8] LangChain. (2024–2026). *LangGraph Docs*. https://langchain-ai.github.io/langgraph/
 
-### CrewAI — [[crewai]]
+### CrewAI — [[harness-crewai]]
 - [9] CrewAI. (2024–2026). *CrewAI*. GitHub. https://github.com/crewAIInc/crewAI — **MIT**
 
-### AutoGen — [[autogen]]
+### AutoGen — [[harness-autogen]]
 - [10] Microsoft. (2023–2026). *AutoGen*. GitHub. https://github.com/microsoft/autogen — **CC-BY-4.0**
   — ⚠️ Maintenance mode since v0.7.5 (Sept 2025). Microsoft recommends Microsoft Agent Framework (MAF) for new projects.
 
 ### LangChain
 - [11] LangChain. (2023–2026). *LangChain*. GitHub. https://github.com/langchain-ai/langchain — **MIT**
 
-### smolagents — [[research-agents]]
+### smolagents — [[harness-research-agents]]
 - [12] HuggingFace. (2025–2026). *smolagents*. GitHub. https://github.com/huggingface/smolagents — **Apache 2.0**
 
 ### Others
@@ -64,7 +64,7 @@ tags: [index, ieee]
 
 ---
 
-## Research-Specific Agents — [[research-agents]]
+## Research-Specific Agents — [[harness-research-agents]]
 - [17] FutureHouse. (2024–2026). *PaperQA2*. GitHub. https://github.com/Future-House/paper-qa — **Apache 2.0**
 - [18] GPT Researcher. (2024–2026). *GPT Researcher*. GitHub. https://github.com/assafelovic/gpt-researcher — **Apache 2.0**
 - [19] Stanford OVAL. (2024–2026). *STORM*. GitHub. https://github.com/stanford-oval/storm — **MIT**
@@ -191,9 +191,9 @@ tags: [index, ieee]
 
 ## 2026-07-17 Design KB Pass — Sizing, Gate-Drive & Automotive Standards
 
-> Added to ground the traction-inverter **design cluster**: [[procedure-design]], [[schematics]], [[bom]], [[design-2l-b6-800v-sic]]. Standards are cited by designation; the standards texts themselves are paywalled and were not read in full — claims tied to them are scoped to widely-documented summaries.
+> Added to ground the traction-inverter **design cluster**: [[procedure-design]], [[schematics]], [[bom-2l-b6-sic]], [[design-2l-b6-800v-sic]]. Standards are cited by designation; the standards texts themselves are paywalled and were not read in full — claims tied to them are scoped to widely-documented summaries.
 
-- [84] **J. W. Kolar and S. D. Round**, "Analytical calculation of the RMS current stress on the DC-link capacitor of voltage-source PWM converter systems," *IEE Proc. Electric Power Applications*, vol. 153, no. 4, pp. 535–543, Jul. 2006. DOI: 10.1049/ip-epa:20050458. — Canonical DC-link ripple-current derivation (supersedes the un-numbered "Kolar et al." reference in [[components]] §3.2). *Reliability: high (peer-reviewed). DOI to re-verify against IET copy.*
+- [84] **J. W. Kolar and S. D. Round**, "Analytical calculation of the RMS current stress on the DC-link capacitor of voltage-source PWM converter systems," *IEE Proc. Electric Power Applications*, vol. 153, no. 4, pp. 535–543, Jul. 2006. DOI: 10.1049/ip-epa:20050458. — Canonical DC-link ripple-current derivation (supersedes the un-numbered "Kolar et al." reference in [[circuit-components]] §3.2). *Reliability: high (peer-reviewed). DOI to re-verify against IET copy.*
 - [85] **ISO 26262:2018**, "Road vehicles — Functional safety," International Organization for Standardization, 2018. — ASIL classification, safety goals, ASC/torque-monitoring requirements. *Standard document; paywalled — cited by designation.*
 - [86] **IEC 61800-5-1:2022**, "Adjustable speed electrical power drive systems — Part 5-1: Safety requirements — Electrical, thermal and energy," IEC, 2022. — Gate-driver isolation / clearance / creepage basis. *Paywalled — cited by designation.*
 - [87] **IEC 60034-18-41:2014**, "Rotating electrical machines — Part 18-41: Partial discharge free electrical insulation systems (Type I) used in inverter-fed machines," IEC, 2014. — Motor insulation rating vs inverter dv/dt. *Paywalled — cited by designation.*

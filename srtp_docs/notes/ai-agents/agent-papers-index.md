@@ -151,4 +151,4 @@ This gap is the opportunity: production AI-for-engineering tools (DSO.ai) exist 
 > **References:** [[citations]]
 
 
-← [[harness-index|Agent Harness Research]] | [[traction-inverter-index|Traction Inverter Research]] → | [[README|SRTP Index]]
+← [[harness-index|Agent Harness Research]] | [[index-traction-inverter|Traction Inverter Research]] → | [[README|SRTP Index]]

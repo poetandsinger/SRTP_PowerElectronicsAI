@@ -32,16 +32,16 @@ Power-cycling lifetime is set by CTE-mismatch fatigue at these interfaces (wire-
 
 ## 2. DC-Link Busbar — Meeting the `Lσ` Budget
 
-- **Target `Lσ < 10–15 nH`** for SiC: overshoot `V=Lσ·di/dt`, ring `f=1/(2π√(Lσ·Coss))` [25], [[components]] §5. Reference designs hit **5.3 nH power loop / 6.7 nH module** [91].
+- **Target `Lσ < 10–15 nH`** for SiC: overshoot `V=Lσ·di/dt`, ring `f=1/(2π√(Lσ·Coss))` [25], [[circuit-components]] §5. Reference designs hit **5.3 nH power loop / 6.7 nH module** [91].
 - **Laminated busbar:** parallel Cu plates with a thin dielectric (**spacing <100 µm**) → field cancellation between opposing currents minimizes inductance [118]. The narrower the gap and wider the plates, the lower `Lσ` [118].
 - **Minimize commutation-loop area** (DC-link cap ↔ module terminals): shortest, widest, most-overlapped path; place the cap directly over/against the module [118][41].
-- Cap-integrated-into-module (Tesla-style) is the extreme case of loop minimization [37], [[components]] §5.
+- Cap-integrated-into-module (Tesla-style) is the extreme case of loop minimization [37], [[circuit-components]] §5.
 
 ## 3. Gate-Loop & Power-Loop Layout (PCB)
 
-- **Kelvin source** (separate gate-return from power-source): mandatory for SiC — keeps power-loop `di/dt` out of the gate loop, or switching speed collapses and false-turn-on margin vanishes [107], [[gate-driver-design]] §1, [[schematics]] §3.
+- **Kelvin source** (separate gate-return from power-source): mandatory for SiC — keeps power-loop `di/dt` out of the gate loop, or switching speed collapses and false-turn-on margin vanishes [107], [[design-gate-driver]] §1, [[schematics]] §3.
 - **Tight gate loop:** minimize gate-driver→gate→Kelvin-source area to cut loop inductance and ringing; place driver close to the module [107].
-- **Separate power and signal grounds**, single-point HF bond; keep sense (current/NTC) routing away from the switching node [117], [[emi-emc-design]] §6.
+- **Separate power and signal grounds**, single-point HF bond; keep sense (current/NTC) routing away from the switching node [117], [[design-emi-emc]] §6.
 
 ## 4. Creepage & Clearance (HV isolation)
 
@@ -79,4 +79,4 @@ Clearance = shortest air path; creepage = shortest surface path (worse with cont
 
 > **References:** [[citations]]
 
-← [[thermal-design]] | [[emi-emc-design]] | [[components]] →
+← [[thermal-design]] | [[design-emi-emc]] | [[circuit-components]] →

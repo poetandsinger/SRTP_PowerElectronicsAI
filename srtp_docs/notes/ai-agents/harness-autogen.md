@@ -93,4 +93,4 @@ research_lead.initiate_chat(
 > **References:** [[citations]]
 
 
-← [[research-agents|Prev: Research Agents]] | [[README]] →
+← [[harness-research-agents|Prev: Research Agents]] | [[README]] →

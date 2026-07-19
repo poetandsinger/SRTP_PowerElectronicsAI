@@ -38,7 +38,7 @@ The **highest-volume SiC traction inverter in production** and the design that s
 
 - **650 V devices on a 400 V bus** — the T-type/2L device-voltage logic in [[circuit-topologies]] §4: at 400 V you can use cheaper, mature 650 V SiC; at 800 V you are forced to 1200 V (the reference-design anchor's reason for 1200 V) [28].
 - **Volume pricing reality:** a whole 2018 SiC inverter for ~$810 [94] is *less than one* 1200 V distributor module today [92][98] — the sharpest illustration of volume-vs-distributor pricing in [[bom-price-database]].
-- **Paralleling small die** is a valid alternative to large modules — relevant to the "how much silicon" cost driver in [[bom]] §7.
+- **Paralleling small die** is a valid alternative to large modules — relevant to the "how much silicon" cost driver in [[bom-2l-b6-sic]] §7.
 
 ---
 
@@ -60,4 +60,4 @@ The **highest-volume SiC traction inverter in production** and the design that s
 
 > **References:** [[citations]]
 
-← [[reference-designs-index]] | [[reference-design-nissan-leaf-400v-igbt]] →
+← [[index-reference-designs]] | [[reference-design-nissan-leaf-400v-igbt]] →

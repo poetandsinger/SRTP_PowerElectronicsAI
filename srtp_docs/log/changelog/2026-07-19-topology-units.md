@@ -9,7 +9,7 @@ tags: [changelog, design, traction-inverter]
 
 # 2026-07-19 — Topology units
 
-Established a **per-topology naming scheme** for the power-electronics design cluster so the multi-topology depth program ([[depth-research-plan]]) has one note per topology, consistently named.
+Established a **per-topology naming scheme** for the power-electronics design cluster so the multi-topology depth program ([[plan-depth-research]]) has one note per topology, consistently named.
 
 ## What changed
 
@@ -23,7 +23,7 @@ Established a **per-topology naming scheme** for the power-electronics design cl
 - Created three scaffolds (structure + target spec + planned PLECS validation + Red Team, numbers `[TBD-PLECS]`): **`design-3l-tnpc-800v-sic`**, **`design-3l-anpc-800v-sic`**, **`design-3l-npc-800v-sic`** — filled by Tracks 2–4.
 - External references (Wolfspeed/TI, Tesla Model 3, Nissan Leaf) kept their `reference-design-*` names.
 
-**Indexes:** [[reference-designs-index]] split into *topology units* vs *external references*; the four units added to [[traction-inverter-index]].
+**Indexes:** [[index-reference-designs]] split into *topology units* vs *external references*; the four units added to [[index-traction-inverter]].
 
 ## Why
 
@@ -31,4 +31,4 @@ The multi-topology plan (Option C, serial) builds a validated model for each of 
 
 ---
 
-← [[changelog-index]] | [[depth-research-plan]] | [[README]]
+← [[changelog-index]] | [[plan-depth-research]] | [[README]]

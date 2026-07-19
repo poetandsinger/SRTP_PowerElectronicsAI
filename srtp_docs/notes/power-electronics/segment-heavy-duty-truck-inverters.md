@@ -64,4 +64,4 @@ The **production landscape** for Class-8 / long-haul BEV truck traction inverter
 
 > **References:** [[citations]]
 
-← [[worked-example-truck-800v-sic]] | [[reliability-and-lifetime]] | [[traction-inverter-index]] →
+← [[worked-example-truck-800v-sic]] | [[reliability-and-lifetime]] | [[index-traction-inverter]] →

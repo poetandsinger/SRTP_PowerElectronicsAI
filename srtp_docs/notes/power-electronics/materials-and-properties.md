@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-A **one-stop property reference** for the materials a traction inverter is built from — semiconductor, substrate, die-attach, baseplate, DC-link dielectric, conductor, magnet, insulation. Consolidates constants used across [[components]], [[thermal-design]], and [[packaging-and-layout]]; those chapters give the *why*, this gives the *numbers*.
+A **one-stop property reference** for the materials a traction inverter is built from — semiconductor, substrate, die-attach, baseplate, DC-link dielectric, conductor, magnet, insulation. Consolidates constants used across [[circuit-components]], [[thermal-design]], and [[packaging-and-layout]]; those chapters give the *why*, this gives the *numbers*.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge (standard material constants). Values are typical room-temperature figures — verify against the specific grade/datasheet.
 
@@ -25,9 +25,9 @@ A **one-stop property reference** for the materials a traction inverter is built
 | Electron mobility (cm²/Vs) | 1400 | ~950 | 1500–2000 (2DEG) | GaN best for HF [22] |
 | Sat. drift velocity (10⁷ cm/s) | 1.0 | 2.0 | 2.5 | faster switching [22] |
 | Thermal cond. (W/cm·K) | 1.5 | 3.7–4.9 | 1.3 (bulk) | SiC removes heat well; GaN bulk poor [22] |
-| Max junction (°C) | 150–175 | 175–200 | 150–200 | [[components]] §1 |
+| Max junction (°C) | 150–175 | 175–200 | 150–200 | [[circuit-components]] §1 |
 
-**Read:** SiC's ~10× critical field is the whole ballgame — thinner drift region for the same block voltage → far lower `Rds(on)·area` at 1200 V, and 3× thermal conductivity to remove the loss [22]. GaN's mobility wins at MHz but bulk thermal + 650 V ceiling keep it out of traction [22], [[components]] §1.3.
+**Read:** SiC's ~10× critical field is the whole ballgame — thinner drift region for the same block voltage → far lower `Rds(on)·area` at 1200 V, and 3× thermal conductivity to remove the loss [22]. GaN's mobility wins at MHz but bulk thermal + 650 V ceiling keep it out of traction [22], [[circuit-components]] §1.3.
 
 ## 2. Substrate Ceramics (DBC / AMB)
 
@@ -52,7 +52,7 @@ Si₃N₄ AMB trades some conductivity for the mechanical toughness that survive
 
 | Material | Key property | Use |
 |----------|--------------|-----|
-| Metallized PP film | self-healing, ESR <1 mΩ, low ESL, Tmax ~105–125 °C | **DC-link cap** — [41], [[components]] §3 |
+| Metallized PP film | self-healing, ESR <1 mΩ, low ESL, Tmax ~105–125 °C | **DC-link cap** — [41], [[circuit-components]] §3 |
 | Electrolytic (Al₂O₃) | high C-density but ESR 10–100 mΩ, dry-out | **excluded** from traction [41] |
 | Copper (busbar) | σ ≈ 5.8×10⁷ S/m | laminated busbar; I²R + `Lσ` [118] |
 
@@ -86,4 +86,4 @@ Full TIM table in [[thermal-design]] §5: grease 2.9–7.5, PCM 3–7, graphite 
 
 > **References:** [[citations]]
 
-← [[components]] | [[thermal-design]] | [[packaging-and-layout]] →
+← [[circuit-components]] | [[thermal-design]] | [[packaging-and-layout]] →

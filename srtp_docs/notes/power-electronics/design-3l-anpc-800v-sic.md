@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-**Track 3 topology unit** (`design-<topology>-<voltage>-<device>`): an 800 V-class **SiC 3-level Active NPC** traction inverter, sized to the same 150 kW anchor as [[design-2l-b6-800v-sic]]. **Planned, not yet built** — populated when Track 3 of [[depth-research-plan]] runs. This is the topology of the **reference study** (`scratchpad/ref_notes.txt`), so Track 3 reproduces that design directly — including its RLC/damped-LC output filter. Topology catalogue: [[circuit-topologies]] §3.
+**Track 3 topology unit** (`design-<topology>-<voltage>-<device>`): an 800 V-class **SiC 3-level Active NPC** traction inverter, sized to the same 150 kW anchor as [[design-2l-b6-800v-sic]]. **Planned, not yet built** — populated when Track 3 of [[plan-depth-research]] runs. This is the topology of the **reference study** (`scratchpad/ref_notes.txt`), so Track 3 reproduces that design directly — including its RLC/damped-LC output filter. Topology catalogue: [[circuit-topologies]] §3.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training; **[derived]** → in [[procedure-design]]; **[TBD-PLECS]** → produced by the Track-3 model.
 
@@ -43,7 +43,7 @@ review_by: 2026-10-17
 1. Build as a `.plecs` **text** variant of the Track-1 template (18-switch stage, redundant-zero-state modulation, split DC-link with NP, damped-LC output filter). Top-level Outports.
 2. Run the 9-corner matrix + the reference PDF's filter/efficiency sweeps (L_FILTER, C_FILTER, R_FILTER, fsw, Tdead).
 3. **Calibrate against the reference study + the 2L-B6 baseline:** reproduce three-level pole voltage, NP balance, loss-equalisation across main switches, and the filter's f0/attenuation trade-off.
-4. Fold results into [[circuit-topologies]] §5, [[emi-emc-design]] (the filter), and [[design-tradeoffs]]; register in `model_registry.json`.
+4. Fold results into [[circuit-topologies]] §5, [[design-emi-emc]] (the filter), and [[design-tradeoffs]]; register in `model_registry.json`.
 
 ## Red Team
 
@@ -59,4 +59,4 @@ review_by: 2026-10-17
 
 > **References:** [[citations]]
 
-← [[circuit-topologies]] | [[design-2l-b6-800v-sic]] | [[depth-research-plan]] →
+← [[circuit-topologies]] | [[design-2l-b6-800v-sic]] | [[plan-depth-research]] →

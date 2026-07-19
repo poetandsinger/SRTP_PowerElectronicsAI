@@ -11,31 +11,17 @@
             "id": "a3006644bff416df",
             "type": "leaf",
             "state": {
-              "type": "bases",
-              "state": {
-                "file": "catalog.base",
-                "viewName": "All notes by field"
-              },
-              "icon": "lucide-table",
-              "title": "catalog"
-            }
-          },
-          {
-            "id": "280b153db83e49a4",
-            "type": "leaf",
-            "state": {
               "type": "markdown",
               "state": {
-                "file": "citations.md",
+                "file": "SCHEMA.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "citations"
+              "title": "SCHEMA"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -67,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#power-electronics",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -195,43 +181,43 @@
       "bases:Create new base": false
     }
   },
-  "active": "45e4867bb00ebacc",
+  "active": "a3006644bff416df",
   "lastOpenFiles": [
-    "project/changelog/2026-07-18-three-worked-examples.md.tmp.17076.62ba2c04d69a",
-    "power-electronics/traction-inverter/worked-example-microcar-96v-mosfet.md.tmp.17076.301a04e0c71a",
-    "power-electronics/traction-inverter/worked-example-performance-800v-sic.md.tmp.17076.7a88afb5ed8f",
-    "power-electronics/traction-inverter/worked-example-truck-800v-sic.md.tmp.17076.c525471986a8",
-    "power-electronics/traction-inverter/traction-inverter-index.md.tmp.17076.827da1943cbe",
-    "power-electronics/traction-inverter/segment-low-cost-city-car-inverters.md",
-    "power-electronics/traction-inverter/segment-low-cost-city-car-inverters.md.tmp.17076.fb87c694899c",
-    "srtp_docs.zip",
-    "power-electronics/traction-inverter/segment-performance-motorsport-inverters.md",
-    "power-electronics/traction-inverter/segment-performance-motorsport-inverters.md.tmp.17076.8bee7f6c4620",
-    "power-electronics/traction-inverter/segment-heavy-duty-truck-inverters.md",
-    "power-electronics/traction-inverter/segment-heavy-duty-truck-inverters.md.tmp.17076.c37ed5ae0d41",
-    "ai-agents/design-by-doing-observed-workflow.md",
-    "power-electronics/traction-inverter/traction-inverter-index.md.tmp.17076.3b74c9286df0",
-    "power-electronics/traction-inverter/traction-inverter-index.md.tmp.17076.2087dd1ebef4",
-    "project/changelog/2026-07-18-three-worked-examples.md",
-    "power-electronics/traction-inverter/worked-example-microcar-96v-mosfet.md",
-    "power-electronics/traction-inverter/worked-example-performance-800v-sic.md",
-    "power-electronics/traction-inverter/worked-example-truck-800v-sic.md",
-    "ai-agents/design-loop-architecture.md",
-    "power-electronics/traction-inverter/worked-example-family-car-400v-sic.md",
-    "power-electronics/traction-inverter/findings-family-car-design-by-doing.md",
-    "project/plans/design-loop.md",
-    "project/plans/evaluation-and-benchmark.md",
-    "project/plans/guardrails-and-evidence.md",
-    "project/plans/tech-stack.md",
-    "project/plans/plecs-harness.md",
-    "project/plans/memory.md",
-    "project/plans/knowledge-rag.md",
-    "problem-statement/problem-statement-index.md",
-    "power-electronics/traction-inverter/protection-and-safety.md",
-    "citations.md",
-    "ai-agents/agentic-workflow-patterns.md",
-    "power-electronics/traction-inverter/worked-example-400v-150kw.md",
-    "power-electronics/traction-inverter/open-problems.md",
-    "project/changelog/2026-07-18-family-car-design-by-doing.md"
+    "log/changelog/changelog-index.md.tmp.27872.06a5b64258e4",
+    "log/changelog/2026-07-19-naming-and-navigation.md",
+    "log/changelog/2026-07-19-naming-and-navigation.md.tmp.27872.e8ae8680c61d",
+    "README.md.tmp.27872.06ae7a74a3a4",
+    "SCHEMA.md.tmp.27872.f39c8d054845",
+    "SCHEMA.md.tmp.27872.754dd774bd86",
+    "SCHEMA.md.tmp.27872.eb3ae8824079",
+    "plans/plan-depth-research.md",
+    "plans/plan-guardrails-and-evidence.md",
+    "plans/plan-tech-stack.md",
+    "SCHEMA.md",
+    "notes/power-electronics/reference-design-wolfspeed-ti-300kw-800v.md",
+    "notes/power-electronics/procedure-design.md",
+    "notes/power-electronics/machine-and-load.md",
+    "notes/power-electronics/design-3l-anpc-800v-sic.md",
+    "notes/power-electronics/design-2l-b6-800v-sic.md",
+    "notes/power-electronics/bom-price-database.md",
+    "plans/plan-ai-agent-mas.md",
+    "notes/power-electronics/bom-2l-b6-sic.md",
+    "plans/depth-research-plan.md.tmp.1264.2e211bb88f11",
+    "plans/depth-research-plan.md.tmp.1264.71164129acba",
+    "plans/depth-research-plan.md.tmp.1264.1139979dd8cd",
+    "plans/depth-research-plan.md.tmp.1264.d50c1db3ea37",
+    "plans/depth-research-plan.md.tmp.1264.ec8a784433ea",
+    "notes/power-electronics/control-schemes.md",
+    "notes/power-electronics/circuit-components.md",
+    "notes/power-electronics/circuit-topologies.md",
+    "notes/power-electronics/index-traction-inverter.md",
+    "notes/power-electronics/index-reference-designs.md",
+    "notes/power-electronics/manufacturing-and-test.md",
+    "notes/power-electronics/design-gate-driver.md",
+    "notes/power-electronics/design-emi-emc.md",
+    "sources/ai-agents/agentic-tcad-2026-date.md",
+    "notes/power-electronics/packaging-and-layout.md",
+    "log/audits/multi-agent-audit-2026-07-09.md",
+    "log/changelog/2026-07-19-validation-sop.md"
   ]
 }

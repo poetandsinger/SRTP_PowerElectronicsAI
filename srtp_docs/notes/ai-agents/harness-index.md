@@ -23,10 +23,10 @@ Complete agent *platforms* with built-in infrastructure (CLI, memory, scheduling
 
 | Harness | ⭐ Stars | Forks | License | Open Issues | Multi-Agent | Research Fit |
 |---------|---------|-------|---------|:---:|:---:|:---:|
-| [[hermes-agent]] | **210,142** | 38,464 | MIT | 26,179 | ✅ Native delegation | 🟢 Excellent |
-| [[claude-code]] | **136,513** | 21,925 | Proprietary | 9,943 | ✅ @subagents + Teams | 🟡 Moderate |
-| [[opencode]] | **182,896** | 22,658 | MIT | 4,771 | ✅ Multi-agent | 🟢 Good |
-| [[codex-cli]] | **95,830** | 14,222 | Apache 2.0 | — | ❌ None | 🔴 Poor |
+| [[harness-hermes-agent]] | **210,142** | 38,464 | MIT | 26,179 | ✅ Native delegation | 🟢 Excellent |
+| [[harness-claude-code]] | **136,513** | 21,925 | Proprietary | 9,943 | ✅ @subagents + Teams | 🟡 Moderate |
+| [[harness-opencode]] | **182,896** | 22,658 | MIT | 4,771 | ✅ Multi-agent | 🟢 Good |
+| [[harness-codex-cli]] | **95,830** | 14,222 | Apache 2.0 | — | ❌ None | 🔴 Poor |
 
 > ✅ **All star counts verified via GitHub API on 2026-07-06.** Hermes leads operational platforms at 210k★. OpenCode's 183k★ and 75+ provider support makes it a viable alternative for provider-agnostic research. Claude Code's 137k★ reflects massive adoption despite proprietary license. Hermes Agent v0.18.0 with 14,661 commits.
 
@@ -36,9 +36,9 @@ Python libraries for building agents; you provide the operational infrastructure
 
 | Framework       | ⭐ Stars               | License    |     Multi-Agent     | Research Fit |  MATLAB Fit  |              |
 | --------------- | --------------------- | ---------- | :-----------------: | :----------: | :----------: | ------------ |
-| [[langgraph]]           | **36,626** |         MIT         | ✅ Subgraphs  | 🟢 Excellent | 🟢 Very High |
-| [[crewai]]              | **55,014** |         MIT         | ✅ Role-based | 🟢 Excellent | 🟢 High      |
-| [[autogen]] | **59,526** |      CC-BY-4.0      | ✅ Group chat |   🟢 Good    | 🟢 High      |
+| [[harness-langgraph]]           | **36,626** |         MIT         | ✅ Subgraphs  | 🟢 Excellent | 🟢 Very High |
+| [[harness-crewai]]              | **55,014** |         MIT         | ✅ Role-based | 🟢 Excellent | 🟢 High      |
+| [[harness-autogen]] | **59,526** |      CC-BY-4.0      | ✅ Group chat |   🟢 Good    | 🟢 High      |
 | LangChain       | **141,092**           | MIT        |   ✅ Via LangGraph   |   🟢 Good    |   🟢 High    |              |
 | smolagents (HF) | **28,215**            | Apache 2.0 |    ✅ Multi-agent    |   🟡 Good    |  🟡 Medium   |              |
 | Aider           | **47,109**            | Apache 2.0 | ⚠️ Architect/Editor |   🔴 Poor    |    🔴 Low    |              |
@@ -52,22 +52,22 @@ Purpose-built for specific research tasks — ideal as sub-components:
 
 | Agent | Note | ⭐ Stars | License | Specialization | Integration |
 |-------|------|---------|---------|----------------|-------------|
-| PaperQA2 | [[research-agents]] | **8,822** | Apache 2.0 | Scientific literature Q&A w/ citations | RAG sub-agent |
-| GPT Researcher | [[research-agents]] | **28,107** | Apache 2.0 | Deep web research + report generation | Literature review |
-| STORM (Stanford) | [[research-agents]] | **29,864** | MIT | Multi-perspective report generation | Report writing |
+| PaperQA2 | [[harness-research-agents]] | **8,822** | Apache 2.0 | Scientific literature Q&A w/ citations | RAG sub-agent |
+| GPT Researcher | [[harness-research-agents]] | **28,107** | Apache 2.0 | Deep web research + report generation | Literature review |
+| STORM (Stanford) | [[harness-research-agents]] | **29,864** | MIT | Multi-perspective report generation | Report writing |
 
 > ⚠️ **Note on Hermes Agent/Claude Code/OpenCode stars:** The GitHub API batch for these three is still pending. Star estimates above are approximate. The other 10 frameworks have verified star counts from live API calls on 2026-07-06.
 
 ## Quick Navigation
 
-- [[comparative-analysis|Comparative Analysis]] — Side-by-side architecture comparison (all frameworks)
-- [[comparative-analysis|Comparative Analysis]] — Side-by-side architecture comparison + gap analysis
-- [[architecture-patterns|Architecture Patterns]] — Common patterns across harnesses
+- [[harness-comparison|Comparative Analysis]] — Side-by-side architecture comparison (all frameworks)
+- [[harness-comparison|Comparative Analysis]] — Side-by-side architecture comparison + gap analysis
+- [[harness-architecture-patterns|Architecture Patterns]] — Common patterns across harnesses
 - [[plecs-integration|PLECS Integration Strategy]] — How to wrap PLECS as an agent tool
-- [[langgraph|LangGraph Deep Dive]] — State-machine agent graphs
-- [[crewai|CrewAI Deep Dive]] — Role-based multi-agent teams
-- [[research-agents|Research-Specific Agents]] — PaperQA2, GPT Researcher, STORM
-- [[autogen|AutoGen Deep Dive]] — Microsoft's multi-agent conversations
+- [[harness-langgraph|LangGraph Deep Dive]] — State-machine agent graphs
+- [[harness-crewai|CrewAI Deep Dive]] — Role-based multi-agent teams
+- [[harness-research-agents|Research-Specific Agents]] — PaperQA2, GPT Researcher, STORM
+- [[harness-autogen|AutoGen Deep Dive]] — Microsoft's multi-agent conversations
 
 ## Key Findings
 
@@ -89,4 +89,4 @@ Purpose-built for specific research tasks — ideal as sub-components:
 > **References:** [[citations]]
 
 
-← [[citations|References]] | [[hermes-agent|Next: Hermes Agent]] → | [[README]]
+← [[citations|References]] | [[harness-hermes-agent|Next: Hermes Agent]] → | [[README]]

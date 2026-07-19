@@ -44,7 +44,7 @@ Continuous ≈ **415 kW** (steady `Tj` 160 °C) [model]. **Higher peak ⇒ short
 
 ## 3. Circuit / Device / BOM (deltas)
 
-2L-B6 with **minimum silicon at maximum flux**: small-die 1200 V SiC on **double-side cooling** (coolers both faces, sintered-Ag interposers, micro-channel cold plate) — `Rth` −30–39% vs single-side, the lever that buys kW/L ([[thermal-design]] §4, [103]). Highest practical `fsw` (~15 kHz) to shrink passives; **laminated busbar with lowest `Lσ`** for the 900 A-class edges. DC-link and gate-drive are the [[bom]] classes, minimized in volume. Multiple such inverters per car (Rimac = 4, Plaid = 3) [performance research].
+2L-B6 with **minimum silicon at maximum flux**: small-die 1200 V SiC on **double-side cooling** (coolers both faces, sintered-Ag interposers, micro-channel cold plate) — `Rth` −30–39% vs single-side, the lever that buys kW/L ([[thermal-design]] §4, [103]). Highest practical `fsw` (~15 kHz) to shrink passives; **laminated busbar with lowest `Lσ`** for the 900 A-class edges. DC-link and gate-drive are the [[bom-2l-b6-sic]] classes, minimized in volume. Multiple such inverters per car (Rimac = 4, Plaid = 3) [performance research].
 
 ## 4. New Knowledge  `[model]`
 

@@ -147,4 +147,4 @@ A traction inverter is therefore not just a switching circuit; it is a **real-ti
 
 **Residual doubt:** Fundamentals notes carry the most authority and the least scrutiny. Readers trust them because they "look like textbooks." The [T] tags are a start, but every quantitative claim in this note needs a source upgrade from textbooks (1994–2003) to current (2020+) primary sources.
 
-← [[traction-inverter-index]] | [[circuit-topologies]] →
+← [[index-traction-inverter]] | [[circuit-topologies]] →

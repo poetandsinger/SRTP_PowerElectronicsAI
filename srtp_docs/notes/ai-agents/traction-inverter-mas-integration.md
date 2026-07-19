@@ -32,7 +32,7 @@ review_by: 2026-08-10
 
 > **Status as of 2026-07-10:** The architecture is validated by 3 independent lines of evidence: (1) PE-MAS — working LangGraph MAS for flyback design, (2) PE-GPT — peer-reviewed LLM agent outperforming humans on power electronics design, (3) Power Circuit AI — ABB's production multi-agent PCB design system. Different domains, same patterns. The convergence is not accidental.
 
-> ⚠️ **2026-07-17 PLECS pivot + corrections (read first).** This note predates two decisions; the authoritative version is [[ai-agent-mas-plan]] + [[ai-agent-docs-audit-2026-07-17]]:
+> ⚠️ **2026-07-17 PLECS pivot + corrections (read first).** This note predates two decisions; the authoritative version is [[plan-ai-agent-mas]] + [[ai-agent-docs-audit-2026-07-17]]:
 > 1. **Backend is PLECS, not MATLAB.** Every "MATLAB Agent" below = the **PLECS Simulation Agent** (XML-RPC/MCP; see [[plecs-integration]]). §5's "MATLAB/Simulink primary, PLECS optional" is **inverted** — PLECS is primary (native PMSM/IM models close gap G1).
 > 2. **Commit to the 3-agent core**, not 7. The 7-agent split is a *later*, earned option (§4 Claim 4 stays C2). See audit §2.
 > 3. **§2.5's "upgrades C3→C4" is withdrawn.** That evidence is a coding-benchmark; domain claims stay **C3** until a PE A/B test exists (audit §3).
@@ -52,7 +52,7 @@ Every claim in this note carries a **confidence level** (1–5):
 | **C2** | Speculative | Theoretical argument, no direct evidence, but consistent with known principles |
 | **C1** | Unsupported | Intuition, analogy, or extrapolation without evidence |
 
-**Truth-status and evidence-strength** follow SCHEMA.md conventions and apply to the note overall. Individual claims are confidence-ranked inline as `[C3]`.
+**Truth-status and evidence-strength** follow [[SCHEMA]] conventions and apply to the note overall. Individual claims are confidence-ranked inline as `[C3]`.
 
 ---
 
@@ -354,4 +354,4 @@ The original 4-phase plan (2026-07-09) is revised based on fresh evidence:
 
 > **References:** [[citations]] — See also [[multi-agent-synthesis]] for the foundational multi-agent analysis, [[pe-mas-flyback-mas]] for closest prior art, [[problem-statement-index]] for domain motivation.
 
-← [[multi-agent-synthesis]] | [[ai-agent-mas-plan]] →
+← [[multi-agent-synthesis]] | [[plan-ai-agent-mas]] →

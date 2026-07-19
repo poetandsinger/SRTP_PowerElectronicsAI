@@ -38,7 +38,7 @@ Loop: LLM plans → PINN surrogate evaluates candidate modulations cheaply → m
 - **User study (20 industrial practitioners):** junior engineers **96.3× faster**, seniors **33.9× faster**, overall **>33× design-time reduction**, **100% task completion.**
 - Token/wall-clock cost **not reported** (a gap — cannot verify the cost story from this paper).
 
-> **SRTP adoption status (2026-07-17): NOT adopted.** The plan ([[ai-agent-mas-plan]]) is **PLECS-only, no PINN/surrogates** — a surrogate that can disagree with PLECS is a liability for an evidence-gated system, and PLECS batch-parallelizes well enough. This note is kept as **reference/method evidence**, not an adopted component. (It does show surrogates *could* be revisited cheaply later if PLECS runtime ever dominates.)
+> **SRTP adoption status (2026-07-17): NOT adopted.** The plan ([[plan-ai-agent-mas]]) is **PLECS-only, no PINN/surrogates** — a surrogate that can disagree with PLECS is a liability for an evidence-gated system, and PLECS batch-parallelizes well enough. This note is kept as **reference/method evidence**, not an adopted component. (It does show surrogates *could* be revisited cheaply later if PLECS runtime ever dominates.)
 
 ## SRTP implications (reference only — not on the roadmap)
 - **Resolves G2 directionally:** physics-informed surrogates are viable with ~10 sims, so a Traction-Inverter surrogate (efficiency/thermal) could be bootstrapped early (Phase 1–2), not deferred to Phase 4. This changes the plan.

@@ -38,4 +38,4 @@ Each carries reliability tags on every figure and a Red Team about the disclosur
 ## Honesty
 All quantitative results are self-authored quasi-static models with **class-typical/invented device params** — status `unverified`. Directional findings are robust device physics; magnitudes are computed hypotheses. The truck's absolute life is coefficient-dominated (±1–2 orders, stated loudly); the microcar's device+cost are the point where RAG+web data ran out.
 
-← [[changelog-index]] | [[traction-inverter-index]]
+← [[changelog-index]] | [[index-traction-inverter]]

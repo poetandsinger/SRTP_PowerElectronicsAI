@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-**Track 2 topology unit** (`design-<topology>-<voltage>-<device>`): an 800 V-class **SiC 3-level T-type NPC** traction inverter, sized to the same 150 kW anchor as [[design-2l-b6-800v-sic]] for a like-for-like comparison. **Planned, not yet built** — this note is the home for TNPC's validated numbers; it is populated when Track 2 of [[depth-research-plan]] runs, after Track 1 (2L-B6) is validated and registered. Topology catalogue: [[circuit-topologies]] §4.
+**Track 2 topology unit** (`design-<topology>-<voltage>-<device>`): an 800 V-class **SiC 3-level T-type NPC** traction inverter, sized to the same 150 kW anchor as [[design-2l-b6-800v-sic]] for a like-for-like comparison. **Planned, not yet built** — this note is the home for TNPC's validated numbers; it is populated when Track 2 of [[plan-depth-research]] runs, after Track 1 (2L-B6) is validated and registered. Topology catalogue: [[circuit-topologies]] §4.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; **[derived]** → computed in [[procedure-design]]; **[TBD-PLECS]** → to be produced by the Track-2 model.
 
@@ -59,4 +59,4 @@ The **leading multilevel candidate for automotive 800 V**: [28] reports **−0.6
 
 > **References:** [[citations]]
 
-← [[circuit-topologies]] | [[design-2l-b6-800v-sic]] | [[depth-research-plan]] →
+← [[circuit-topologies]] | [[design-2l-b6-800v-sic]] | [[plan-depth-research]] →

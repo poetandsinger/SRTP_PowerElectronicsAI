@@ -30,7 +30,7 @@ Why a SiC inverter is an EMI source and how to tame it: standards, noise modes, 
 - **DM** — line-to-line (HV+↔HV−), driven by DC-link switching-ripple current; a loop problem [116].
 - **CM** — line-to-ground/chassis, `i_CM = C_par·dv/dt`, returning through parasitics [117].
 - **Dominant CM source:** the fast switching node coupled through **parasitic capacitance to the heatsink/baseplate/chassis** (die→substrate cap→baseplate→heatsink→chassis→source) and motor winding-to-frame capacitance [117].
-- **Why SiC is worse:** hard-switched SiC dv/dt is **40–150 kV/µs** (vendor data; the 15–50 kV/µs often quoted is conservative) — since `i_CM ∝ dv/dt`, faster edges inject proportionally larger CM current and push spectral energy higher, worsening conducted **and** radiated CM emissions [117][108]. `Rg`/active gate drive trades dv/dt (EMI) against switching loss [108], [[gate-driver-design]] §2.
+- **Why SiC is worse:** hard-switched SiC dv/dt is **40–150 kV/µs** (vendor data; the 15–50 kV/µs often quoted is conservative) — since `i_CM ∝ dv/dt`, faster edges inject proportionally larger CM current and push spectral energy higher, worsening conducted **and** radiated CM emissions [117][108]. `Rg`/active gate drive trades dv/dt (EMI) against switching loss [108], [[design-gate-driver]] §2.
 
 ## 3. HV-Input EMI Filter
 

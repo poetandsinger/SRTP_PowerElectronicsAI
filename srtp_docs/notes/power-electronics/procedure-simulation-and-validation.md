@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 # Simulation & Validation
 
-> How to model and validate a traction-inverter design. The project's simulator is **PLECS only** (MATLAB dropped) [80][58]. This chapter is the *model side* of V&V — how PLECS represents the inverter, and the corner tests that turn a sizing spec ([[procedure-design]]) into evidence. The *hardware side* (double-pulse bench, HIL, EOL) lives in [[manufacturing-and-test]]; validation closes the loop against [[reference-designs-index]].
+> How to model and validate a traction-inverter design. The project's simulator is **PLECS only** (MATLAB dropped) [80][58]. This chapter is the *model side* of V&V — how PLECS represents the inverter, and the corner tests that turn a sizing spec ([[procedure-design]]) into evidence. The *hardware side* (double-pulse bench, HIL, EOL) lives in [[manufacturing-and-test]]; validation closes the loop against [[index-reference-designs]].
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge.
 
@@ -21,7 +21,7 @@ review_by: 2026-10-17
 
 **PLECS is chosen** because it does together the two things a traction-inverter model needs: piecewise-linear switching-circuit simulation (fast, no SPICE convergence pain) *and* a coupled thermal network driven by device loss tables [58][80]. It ships native **PMSM (with saturation LUT) and induction-machine models plus an FOC traction demo**, so the plant is a library block, not a from-scratch build [80], [[machine-and-load]] §8. It is scriptable over XML-RPC (`PLECS.exe -server <port>`); an MCP wrapper exposes those calls as agent tools and sweeps designs by passing `ModelVars`, as in the PE-MAS PLECS MCP server [72][78][79]. The **verified** call surface is below.
 
-**Where it stops:** PLECS is a circuit+thermal solver, not a 3-D field solver. It does **not** give you parasitic extraction, EMI radiated fields, mechanical stress, or CFD coolant flow — those need FEA/CFD tools (§5) and, ultimately, hardware. Loop inductance `Lσ`, CM-capacitance, and EMI spectra enter PLECS only as *numbers you supply from elsewhere*, not results it derives [T], [[emi-emc-design]].
+**Where it stops:** PLECS is a circuit+thermal solver, not a 3-D field solver. It does **not** give you parasitic extraction, EMI radiated fields, mechanical stress, or CFD coolant flow — those need FEA/CFD tools (§5) and, ultimately, hardware. Loop inductance `Lσ`, CM-capacitance, and EMI spectra enter PLECS only as *numbers you supply from elsewhere*, not results it derives [T], [[design-emi-emc]].
 
 ### Driving PLECS headless — verified surface (PLECS 4.8, 2026-07-18)
 
@@ -29,7 +29,7 @@ Confirmed by directly driving the installed Standalone build (basis for [[worked
 
 - **Launch:** `PLECS.exe -server 1080` starts the XML-RPC server (blocking, one request at a time — batch or run parallel instances on separate ports).
 - **Methods present:** `plecs.load`, `plecs.set`, `plecs.get`, `plecs.simulate`, `plecs.getModelTree`, `plecs.scope`, `plecs.statistics`, `plecs.analyze`, `plecs.codegen`, `plecs.close`. **No circuit-building or script-eval methods** — `plecs.add`/`connect`/`eval` are **absent in 4.8** (PE-MAS probes for them because they are build-dependent [72]). ⇒ **parameterize a `.plecs` template; you cannot assemble a netlist over RPC.**
-- **Readback gotcha:** `plecs.simulate('model')` returns `{Time, Values}` where `Values` come **only from top-level Outport blocks**. A scope-only model returns **empty** — a template must expose an Outport for *every* signal the summarizer reads ([[plecs-harness]] §4).
+- **Readback gotcha:** `plecs.simulate('model')` returns `{Time, Values}` where `Values` come **only from top-level Outport blocks**. A scope-only model returns **empty** — a template must expose an Outport for *every* signal the summarizer reads ([[plan-plecs-harness]] §4).
 - **`.plecs` is ASCII:** `Component{Type,Name,Position,Parameter{Variable,Value}}` + `Connection{SrcComponent,SrcTerminal,Dst…}`; parameters live per-block or in a model-level `InitializationCommands` script. Retarget by text-replacing `Value` fields or via `plecs.set`. Library/`Reference` blocks carry parameter overrides (e.g. PMSM `R`, `L=[Ld Lq]`, `phi`, `p`).
 - **Demo library = ready templates** [80] to seed from: `permanent_magnet_synchronous_machine` (clean 2L-VSI + PMSM + FOC, ~1500 lines), `electric_vehicle_with_active_damping` (full EV drive), `look_up_table_based_pmsm` (saturation LUT), `two_axle_vehicle_with_driving_profile`, `induction_machine_drive_controlled_with_dtc`.
 
@@ -90,14 +90,14 @@ A design's numbers are **evidence only after this procedure**. The order is deli
 | # | Test | Operating point (Vdc, load) | Pass criterion | Ties to |
 |---|------|-----------------------------|----------------|---------|
 | 1 | **Double-pulse** | 850 V, I≈`Ipk` (~424 A), `Tj` hot | Eon/Eoff extracted; `Vds,pk` within switching-SOA (≤~83 % BV) | [[procedure-design]] §2–3 |
-| 2 | **Efficiency** | {550, 750, 850} V × {peak 150 kW, cont 70 kW} | η within ±1 pt of baseline; loss split ±10 %; **energy-balanced (S3)** | design-proc §3 |
-| 3 | **Thermal / continuous** | 850 V, **launch 300 A rms**, `Tcool`=65 °C | `Tj` < 175 °C over `Zth`-limited duration | thermal-design §6 |
-| 4 | **DC-link ripple** | worst `m`/cosφ at launch | `I_cap,rms` < rating; ΔVdc < 1–2 % | design-proc §4 |
+| 2 | **Efficiency** | {550, 750, 850} V × {peak 150 kW, cont 70 kW} | η within ±1 pt of baseline; loss split ±10 %; **energy-balanced (S3)** | [[procedure-design]] §3 |
+| 3 | **Thermal / continuous** | 850 V, **launch 300 A rms**, `Tcool`=65 °C | `Tj` < 175 °C over `Zth`-limited duration | [[thermal-design]] §6 |
+| 4 | **DC-link ripple** | worst `m`/cosφ at launch | `I_cap,rms` < rating; ΔVdc < 1–2 % | [[procedure-design]] §4 |
 | 5 | **Overmodulation / six-step** | 550 V (low line), MI > 0.907 | fundamental & THD vs field-weakening need | [[control-schemes]] §4.4 |
-| 6 | **Field-weakening sweep** | 750 V, speed 0→max | torque ~1/ω; `Vd²+Vq² ≤ Vmax²`; current within limit | machine-and-load §5 |
+| 6 | **Field-weakening sweep** | 750 V, speed 0→max | torque ~1/ω; `Vd²+Vq² ≤ Vmax²`; current within limit | [[machine-and-load]] §5 |
 | 7 | **Fault: short-circuit** | 850 V, shoot-through, `Tj` hot | fault current & `I²t` vs SCWT budget (< 3 µs SiC) | [[protection-and-safety]] §3 |
-| 8 | **Fault: ASC entry** | short all low-side at max speed | entry transient, drag torque, **no bus overvolt** | protection-and-safety §5 |
-| 9 | **Drive-cycle** | averaged, WLTP / US06 | cycle-average η; `Tj` history for lifetime | reliability-and-lifetime |
+| 8 | **Fault: ASC entry** | short all low-side at max speed | entry transient, drag torque, **no bus overvolt** | [[protection-and-safety]] §5 |
+| 9 | **Drive-cycle** | averaged, WLTP / US06 | cycle-average η; `Tj` history for lifetime | [[reliability-and-lifetime]] |
 
 S1 applies to every switched corner; S2 to 2/4/5/6/9; S3 to 2/9. The launch corner (300 A rms / 424 A pk), not peak power, drives the thermal/ripple worst case [[procedure-design]] §1.
 
@@ -114,7 +114,7 @@ The 9 corners are topology-general. A topology **adds**, it does not replace:
 
 - **S5 — Calibrate against measured data (the non-circular anchor).** Closed-form hand estimates share the model's `[T]` device/machine assumptions, so agreement proves *self-consistency, not correctness*. Before a model is `validated`, at least one corner must match the **measured Wolfspeed/TI CRD** — >98 % η, 32 kW/L, 175 °C — within **±1 pt η / ±10 % loss / ±10 % density** [91], [[reference-design-wolfspeed-ti-300kw-800v]].
 - **S6 — Averaged↔switched reconciliation.** The averaged model must reproduce the switched model's loss and `Tj` at the shared operating points within **±10 %** before its drive-cycle result (Corner 9) is trusted [63].
-- **S7 — Summarise & register.** Reduce to the ~36-number summary; regression-check against the topology's validated baseline; pass/fail exit; write the registry entry with **model hash + solver settings + loss-table source** ([[plecs-harness]] §3–4). Only now is the number evidence, and Corner 9 feeds the `Tj` mission profile into rainflow→Miner [143], [[reliability-and-lifetime]].
+- **S7 — Summarise & register.** Reduce to the ~36-number summary; regression-check against the topology's validated baseline; pass/fail exit; write the registry entry with **model hash + solver settings + loss-table source** ([[plan-plecs-harness]] §3–4). Only now is the number evidence, and Corner 9 feeds the `Tj` mission profile into rainflow→Miner [143], [[reliability-and-lifetime]].
 
 ## 5. Tool Landscape (PLECS-first, others for what PLECS can't do)
 
@@ -132,7 +132,7 @@ The 9 corners are topology-general. A topology **adds**, it does not replace:
 
 1. **Loss tables gate everything.** Wrong DPT data → wrong η and `Tj`; must trace to the *orderable* module datasheet, ideally bench-verified [133].
 2. **Switched↔averaged handoff** loses detail; the averaged model inherits any error in the point-validated tables [63].
-3. **Parasitics are exogenous.** `Lσ`, CM-cap, and EMI come from layout/FEA, not PLECS — a PLECS-clean design can still fail EMC [T], [[emi-emc-design]].
+3. **Parasitics are exogenous.** `Lσ`, CM-cap, and EMI come from layout/FEA, not PLECS — a PLECS-clean design can still fail EMC [T], [[design-emi-emc]].
 4. **Machine params are provisional.** `[T]` IPMSM values (design-proc §0) swing torque/current; a real flux-map LUT is needed for MTPA/field-weakening accuracy [45][80].
 5. **Sim ≠ silicon.** Every PLECS number is a hypothesis until double-pulse + HIL + dyno confirm it [133][134].
 

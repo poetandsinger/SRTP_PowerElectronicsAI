@@ -13,7 +13,7 @@ tags: [plan, plecs, simulation, design, traction-inverter, engineering-ai]
 >
 > **The real gap is evidence, not authoring** *(audited 2026-07-19, all 31 notes read)*. The notes are derivation-complete and each carries a Red Team with an explicit "what would change my mind." All are `status: unverified` with numbers tagged `[T]`/`[derived]`. So the pass = **execute PLECS + pull the primary source each Red Team names + upgrade `status`** — not re-writing existing derivation.
 >
-> **Scope — genuinely multi-topology, done serially.** Build a *validated* PLECS model for **each** production/candidate topology, one at a time: **2L-B6 → 3L-TNPC → 3L-ANPC → 3L-NPC** (order = industry relevance; §Topologies). Agnostic notes are written once; each topology gets its own **design note** carrying that topology's validated numbers. Topic of [[ai-agent-mas-plan]]; runs on [[plecs-harness]]. Always cite: `[NN]`→[[citations]], `[T]`=training, `[derived]`=computed. **Next citation: `[166]`.**
+> **Scope — genuinely multi-topology, done serially.** Build a *validated* PLECS model for **each** production/candidate topology, one at a time: **2L-B6 → 3L-TNPC → 3L-ANPC → 3L-NPC** (order = industry relevance; §Topologies). Agnostic notes are written once; each topology gets its own **design note** carrying that topology's validated numbers. Topic of [[plan-ai-agent-mas]]; runs on [[plan-plecs-harness]]. Always cite: `[NN]`→[[citations]], `[T]`=training, `[derived]`=computed. **Next citation: `[166]`.**
 
 ## Topologies (serial order + why)
 
@@ -28,8 +28,8 @@ tags: [plan, plecs, simulation, design, traction-inverter, engineering-ai]
 
 ## What is agnostic vs per-topology
 
-- **Agnostic — write once, reuse (Shared layer):** [[components]] · [[materials-and-properties]] · [[machine-and-load]] · [[standards-and-compliance]] · [[manufacturing-and-test]] · [[packaging-and-layout]] · [[reliability-and-lifetime]] (fatigue models) · [[open-problems]] · [[segment-low-cost-city-car-inverters]] · [[segment-heavy-duty-truck-inverters]] · [[segment-performance-motorsport-inverters]] · [[bom-price-database]] · [[reference-designs-index]] · [[traction-inverter-index]] · [[procedure-simulation-and-validation]] (the harness/corner-matrix method). [[circuit-topologies]] is the agnostic **topology catalogue**; [[design-tradeoffs]] is the agnostic **cross-topology synthesis**.
-- **Per-topology — one instance each (Track deliverable):** a **design note** per topology holding validated numbers, switching states, modulation/NP-balancing, loss distribution, thermal, gate count, protection, output filter, safety margins, BOM delta. 2L-B6 has [[design-2l-b6-800v-sic]]; the scaffolds [[design-3l-tnpc-800v-sic]], [[design-3l-anpc-800v-sic]], [[design-3l-npc-800v-sic]] exist (structure + target + planned validation) and are **filled** as each track runs. Naming scheme: `design-<topology>-<voltage>-<device>`. The agnostic-method notes ([[procedure-design]], [[schematics]], [[control-schemes]], [[procedure-control]], [[gate-driver-design]], [[thermal-design]], [[protection-and-safety]], [[emi-emc-design]], [[bom]]) keep 2L-B6 as their inline worked example; per-topology numbers live in the design notes and the [[circuit-topologies]] comparison.
+- **Agnostic — write once, reuse (Shared layer):** [[circuit-components]] · [[materials-and-properties]] · [[machine-and-load]] · [[standards-and-compliance]] · [[manufacturing-and-test]] · [[packaging-and-layout]] · [[reliability-and-lifetime]] (fatigue models) · [[open-problems]] · [[segment-low-cost-city-car-inverters]] · [[segment-heavy-duty-truck-inverters]] · [[segment-performance-motorsport-inverters]] · [[bom-price-database]] · [[index-reference-designs]] · [[index-traction-inverter]] · [[procedure-simulation-and-validation]] (the harness/corner-matrix method). [[circuit-topologies]] is the agnostic **topology catalogue**; [[design-tradeoffs]] is the agnostic **cross-topology synthesis**.
+- **Per-topology — one instance each (Track deliverable):** a **design note** per topology holding validated numbers, switching states, modulation/NP-balancing, loss distribution, thermal, gate count, protection, output filter, safety margins, BOM delta. 2L-B6 has [[design-2l-b6-800v-sic]]; the scaffolds [[design-3l-tnpc-800v-sic]], [[design-3l-anpc-800v-sic]], [[design-3l-npc-800v-sic]] exist (structure + target + planned validation) and are **filled** as each track runs. Naming scheme: `design-<topology>-<voltage>-<device>`. The agnostic-method notes ([[procedure-design]], [[schematics]], [[control-schemes]], [[procedure-control]], [[design-gate-driver]], [[thermal-design]], [[protection-and-safety]], [[design-emi-emc]], [[bom-2l-b6-sic]]) keep 2L-B6 as their inline worked example; per-topology numbers live in the design notes and the [[circuit-topologies]] comparison.
 
 ## Depth bar (the reference PDF)
 
@@ -41,15 +41,15 @@ PLECS validates the circuit/thermal/machine slice with *assumed* device+machine 
 
 | Note | PLECS **confirms** | PLECS **cannot** (→ primary/bench) |
 |------|--------------------|-------------------------------------|
-| thermal-design | loss→Foster/Cauer→Tj chain; Zth overload; DSC sensitivity | cold-plate Rth-vs-flow, real BLT |
-| procedure-control / control-schemes | Id/Iq step, THD_i, torque, η, SVPWM +15.5 %, DPWM ~33 %, six-step, field-weakening | IMC-vs-dyno gains, MCU/codegen/HIL |
-| procedure-design / design notes | η/loss-split/Tj/ripple at 3 corners | real module DPT tables, real IPMSM params |
-| circuit-topologies | 2L vs 3L η, THD, dv/dt, NP-balance at equal op point | production-cost multipliers, market shares |
-| gate-driver | **double-pulse only**: Vds overshoot, dv/dt & Eon/Eoff vs Rg | `Ig,peak`/`Pdrive` (algebra), CMTI, SCWT |
-| protection-and-safety | **ASC/freewheel + regen overvoltage only**; SC fault current/energy vs SOA | cosmic-ray SEB, FTTI, ISO 26262/AQG qual |
-| reliability-and-lifetime | **only loss→Tj(t) front-end** (shares thermal) → rainflow bins | Nf/Coffin-Manson/LESIT/CIPS08 coeffs, Miner |
-| emi-emc-design | **qualitative**: i_CM=C·dv/dt, filter corner/attenuation, reflected-wave ~2× | CISPR 25 dBµV compliance, real spectrum |
-| machine-and-load | saturation-LUT torque within a few % | proprietary/`[T]` Ld/Lq/λ without datasheet/FEA |
+| [[thermal-design]] | loss→Foster/Cauer→Tj chain; Zth overload; DSC sensitivity | cold-plate Rth-vs-flow, real BLT |
+| [[procedure-control]] / [[control-schemes]] | Id/Iq step, THD_i, torque, η, SVPWM +15.5 %, DPWM ~33 %, six-step, field-weakening | IMC-vs-dyno gains, MCU/codegen/HIL |
+| [[procedure-design]] / design notes | η/loss-split/Tj/ripple at 3 corners | real module DPT tables, real IPMSM params |
+| [[circuit-topologies]] | 2L vs 3L η, THD, dv/dt, NP-balance at equal op point | production-cost multipliers, market shares |
+| [[design-gate-driver|gate-driver]] | **double-pulse only**: Vds overshoot, dv/dt & Eon/Eoff vs Rg | `Ig,peak`/`Pdrive` (algebra), CMTI, SCWT |
+| [[protection-and-safety]] | **ASC/freewheel + regen overvoltage only**; SC fault current/energy vs SOA | cosmic-ray SEB, FTTI, ISO 26262/AQG qual |
+| [[reliability-and-lifetime]] | **only loss→Tj(t) front-end** (shares thermal) → rainflow bins | Nf/Coffin-Manson/LESIT/CIPS08 coeffs, Miner |
+| [[design-emi-emc|emi-emc-design]] | **qualitative**: i_CM=C·dv/dt, filter corner/attenuation, reflected-wave ~2× | CISPR 25 dBµV compliance, real spectrum |
+| [[machine-and-load]] | saturation-LUT torque within a few % | proprietary/`[T]` Ld/Lq/λ without datasheet/FEA |
 
 **Corollary:** `reliability` and `thermal` share one loss→Tj(t) model. Scope `gate`/`protection`/`emi` to the confirmable subset; label the rest bench/standard.
 
@@ -90,8 +90,8 @@ flowchart TD
 ```
 
 ### Shared agnostic layer — build once  *(☐)*
-- ☐ **Harness scaffolding** — extend `pmsm_mycar.plecs` into a reusable **template + top-level Outports** (η, P_cond/P_sw, THD, Tj, ripple, Vds) + Foster/Cauer thermal net + datasheet-class loss tables. Prove `mcp__plecs__simulate` returns `Values` (the last `simulate` errored — the Outport/readback blocker). Start `data/plecs/model_registry.json`. Refs: [[plecs-harness]], [[procedure-simulation-and-validation]] §1–2.
-- ☐ **Agnostic notes** (parallelizable via subagents; PLECS-adjacent ones validated during T1): [[machine-and-load]] (real IPMSM datasheet or LUT), [[components]] (SiC loss delta, DC-link ripple — note says "verify with simulation"), [[what-is-a-traction-inverter]], [[materials-and-properties]], [[standards-and-compliance]], [[packaging-and-layout]], [[manufacturing-and-test]], [[bom-price-database]], [[reliability-and-lifetime]] (models), [[open-problems]], [[segment-low-cost-city-car-inverters]], [[segment-heavy-duty-truck-inverters]], [[segment-performance-motorsport-inverters]], [[procedure-simulation-and-validation]] (execute the 9-corner matrix once T1 exists).
+- ☐ **Harness scaffolding** — extend `pmsm_mycar.plecs` into a reusable **template + top-level Outports** (η, P_cond/P_sw, THD, Tj, ripple, Vds) + Foster/Cauer thermal net + datasheet-class loss tables. Prove `mcp__plecs__simulate` returns `Values` (the last `simulate` errored — the Outport/readback blocker). Start `data/plecs/model_registry.json`. Refs: [[plan-plecs-harness]], [[procedure-simulation-and-validation]] §1–2.
+- ☐ **Agnostic notes** (parallelizable via subagents; PLECS-adjacent ones validated during T1): [[machine-and-load]] (real IPMSM datasheet or LUT), [[circuit-components]] (SiC loss delta, DC-link ripple — note says "verify with simulation"), [[what-is-a-traction-inverter]], [[materials-and-properties]], [[standards-and-compliance]], [[packaging-and-layout]], [[manufacturing-and-test]], [[bom-price-database]], [[reliability-and-lifetime]] (models), [[open-problems]], [[segment-low-cost-city-car-inverters]], [[segment-heavy-duty-truck-inverters]], [[segment-performance-motorsport-inverters]], [[procedure-simulation-and-validation]] (execute the 9-corner matrix once T1 exists).
 
 ### Per-topology track — repeat serially for T1→T4  *(☐ each)*
 Each track is one coherent build. Do **not** start the next topology until the current one is validated + registered.
@@ -99,15 +99,15 @@ Each track is one coherent build. Do **not** start the next topology until the c
 1. **Model** — write the topology's power stage as a `.plecs` **text** variant of the template (2L 6-switch → TNPC 12 → ANPC 18 → NPC 12+6D); wire top-level Outports. Calibrate: **T1 vs the measured Wolfspeed anchor**; **T2–T4 vs the validated T1 baseline + the cited paper** ([28] for TNPC, the reference PDF for ANPC).
 2. **Corner matrix** — run the 9 corners from [[procedure-simulation-and-validation]] §4 (double-pulse, η×3, thermal, ripple, overmod, field-weakening, SC, ASC, drive-cycle); record results.
 3. **Design note** — fill the topology unit ([[design-2l-b6-800v-sic]] / [[design-3l-tnpc-800v-sic]] / [[design-3l-anpc-800v-sic]] / [[design-3l-npc-800v-sic]]): switching states, modulation + NP-balancing, loss distribution, thermal, gate count, protection, **output filter** (ANPC: the RLC derivation, `ref_notes.txt` §9), safety margins, BOM delta. Replace `[T]`/`[derived]`.
-4. **Fold back** — update the [[circuit-topologies]] comparison row and the per-topology sections of the agnostic-method notes ([[thermal-design]], [[gate-driver-design]], [[control-schemes]]/[[procedure-control]], [[protection-and-safety]], [[emi-emc-design]], [[bom]]) with this topology's validated numbers, scoped per the can/cannot table.
+4. **Fold back** — update the [[circuit-topologies]] comparison row and the per-topology sections of the agnostic-method notes ([[thermal-design]], [[design-gate-driver]], [[control-schemes]]/[[procedure-control]], [[protection-and-safety]], [[design-emi-emc]], [[bom-2l-b6-sic]]) with this topology's validated numbers, scoped per the can/cannot table.
 5. **Close** — Red Team → residual doubt; `status`/`evidence`++; `model_registry.json` entry (`validation_status: validated`).
 
 ### Synthesis — after all four tracks  *(☐)*
-- ☐ Fill [[circuit-topologies]] §5 and [[design-tradeoffs]] with the four validated models (the PLECS Pareto sweep its Red Team demands); regenerate [[traction-inverter-index]] and [[reference-designs-index]].
+- ☐ Fill [[circuit-topologies]] §5 and [[design-tradeoffs]] with the four validated models (the PLECS Pareto sweep its Red Team demands); regenerate [[index-traction-inverter]] and [[index-reference-designs]].
 
 ## Definition of done (per note / per track)
 
-Confirmable-subset claims **PLECS-backed or primary-cited** (or bounded/refuted); each `[T]`/`[derived]` replaced or flagged bench-only; a runnable PLECS artifact + `model_registry` entry with `validation_status: validated`; `status`/`evidence` updated; **Red Team re-run to residual doubt**; links + frontmatter validate. A number is evidence only if its model is validated in the registry ([[plecs-harness]] §3).
+Confirmable-subset claims **PLECS-backed or primary-cited** (or bounded/refuted); each `[T]`/`[derived]` replaced or flagged bench-only; a runnable PLECS artifact + `model_registry` entry with `validation_status: validated`; `status`/`evidence` updated; **Red Team re-run to residual doubt**; links + frontmatter validate. A number is evidence only if its model is validated in the registry ([[plan-plecs-harness]] §3).
 
 ## Gotchas
 
@@ -119,4 +119,4 @@ Confirmable-subset claims **PLECS-backed or primary-cited** (or bounded/refuted)
 - **Serial discipline:** finish and register a topology before starting the next; keep the shared agnostic layer topology-neutral.
 - **Historical `log/` files** reference the old structure — do not "fix" them. Linter re-stamps frontmatter (benign); git warns LF→CRLF (benign).
 
-← [[ai-agent-mas-plan]] | [[plecs-harness]] | [[procedure-simulation-and-validation]] | [[traction-inverter-index]]
+← [[plan-ai-agent-mas]] | [[plan-plecs-harness]] | [[procedure-simulation-and-validation]] | [[index-traction-inverter]]

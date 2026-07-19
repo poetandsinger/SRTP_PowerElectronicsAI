@@ -13,7 +13,7 @@ tags: [power-electronics, traction-inverter, index]
 |------|---------|
 | [[what-is-a-traction-inverter]] | First principles: what it does, why it is needed, energy flow, vehicle context |
 | [[circuit-topologies]] | Deep dive: 2L-B6, 3L-NPC, 3L-ANPC, 3L-TNPC — circuits, switching states, trade-off matrix |
-| [[components]] | Power semiconductors (SiC/IGBT/GaN), gate drivers, DC-link caps, sensors, thermal management |
+| [[circuit-components]] | Power semiconductors (SiC/IGBT/GaN), gate drivers, DC-link caps, sensors, thermal management |
 | **[[materials-and-properties]]** | **Property reference:** semiconductor / ceramic / die-attach / dielectric / magnet constants in one place |
 | [[control-schemes]] | FOC, DTC, MTPA, SVPWM, DPWM, overmodulation, field weakening, ISO 26262 safety |
 | [[procedure-control]] | Practical FOC recipe: parameter tuning, MTPA, field weakening, safety limits |
@@ -25,13 +25,13 @@ tags: [power-electronics, traction-inverter, index]
 | **[[procedure-design]]** | **End-to-end sizing:** switch → thermal → DC-link → gate-drive → sensing → protection → busbar, worked at the anchor |
 | **[[schematics]]** | **Mermaid schematics:** system, power stage, half-bridge, gate driver, DC-link, sensing, control chain, ASC |
 | **[[thermal-design]]** | **Thermal:** Rth chain (real values), Zth, Tj estimation, cooling, TIM, derating, worked example |
-| **[[gate-driver-design]]** | **Gate drive:** rails, Rg/Ig/Pdrive, desat, isolation, bias, real ICs, CAB450 worked example |
+| **[[design-gate-driver]]** | **Gate drive:** rails, Rg/Ig/Pdrive, desat, isolation, bias, real ICs, CAB450 worked example |
 | **[[protection-and-safety]]** | **Protection & safety factors:** cosmic-ray/thermal/SC/OV derating, ASC, ISO 26262, qual — with derating table |
-| **[[emi-emc-design]]** | **EMI/EMC:** CISPR 25, CM/DM, input filter, dv/dt reflected wave, bearing currents, layout |
+| **[[design-emi-emc]]** | **EMI/EMC:** CISPR 25, CM/DM, input filter, dv/dt reflected wave, bearing currents, layout |
 | **[[packaging-and-layout]]** | **Packaging/busbar/layout:** module stack, laminated busbar Lσ, Kelvin loop, creepage/clearance, enclosure |
-| **[[bom]]** | **Component-class BOM:** function → part-class → sizing driver → citation, plus cost split |
+| **[[bom-2l-b6-sic]]** | **Component-class BOM:** function → part-class → sizing driver → citation, plus cost split |
 | **[[bom-price-database]]** | **Priced BOM:** real dated distributor prices + volume-vs-distributor caveat |
-| **[[reference-designs-index]]** | **Reference designs hub:** 1 synthetic anchor + 3 real (Wolfspeed/TI 300kW, Tesla, Nissan Leaf) |
+| **[[index-reference-designs]]** | **Reference designs hub:** 1 synthetic anchor + 3 real (Wolfspeed/TI 300kW, Tesla, Nissan Leaf) |
 | **[[reference-design-wolfspeed-ti-300kw-800v]]** | Real vendor CRD: 800V/300kW SiC, actual parts + measured metrics |
 | **[[reference-design-tesla-model3-400v-sic]]** | Production teardown: 400V SiC, highest-volume inverter |
 | **[[reference-design-nissan-leaf-400v-igbt]]** | Production teardown: 400V Si-IGBT baseline |
@@ -56,10 +56,10 @@ tags: [power-electronics, traction-inverter, index]
 
 1. Start with [[what-is-a-traction-inverter]] to understand *why* the inverter exists and what it controls.
 2. Read [[circuit-topologies]] to learn the circuit options.
-3. Read [[components]] to understand what physical parts make it work.
+3. Read [[circuit-components]] to understand what physical parts make it work.
 4. Read [[control-schemes]] for the theory, then [[procedure-control]] for the practical implementation.
-5. **Design cluster (how one is built):** anchor spec [[design-2l-b6-800v-sic]] → sizing math [[procedure-design]] → wiring [[schematics]]. Then the subsystem deep-dives: [[thermal-design]], [[gate-driver-design]], [[protection-and-safety]], [[emi-emc-design]], [[packaging-and-layout]]. Parts & prices: [[bom]] + [[bom-price-database]]. How to compromise: [[design-tradeoffs]]. Second example: [[worked-example-400v-150kw]].
-6. **Compare against real designs:** [[reference-designs-index]] — the Wolfspeed/TI 300kW CRD, Tesla Model 3, and Nissan Leaf across the 800V-SiC → 400V-SiC → 400V-IGBT spectrum.
+5. **Design cluster (how one is built):** anchor spec [[design-2l-b6-800v-sic]] → sizing math [[procedure-design]] → wiring [[schematics]]. Then the subsystem deep-dives: [[thermal-design]], [[design-gate-driver]], [[protection-and-safety]], [[design-emi-emc]], [[packaging-and-layout]]. Parts & prices: [[bom-2l-b6-sic]] + [[bom-price-database]]. How to compromise: [[design-tradeoffs]]. Second example: [[worked-example-400v-150kw]].
+6. **Compare against real designs:** [[index-reference-designs]] — the Wolfspeed/TI 300kW CRD, Tesla Model 3, and Nissan Leaf across the 800V-SiC → 400V-SiC → 400V-IGBT spectrum.
 7. Read [[procedure-simulation-and-validation]] to see how to model and validate it in PLECS.
 8. Finish with [[open-problems]] for the unresolved research questions.
 

@@ -9,7 +9,7 @@ tags: [power-electronics, traction-inverter, reference-design, design, index]
 
 ## What This Is
 
-Two kinds of complete inverter design in this build manual: **topology units** we design and PLECS-validate ourselves (`design-<topology>-<voltage>-<device>`, one per topology, built serially — see [[depth-research-plan]]), and **external references** (one vendor CRD, two production teardowns) that calibrate and ground them. Together they let an LLM answer "show me a complete traction inverter of type X" with a grounded example, and give the PLECS effort its calibration targets.
+Two kinds of complete inverter design in this build manual: **topology units** we design and PLECS-validate ourselves (`design-<topology>-<voltage>-<device>`, one per topology, built serially — see [[plan-depth-research]]), and **external references** (one vendor CRD, two production teardowns) that calibrate and ground them. Together they let an LLM answer "show me a complete traction inverter of type X" with a grounded example, and give the PLECS effort its calibration targets.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge.
 
@@ -44,4 +44,4 @@ The four production/candidate topologies, same 800 V / 150 kW anchor, built and 
 
 > **References:** [[citations]]
 
-← [[traction-inverter-index]] | [[procedure-design]] | [[bom]] →
+← [[index-traction-inverter]] | [[procedure-design]] | [[bom-2l-b6-sic]] →

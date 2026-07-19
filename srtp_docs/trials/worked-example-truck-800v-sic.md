@@ -53,7 +53,7 @@ Result (cost-sized module, `Rth`≈0.24 K/W, `Tj` swings **25→140 °C**):
 
 1. **The daily cold-start dominates power-cycling damage (97%), not the dramatic grade climbs.** The 350 kW Davis-Dam grade rides on an *already-warm baseplate* (ΔTj~57 K), while parking overnight relaxes the die to ambient → the mundane 115 K daily on/off cycle is the killer. Non-obvious, and it redirects the design: manage the *parked-to-operating* swing (pre-conditioning) as much as the peak.
 2. **Absolute life is coefficient-dominated and nearly meaningless (±1–2 orders).** A ±15% thermal change swings predicted life ~100× (`ΔTj⁻⁵`). The robust deliverable is a **ΔTj/Tj ceiling with margin**, not "X million km."
-3. **The vault's own LESIT closed-form is miscalibrated.** Using `A=640, Ea=0.617 eV` (reliability-and-lifetime.md §3) gives **~20 cycles at ΔTj=100 K** — physically absurd. I anchored Coffin-Manson to the note's *empirical* Nf datapoint (110 k cycles @ 50 K) instead. The vault's Red Team flagged coefficient risk; this **confirms it quantitatively** — a fix the vault should absorb.
+3. **The vault's own LESIT closed-form is miscalibrated.** Using `A=640, Ea=0.617 eV` ([[reliability-and-lifetime]] §3) gives **~20 cycles at ΔTj=100 K** — physically absurd. I anchored Coffin-Manson to the note's *empirical* Nf datapoint (110 k cycles @ 50 K) instead. The vault's Red Team flagged coefficient risk; this **confirms it quantitatively** — a fix the vault should absorb.
 
 ## 5. Report — Compromises
 

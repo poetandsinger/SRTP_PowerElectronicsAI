@@ -9,7 +9,7 @@ tags: [plan, ai-agents, plecs, simulation]
 
 # PLECS harness
 
-> Topic of [[ai-agent-mas-plan]]. PLECS is the sole simulator and source of evidence (invariants #2, #6). Fills gap G-E (summarizer is a promise, not a contract) and G-F (model workstream is a table, not a procedure). Research basis: [[plecs-integration]], [[plecs-xmlrpc-scripting-interface]], [[plecs-ai-agent-integration-ordonez]], PE-MAS `plecs-mcp`.
+> Topic of [[plan-ai-agent-mas]]. PLECS is the sole simulator and source of evidence (invariants #2, #6). Fills gap G-E (summarizer is a promise, not a contract) and G-F (model workstream is a table, not a procedure). Research basis: [[plecs-integration]], [[plecs-xmlrpc-scripting-interface]], [[plecs-ai-agent-integration-ordonez]], PE-MAS `plecs-mcp`.
 
 ## 1. Service
 
@@ -17,7 +17,7 @@ tags: [plan, ai-agents, plecs, simulation]
 - **License check — ✅ CONFIRMED 2026-07-18.** PLECS 4.8 Standalone here is licensed for headless/scripted use: `PLECS.exe -server 1080` starts the XML-RPC server and a full 2L-VSI+IPMSM+FOC drive loads and simulates to completion via RPC ([[worked-example-family-car-400v-sic]] §7, [[procedure-simulation-and-validation]] §1). The day-one blocker is cleared.
 - **Verified RPC surface (4.8):** `plecs.load/set/get/simulate/getModelTree/scope/statistics/analyze/codegen/close`. **No `plecs.add`/`connect`/`eval`** — confirms §2 path 1 (template + param) is the *only* RPC path; structural variants must be `.plecs` **text** edits, not RPC. Keep PE-MAS's `call_first_available` probing for version drift.
 - **Readback requirement (was implicit, now explicit):** `plecs.simulate` returns `Values` **only from top-level Outport blocks** — a scope-only model returns empty. **Every template must terminate each summarized signal (§4) in a top-level Outport**, or the summarizer gets nothing. This is the concrete blocker between "model runs" and "model yields evidence."
-- **Agent-facing tools:** `plecs_simulate`, `plecs_sweep` (list-of-optStructs, parallel), `plecs_set_param`, `plecs_analyze` (native AC/steady-state), `summarize_result`. The optimizer ([[design-loop]] §2) calls `plecs_sweep` one generation at a time.
+- **Agent-facing tools:** `plecs_simulate`, `plecs_sweep` (list-of-optStructs, parallel), `plecs_set_param`, `plecs_analyze` (native AC/steady-state), `summarize_result`. The optimizer ([[plan-design-loop]] §2) calls `plecs_sweep` one generation at a time.
 - **Concurrency:** the RPC server is blocking/single-request — use the list-of-optStructs batch path (PLECS fans across cores) or multiple PLECS instances on different ports. Never hand-roll N serial calls where a batch works.
 
 ## 2. Model handling — template + injection, not free-form authoring
@@ -68,4 +68,4 @@ convergence/health: solver_ok, no_nan, sim_time, timeout_hit (4)
 - **The agent never sees raw `Values` arrays** (invariant #3; Ordonez ~1000× / ~$20/hr).
 - **Idempotency:** cache by `hash(ModelVars)` so identical sims never re-run.
 
-← [[ai-agent-mas-plan]] | [[design-loop]] | [[guardrails-and-evidence]] | [[plecs-integration]]
+← [[plan-ai-agent-mas]] | [[plan-design-loop]] | [[plan-guardrails-and-evidence]] | [[plecs-integration]]

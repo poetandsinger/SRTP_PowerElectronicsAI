@@ -74,9 +74,9 @@ Keeps the 3-agent core intact (AgentSlimming). Named-pattern basis and exclusion
 
 ## 5. Decision
 
-Adopt the three stages as the internal structure of PLAN→DESIGN; add an explicit optimizer as ③ (grid → DE/PSO → BO by dimensionality); route fail edges to the narrowest stage. Surrogates deferred. Folded into [[design-loop]].
+Adopt the three stages as the internal structure of PLAN→DESIGN; add an explicit optimizer as ③ (grid → DE/PSO → BO by dimensionality); route fail edges to the narrowest stage. Surrogates deferred. Folded into [[plan-design-loop]].
 
 ## Red Team
 **Steelman against:** all four cited systems are converters/analog, none is a 3-phase traction inverter with a motor load; a formal optimizer may be overkill if, once the Planner fixes topology+module, few continuous parameters remain. **How it could be false:** a ≤3-param grid on 2L-B6 may already pass every gate, making ③ ceremony until breadth (3L/ANPC) enlarges the space. **What would change my mind:** a Phase-0 2L-B6 run where grid reliably passes gates → keep ③ as a sweep until a larger space appears. **Residual doubt:** mixed categorical(module)/continuous(gains) search is harder than the cited continuous-only cases; measure a real spec's free-parameter dimensionality before choosing DE vs BO vs grid. The *principle* (explicit search, not LLM re-guessing) is robust; the *specific optimizer* is empirical.
 
-← [[agentic-workflow-patterns]] | [[traction-inverter-mas-integration]] | [[design-loop]] | [[design-by-doing-observed-workflow]] | [[analogsage-2025-self-evolving-analog-mas]]
+← [[agentic-workflow-patterns]] | [[traction-inverter-mas-integration]] | [[plan-design-loop]] | [[design-by-doing-observed-workflow]] | [[analogsage-2025-self-evolving-analog-mas]]

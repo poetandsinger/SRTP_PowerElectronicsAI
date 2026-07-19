@@ -19,4 +19,4 @@ The multi-phase inverter has become more complicated, particularly in an Electri
 
 ## Vault References
 - [[procedure-control]] — Fault response table mentions ASC
-- [[components]] — SiC short-circuit ruggedness context
+- [[circuit-components]] — SiC short-circuit ruggedness context

@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-The **Si-IGBT baseline**: a high-volume, cost-driven 400 V traction inverter with none of the SiC premium. Here to show what the SiC designs are measured *against* — the incumbent technology, its DC-link and cooling choices, and why IGBT still ships in cost-sensitive 400 V BEVs [95], [[components]] §1.1.
+The **Si-IGBT baseline**: a high-volume, cost-driven 400 V traction inverter with none of the SiC premium. Here to show what the SiC designs are measured *against* — the incumbent technology, its DC-link and cooling choices, and why IGBT still ships in cost-sensitive 400 V BEVs [95], [[circuit-components]] §1.1.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge. Specs are teardown-derived (`reliability: low–medium`) [95][32].
 
@@ -34,7 +34,7 @@ The **Si-IGBT baseline**: a high-volume, cost-driven 400 V traction inverter wit
 
 ## What It Teaches
 
-- **IGBT needs more DC-link capacitance:** 1088 µF here [95] vs the ~300–600 µF the design procedure sizes for a *higher-power* SiC design [[procedure-design]] §4. Lower switching frequency and higher ripple demand more capacitance — a concrete illustration of the SiC "smaller passives" advantage [[components]] §1.2, §3.
+- **IGBT needs more DC-link capacitance:** 1088 µF here [95] vs the ~300–600 µF the design procedure sizes for a *higher-power* SiC design [[procedure-design]] §4. Lower switching frequency and higher ripple demand more capacitance — a concrete illustration of the SiC "smaller passives" advantage [[circuit-components]] §1.2, §3.
 - **~90–95% system efficiency** [95] vs >98% for SiC 800 V [91] — the efficiency gap that justifies the SiC premium at higher power/voltage [28].
 - **Cost/simplicity floor:** for <100 kW, 400 V, cost-sensitive vehicles, IGBT 2L stays rational — why [[circuit-topologies]] calls SiC a *high-power/high-voltage* win, not a universal one.
 
@@ -51,10 +51,10 @@ The **Si-IGBT baseline**: a high-volume, cost-driven 400 V traction inverter wit
 
 **What would change my mind:** a Munro/UBS Leaf teardown report [32] or Nissan service documentation with the exact IGBT part and DC-link rating.
 
-**Residual doubt:** Good enough for the qualitative IGBT-vs-SiC contrast (bigger cap, lower efficiency, lower cost); not for exact numbers. The *direction* is solid and well-corroborated across the vault [[components]].
+**Residual doubt:** Good enough for the qualitative IGBT-vs-SiC contrast (bigger cap, lower efficiency, lower cost); not for exact numbers. The *direction* is solid and well-corroborated across the vault [[circuit-components]].
 
 ---
 
 > **References:** [[citations]]
 
-← [[reference-designs-index]] | [[reference-design-tesla-model3-400v-sic]] →
+← [[index-reference-designs]] | [[reference-design-tesla-model3-400v-sic]] →

@@ -16,6 +16,7 @@ tags: [index]
 
 | Timestamp | Summary | Detail |
 |-----------|---------|--------|
+| 2026-07-19 | Descriptive renames (26 files → `harness-*`/`plan-*`/`index-*` clusters) + plain-text→wikilink cleanup; **frontmatter-as-index** navigation model in SCHEMA (rg-filter on field/type/status/tags → pick by filename), index-maintenance rule, prefixes demoted to optional sugar, 5 tags registered | [[2026-07-19-naming-and-navigation]] |
 | 2026-07-19 | PLECS validation SOP (S1–S7 gates: convergence, steady-state window, energy balance, measured calibration, per-topology NP-balance); method notes → `procedure-*`; control/PLECS toolchain reconciled; SCHEMA/README updated | [[2026-07-19-validation-sop]] |
 | 2026-07-19 | Topology-unit naming: `design-<topology>-<voltage>-<device>` scheme; renamed 2L anchor to `design-2l-b6-800v-sic`; added TNPC/ANPC/NPC scaffolds; split reference-designs-index | [[2026-07-19-topology-units]] |
 | 2026-07-19 | Vault refactor: stage-based folders (`sources`/`notes`/`trials`/`plans`/`log`), 867 links → bare basenames (files move without breaking), per-stage `.base` indexes, density pass over 70 notes. No information lost (verified) | [[2026-07-19-vault-refactor]] |
@@ -31,4 +32,4 @@ tags: [index]
 
 ---
 
-← [[README]] | [[ai-agent-mas-plan]]
+← [[README]] | [[plan-ai-agent-mas]]

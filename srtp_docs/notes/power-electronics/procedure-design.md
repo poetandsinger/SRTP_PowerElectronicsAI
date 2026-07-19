@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-The **end-to-end sizing method** for a 2L-B6 SiC traction inverter: from a spec vector to switch, thermal, DC-link, gate-drive, sensing, protection, and busbar numbers. Each step gives the governing relation, its citation, and a **worked value** at the reference-design anchor. It is the math behind [[design-2l-b6-800v-sic]]; the diagrams are in [[schematics]]; the parts are in [[bom]].
+The **end-to-end sizing method** for a 2L-B6 SiC traction inverter: from a spec vector to switch, thermal, DC-link, gate-drive, sensing, protection, and busbar numbers. Each step gives the governing relation, its citation, and a **worked value** at the reference-design anchor. It is the math behind [[design-2l-b6-800v-sic]]; the diagrams are in [[schematics]]; the parts are in [[bom-2l-b6-sic]].
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge (unverified vs a primary source); **[derived]** → computed here from cited relations. Every number carries one marker. Formula results are **hand estimates to be replaced by PLECS** — the handoff mandates that efficiency/THD/thermal numbers come from a validated PLECS model, not from these closed-form checks [80].
 
@@ -57,7 +57,7 @@ The anchor spec. Motor parameters are typical-IPMSM placeholders `[T]` (from the
 **Voltage rating.** Peak device stress = worst-case bus + turn-off overshoot:
 `Vds,pk = Vdc,max + Lσ·(di/dt)` [50], with `Lσ` the commutation-loop inductance (§8). For Lσ=15 nH and di/dt≈10 A/ns → overshoot ≈150 V [derived]; `Vds,pk ≈ 850+150 = 1000 V`. A **1200 V SiC MOSFET** runs at `1000/1200 = 83%` worst-case, `850/1200 = 71%` nominal — inside the ≤80% nominal derating rule and leaving cosmic-ray margin [T][25][89]. 650 V/900 V devices are ruled out; this is why 800V systems force 1200 V SiC [28], [[circuit-topologies]] §4.
 
-**Current rating / paralleling.** Choose a module whose continuous rating meets the launch duty with thermal margin — **~450 A / 1200 V class** (e.g., [38][39]-type). SiC's positive Rds(on) tempco eases die paralleling inside the module [24], [[components]] §1.2. Qualify to automotive stress standards **AQG 324 / AEC-Q101** [88][89].
+**Current rating / paralleling.** Choose a module whose continuous rating meets the launch duty with thermal margin — **~450 A / 1200 V class** (e.g., [38][39]-type). SiC's positive Rds(on) tempco eases die paralleling inside the module [24], [[circuit-components]] §1.2. Qualify to automotive stress standards **AQG 324 / AEC-Q101** [88][89].
 
 ---
 
@@ -69,9 +69,9 @@ Loss model per Ma et al. [25]; PE fundamentals [50]. **These closed forms are or
 
 **Switching (per switch):** `P_sw = fsw·(Eon+Eoff)|Vdc,I`. 1200 V SiC module Eon+Eoff ≈ 3–6 mJ at 750 V/200 A [T, datasheet-class [38][39]]. Using 4 mJ → `16e3·4e-3` = **64 W/switch** [derived].
 
-**Total semiconductor loss:** `6·(92+64) ≈ 0.94 kW` + dead-time body-diode conduction ~0.1 kW [T] → `≈1.0 kW` at 150 kW ⇒ **η_inv ≈ 99.3% at peak** [derived]. Cross-checks against the SiC 2L "98–99% peak" range in [[traction-inverter-index]] and [28] — consistent, and a reminder that **partial-load, not peak, is where topology choice pays** [28][43].
+**Total semiconductor loss:** `6·(92+64) ≈ 0.94 kW` + dead-time body-diode conduction ~0.1 kW [T] → `≈1.0 kW` at 150 kW ⇒ **η_inv ≈ 99.3% at peak** [derived]. Cross-checks against the SiC 2L "98–99% peak" range in [[index-traction-inverter]] and [28] — consistent, and a reminder that **partial-load, not peak, is where topology choice pays** [28][43].
 
-**Thermal chain:** `Tj = Tcool + P_loss·(Rth,jc + Rth,ch + Rth,cooler)` [25]. With Rth,jc≈0.15 K/W and Rth,ch+cooler≈0.15 K/W [T], and 156 W/switch → ΔTj ≈ `156·0.30` = 47 K ⇒ `Tj ≈ 65+47 = 112 °C` at peak, under SiC Tj,max 175 °C [derived]. The **continuous** limit is set by holding Is,max: that is a transient-thermal (Zth) problem, sized in PLECS, not here. Cooling class: pin-fin water-glycol, 10–20 kW/L [[components]] §6.1.
+**Thermal chain:** `Tj = Tcool + P_loss·(Rth,jc + Rth,ch + Rth,cooler)` [25]. With Rth,jc≈0.15 K/W and Rth,ch+cooler≈0.15 K/W [T], and 156 W/switch → ΔTj ≈ `156·0.30` = 47 K ⇒ `Tj ≈ 65+47 = 112 °C` at peak, under SiC Tj,max 175 °C [derived]. The **continuous** limit is set by holding Is,max: that is a transient-thermal (Zth) problem, sized in PLECS, not here. Cooling class: pin-fin water-glycol, 10–20 kW/L [[circuit-components]] §6.1.
 
 ---
 
@@ -82,26 +82,26 @@ Driver is **ripple-current rating and ESL**, not capacitance [41][84].
 **RMS ripple current** (Kolar & Round closed form) [84]:
 `I_cap,rms = I_ph,rms·√(2m·(√3/(4π) + cos²φ·(√3/π − 9m/16)))`, worst case ≈ `0.6·I_ph,rms` near m≈0.6 [84]. At peak power (192 A) → **≈115 A rms**; at launch (300 A) transiently up to **≈180 A rms** [derived]. The bank must carry ~120 A rms continuously.
 
-**Capacitance** for a switching-ripple bus deviation ΔVdc ≤ 1–2% [T]: for 100–200 kW SiC inverters this lands at **300–600 µF** [[components]] §3.1, [41]; pick **500 µF**.
+**Capacitance** for a switching-ripple bus deviation ΔVdc ≤ 1–2% [T]: for 100–200 kW SiC inverters this lands at **300–600 µF** [[circuit-components]] §3.1, [41]; pick **500 µF**.
 
-**Technology / rating:** metallized-polypropylene **film**, self-healing, ESR < 1 mΩ, low ESL [41][90]; voltage rating ≥ Vdc,clamp + margin → **≥900 Vdc rated** for the 850 V bus [T][41]. Electrolytic is excluded (ESR, dry-out) [[components]] §3.1.
+**Technology / rating:** metallized-polypropylene **film**, self-healing, ESR < 1 mΩ, low ESL [41][90]; voltage rating ≥ Vdc,clamp + margin → **≥900 Vdc rated** for the 850 V bus [T][41]. Electrolytic is excluded (ESR, dry-out) [[circuit-components]] §3.1.
 
 ---
 
 ## 5. Gate-Driver Design
 
-Requirements table and part-classes in [[components]] §2; IC application basis [40].
+Requirements table and part-classes in [[circuit-components]] §2; IC application basis [40].
 
-- **Drive rails:** +15 V / −4 V for 1200 V SiC — negative off-bias prevents Miller-induced parasitic turn-on given SiC's low Vth [40], [[components]] §2.3.
+- **Drive rails:** +15 V / −4 V for 1200 V SiC — negative off-bias prevents Miller-induced parasitic turn-on given SiC's low Vth [40], [[circuit-components]] §2.3.
 - **Gate resistor:** `Rg` trades switching loss vs di/dt-driven overshoot; peak gate current `Ig,pk = (Vdrive,on − Vdrive,off)/(Rg+Rg,int)` sized to the module's Qg [40]. Target ±10 A class output stage [40].
-- **Protection:** desat detection **<1.5 µs** (SiC short-circuit withstand only 3–5 µs) [40], [[components]] §1.2; active Miller clamp; UVLO on both rails; soft turn-off on fault to bound `Lσ·di/dt` overshoot [40].
+- **Protection:** desat detection **<1.5 µs** (SiC short-circuit withstand only 3–5 µs) [40], [[circuit-components]] §1.2; active Miller clamp; UVLO on both rails; soft turn-off on fault to bound `Lσ·di/dt` overshoot [40].
 - **Isolation:** reinforced ≥5 kV, per drive-system safety [86][40]; isolated DC-DC bias per channel [40].
 
 ---
 
 ## 6. Sensing Design
 
-- **Phase current:** BW ≥ 50 kHz, isolated, ±1–2% over temperature — Hall module or shunt + isolated ADC [42], [[components]] §4. Two sensors suffice (`ΣI=0`); three add ASIL redundancy [85].
+- **Phase current:** BW ≥ 50 kHz, isolated, ±1–2% over temperature — Hall module or shunt + isolated ADC [42], [[circuit-components]] §4. Two sensors suffice (`ΣI=0`); three add ASIL redundancy [85].
 - **DC-link voltage:** isolated divider / iso-amp into MCU ADC, for OVP and field-weakening headroom [50].
 - **Junction temperature:** module NTC feeding an online thermal model (NTC lags true Tj) [25].
 - **Rotor position:** resolver, ±0.1°, with a sensorless observer as a divergence check for ASIL-D [ [[control-schemes]] §5, [48] ].
@@ -127,7 +127,7 @@ Governed by ISO 26262; unintended-torque and position-loss are ASIL-C/D [85], [[
 
 ## 8. Busbar / Commutation Loop & EMI
 
-- **Stray inductance target `Lσ < 10–15 nH`** for SiC: overshoot `V = Lσ·di/dt`, ringing `f = 1/(2π√(Lσ·Coss))` [25][50], [[components]] §5. Achieved with a **laminated busbar** (wide thin planes, thin dielectric) and cap-to-module proximity [41].
+- **Stray inductance target `Lσ < 10–15 nH`** for SiC: overshoot `V = Lσ·di/dt`, ringing `f = 1/(2π√(Lσ·Coss))` [25][50], [[circuit-components]] §5. Achieved with a **laminated busbar** (wide thin planes, thin dielectric) and cap-to-module proximity [41].
 - **dv/dt management:** SiC edges 15–50 kV/µs stress motor insulation and drive bearing currents — motor must be inverter-duty rated **IEC 60034-18-41** [87]; mitigations (dv/dt filter, CM choke, shaft grounding) per [54], [[circuit-topologies]] §1.
 - **EMI:** conducted/radiated emissions to **CISPR 25** [56]; Y-caps and common-mode choke on the DC input [54][56].
 
@@ -181,4 +181,4 @@ The loop closes on **PLECS validation at ≥3 corners** (low-line / nominal / hi
 
 > **References:** [[citations]]
 
-← [[schematics]] | [[design-2l-b6-800v-sic]] | [[bom]] →
+← [[schematics]] | [[design-2l-b6-800v-sic]] | [[bom-2l-b6-sic]] →

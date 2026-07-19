@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-**Track 1 topology unit** (`design-<topology>-<voltage>-<device>`) and the anchor of the design cluster: an 800 V-class **SiC 2-level B6** traction inverter, 150 kW, driving an IPMSM. Collects the spec, key decisions, and validation plan in one place. This is the first of four topology units ([[circuit-topologies]]); sizing math in [[procedure-design]], diagrams in [[schematics]], parts in [[bom]]. See [[depth-research-plan]] for the serial build order.
+**Track 1 topology unit** (`design-<topology>-<voltage>-<device>`) and the anchor of the design cluster: an 800 V-class **SiC 2-level B6** traction inverter, 150 kW, driving an IPMSM. Collects the spec, key decisions, and validation plan in one place. This is the first of four topology units ([[circuit-topologies]]); sizing math in [[procedure-design]], diagrams in [[schematics]], parts in [[bom-2l-b6-sic]]. See [[plan-depth-research]] for the serial build order.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; **[derived]** → computed in [[procedure-design]].
 
@@ -22,10 +22,10 @@ review_by: 2026-10-17
 ## Why This Anchor (industry relevance)
 
 - **2L-B6 is >95% of production** BEV/PHEV traction inverters — the topology to master first [[circuit-topologies]] §1, [28].
-- **800V is the industry's migration direction:** Porsche→Hyundai E-GMP→VW PPE→BYD premium have moved to 800V for charging power and lower current losses [[traction-inverter-index]], [28]. It is where **SiC pays off and forces 1200 V devices**, making it the design point where topology trade-offs (2L vs 3L-TNPC) matter [28][43].
+- **800V is the industry's migration direction:** Porsche→Hyundai E-GMP→VW PPE→BYD premium have moved to 800V for charging power and lower current losses [[index-traction-inverter]], [28]. It is where **SiC pays off and forces 1200 V devices**, making it the design point where topology trade-offs (2L vs 3L-TNPC) matter [28][43].
 - **It is the handoff's first PLECS model** on the critical path (2L-B6 SiC first), so the knowledge base feeds directly into the first validated model [80].
 
-The **highest-*volume* SiC design today is 400 V** (Tesla Model 3/Y class) [31], [[components]] §1.2 — captured as an alternative in the table below. We anchor on 800 V for *forward* relevance and as the harder, more instructive design point; the 400 V variant is a de-rating of the same procedure.
+The **highest-*volume* SiC design today is 400 V** (Tesla Model 3/Y class) [31], [[circuit-components]] §1.2 — captured as an alternative in the table below. We anchor on 800 V for *forward* relevance and as the harder, more instructive design point; the 400 V variant is a de-rating of the same procedure.
 
 ---
 
@@ -39,7 +39,7 @@ The **highest-*volume* SiC design today is 400 V** (Tesla Model 3/Y class) [31],
 | Peak power | 150 kW (≤30 s) | anchor |
 | Continuous power | 70 kW | anchor |
 | Max phase current | 300 A rms (424 A pk) | [derived §1][T] |
-| Switching frequency | 16 kHz | [50], circuit-topologies §1 |
+| Switching frequency | 16 kHz | [50], [[circuit-topologies]] §1 |
 | Modulation | SVPWM + DPWM at high load, overmod to six-step | [[control-schemes]] §4 |
 | Control | FOC, MTPA + field weakening, resolver | [[procedure-control]] |
 | DC-link cap | ~500 µF film, ≥900 Vdc | [derived §4][41] |
@@ -69,8 +69,8 @@ All **[derived]** in [[procedure-design]]; these are algebra on `[T]` assumption
 ## Key Design Decisions (and why)
 
 1. **1200 V SiC, not 900 V:** worst-case bus 850 V + ~150 V turn-off overshoot ≈ 1000 V; 1200 V keeps ≤83% utilization with cosmic-ray margin [derived §2][25][89]. This is forced by the 800 V bus [28].
-2. **SiC, not IGBT:** unipolar, no tail current → 50–70% lower switching loss, decisive at the partial loads that dominate drive cycles [[components]] §1.2, [28].
-3. **16 kHz switching:** high enough to shrink passives and motor harmonic loss, low enough to hold switching loss/thermal — mid-range of the SiC 2L band [50], circuit-topologies §1.
+2. **SiC, not IGBT:** unipolar, no tail current → 50–70% lower switching loss, decisive at the partial loads that dominate drive cycles [[circuit-components]] §1.2, [28].
+3. **16 kHz switching:** high enough to shrink passives and motor harmonic loss, low enough to hold switching loss/thermal — mid-range of the SiC 2L band [50], [[circuit-topologies]] §1.
 4. **Film DC-link cap:** ripple-current and ESL duty, self-healing, no dry-out over vehicle life; electrolytic can't meet the ripple/ESR [41][84], components §3.
 5. **Resolver + sensorless backup:** ASIL-D needs guaranteed position; sensorless alone can fail silently at zero speed [[control-schemes]] §5, [48].
 6. **ASC as safe state:** at speed, freewheel would pump the bus through body diodes; ASC bounds it with controlled braking [55], [[pimpale-mahadik-2025-asc-discharge]].
@@ -105,8 +105,8 @@ Same procedure, different anchor. Captured so the KB is complete; only 2L-B6 get
 |---------|-----------------------------|--------------|------|
 | **400 V SiC 2L-B6** (Tesla-class) | 650–900 V devices; ~2× phase current for same power → bigger busbar/cap ripple; cheaper mature ecosystem | highest volume today; cost-sensitive, <200 kW charge | [31], components §1.2 |
 | **3L-NPC** | 12 switches + 6 clamp diodes; half switch-voltage; NP balancing | industrial/rail; not cost-justified in auto [[circuit-topologies]] §2 | [50][27] |
-| **3L-TNPC** | 12 switches + bidirectional NP switch; **outer switches still block full Vdc**; best partial-load efficiency | 2030 BEV candidate: −0.67 kWh/100 km vs SiC 2L for +30% chip area | [28][27], circuit-topologies §4 |
-| **3L-ANPC** | 18 switches; best loss distribution; highest BOM/gate-drive cost | GaN-ANPC research; thermal-critical | [44][28], circuit-topologies §3 |
+| **3L-TNPC** | 12 switches + bidirectional NP switch; **outer switches still block full Vdc**; best partial-load efficiency | 2030 BEV candidate: −0.67 kWh/100 km vs SiC 2L for +30% chip area | [28][27], [[circuit-topologies]] §4 |
+| **3L-ANPC** | 18 switches; best loss distribution; highest BOM/gate-drive cost | GaN-ANPC research; thermal-critical | [44][28], [[circuit-topologies]] §3 |
 | **Dual inverter** | two smaller inverters, one per axle / open-winding | partial-load efficiency via load-splitting | [43], [[sachs-etal-2025-single-dual-inverter]] |
 
 The multilevel cases matter most **at 800 V**, which is why this anchor is 800 V — it sets up the topology comparison the MAS is meant to reason about [28][43].
@@ -131,4 +131,4 @@ The multilevel cases matter most **at 800 V**, which is why this anchor is 800 V
 
 > **References:** [[citations]]
 
-← [[procedure-design]] | [[schematics]] | [[bom]] | [[traction-inverter-index]] →
+← [[procedure-design]] | [[schematics]] | [[bom-2l-b6-sic]] | [[index-traction-inverter]] →

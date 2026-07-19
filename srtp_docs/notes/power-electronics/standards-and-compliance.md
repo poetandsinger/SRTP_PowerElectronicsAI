@@ -89,7 +89,7 @@ Qualification is component-level and **feeds** functional safety but is distinct
 | **HTSL / Autoclave** | storage / moisture | 1000 h Tstg,max / 121 °C 100%RH |
 | **ESD** | HBM + CDM | classified by withstand level |
 
-**AEC-Q100** (gate-driver ICs, MCU): temperature **Grade 0 (−40…+150 °C)** or **Grade 1 (−40…+125 °C)** for traction; HTOL 1000 h; 7 test groups A–G (environment, lifetime, package, die, electrical, screening, cavity) [153] **[M]**. **AEC-Q200** (DC-link film cap, EMI-filter passives): 85/85 humidity-bias, temperature cycling, endurance/HTOL, terminal-strength, ESD — the qualifying stresses for the ripple-duty DC-link [154], [[components]] §3.
+**AEC-Q100** (gate-driver ICs, MCU): temperature **Grade 0 (−40…+150 °C)** or **Grade 1 (−40…+125 °C)** for traction; HTOL 1000 h; 7 test groups A–G (environment, lifetime, package, die, electrical, screening, cavity) [153] **[M]**. **AEC-Q200** (DC-link film cap, EMI-filter passives): 85/85 humidity-bias, temperature cycling, endurance/HTOL, terminal-strength, ESD — the qualifying stresses for the ripple-duty DC-link [154], [[circuit-components]] §3.
 
 **AQG 324 (ECPE, Rev 04.1/2025)** — power-**module** qual, the SiC-relevant one [88][141] **[H, from guideline text]**:
 - **Power cycling** splits by load on-time: **PCsec (ton < 5 s)** stresses **chip-near** interconnect (die-attach, bond wires/metallization); **PCmin (ton > 15 s)** additionally stresses **chip-remote** system solder [141].
@@ -99,7 +99,7 @@ Qualification is component-level and **feeds** functional safety but is distinct
 
 ## 5. EMC & Transients — CISPR 25, ISO 7637, LV
 
-**CISPR 25 Ed.5** protects on-board receivers **150 kHz–2.5 GHz**; **Classes 1–5**, ~**6 dB per class step**, Class 5 tightest. Conducted **voltage method** uses a **5 µH LISN** over 0.15–108 MHz; current-probe to 245 MHz; radiated (ALSE) to 2.5 GHz [114][115], [[emi-emc-design]] §1. Representative **Class 5 conducted (voltage-method) limits, dBµV** [114] **[TPS — third-party table, verify vs CISPR 25:2021]**:
+**CISPR 25 Ed.5** protects on-board receivers **150 kHz–2.5 GHz**; **Classes 1–5**, ~**6 dB per class step**, Class 5 tightest. Conducted **voltage method** uses a **5 µH LISN** over 0.15–108 MHz; current-probe to 245 MHz; radiated (ALSE) to 2.5 GHz [114][115], [[design-emi-emc]] §1. Representative **Class 5 conducted (voltage-method) limits, dBµV** [114] **[TPS — third-party table, verify vs CISPR 25:2021]**:
 
 | Band | Freq | Peak | QP | Avg |
 |------|------|:----:|:--:|:---:|
@@ -109,7 +109,7 @@ Qualification is component-level and **feeds** functional safety but is distinct
 | VHF | 26–54 MHz | 44 | 31 | 24 |
 | **FM** | **76–108 MHz** | **38** | **25** | **18** |
 
-The FM band (**38 Pk / 18 Avg**) is the hardest for a fast-switching SiC inverter — the driver of the input filter in [[emi-emc-design]] §3.
+The FM band (**38 Pk / 18 Avg**) is the hardest for a fast-switching SiC inverter — the driver of the input filter in [[design-emi-emc]] §3.
 
 **ISO 7637** transient immunity on the DC lines: **-2** (12/24 V) defines Pulses 1, 2a/2b, 3a/3b (inductive-disconnect, supply-spike, fast bursts); **ISO/TS 7637-4** (HV, 60–1500 V DC) adds **Pulse A** (HF burst, models SiC ringing) and **Pulse B** (LF sinusoidal, models motor-driven transients) [155] **[M]**. **LV123** fixes HV-component voltage-range test points (min/nom/max); **LV124** the 12 V supply-variation + environmental suite — de-facto for German OEMs [156] **[M]**.
 
@@ -132,4 +132,4 @@ The FM band (**38 Pk / 18 Avg**) is the hardest for a fast-switching SiC inverte
 
 > **References:** [[citations]]
 
-← [[protection-and-safety]] | [[emi-emc-design]] | [[traction-inverter-index]] →
+← [[protection-and-safety]] | [[design-emi-emc]] | [[index-traction-inverter]] →

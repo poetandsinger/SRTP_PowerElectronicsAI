@@ -177,4 +177,4 @@ flowchart LR
 > **References:** [[citations]]
 
 
-← [[opencode|Prev: OpenCode CLI]] | [[codex-cli|Next: Codex CLI]] → | [[README]]
+← [[harness-opencode|Prev: OpenCode CLI]] | [[harness-codex-cli|Next: Codex CLI]] → | [[README]]

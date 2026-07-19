@@ -298,7 +298,7 @@ Documented for completeness; each has a fundamental limitation for traction use:
 
 ## 7. 2025–2026 Topology Adoption & Voltage Architecture (consolidated)
 
-> Consolidated here from the former `topology-landscape-2025-2026` note (2026-07-17 audit). Dated data; reliability tags are the capturing sources'. Semiconductor detail lives in [[components]] §7.
+> Consolidated here from the former `topology-landscape-2025-2026` note (2026-07-17 audit). Dated data; reliability tags are the capturing sources'. Semiconductor detail lives in [[circuit-components]] §7.
 
 ### 7.1 Topology Adoption Trend
 
@@ -343,4 +343,4 @@ Documented for completeness; each has a fundamental limitation for traction use:
 
 **Residual doubt:** The 3L-TNPC result is the most interesting finding in the note and also the least replicated. It's a preprint making a strong claim — exactly the kind of finding that needs adversarial review before being treated as evidence.
 
-← [[traction-inverter-index]] | [[components]] →
+← [[index-traction-inverter]] | [[circuit-components]] →

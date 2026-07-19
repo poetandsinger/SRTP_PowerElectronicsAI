@@ -31,4 +31,4 @@ A review found the old corner matrix would let a coarse-timestep, non-steady-sta
 
 ---
 
-← [[changelog-index]] | [[procedure-simulation-and-validation]] | [[depth-research-plan]]
+← [[changelog-index]] | [[procedure-simulation-and-validation]] | [[plan-depth-research]]

@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-The thermal chapter: how heat leaves the die, how hot the junction gets, and how that caps continuous torque. Deep-dive behind [[components]] §6 and [[procedure-design]] §3. Reference device: Wolfspeed CAB450M12XM3 (1200 V/450 A SiC, Tj,max 175 °C) [92].
+The thermal chapter: how heat leaves the die, how hot the junction gets, and how that caps continuous torque. Deep-dive behind [[circuit-components]] §6 and [[procedure-design]] §3. Reference device: Wolfspeed CAB450M12XM3 (1200 V/450 A SiC, Tj,max 175 °C) [92].
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; `[derived]` → computed here.
 
@@ -104,4 +104,4 @@ Mid-load `P_loss ≈ 500 W/switch`, coolant `Tc = 65 °C`, pin-fin WEG:
 
 > **References:** [[citations]]
 
-← [[components]] | [[procedure-design]] | [[packaging-and-layout]] →
+← [[circuit-components]] | [[procedure-design]] | [[packaging-and-layout]] →

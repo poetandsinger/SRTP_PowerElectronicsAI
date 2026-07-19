@@ -154,4 +154,4 @@ LangGraph is likely the **best library foundation** for a power electronics rese
 > **References:** [[citations]]
 
 
-← [[README]] | [[crewai|Next: CrewAI]] →
+← [[README]] | [[harness-crewai|Next: CrewAI]] →

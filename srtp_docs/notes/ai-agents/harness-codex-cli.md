@@ -110,4 +110,4 @@ Codex CLI is the least suitable harness for research: a straightforward coding a
 > **References:** [[citations]]
 
 
-← [[claude-code|Prev: Claude Code CLI]] | [[comparative-analysis|Next: Comparative Analysis]] → | [[README]]
+← [[harness-claude-code|Prev: Claude Code CLI]] | [[harness-comparison|Next: Comparative Analysis]] → | [[README]]

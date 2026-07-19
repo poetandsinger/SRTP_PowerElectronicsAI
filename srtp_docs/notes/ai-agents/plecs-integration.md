@@ -93,4 +93,4 @@ The same prior art showed an agent reliably handles **parameter sweeps, control-
 
 > **References:** [[citations]], [[plecs-xmlrpc-scripting-interface]], [[plecs-ai-agent-integration-ordonez]]
 
-← [[comparative-analysis|Prev: Comparative Analysis]] | [[architecture-patterns|Next: Architecture Patterns]] → | [[README]]
+← [[harness-comparison|Prev: Comparative Analysis]] | [[harness-architecture-patterns|Next: Architecture Patterns]] → | [[README]]

@@ -25,7 +25,7 @@ Claude Code and OpenCode are excellent coding agents but lack the operational in
 
 ## Feature Matrix — Operational Platforms
 
-| Feature | [[hermes-agent]] | [[claude-code]] | [[opencode]] | [[codex-cli]] |
+| Feature | [[harness-hermes-agent]] | [[harness-claude-code]] | [[harness-opencode]] | [[harness-codex-cli]] |
 |---------|:---:|:---:|:---:|:---:|
 | **License** | MIT | Proprietary | MIT | Apache 2.0 |
 | **Language** | Python | Python | TypeScript | Rust |
@@ -46,7 +46,7 @@ Claude Code and OpenCode are excellent coding agents but lack the operational in
 
 These are Python libraries — operational infrastructure (CLI, scheduling, delivery, persistence) must be built separately.
 
-| Feature | [[langgraph]] | [[crewai]] | [[autogen]] | LangChain |
+| Feature | [[harness-langgraph]] | [[harness-crewai]] | [[harness-autogen]] | LangChain |
 |---------|:---:|:---:|:---:|:---:|
 | **License** | MIT | MIT | CC-BY-4.0 | MIT |
 | **Architecture** | State machine graphs | Role-based crews | Conversation groups | Chain/tool abstraction |
@@ -66,46 +66,46 @@ All use a **ReAct (Reasoning + Acting) loop**: prompt → LLM → tool calls →
 
 | Harness | Loop Enhancements |
 |---------|-------------------|
-| [[hermes-agent]] | Context compression, prompt caching, checkpoint/rollback, multi-profile |
-| [[claude-code]] | Context compaction, `/rewind` checkpoints, visual context grid |
-| [[opencode]] | Agent mode switching (build ↔ plan), model switching mid-session |
-| [[codex-cli]] | Minimal — just prompt, run, exit |
+| [[harness-hermes-agent]] | Context compression, prompt caching, checkpoint/rollback, multi-profile |
+| [[harness-claude-code]] | Context compaction, `/rewind` checkpoints, visual context grid |
+| [[harness-opencode]] | Agent mode switching (build ↔ plan), model switching mid-session |
+| [[harness-codex-cli]] | Minimal — just prompt, run, exit |
 
 ### Tool System
 
 | Harness | Tool Count | Extensibility | Permission Model |
 |---------|-----------|---------------|-----------------|
-| [[hermes-agent]] | 30+ toolsets | Plugins, MCP, custom Python | Toolset per-platform, approval prompts |
-| [[claude-code]] | ~6 + MCP | MCP, hooks, custom commands | allow/ask/deny patterns, hook gates |
-| [[opencode]] | Built-in | MCP/ACP | Trust-based |
-| [[codex-cli]] | ~4 built-in | None | Sandbox-based (bubblewrap) |
+| [[harness-hermes-agent]] | 30+ toolsets | Plugins, MCP, custom Python | Toolset per-platform, approval prompts |
+| [[harness-claude-code]] | ~6 + MCP | MCP, hooks, custom commands | allow/ask/deny patterns, hook gates |
+| [[harness-opencode]] | Built-in | MCP/ACP | Trust-based |
+| [[harness-codex-cli]] | ~4 built-in | None | Sandbox-based (bubblewrap) |
 
 ### Memory & Context
 
 | Harness | Cross-Session | Project Context | Self-Improving |
 |---------|:---:|:---:|:---:|
-| [[hermes-agent]] | ✅ Durable memory store | .hermes.md, AGENTS.md | ✅ Skills accumulate |
-| [[claude-code]] | ⚠️ Auto-memory (25KB) | CLAUDE.md hierarchy | ❌ |
-| [[opencode]] | ❌ | .opencode/rules/ | ❌ |
-| [[codex-cli]] | ❌ | None | ❌ |
+| [[harness-hermes-agent]] | ✅ Durable memory store | .hermes.md, AGENTS.md | ✅ Skills accumulate |
+| [[harness-claude-code]] | ⚠️ Auto-memory (25KB) | CLAUDE.md hierarchy | ❌ |
+| [[harness-opencode]] | ❌ | .opencode/rules/ | ❌ |
+| [[harness-codex-cli]] | ❌ | None | ❌ |
 
 ### Multi-Agent Support
 
 | Harness | Mechanism | Depth | Concurrent |
 |---------|-----------|-------|:---:|
-| [[hermes-agent]] | `delegate_task` | Configurable depth | Up to 3 parallel |
-| [[claude-code]] | @agent + Agent Teams | Multi-session with P2P | Via tmux worktrees |
-| [[opencode]] | Multi-agent | Flat | Built-in |
-| [[codex-cli]] | None | — | Manual parallel CLI |
+| [[harness-hermes-agent]] | `delegate_task` | Configurable depth | Up to 3 parallel |
+| [[harness-claude-code]] | @agent + Agent Teams | Multi-session with P2P | Via tmux worktrees |
+| [[harness-opencode]] | Multi-agent | Flat | Built-in |
+| [[harness-codex-cli]] | None | — | Manual parallel CLI |
 
 ### Scheduling & Automation
 
 | Harness | Cron | Hooks | Webhooks |
 |---------|:---:|:---:|:---:|
-| [[hermes-agent]] | ✅ Full cron scheduler | ❌ | ✅ Webhook triggers |
-| [[claude-code]] | ❌ | ✅ 8 event hooks | ❌ |
-| [[opencode]] | ❌ | ❌ | ❌ |
-| [[codex-cli]] | ❌ | ❌ | ❌ |
+| [[harness-hermes-agent]] | ✅ Full cron scheduler | ❌ | ✅ Webhook triggers |
+| [[harness-claude-code]] | ❌ | ✅ 8 event hooks | ❌ |
+| [[harness-opencode]] | ❌ | ❌ | ❌ |
+| [[harness-codex-cli]] | ❌ | ❌ | ❌ |
 
 ## Research-Specific Comparison
 
@@ -117,7 +117,7 @@ All use a **ReAct (Reasoning + Acting) loop**: prompt → LLM → tool calls →
 → 7. (Loop back with refined parameters)
 ```
 
-| Requirement | [[hermes-agent]] | [[claude-code]] | [[langgraph]] | [[crewai]] |
+| Requirement | [[harness-hermes-agent]] | [[harness-claude-code]] | [[harness-langgraph]] | [[harness-crewai]] |
 |-------------|:---:|:---:|:---:|:---:|
 | Read papers from arXiv | ✅ Web + Skills | ✅ WebSearch | ✅ LangChain tools | ✅ Agent tools |
 | Store paper summaries | ✅ Memory | ⚠️ CLAUDE.md | ⚠️ External DB needed | ✅ Entity memory |
@@ -150,7 +150,7 @@ Key trade-offs:
 - **Memory persistence:** Only Hermes Agent and CrewAI provide cross-session memory as a built-in primitive; others require external persistence.
 - **Self-improvement:** Hermes, Claude Code, and OpenCode have skills systems that accumulate knowledge over time. Library frameworks require manual knowledge management.
 
-See [[architecture-patterns]] for extracted reusable patterns across all harnesses.
+See [[harness-architecture-patterns]] for extracted reusable patterns across all harnesses.
 
 ## Radar Chart Summary
 
@@ -167,4 +167,4 @@ Qualitative strength per dimension (● strong · ◐ medium · ○ weak). Rende
 > **References:** [[citations]]
 
 
-← [[codex-cli]] | [[architecture-patterns]] → | [[README]]
+← [[harness-codex-cli]] | [[harness-architecture-patterns]] → | [[README]]

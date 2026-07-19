@@ -67,11 +67,11 @@ C-segment front-drive BEV crossover (VW ID.4 / Kona-EV class). Road load `F = mg
 
 ## 5. Control (FOC, instantiated)
 
-Per [[procedure-control]]: FOC + MTPA + field-weakening, SVPWM, resolver, ASC safe state. **IMC current-loop gains** at BW = 2π·1.5 kHz [derived §3, procedure-control §3]: `Kp_d`=1.41, `Kp_q`=2.83 V/A, `Ki_d=Ki_q`=141 V/(A·s). 12 kHz → 83 µs PWM, double-update 42 µs, current-loop BW ~1/8 of update. MTPA runs `id<0` for reluctance torque (saliency 2.0); field-weakening from ~4500 rpm base to 12 000 rpm. Safety: resolver-fault / torque-mismatch → **ASC** (bus would otherwise pump via body diodes at speed) [55], [[protection-and-safety]] §5.
+Per [[procedure-control]]: FOC + MTPA + field-weakening, SVPWM, resolver, ASC safe state. **IMC current-loop gains** at BW = 2π·1.5 kHz [derived §3, [[procedure-control]] §3]: `Kp_d`=1.41, `Kp_q`=2.83 V/A, `Ki_d=Ki_q`=141 V/(A·s). 12 kHz → 83 µs PWM, double-update 42 µs, current-loop BW ~1/8 of update. MTPA runs `id<0` for reluctance torque (saliency 2.0); field-weakening from ~4500 rpm base to 12 000 rpm. Safety: resolver-fault / torque-mismatch → **ASC** (bus would otherwise pump via body diodes at speed) [55], [[protection-and-safety]] §5.
 
 ## 6. BOM — the actual parts and why
 
-Class-level method in [[bom]]; here are the **specific parts chosen for this design**, each tied to the computed sizing driver. Part numbers are representative-class and must be datasheet-checked `[T]`, per vault convention.
+Class-level method in [[bom-2l-b6-sic]]; here are the **specific parts chosen for this design**, each tied to the computed sizing driver. Part numbers are representative-class and must be datasheet-checked `[T]`, per vault convention.
 
 | Function | Chosen part | Key spec | Qty | **Why this part** (driver) | Cite |
 |----------|-------------|----------|----:|----------------------------|------|
@@ -84,7 +84,7 @@ Class-level method in [[bom]]; here are the **specific parts chosen for this des
 | **Rotor position** | VR **resolver + RDC** | ±0.1°, absolute from standstill | 1 | ASIL-D needs **guaranteed** position; fails safe (vs sensorless) | [48] |
 | **Control MCU** | **Infineon AURIX TC397** | 6-core, ASIL-D, 3-φ center-aligned PWM, resolver IF | 1 | ASIL-D torque path + hardware FOC/PWM + safety monitoring (§5) | [98] |
 | **Cold plate** | pin-fin water-glycol, 65 °C inlet | `Rth`~0.30 K/W (jc+ch+cooler) | 1 | hits the computed **SiC Tj 155 °C** at peak; single-side suffices for SiC (IGBT would need more — Finding 3) | [101] |
-| **Busbar / HV** | laminated Cu busbar; HV contactors ×2; precharge R; HV fuse; active-discharge | `Lσ<15 nH`; bus **<60 V** on shutdown | 1 set | 2× current (vs 800 V) makes low-`Lσ` + I²R **harder**; discharge per ISO 6469-3 [157] | [25][157], packaging-and-layout |
+| **Busbar / HV** | laminated Cu busbar; HV contactors ×2; precharge R; HV fuse; active-discharge | `Lσ<15 nH`; bus **<60 V** on shutdown | 1 set | 2× current (vs 800 V) makes low-`Lσ` + I²R **harder**; discharge per ISO 6469-3 [157] | [25][157], [[packaging-and-layout]] |
 
 **Device electrical params used in the model (§4) ↔ part:** SiC `Rds(on,150°C)`≈4.5 mΩ, `Eon+Eoff@400V/400A`≈9 mJ, `Tj,max` 175 °C — consistent with the 750 V CoolSiC HybridPACK class [99]; IGBT `Vce0`≈0.9 V + `Rce`≈2.5 mΩ, `Esw`≈32 mJ — consistent with the FS820R08A6P2 EDT2 class [36]. These are class-typicals `[T]`; the SiC-vs-IGBT gap is sensitive to the `Esw` ratio (Red Team). Cost split unchanged: module ~40–50% [29].
 
@@ -96,7 +96,7 @@ PLECS Standalone is **licensed and driveable via XML-RPC** here (`plecs.load/set
 
 - **400 V, not 800 V:** chosen for a *common* family car — mature 650/750 V devices, cheaper isolation, huge ecosystem [94]. Cost: 2× current → conduction-dominated loss, bigger cap/busbar, ~0.5 pt lower peak η than an 800 V build [[worked-example-400v-150kw]].
 - **SiC, not IGBT:** buys +1.0–1.5 pt cycle efficiency and **18 °C thermal headroom at peak**; IGBT is cheaper die but here is **thermally marginal (173 °C)** at 135 kW and would force a bigger cooler or a peak-power derate. A strict cost-first economy trim → IGBT + reduced peak.
-- **12 kHz:** above cabin-audible harshness, low enough for loss/EMI; SiC could clock higher but EMI/switching-loss rises [[emi-emc-design]] §2.
+- **12 kHz:** above cabin-audible harshness, low enough for loss/EMI; SiC could clock higher but EMI/switching-loss rises [[design-emi-emc]] §2.
 - **750 V device on a 420 V-max bus:** ~55–72% utilization — deliberately conservative for cosmic-ray/overshoot margin over a 650 V part [121].
 
 ## Red Team
@@ -118,4 +118,4 @@ PLECS Standalone is **licensed and driveable via XML-RPC** here (`plecs.load/set
 
 > **References:** [[citations]] · model: `worked-designs/family-car-400v-sic/`
 
-← [[worked-example-400v-150kw]] | [[findings-family-car-design-by-doing]] | [[reference-designs-index]] →
+← [[worked-example-400v-150kw]] | [[findings-family-car-design-by-doing]] | [[index-reference-designs]] →

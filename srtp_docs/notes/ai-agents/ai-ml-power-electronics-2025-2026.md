@@ -16,7 +16,7 @@ review_by: 2026-08-10
 
 # AI/ML Applications in Power Electronics Design — 2025-2026
 
-> AI-side companion to the engineering build manual in [[traction-inverter-index]]; motivation in [[problem-statement-index]].
+> AI-side companion to the engineering build manual in [[index-traction-inverter]]; motivation in [[problem-statement-index]].
 
 ## AI/ML Applications in Power Electronics Design
 

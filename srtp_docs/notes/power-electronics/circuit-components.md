@@ -281,7 +281,7 @@ The interface between power module baseplate and heatsink:
 | DC-DC | GaN HEMT | 100V AEC-Q101; 30–60% passive reduction |
 | Aux / 48V | GaN or Si MOSFET | low-power, space-constrained |
 
-*Sources: TrendForce Q1 2026 [High]; Kynix 2026 [Medium]; VisIC Jan 2026 [Medium].* Cross-refs: [[circuit-topologies]] §7 (topology adoption), [[traction-inverter-index]] (market).
+*Sources: TrendForce Q1 2026 [High]; Kynix 2026 [Medium]; VisIC Jan 2026 [Medium].* Cross-refs: [[circuit-topologies]] §7 (topology adoption), [[index-traction-inverter]] (market).
 
 ---
 

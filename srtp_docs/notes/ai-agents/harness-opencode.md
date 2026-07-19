@@ -112,4 +112,4 @@ OpenCode could serve as a **sub-component** — implementing the MATLAB-Python b
 > **References:** [[citations]]
 
 
-← [[hermes-agent|Prev: Hermes Agent]] | [[claude-code|Next: Claude Code CLI]] → | [[README]]
+← [[harness-hermes-agent|Prev: Hermes Agent]] | [[harness-claude-code|Next: Claude Code CLI]] → | [[README]]

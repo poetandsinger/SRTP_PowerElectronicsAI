@@ -63,4 +63,4 @@ The **production landscape** for low-cost A-segment / city BEV traction inverter
 
 > **References:** [[citations]]
 
-← [[worked-example-microcar-96v-mosfet]] | [[bom-price-database]] | [[traction-inverter-index]] →
+← [[worked-example-microcar-96v-mosfet]] | [[bom-price-database]] | [[index-traction-inverter]] →

@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 # Observed Design Workflow — What Four Design Passes Teach the MAS
 
-On 2026-07-18 a single agent ran **four complete** traction-inverter designs by hand — a **family car** (400 V SiC, efficiency), a **Class-8 truck** (800 V SiC, lifetime), a **hypercar** (800 V SiC, power density), and a **city microcar** (96 V LV-MOSFET, cost) — each vehicle → spec → circuit → device → thermal → control → BOM → model-run → report, RAG-limited to the traction-inverter vault + undergrad physics (web allowed for the last three). This note extracts the **process** and maps each element to a MAS requirement, so [[ai-agent-mas-plan]] can build what worked. Companion to [[design-loop-architecture]] (loop derived from *published* systems); this derives it from **four observed runs**. Engineering output: [[worked-example-family-car-400v-sic]], [[worked-example-truck-800v-sic]], [[worked-example-performance-800v-sic]], [[worked-example-microcar-96v-mosfet]].
+On 2026-07-18 a single agent ran **four complete** traction-inverter designs by hand — a **family car** (400 V SiC, efficiency), a **Class-8 truck** (800 V SiC, lifetime), a **hypercar** (800 V SiC, power density), and a **city microcar** (96 V LV-MOSFET, cost) — each vehicle → spec → circuit → device → thermal → control → BOM → model-run → report, RAG-limited to the traction-inverter vault + undergrad physics (web allowed for the last three). This note extracts the **process** and maps each element to a MAS requirement, so [[plan-ai-agent-mas]] can build what worked. Companion to [[design-loop-architecture]] (loop derived from *published* systems); this derives it from **four observed runs**. Engineering output: [[worked-example-family-car-400v-sic]], [[worked-example-truck-800v-sic]], [[worked-example-performance-800v-sic]], [[worked-example-microcar-96v-mosfet]].
 
 **Up front: n = 4** (one agent, four objectives), reconstructed partly post-hoc — hypothesis-rich field notes, not a validated methodology (Red Team). The four passes below let §"Four Passes" generalise beyond the single family-car run.
 
@@ -37,7 +37,7 @@ Roles today: **Planner**=①, **Designer**=②③, **Validator**=evaluate ([[des
 | # | What the pass actually did | MAS requirement | Plan status |
 |---|----------------------------|-----------------|-------------|
 | 1 | **Derived** the spec from the vehicle (road-load eqn → 135 kW/345 Nm, `Is,max`≈400 A, speeds, 400 V class) — did not accept it as given | **Stage ⓪ Requirements** upstream of Planner: a `vehicle-brief → spec-vector` road-load tool | **NEW** (propose G-I). Loop starts at "spec"; hand-fed `Is,max` is an error source (prior worked examples *guessed* it) |
-| 2 | **Retrieved** parts, never generated them: keyed `(function, V-class, I-class, auto-qual)` → nearest vetted part in [[components]]/[[bom]] → `{spec, sizing-driver, cite}`; mapped 1200 V→750 V *within the same family* (HybridPACK Drive). Zero web calls, zero hallucinated MPNs | **Parts-retriever tool** for the Designer over the component KB + DigiKey/Nexar live adapters; the LLM sets *constraints*, the tool returns the *part* | **NEW** (G-J). Only implicit via BOM adapters. LLMs hallucinate MPNs if asked to *generate* |
+| 2 | **Retrieved** parts, never generated them: keyed `(function, V-class, I-class, auto-qual)` → nearest vetted part in [[circuit-components]]/[[bom-2l-b6-sic]] → `{spec, sizing-driver, cite}`; mapped 1200 V→750 V *within the same family* (HybridPACK Drive). Zero web calls, zero hallucinated MPNs | **Parts-retriever tool** for the Designer over the component KB + DigiKey/Nexar live adapters; the LLM sets *constraints*, the tool returns the *part* | **NEW** (G-J). Only implicit via BOM adapters. LLMs hallucinate MPNs if asked to *generate* |
 | 3 | **Computed before writing**; ran the model, iterated, *then* wrote the note from its output | **Reporter (④) consumes only the summarizer's numbers + a run-id**; forbid the LLM narrating plausible numbers | Reinforces invariant #3 + G-E; adds explicit downstream doc-gen step |
 | 4 | **Provenance-tagged every number** (`[model]/[derived]/[T]/[NN]`) | Make provenance a **typed field on every emitted quantity**; the evidence gate **refuses to close on `[T]`/assumed** values | **NEW** (G-K). Runtime enforcement of the vault status/evidence schema |
 | 5 | **Sensitivity steered effort** — the headline SiC-vs-IGBT result hinged on one input (the `Esw` ratio); flagged it | Cheap **sensitivity step** (perturb each input, watch the summary) → tells the loop *which input to spend a datasheet/web call on* vs accept a class-typical | **NEW** (G-L). Feeds data-acquisition priority + the optimizer |
@@ -52,9 +52,9 @@ Cheap, Orchestrator-owned steps — not new agents:
 - **④ Reporter** (`summary → worked-example doc`, every number provenance-tagged): renders the human-facing artifact *from* the validated numbers, downstream of the Validator.
 
 ## Confirmed (not new)
-- **Template + param-injection, not free-form authoring** — retargeted a *named* PLECS demo by `Value`/`plecs.set` (plan §2 ✓, [[plecs-harness]]).
-- **Explicit compute over LLM re-guessing** — the model, not prose, produced the numbers (design-loop ③ ✓).
-- **RAG-first grounding** — read the method files (procedure-design, machine-and-load, procedure-control, bom) *before* designing; the design instantiates the vault's method, it does not reinvent it.
+- **Template + param-injection, not free-form authoring** — retargeted a *named* PLECS demo by `Value`/`plecs.set` (plan §2 ✓, [[plan-plecs-harness]]).
+- **Explicit compute over LLM re-guessing** — the model, not prose, produced the numbers ([[plan-design-loop|design-loop]] ③ ✓).
+- **RAG-first grounding** — read the method files ([[procedure-design]], [[machine-and-load]], [[procedure-control]], [[bom-2l-b6-sic|bom]]) *before* designing; the design instantiates the vault's method, it does not reinvent it.
 - **3-agent core sufficient** — the bookends are Orchestrator-owned steps, not agents.
 
 ## Four Passes, Four Workflows — the Process Comparison
@@ -88,4 +88,4 @@ The pipeline *structure* (⓪→①→②→③→④) held across all four, but
 
 > **References:** [[citations]]
 
-← [[design-loop-architecture]] | [[ai-agent-mas-plan]] | [[findings-family-car-design-by-doing]] | [[harness-index]]
+← [[design-loop-architecture]] | [[plan-ai-agent-mas]] | [[findings-family-car-design-by-doing]] | [[harness-index]]

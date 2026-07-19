@@ -19,7 +19,7 @@ review_by: 2026-10-17
 
 # Agentic Workflow Patterns — 2026 catalog mapped to SRTP
 
-The vault's per-harness pattern list ([[architecture-patterns]]) predates the canonical 2026 workflow vocabulary. This note pins that vocabulary down, maps SRTP onto it, and records the exclusions.
+The vault's per-harness pattern list ([[harness-architecture-patterns]]) predates the canonical 2026 workflow vocabulary. This note pins that vocabulary down, maps SRTP onto it, and records the exclusions.
 
 > **Governing distinction (Anthropic *Building Effective Agents*; 2026 guides):** a **workflow** orchestrates LLMs + tools through *predefined code paths*; an **agent** directs its own process at runtime. Prefer the simplest that works. SRTP is a workflow, not an autonomous agent — keep it so until a measured need forces otherwise.
 
@@ -38,7 +38,7 @@ The vault's per-harness pattern list ([[architecture-patterns]]) predates the ca
 
 ## 2. SRTP mapping
 
-| SRTP element ([[ai-agent-mas-plan]]) | Pattern | Status |
+| SRTP element ([[plan-ai-agent-mas]]) | Pattern | Status |
 |---|---|---|
 | PLAN → DESIGN → VALIDATE → REPORT | P1 chaining | explicit |
 | Orchestrator parses new-vs-iterate, routes stages | P2 routing (explicit, not learned) | explicit |
@@ -55,7 +55,7 @@ The `VALIDATE --fail--> re-plan/re-design` edge is an evaluator–optimizer loop
 - loop needs a **stopping rule** + **best-so-far** tracking (PE-MAS `best_design_candidate`);
 - each iteration **compacts** its reasoning trace or context reinflates ([[context-engineering-2026]]).
 
-Wired into [[design-loop]] and [[guardrails-and-evidence]].
+Wired into [[plan-design-loop]] and [[plan-guardrails-and-evidence]].
 
 ## 4. Exclusions (each with a re-open trigger)
 
@@ -73,4 +73,4 @@ Prompt-chain + evaluator-optimizer + tool-use, flat delegation, explicit routing
 ## Red Team
 **Steelman against:** naming patterns is documentation, not engineering — PE-MAS shipped without this vocabulary. **How it could be false:** if the `iterate` edge already behaves as a disciplined evaluator-optimizer, formalizing changes nothing. **What would change my mind:** a Phase-0 run where the un-named loop converges with a stopping rule and compacted traces. **Residual doubt:** the substantive gap is the missing optimizer, not the missing names; the naming matters only insofar as it forces the judge/stopping-rule/compaction obligations into the build.
 
-← [[multi-agent-synthesis]] | [[design-loop-architecture]] | [[architecture-patterns]] | [[ai-agent-mas-plan]]
+← [[multi-agent-synthesis]] | [[design-loop-architecture]] | [[harness-architecture-patterns]] | [[plan-ai-agent-mas]]

@@ -9,7 +9,7 @@ tags: [plan, ai-agents, multi-agent, plecs, architecture]
 
 # Architecture — agents, orchestration, shared state
 
-> Topic of [[ai-agent-mas-plan]]. Defines the 3-agent core, how they are orchestrated, the shared services they call, and — critically — the **typed shared state** they read and write (gap G-C).
+> Topic of [[plan-ai-agent-mas]]. Defines the 3-agent core, how they are orchestrated, the shared services they call, and — critically — the **typed shared state** they read and write (gap G-C).
 
 ## 1. Agents (the 3-agent core)
 
@@ -22,7 +22,7 @@ tags: [plan, ai-agents, multi-agent, plecs, architecture]
 
 Start with **exactly these three** (+ Orchestrator). Split out a **Thermal** or **Component** specialist **only when the Validator shows it is the recurring failing gate** — AgentSlimming: automated MAS bloat wastes tokens quadratically ([[agent-frameworks-2026-currency]]). The Orchestrator is scaffolding, not a design agent; the "3-agent" count is Planner/Designer/Validator.
 
-The **design-loop three stages are internal structure, not agents** — see [[design-loop]]. This keeps the roster minimal while honoring the field-standard decomposition.
+The **design-loop three stages are internal structure, not agents** — see [[plan-design-loop]]. This keeps the roster minimal while honoring the field-standard decomposition.
 
 ## 2. Orchestration
 
@@ -30,14 +30,14 @@ The **design-loop three stages are internal structure, not agents** — see [[de
 
 - **Nodes:** `spec_parse` → `plan` → `design` → `validate` → `report`, plus `human_approval` (interrupt) and `iterate` (conditional router).
 - **Checkpoint at every transition.** ~ms overhead; lets a crashed PLECS batch resume mid-sweep.
-- **The `iterate` router is failure-mode-aware** (not a generic "replan"): params → re-optimize (③), structure → refine (②), architecture → re-plan (①). See [[design-loop]] §routing.
+- **The `iterate` router is failure-mode-aware** (not a generic "replan"): params → re-optimize (③), structure → refine (②), architecture → re-plan (①). See [[plan-design-loop]] §routing.
 - **Watchdog + idempotency** kept light — LangGraph 1.0 does more of this now; idempotency key = hash(ModelVars) so identical sims never re-run.
 
 ## 3. Shared services
 
-- **RAG service** — knowledge backbone. [[knowledge-rag]]
-- **PLECS service** — templates, optimizer, corner sweeps, native AC/steady-state, 5-layer summarizer. [[plecs-harness]]
-- **Memory** — episodic (design records) + procedural (iteration playbooks) + semantic (vector store shared with RAG). [[memory]]
+- **RAG service** — knowledge backbone. [[plan-knowledge-rag]]
+- **PLECS service** — templates, optimizer, corner sweeps, native AC/steady-state, 5-layer summarizer. [[plan-plecs-harness]]
+- **Memory** — episodic (design records) + procedural (iteration playbooks) + semantic (vector store shared with RAG). [[plan-memory]]
 
 ## 4. Shared state schema (gap G-C) — `InverterDesignState`
 
@@ -76,7 +76,7 @@ class InverterDesignState(TypedDict):
     evidence_grade: str
 ```
 
-**Rules:** every design-affecting field that came from an LLM carries a citation or a PLECS provenance tag; `corner_results` holds summaries only (invariant #3); `reasoning_trace` is **compacted** each iteration ([[memory]]). This schema is the contract the topic plans below fill in.
+**Rules:** every design-affecting field that came from an LLM carries a citation or a PLECS provenance tag; `corner_results` holds summaries only (invariant #3); `reasoning_trace` is **compacted** each iteration ([[plan-memory]]). This schema is the contract the topic plans below fill in.
 
 ## 5. Output artifact (the REPORT node)
 
@@ -87,6 +87,6 @@ REPORT emits an **engineering review package**, not a single answer — the desi
 - **Provenance:** `reasoning_trace` (compacted), iteration count, `stop_reason`, best-candidate history, evidence grade, k=3 consensus + confidence.
 - **Reproducibility:** the `ModelVars` / optimizer config needed to re-run (idempotency key).
 
-Released only when every gate closes against a **validated** model; otherwise presented as an in-progress package with open gates named. Consumed by the HITL signoff and the benchmark scorer ([[evaluation-and-benchmark]]).
+Released only when every gate closes against a **validated** model; otherwise presented as an in-progress package with open gates named. Consumed by the HITL signoff and the benchmark scorer ([[plan-evaluation-and-benchmark]]).
 
-← [[ai-agent-mas-plan]] | [[design-loop]] | [[pe-mas-flyback-mas]]
+← [[plan-ai-agent-mas]] | [[plan-design-loop]] | [[pe-mas-flyback-mas]]

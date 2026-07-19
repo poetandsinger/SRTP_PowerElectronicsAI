@@ -10,7 +10,7 @@ tags: [plan, ai-agents, multi-agent, plecs]
 # AI-Agent MAS Plan — Hub
 
 > **The single AI-agent plan, split into topics.** This file is the **hub**: system schematic, invariants, prior-art anchor, topic map, and the build-order DAG. Topics are organized by *subsystem*, not by phase; the build-order DAG (below) gives the split points when the work is phased. Grounded in [[ai-agent-docs-audit-2026-07-17]] and [[plan-sufficiency-review-2026-07-17]].
-> **Prior art:** [[pe-mas-flyback-mas]] (adopt its structure). **Backend:** PLECS only. **Knowledge:** RAG over a local research-paper corpus. **No surrogates as evidence** — PLECS is the sole source of truth (a surrogate may later accelerate *search* only; see [[design-loop]]).
+> **Prior art:** [[pe-mas-flyback-mas]] (adopt its structure). **Backend:** PLECS only. **Knowledge:** RAG over a local research-paper corpus. **No surrogates as evidence** — PLECS is the sole source of truth (a surrogate may later accelerate *search* only; see [[plan-design-loop]]).
 
 ---
 
@@ -46,12 +46,12 @@ The pipeline is a **prompt-chain workflow with an evaluator-optimizer inner loop
 
 ## Invariants
 
-1. **Ground every design decision in retrieved papers.** No un-cited topology/control choices. RAG is the backbone, not a bolt-on. → [[knowledge-rag]]
-2. **PLECS is the only source of evidence.** No PINN/surrogate *as evidence*. If a number isn't from PLECS (or a cited paper), it isn't evidence. → [[plecs-harness]]
-3. **Summarize before the LLM.** Engineered ~36-number summaries, never raw waveforms (~1000× token delta). → [[plecs-harness]]
-4. **The LLM picks structure; an optimizer picks numbers.** DESIGN converges via an explicit numerical optimizer over PLECS, not LLM re-guessing. → [[design-loop]]
-5. **Start at 3 agents; earn specialists against a measured failing gate.** (AgentSlimming.) → [[architecture]]
-6. **No "PLECS-backed evidence" without a validated model in the registry.** → [[plecs-harness]]
+1. **Ground every design decision in retrieved papers.** No un-cited topology/control choices. RAG is the backbone, not a bolt-on. → [[plan-knowledge-rag]]
+2. **PLECS is the only source of evidence.** No PINN/surrogate *as evidence*. If a number isn't from PLECS (or a cited paper), it isn't evidence. → [[plan-plecs-harness]]
+3. **Summarize before the LLM.** Engineered ~36-number summaries, never raw waveforms (~1000× token delta). → [[plan-plecs-harness]]
+4. **The LLM picks structure; an optimizer picks numbers.** DESIGN converges via an explicit numerical optimizer over PLECS, not LLM re-guessing. → [[plan-design-loop]]
+5. **Start at 3 agents; earn specialists against a measured failing gate.** (AgentSlimming.) → [[plan-architecture]]
+6. **No "PLECS-backed evidence" without a validated model in the registry.** → [[plan-plecs-harness]]
 
 ---
 
@@ -61,14 +61,14 @@ Adopt PE-MAS's proven structure ([[pe-mas-flyback-mas]]), re-targeted flyback �
 
 | Adopt from PE-MAS | SRTP use | Topic |
 |---|---|---|
-| `requirements → designer → validator → reporter` flow | Plan → Design → Validate → Report | [[architecture]] |
-| Typed `PowerSupplyState` (~30 fields) | typed `InverterDesignState` | [[architecture]] |
-| `plecs-mcp` + XML-RPC (`PE_MAS_PLECS_BACKEND=auto`) | PLECS harness | [[plecs-harness]] |
-| Template + `ModelVars` / XML-injection | per-topology validated templates | [[plecs-harness]] |
-| `model_registry.json` (per-topology status) | same, traction topologies | [[plecs-harness]] |
-| Guardrails + corner-based evidence gates | re-tuned to traction | [[guardrails-and-evidence]] |
-| Lifelong memory + iteration playbooks | episodic + procedural memory | [[memory]] |
-| Dual-path RAG | elevated to first-class | [[knowledge-rag]] |
+| `requirements → designer → validator → reporter` flow | Plan → Design → Validate → Report | [[plan-architecture]] |
+| Typed `PowerSupplyState` (~30 fields) | typed `InverterDesignState` | [[plan-architecture]] |
+| `plecs-mcp` + XML-RPC (`PE_MAS_PLECS_BACKEND=auto`) | PLECS harness | [[plan-plecs-harness]] |
+| Template + `ModelVars` / XML-injection | per-topology validated templates | [[plan-plecs-harness]] |
+| `model_registry.json` (per-topology status) | same, traction topologies | [[plan-plecs-harness]] |
+| Guardrails + corner-based evidence gates | re-tuned to traction | [[plan-guardrails-and-evidence]] |
+| Lifelong memory + iteration playbooks | episodic + procedural memory | [[plan-memory]] |
+| Dual-path RAG | elevated to first-class | [[plan-knowledge-rag]] |
 
 **Change from PE-MAS:** flyback → traction (2L-B6, 3L-NPC/TNPC, ANPC + PMSM/IM); provider-agnostic LLMs; RAG central; explicit parameter optimizer; no PINN as evidence.
 
@@ -78,14 +78,14 @@ Adopt PE-MAS's proven structure ([[pe-mas-flyback-mas]]), re-targeted flyback �
 
 | Topic | Covers | Fills gap |
 |---|---|---|
-| [[architecture]] | agents, orchestration, shared services, **typed state schema** | G-C |
-| [[design-loop]] | topology→refine→**parameter-optimize**, evaluator-optimizer, iterate routing, stopping rule | G-A/B/H |
-| [[knowledge-rag]] | corpus, ingestion, citation gate, coverage audit | G-G |
-| [[plecs-harness]] | PLECS service, templates, **model-validation procedure + registry**, **5-layer summarizer contract** | G-E/F |
-| [[guardrails-and-evidence]] | domain guardrails + evidence gates (the evaluator rubric) | — |
-| [[memory]] | episodic · procedural · semantic · isolation; what's deferred | G-D |
-| [[tech-stack]] | frameworks, LLM routing, licenses | — |
-| [[evaluation-and-benchmark]] | benchmark, single-vs-MAS A/B, open questions, risks | — |
+| [[plan-architecture]] | agents, orchestration, shared services, **typed state schema** | G-C |
+| [[plan-design-loop]] | topology→refine→**parameter-optimize**, evaluator-optimizer, iterate routing, stopping rule | G-A/B/H |
+| [[plan-knowledge-rag]] | corpus, ingestion, citation gate, coverage audit | G-G |
+| [[plan-plecs-harness]] | PLECS service, templates, **model-validation procedure + registry**, **5-layer summarizer contract** | G-E/F |
+| [[plan-guardrails-and-evidence]] | domain guardrails + evidence gates (the evaluator rubric) | — |
+| [[plan-memory]] | episodic · procedural · semantic · isolation; what's deferred | G-D |
+| [[plan-tech-stack]] | frameworks, LLM routing, licenses | — |
+| [[plan-evaluation-and-benchmark]] | benchmark, single-vs-MAS A/B, open questions, risks | — |
 
 Gap IDs (G-A…G-H) are defined in [[plan-sufficiency-review-2026-07-17]].
 
@@ -110,7 +110,7 @@ flowchart TD
     BR --> SP["earned specialist<br/>(only if a gate keeps failing)"]
 ```
 
-**Natural split points** (each a candidate phase boundary): harness+summarizer+first validated model → single-agent baseline on 2L-B6 (A/B control) → 3-agent MAS with optimizer + gates → topology breadth → earned specialists + hardening. First milestone (definition of done) in [[evaluation-and-benchmark]] §5.
+**Natural split points** (each a candidate phase boundary): harness+summarizer+first validated model → single-agent baseline on 2L-B6 (A/B control) → 3-agent MAS with optimizer + gates → topology breadth → earned specialists + hardening. First milestone (definition of done) in [[plan-evaluation-and-benchmark]] §5.
 
 **Hard prerequisite:** the PLECS license check gates everything downstream — do it before harness work.
 

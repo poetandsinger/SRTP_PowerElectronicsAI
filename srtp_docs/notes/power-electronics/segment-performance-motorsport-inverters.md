@@ -61,4 +61,4 @@ The **production/motorsport landscape** for high-performance traction inverters 
 
 > **References:** [[citations]]
 
-← [[worked-example-performance-800v-sic]] | [[thermal-design]] | [[traction-inverter-index]] →
+← [[worked-example-performance-800v-sic]] | [[thermal-design]] | [[index-traction-inverter]] →

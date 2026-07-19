@@ -32,7 +32,7 @@ Solder/sinter fatigue and wire-bond lift-off are the leading power-cycling wear-
 
 - **Laminated busbar:** multilayer Cu + thin dielectric, laid out for +/− field cancellation → minimizes `Lσ`; integrated designs hit **~6.5 nH (small) / 17.5 nH (large loop)** [132], [[packaging-and-layout]] §2.
 - **DC-link:** film (PP) caps for ripple + low ESL, not electrolytic [132][41].
-- **Gate-driver PCB:** reinforced isolation (5.7 kV/8 kV), CMTI ≥100 V/ns, DESAT + two-level turn-off + Miller clamp [93][91], [[gate-driver-design]].
+- **Gate-driver PCB:** reinforced isolation (5.7 kV/8 kV), CMTI ≥100 V/ns, DESAT + two-level turn-off + Miller clamp [93][91], [[design-gate-driver]].
 - **Cold-plate/TIM:** the TIM is usually the **highest-Rth layer**; control **bond-line thickness (BLT)** to 90–110% of spacer-particle size to kill scatter [104], [[thermal-design]] §5.
 - **Enclosure:** IP67 (underbody to **IP6K9K**: 80 °C/80–100 bar jets); HV connectors O-ring + epoxy-potted; EOL sealing by **air-pressure-decay** leak test [137].
 

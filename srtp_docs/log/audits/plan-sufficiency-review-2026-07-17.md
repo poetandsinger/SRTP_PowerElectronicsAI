@@ -9,7 +9,7 @@ tags: [audit, ai-agents, multi-agent, plan]
 
 # Plan Sufficiency Review — 2026-07-17
 
-**Scope.** Whether the architecture + workflow in [[ai-agent-mas-plan]] is sufficient to build from. Grounded in a depth-first pass over `ai-agents/`, `sources/ai-agents/`, PE-MAS, and a mid-2026 web scan (workflow patterns, AnalogSAGE, PHIA, context engineering, Liu 2026 IET). Companion to [[ai-agent-docs-audit-2026-07-17]] (which fixed the docs); this reviews the plan.
+**Scope.** Whether the architecture + workflow in [[plan-ai-agent-mas]] is sufficient to build from. Grounded in a depth-first pass over `ai-agents/`, `sources/ai-agents/`, PE-MAS, and a mid-2026 web scan (workflow patterns, AnalogSAGE, PHIA, context engineering, Liu 2026 IET). Companion to [[ai-agent-docs-audit-2026-07-17]] (which fixed the docs); this reviews the plan.
 
 **Verdict.** Sufficient as *strategy*, not yet as a *build spec*. The strategy calls are right (PLECS-only evidence, 3-agent core, RAG-first, evidence-gated, PE-MAS-anchored). Missing: the mechanism that makes design agents converge (an explicit parameter optimizer), and contracts for four subsystems (state schema, memory, summarizer, model registry/RAG index). Every gap is additive — no core decision reversed.
 
@@ -26,14 +26,14 @@ tags: [audit, ai-agents, multi-agent, plan]
 
 | ID | Gap | Fix / topic |
 |---|---|---|
-| **G-A** | **No explicit optimizer.** DESIGN relies on the coarse fail→re-design edge; every converging 2026 agent uses BO/DE/PSO. "Sweep" ≠ "optimize". | stage ③ optimizer over PLECS batch — [[design-loop]] |
-| **G-B** | **DESIGN is a black box.** Field-standard is topology→refine→parameter-optimize; collapsing it leaves the fail router nowhere to route. | three-stage internal structure — [[design-loop]] |
-| **G-C** | **No state schema.** A LangGraph MAS is its state; PE-MAS's ~30-field typed state is the transferable asset. | `InverterDesignState` — [[architecture]] |
-| **G-D** | **Memory under-specified.** Missing procedural memory (iteration playbooks), per-agent isolation, and iteration-trace compaction. | four memory roles — [[memory]] |
-| **G-E** | **Summarizer is a promise.** "~36 numbers" never enumerated; Ordonez's result rests on the 5-layer pipeline + regression tolerances. | enumerated schema + contract — [[plecs-harness]] |
-| **G-F** | **Model workstream is a table, not a procedure.** No definition of "validated" (against what reference, at what tolerance, recorded where). Critical path. | validation procedure + registry schema — [[plecs-harness]] |
-| **G-G** | **RAG corpus/index asserted, not specified.** No ingestion, citation-gate mechanics, or coverage check. Invariant #1 is only as real as the index. | ingestion + citation gate + coverage — [[knowledge-rag]] |
-| **G-H** | **Evaluator-optimizer unnamed.** No stopping rule, best-so-far, or separate judge. | stopping rule + judge — [[design-loop]], [[guardrails-and-evidence]] |
+| **G-A** | **No explicit optimizer.** DESIGN relies on the coarse fail→re-design edge; every converging 2026 agent uses BO/DE/PSO. "Sweep" ≠ "optimize". | stage ③ optimizer over PLECS batch — [[plan-design-loop]] |
+| **G-B** | **DESIGN is a black box.** Field-standard is topology→refine→parameter-optimize; collapsing it leaves the fail router nowhere to route. | three-stage internal structure — [[plan-design-loop]] |
+| **G-C** | **No state schema.** A LangGraph MAS is its state; PE-MAS's ~30-field typed state is the transferable asset. | `InverterDesignState` — [[plan-architecture]] |
+| **G-D** | **Memory under-specified.** Missing procedural memory (iteration playbooks), per-agent isolation, and iteration-trace compaction. | four memory roles — [[plan-memory]] |
+| **G-E** | **Summarizer is a promise.** "~36 numbers" never enumerated; Ordonez's result rests on the 5-layer pipeline + regression tolerances. | enumerated schema + contract — [[plan-plecs-harness]] |
+| **G-F** | **Model workstream is a table, not a procedure.** No definition of "validated" (against what reference, at what tolerance, recorded where). Critical path. | validation procedure + registry schema — [[plan-plecs-harness]] |
+| **G-G** | **RAG corpus/index asserted, not specified.** No ingestion, citation-gate mechanics, or coverage check. Invariant #1 is only as real as the index. | ingestion + citation gate + coverage — [[plan-knowledge-rag]] |
+| **G-H** | **Evaluator-optimizer unnamed.** No stopping rule, best-so-far, or separate judge. | stopping rule + judge — [[plan-design-loop]], [[plan-guardrails-and-evidence]] |
 
 ## 3. Checked and fine
 
@@ -48,6 +48,6 @@ tags: [audit, ai-agents, multi-agent, plan]
 | Salvageable without redesign? | Yes — all additive |
 | Biggest risk if shipped as-is | Design loop never converges (no optimizer), discovered only after building the harness |
 
-Plan split into [[ai-agent-mas-plan]] hub + 8 topics with G-A…G-H filled; this review is the rationale.
+Plan split into [[plan-ai-agent-mas]] hub + 8 topics with G-A…G-H filled; this review is the rationale.
 
-← [[ai-agent-docs-audit-2026-07-17]] | [[ai-agent-mas-plan]] | [[design-loop-architecture]]
+← [[ai-agent-docs-audit-2026-07-17]] | [[plan-ai-agent-mas]] | [[design-loop-architecture]]

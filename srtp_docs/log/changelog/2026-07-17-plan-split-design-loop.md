@@ -20,6 +20,6 @@ Depth-first research pass over `ai-agents/` + `sources/ai-agents/` + PE-MAS + a 
 - **[[plan-sufficiency-review-2026-07-17]]** — plan is sufficient as *strategy*, not yet as a *build spec*: 8 gaps (G-A missing optimizer, G-B black-box design, G-C no state schema, G-D memory, G-E summarizer contract, G-F model-validation procedure, G-G RAG index, G-H evaluator-optimizer stopping rule). All additive; no core decision reversed.
 
 ## Plan restructured (no phases)
-`ai-agent-mas-plan.md` is now a **hub**; detail split into 8 topic files: [[architecture]], [[design-loop]], [[knowledge-rag]], [[plecs-harness]], [[guardrails-and-evidence]], [[memory]], [[tech-stack]], [[evaluation-and-benchmark]]. Each fills the corresponding gap. Added README decision **A6** (explicit optimizer); SCHEMA notes the hub+topic plan structure and adds the `standards` tag.
+`ai-agent-mas-plan.md` is now a **hub**; detail split into 8 topic files: [[plan-architecture]], [[plan-design-loop]], [[plan-knowledge-rag]], [[plan-plecs-harness]], [[plan-guardrails-and-evidence]], [[plan-memory]], [[plan-tech-stack]], [[plan-evaluation-and-benchmark]]. Each fills the corresponding gap. Added README decision **A6** (explicit optimizer); SCHEMA notes the hub+topic plan structure and adds the `standards` tag.
 
-← [[changelog-index]] | [[ai-agent-mas-plan]]
+← [[changelog-index]] | [[plan-ai-agent-mas]]

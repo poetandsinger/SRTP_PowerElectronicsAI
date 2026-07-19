@@ -10,7 +10,7 @@ tags: [power-electronics, market-research, review, design-automation]
 review_by: 2026-10-17
 ---
 
-> **Preface note.** This is project motivation, not engineering. Moved out of `power-electronics/` (2026-07-17) so that folder stays a pure traction-inverter build manual. The engineering knowledge base is [[traction-inverter-index]].
+> **Preface note.** This is project motivation, not engineering. Moved out of `power-electronics/` (2026-07-17) so that folder stays a pure traction-inverter build manual. The engineering knowledge base is [[index-traction-inverter]].
 
 ## The Problem in One Paragraph
 
@@ -232,4 +232,4 @@ Three trends converge to make this viable now:
 ---
 > **References:** [[citations]]
 
-← [[agent-papers-index|Agent Architectures]] | [[traction-inverter-index|Traction Inverter Research]] → | [[README|SRTP Index]]
+← [[agent-papers-index|Agent Architectures]] | [[index-traction-inverter|Traction Inverter Research]] → | [[README|SRTP Index]]

@@ -153,4 +153,4 @@ flowchart TD
 > **References:** [[citations]]
 
 
-← [[README|Back to Index]] | [[opencode|Next: OpenCode CLI]] →
+← [[README|Back to Index]] | [[harness-opencode|Next: OpenCode CLI]] →

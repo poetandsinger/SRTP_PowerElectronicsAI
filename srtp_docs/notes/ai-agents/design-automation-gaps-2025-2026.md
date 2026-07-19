@@ -15,7 +15,7 @@ review_by: 2026-08-10
 
 # Design Automation Gaps & AI Augmentation Opportunities — 2025-2026
 
-> Directly informs the SRTP multi-agent system design in [[traction-inverter-mas-integration]]; engineering context in [[traction-inverter-index]].
+> Directly informs the SRTP multi-agent system design in [[traction-inverter-mas-integration]]; engineering context in [[index-traction-inverter]].
 
 ## Design Automation Gaps & AI Augmentation Opportunities
 

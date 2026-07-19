@@ -151,7 +151,7 @@ flowchart LR
   GATE -.->|"Kelvin source ref"| DRV
 ```
 
-Drive-rail (+15 V / −4 V), peak gate current (±10 A class), desat blanking (<1.5 µs), and reinforced isolation (≥5 kV) are gate-driver design values from IC application data [40] and the isolation-safety basis [86]; primitives (desat, Miller clamp, UVLO, soft turn-off) are detailed in [[components]] §2 and sized in [[procedure-design]] §5.
+Drive-rail (+15 V / −4 V), peak gate current (±10 A class), desat blanking (<1.5 µs), and reinforced isolation (≥5 kV) are gate-driver design values from IC application data [40] and the isolation-safety basis [86]; primitives (desat, Miller clamp, UVLO, soft turn-off) are detailed in [[circuit-components]] §2 and sized in [[procedure-design]] §5.
 
 ---
 
@@ -191,7 +191,7 @@ flowchart LR
   ADC --> FOC["FOC / safety logic"]
 ```
 
-Two-sensor vs three-sensor: two phase currents suffice (`Ia+Ib+Ic=0`) [50], but three give redundancy for ASIL and open-phase detection [85]. Sensor part-classes in [[components]] §4 and [42].
+Two-sensor vs three-sensor: two phase currents suffice (`Ia+Ib+Ic=0`) [50], but three give redundancy for ASIL and open-phase detection [85]. Sensor part-classes in [[circuit-components]] §4 and [42].
 
 ---
 

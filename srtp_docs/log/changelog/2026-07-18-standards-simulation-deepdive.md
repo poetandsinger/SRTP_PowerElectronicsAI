@@ -9,7 +9,7 @@ tags: [changelog, power-electronics, standards, plecs, simulation]
 
 # 2026-07-18 — Standards substance + PLECS simulation deep-dive
 
-Depth-first research pass over every topic in [[traction-inverter-index]], hunting the "names the thing but never says what it is" gap. The vault is mature (29-chapter textbook, cited [1]–[148]) — most chapters already carry real numbers and red-team blocks. Two chapters were the genuine offenders and got rewritten; the rest were spot-checked and left as-is.
+Depth-first research pass over every topic in [[index-traction-inverter]], hunting the "names the thing but never says what it is" gap. The vault is mature (29-chapter textbook, cited [1]–[148]) — most chapters already carry real numbers and red-team blocks. Two chapters were the genuine offenders and got rewritten; the rest were spot-checked and left as-is.
 
 ## What changed
 
@@ -24,7 +24,7 @@ Cloned **PE-MAS** ([72], `github.com/spongelovesorange/PE-MAS`) and read its rea
 
 - **[[citations]]** — added **[149]–[157]** (TI SLUAAR5 creepage; IEC 61800-5-2 functions; ISO 26262 metrics; AEC-Q101/Q100/Q200 base docs; AQG 324 04.1/2025; ISO 7637; LV123/124 + ZVEI; ISO 6469-3/R100). Reused [85][86][88][89][113][114][115][124][137][141].
 - **[[README]]** citation range [1]–[148] → **[1]–[157]**.
-- **[[traction-inverter-index]]** — bumped `updated`; fixed broken audit-changelog wikilink (`power-electronics/…` → `audits/…`).
+- **[[index-traction-inverter]]** — bumped `updated`; fixed broken audit-changelog wikilink (`power-electronics/…` → `audits/…`).
 - **[[audit-changelog-traction-inverter]]** — appended a 2026-07-18 verification section.
 
 ## Audit
@@ -36,4 +36,4 @@ Citation integrity (all refs in both files defined in citations.md) ✅ · wikil
 - `what-is-a-traction-inverter.md` uses ASCII block diagrams where SCHEMA prefers mermaid (content is correct; purely cosmetic).
 - The paywalled exact values flagged **[TPS]/NOT-FOUND** in the standards chapter remain to be confirmed against purchased standard texts + the program's own EMC/HV spec.
 
-← [[changelog-index]] | [[traction-inverter-index]]
+← [[changelog-index]] | [[index-traction-inverter]]

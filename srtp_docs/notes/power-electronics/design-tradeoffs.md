@@ -37,9 +37,9 @@ You are optimizing, simultaneously and in tension:
 ## The Big Decisions
 
 ### 1. Device — Si IGBT vs SiC MOSFET vs GaN
-- **Buy with SiC:** 50–70% lower switching loss, higher fsw → smaller passives, far better **partial-load** efficiency (unipolar, no tail current) [[components]] §1.2, [28].
+- **Buy with SiC:** 50–70% lower switching loss, higher fsw → smaller passives, far better **partial-load** efficiency (unipolar, no tail current) [[circuit-components]] §1.2, [28].
 - **Pay:** 1.5–2.5× device $/A (falling) [29]; faster dv/dt → worse EMI and motor-insulation stress [54][87]; lower short-circuit withstand (3–5 µs vs 10 µs) → harder protection [40].
-- **Rule:** SiC wins at **high voltage/power and cycle-efficiency-critical** designs; IGBT still rational **<100 kW, 400 V, cost-first** [[reference-design-nissan-leaf-400v-igbt]]; GaN not yet traction-ready (650 V, current limits) [[components]] §1.3.
+- **Rule:** SiC wins at **high voltage/power and cycle-efficiency-critical** designs; IGBT still rational **<100 kW, 400 V, cost-first** [[reference-design-nissan-leaf-400v-igbt]]; GaN not yet traction-ready (650 V, current limits) [[circuit-components]] §1.3.
 
 ### 2. Voltage class — 400 V vs 800 V
 - **Buy with 800 V:** half the current for a given power → lower I²R and busbar/connector loss, faster charging; higher density [28].
@@ -64,7 +64,7 @@ You are optimizing, simultaneously and in tension:
 ### 6. Cooling — single vs double-sided, pin-fin vs jet
 - **Buy with better cooling:** higher continuous current from the same silicon (Zth-limited) → smaller/cheaper module for a power target [25].
 - **Pay:** complexity, cost, pumping, packaging volume.
-- **Rule:** pin-fin water-glycol is the default (10–20 kW/L); jet-impingement/double-sided when density-limited (Tesla/Lucid) [[components]] §6.1, [94].
+- **Rule:** pin-fin water-glycol is the default (10–20 kW/L); jet-impingement/double-sided when density-limited (Tesla/Lucid) [[circuit-components]] §6.1, [94].
 
 ### 7. Module architecture — many small vs few large
 - **Many small 2-in-1 (Tesla, 24 modules):** spreads heat/current, uses mature small die, easy paralleling [94].
@@ -107,4 +107,4 @@ You are optimizing, simultaneously and in tension:
 
 > **References:** [[citations]]
 
-← [[procedure-design]] | [[reference-designs-index]] | [[circuit-topologies]] →
+← [[procedure-design]] | [[index-reference-designs]] | [[circuit-topologies]] →

@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-A **priced** version of the component-class BOM ([[bom]]) for the SiC 2L-B6 reference designs. Each line carries a representative part, a **single-unit distributor price** with its source and date, and a note where the price is an estimate. It gives an LLM designing a board real cost anchors — with the critical caveat below.
+A **priced** version of the component-class BOM ([[bom-2l-b6-sic]]) for the SiC 2L-B6 reference designs. Each line carries a representative part, a **single-unit distributor price** with its source and date, and a note where the price is an estimate. It gives an LLM designing a board real cost anchors — with the critical caveat below.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training-knowledge estimate. Prices accessed **2026-07-17** via DigiKey [98] unless noted; they go stale — re-pull before use.
 
@@ -49,7 +49,7 @@ A **priced** version of the component-class BOM ([[bom]]) for the SiC 2L-B6 refe
 | **Distributor 1-off** [98] | ~$2,700 (3× module) | ~$300–600 | **~$3,000–3,300** | prototype budget only |
 | **OEM volume (illustrative)** [94] | far lower (5–10×) | lower | **~$500–1,000** class | cf. Tesla inverter ~$810 (2018, 211 kW) [94] |
 
-The switch dominates either way — which is why device selection and loss/thermal design (how much silicon you must buy) is where cost is won [28][43], [[bom]] §7.
+The switch dominates either way — which is why device selection and loss/thermal design (how much silicon you must buy) is where cost is won [28][43], [[bom-2l-b6-sic]] §7.
 
 ---
 
@@ -77,4 +77,4 @@ PE-MAS ships DigiKey / Nexar-Octopart data adapters (handoff §7). This note is 
 
 > **References:** [[citations]]
 
-← [[bom]] | [[reference-design-wolfspeed-ti-300kw-800v]] →
+← [[bom-2l-b6-sic]] | [[reference-design-wolfspeed-ti-300kw-800v]] →

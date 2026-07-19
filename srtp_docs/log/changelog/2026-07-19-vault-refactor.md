@@ -41,7 +41,7 @@ Field now lives in frontmatter and one shallow subfolder inside `sources/` and `
 
 **4. Density pass.** Filler and hedging cut across 70 living notes (`notes/`, `trials/`, `plans/`); `sources/` (immutable) and `log/` (historical) excluded. The corpus was already schema-dense, so gains were targeted, not bulk.
 
-**5. Doc + fix.** [[SCHEMA]] and [[README]] rewritten to the new model; duplicate `Major OEM Inverter Designs` heading in [[traction-inverter-index]] removed.
+**5. Doc + fix.** [[SCHEMA]] and [[README]] rewritten to the new model; duplicate `Major OEM Inverter Designs` heading in [[index-traction-inverter]] removed.
 
 ## Verification
 

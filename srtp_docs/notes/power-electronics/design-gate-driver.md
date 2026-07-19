@@ -12,7 +12,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-The gate-driver deep-dive: rails, resistor sizing, protection, isolation, bias, real ICs, worked example. Behind [[components]] §2 and [[procedure-design]] §5. Reference device: Wolfspeed CAB450M12XM3 (1200 V/450 A SiC) — all its electrical values below are datasheet-sourced [92].
+The gate-driver deep-dive: rails, resistor sizing, protection, isolation, bias, real ICs, worked example. Behind [[circuit-components]] §2 and [[procedure-design]] §5. Reference device: Wolfspeed CAB450M12XM3 (1200 V/450 A SiC) — all its electrical values below are datasheet-sourced [92].
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge; `[derived]` → computed here.
 
@@ -106,4 +106,4 @@ All fit UCC5880-Q1 (20 A) and 1ED3491 (9 A); NCV57000 (~7.8 A) only covers Rg,ex
 
 > **References:** [[citations]]
 
-← [[components]] | [[schematics]] | [[protection-and-safety]] →
+← [[circuit-components]] | [[schematics]] | [[protection-and-safety]] →

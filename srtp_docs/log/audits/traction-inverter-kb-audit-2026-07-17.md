@@ -14,8 +14,8 @@ Audit of `power-electronics/traction-inverter/` after the 2026-07-17 design pass
 ## 1. What This Pass Did
 
 - **Restructured:** `power-electronics/` now holds **only** traction-inverter engineering. Moved `problem-statement/` → vault root (preface); confirmed `market-trends`/`matlab-modeling`/`simulation-toolbox`/`topology-landscape` already deleted (consolidated).
-- **Added design cluster:** [[procedure-design]], [[schematics]] (mermaid), [[bom]], [[bom-price-database]].
-- **Added reference designs:** [[reference-designs-index]] + 3 real ([[reference-design-wolfspeed-ti-300kw-800v|Wolfspeed/TI 300kW]], [[reference-design-tesla-model3-400v-sic|Tesla]], [[reference-design-nissan-leaf-400v-igbt|Nissan Leaf]]) alongside the synthetic anchor.
+- **Added design cluster:** [[procedure-design]], [[schematics]] (mermaid), [[bom-2l-b6-sic]], [[bom-price-database]].
+- **Added reference designs:** [[index-reference-designs]] + 3 real ([[reference-design-wolfspeed-ti-300kw-800v|Wolfspeed/TI 300kW]], [[reference-design-tesla-model3-400v-sic|Tesla]], [[reference-design-nissan-leaf-400v-igbt|Nissan Leaf]]) alongside the synthetic anchor.
 - **Researched "why AI":** updated [[problem-statement-index]] with sourced workforce [97], market [96], and demonstrated-capability [60][81][61] evidence; softened the unsourced cost/time figures.
 - **Citations [91]–[100]** added for reference designs, prices, market, workforce.
 
@@ -37,7 +37,7 @@ Audit of `power-electronics/traction-inverter/` after the 2026-07-17 design pass
 1. **Nothing is PLECS-validated.** Every efficiency/THD/thermal/current number is closed-form or teardown-reported. The handoff makes PLECS the ground truth; until the 2L-B6 model runs at 3 corners, the manual is a *design scaffold*, not verified. → build the model against the Wolfspeed/TI CRD metrics (>98%, 32 kW/L) as calibration [91].
 2. **Motor parameters are `[T]` placeholders.** No real IPMSM datasheet; every operating point inherits this. → obtain one datasheet or PLECS saturation-LUT machine.
 
-**P1 — CLOSED in the 2026-07-17 textbook pass (2):** dedicated, web-researched, cited chapters added — [[thermal-design]], [[gate-driver-design]], [[protection-and-safety]] (with safety-factor/derating table), [[emi-emc-design]], [[packaging-and-layout]], plus [[design-tradeoffs]] ("how to compromise") and a second [[worked-example-400v-150kw]]. Citations [101]–[126] added (real datasheet/app-note/standard/paper sources). "research synthesis"-style meta files removed; two research-pass filenames renamed to clean chapter names.
+**P1 — CLOSED in the 2026-07-17 textbook pass (2):** dedicated, web-researched, cited chapters added — [[thermal-design]], [[design-gate-driver]], [[protection-and-safety]] (with safety-factor/derating table), [[design-emi-emc]], [[packaging-and-layout]], plus [[design-tradeoffs]] ("how to compromise") and a second [[worked-example-400v-150kw]]. Citations [101]–[126] added (real datasheet/app-note/standard/paper sources). "research synthesis"-style meta files removed; two research-pass filenames renamed to clean chapter names.
 
 **P1 — still open:**
 6. **Full board BOM** — BOM is class-level + price DB; snubbers, sense conditioning, protection ICs, connectors, passives still not enumerated. The TI TIDUF23A design guide has a complete BOM not yet parsed [91].
@@ -71,4 +71,4 @@ The folder is now a **dense, cited 2L-B6 SiC textbook** (**29 chapters**): funda
 
 > **References:** [[citations]]
 
-← [[traction-inverter-index]] | [[catalog.base]] | [[ai-agent-docs-audit-2026-07-17]]
+← [[index-traction-inverter]] | [[catalog.base]] | [[ai-agent-docs-audit-2026-07-17]]

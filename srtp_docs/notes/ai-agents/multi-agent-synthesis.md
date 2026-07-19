@@ -7,7 +7,7 @@ updated: 2026-07-19
 status: unverified
 evidence: single-study
 tags: [ai-agents, multi-agent, architecture, patterns, synthesis, review]
-sources: [ai-agents/harness/hermes-agent, ai-agents/harness/claude-code, ai-agents/harness/opencode, ai-agents/harness/langgraph, ai-agents/harness/crewai, ai-agents/harness/autogen, sources/ai-agents/masrouter-2025-llm-routing, sources/ai-agents/evoagent-2025-evolutionary-delegation, sources/ai-agents/pe-mas-flyback-mas]
+sources: [notes/ai-agents/harness-hermes-agent, notes/ai-agents/harness-claude-code, notes/ai-agents/harness-opencode, notes/ai-agents/harness-langgraph, notes/ai-agents/harness-crewai, notes/ai-agents/harness-autogen, sources/ai-agents/masrouter-2025-llm-routing, sources/ai-agents/evoagent-2025-evolutionary-delegation, sources/ai-agents/pe-mas-flyback-mas]
 review_by: 2026-08-09
 ---
 
@@ -17,7 +17,7 @@ review_by: 2026-08-09
 
 > **2026-07-09:** Discovered PE-MAS (github.com/spongelovesorange/PE-MAS) — a working LangGraph-based multi-agent system for flyback converter design. Validates 12 of our architectural proposals with real code. See [[pe-mas-flyback-mas]] for full analysis.
 
-> ⚠️ **2026-07-17 PLECS pivot + corrections (read first).** Authoritative: [[ai-agent-mas-plan]] + [[ai-agent-docs-audit-2026-07-17]].
+> ⚠️ **2026-07-17 PLECS pivot + corrections (read first).** Authoritative: [[plan-ai-agent-mas]] + [[ai-agent-docs-audit-2026-07-17]].
 > - Every **"MATLAB Agent" / "MATLAB Simulation Agent" / MATLAB Engine API** reference below is superseded by the **PLECS Simulation Agent** (XML-RPC/MCP; [[plecs-integration]]).
 > - §5.1's "upgrades our architecture from C3 to C4" is **withdrawn** — the hybrid result is a coding benchmark; domain claims stay C3 (audit §3).
 > - Framework currency has moved: LangGraph 1.0 durable execution, MS Agent Framework, AgentSlimming — see [[agent-frameworks-2026-currency]].
@@ -135,7 +135,7 @@ app = workflow.compile(checkpointer=SqliteSaver.from_conn_string("research.db"))
 
 **Source:** CrewAI's `Agent(role=..., goal=..., backstory=..., memory=True)` + `Task(context=[prev_task])`.
 
-**⚠️ Memory system update (verified 2026-07-09 from source):** CrewAI replaced short-term/long-term/entity memory with a **unified LLM-analyzed memory** system (`Memory` class in `unified_memory.py`). The LLM extracts discrete memories from raw content, infers scope/categories/importance via `EncodingFlow`, and retrieves via `RecallFlow` with adaptive depth. Composite scoring (recency 30% + semantic 50% + importance 20%) with exponential recency decay. Storage is LanceDB (vector DB). See [[crewai]] for details.
+**⚠️ Memory system update (verified 2026-07-09 from source):** CrewAI replaced short-term/long-term/entity memory with a **unified LLM-analyzed memory** system (`Memory` class in `unified_memory.py`). The LLM extracts discrete memories from raw content, infers scope/categories/importance via `EncodingFlow`, and retrieves via `RecallFlow` with adaptive depth. Composite scoring (recency 30% + semantic 50% + importance 20%) with exponential recency decay. Storage is LanceDB (vector DB). See [[harness-crewai]] for details.
 
 **Pattern 1 — Role-based agents:** Agents defined by human-understandable roles:
 ```python
@@ -352,8 +352,8 @@ No single existing system combines these. The SRTP agent is a synthesis.
 
 ---
 
-> **References:** [[citations]] — [3][4] Claude Code, [6] Codex CLI, [7][8] LangGraph, [9] CrewAI, [10] AutoGen, [12] smolagents, [[hermes-agent]]
+> **References:** [[citations]] — [3][4] Claude Code, [6] Codex CLI, [7][8] LangGraph, [9] CrewAI, [10] AutoGen, [12] smolagents, [[harness-hermes-agent]]
 
 ---
 
-← [[comparative-analysis]] | [[ai-agent-mas-plan|AI-Agent MAS Plan →]]
+← [[harness-comparison]] | [[plan-ai-agent-mas|AI-Agent MAS Plan →]]

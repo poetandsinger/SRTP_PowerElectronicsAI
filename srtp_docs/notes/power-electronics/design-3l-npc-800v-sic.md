@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Note Is
 
-**Track 4 topology unit** (`design-<topology>-<voltage>-<device>`): an 800 V-class **3-level diode-clamped NPC** traction inverter, sized to the same 150 kW anchor as [[design-2l-b6-800v-sic]]. **Planned, not yet built** — populated when Track 4 of [[depth-research-plan]] runs. NPC is the classic three-level baseline against which TNPC and ANPC are the evolutions. Topology catalogue: [[circuit-topologies]] §2.
+**Track 4 topology unit** (`design-<topology>-<voltage>-<device>`): an 800 V-class **3-level diode-clamped NPC** traction inverter, sized to the same 150 kW anchor as [[design-2l-b6-800v-sic]]. **Planned, not yet built** — populated when Track 4 of [[plan-depth-research]] runs. NPC is the classic three-level baseline against which TNPC and ANPC are the evolutions. Topology catalogue: [[circuit-topologies]] §2.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training; **[derived]** → in [[procedure-design]]; **[TBD-PLECS]** → produced by the Track-4 model.
 
@@ -59,4 +59,4 @@ review_by: 2026-10-17
 
 > **References:** [[citations]]
 
-← [[circuit-topologies]] | [[design-2l-b6-800v-sic]] | [[depth-research-plan]] →
+← [[circuit-topologies]] | [[design-2l-b6-800v-sic]] | [[plan-depth-research]] →

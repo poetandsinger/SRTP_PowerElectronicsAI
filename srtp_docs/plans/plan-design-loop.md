@@ -9,7 +9,7 @@ tags: [plan, ai-agents, multi-agent, plecs, design-automation]
 
 # The Design Loop
 
-> Topic of [[ai-agent-mas-plan]]. Fills G-A (missing optimizer), G-B (black-box design), G-H (unnamed evaluator-optimizer). Research basis: [[design-loop-architecture]], [[agentic-workflow-patterns]].
+> Topic of [[plan-ai-agent-mas]]. Fills G-A (missing optimizer), G-B (black-box design), G-H (unnamed evaluator-optimizer). Research basis: [[design-loop-architecture]], [[agentic-workflow-patterns]].
 
 ## 1. Three internal stages (inside PLAN→DESIGN)
 
@@ -45,11 +45,11 @@ The LLM owns ① (and the structural decisions in ②) — the irreducible reaso
 ## 3. The evaluator-optimizer contract (gap G-H)
 
 Name it plainly ([[agentic-workflow-patterns]] §3):
-- **Rubric** = the evidence gates ([[guardrails-and-evidence]]) — explicit, measurable.
+- **Rubric** = the evidence gates ([[plan-guardrails-and-evidence]]) — explicit, measurable.
 - **Judge** = the Validator's **k=3 consensus** on a **separate model/context** from the generator (DRCY).
 - **Optimizer** = stage ③ (numerical) for params; the Planner/Designer LLM for structure/architecture.
 - **Stopping rule:** stop when all gates pass, OR `iteration == max_iter` (return **best_candidate**), OR the Planner declares the spec infeasible with cited reason. Always track `best_candidate` (PE-MAS).
-- **Trace compaction:** each iteration compacts its reasoning trace ([[memory]]) so the loop does not reinflate context (AnalogSAGE Compression Module).
+- **Trace compaction:** each iteration compacts its reasoning trace ([[plan-memory]]) so the loop does not reinflate context (AnalogSAGE Compression Module).
 
 ## 4. Failure→stage routing (the `iterate` edge)
 
@@ -69,4 +69,4 @@ Explicit mapping, **not** learned routing — enough at this depth ([[agentic-wo
 - **design_new:** full ①→②→③.
 - **iterate_existing:** parse the supplied design into state, **skip ① unless the user asks to reconsider topology**, enter at ② (refine) / ③ (optimize) to improve it. Acceptance: the iterate path demonstrably improves a supplied design on at least one gate without regressing others.
 
-← [[ai-agent-mas-plan]] | [[architecture]] | [[guardrails-and-evidence]] | [[design-loop-architecture]]
+← [[plan-ai-agent-mas]] | [[plan-architecture]] | [[plan-guardrails-and-evidence]] | [[design-loop-architecture]]

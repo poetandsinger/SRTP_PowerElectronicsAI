@@ -14,6 +14,27 @@ tags: [schema, index]
 
 ---
 
+## Navigating this vault (CLI)
+
+> **Frontmatter is the index.** Filter on `field`/`type`/`status`/`tags` with ripgrep; the **descriptive filename** carries the specifics to pick the exact note. Category lives in metadata — never duplicated as a filename taxonomy.
+
+| Axis | Question | Command | Vocabulary |
+|------|----------|---------|------------|
+| **Broad** | domain? | `rg -l "^field: X"` | `power-electronics` · `ai-agents` · `problem-statement` · `project` · `root` |
+| **Kind** | note type? | `rg -l "^type: X"` | `source` · `claim` · `topic` · `map` · `trial` · `plan` · `changelog` · `audit` |
+| **Maturity** | how proven? | `rg -l "^status: X"` | `supported` · `contested` · `refuted` · `unverified` |
+| **Topic** | about what? | `rg -l "^tags:.*\bTAG\b"` | any [Tag Taxonomy](#tag-taxonomy) tag (`sic`, `thermal`, `three-level`…) |
+| **Specific** | which note? | `obsidian files` / glob → open | the descriptive filename |
+| content · graph | text · related | `obsidian search query="…"` · `obsidian backlinks file="…"` | — |
+
+**Two-step:** filter, then pick by filename — `rg -l "^tags:.*\bthree-level\b" notes/power-electronics/` → open `design-3l-anpc-800v-sic`. Intersect axes with `comm -12 <(rg -l …) <(rg -l …)`.
+
+> ⚠️ Filtering is **`rg` on frontmatter**, not Obsidian: `obsidian search "#tag"` and `base:query` return no file list (`obsidian tags` gives only facet counts). `.base` files render in-app and read the same frontmatter, so they never disagree with `rg`.
+
+**Hubs** (`type: map`): [[index-traction-inverter]] · [[harness-index]] · [[agent-papers-index]] · [[index-reference-designs]] · [[problem-statement-index]] · [[changelog-index]] · [[plan-ai-agent-mas]] · [[README]].
+
+---
+
 ## Folder = Stage
 
 The top-level folder a note lives in **is** its lifecycle **stage**. `field` lives in frontmatter, mirrored by one shallow subfolder inside `sources/` and `notes/`. Bases — not deep folders — do the indexing.
@@ -190,34 +211,35 @@ Every tag must already exist here. Add to the list first, then use.
 - *Performance:* `efficiency`, `thd`, `ripple`, `emi`, `power-factor`, `dvdt`, `switching-loss`
 - *Standards:* `ieee`, `iec`, `iso`, `mil-std`, `aec-q`, `standards`
 - *Domain:* `traction-inverter`, `market-research`
-- *Design:* `design`, `reference-design`, `schematic`, `bom`, `sizing`, `busbar`, `protection`, `packaging`, `example`, `trade-off`, `reliability`
+- *Design:* `design`, `reference-design`, `schematic`, `bom`, `sizing`, `busbar`, `protection`, `packaging`, `example`, `trade-off`, `reliability`, `cost`
 - *Method:* `tuning`
 
 **AI / Agent Architecture**
 - *Frameworks:* `claude-code`, `codex-cli`, `opencode`, `hermes-agent`, `langgraph`, `crewai`, `autogen`
 - *Concepts:* `multi-agent`, `tool-calling`, `delegation`, `orchestration`, `subagent`
 - *Architecture:* `architecture`, `patterns`, `comparison`, `integration`, `gui-vs-cli`
-- *Engineering AI:* `plecs`, `simulation`, `code-generation`, `design-automation`, `engineering-ai`
+- *Engineering AI:* `plecs`, `simulation`, `code-generation`, `design-automation`, `engineering-ai`, `ai`, `machine-learning`
 
 **Cross-cutting**
 - *Method:* `experiment`, `simulation`, `theory`, `dataset`, `benchmark`, `review`
 - *Evidence:* `replication`, `reproducibility`, `ablation`, `baseline`, `n-size`
-- *Meta:* `contested`, `open-problem`, `sota`, `prediction`, `preprint`, `retracted`, `index`, `audit`, `synthesis`
-- *Operational:* `plan`, `changelog`
+- *Meta:* `contested`, `open-problem`, `sota`, `prediction`, `preprint`, `retracted`, `index`, `audit`, `synthesis`, `gaps`
+- *Operational:* `plan`, `changelog`, `implementation`
 
 ---
 
 ## Naming & Linking
 
 - **Filenames are kebab-case** — `traction-inverter-index.md`, never `Traction Inverter Index.md`.
+- **Filenames describe the *specifics*, not the category** — category lives in frontmatter (the index; see [Navigating this vault](#navigating-this-vault-cli)). Name the exact subject so it's pickable from a listing without opening (`3l-anpc-800v-sic`, not `topology-note`). Prefixes (`index-`, `plan-`) and the schemes below are **optional sugar**, never a second taxonomy to sync.
 - **Basenames are globally unique.** This is the invariant that makes the next rule safe — check it before naming a new note.
 - **Wikilinks are bare basenames** — `[[components]]`, never a path. Files then move between folders without breaking a link. Labels and anchors are fine: `[[components|Label]]`, `[[components#Section]]`.
 - **Sources are referenced by path** in the `sources:` list, matching the file under `sources/<field>/`.
 - **Titles are specific** — the `title:` names the exact subject, not a generic word (`3L-ANPC · 18-switch · 800 V SiC Traction Inverter`, not `ANPC`).
 
-### Naming schemes (power-electronics design cluster)
+### Naming schemes (optional, power-electronics design cluster)
 
-Where a family of notes shares a shape, the filename follows a fixed scheme so the set groups and sorts together:
+These are **optional conventions**, not requirements — filtering is done on frontmatter, not filenames. Where a family of notes shares a shape, the filename *may* follow the scheme below so the set reads consistently and the specifics are legible at a glance:
 
 | Scheme | For | Example |
 |--------|-----|---------|
@@ -247,9 +269,10 @@ flowchart TD
     A -. "conflicts with another note?" .-> C["set contradicts: ·<br/>both notes stand"]
 ```
 
+- **The index *is* the frontmatter — keep it correct on every change.** On create/rename/delete, in the same pass set `field`/`type`/`status`/`tags` (controlled vocab) and link the note from its `map` hub. `.base`, `obsidian tags`, and `rg` all read this frontmatter — nothing else to regenerate, nothing to drift. New tags enter the [Tag Taxonomy](#tag-taxonomy) **first**.
 - **Contradictions surface, never overwrite** — set `contradicts:` and let both notes stand.
 - **Delete** superseded *operational* docs (git keeps history). **Never delete** a research note that was ever `supported` or `contested` — mark it `refuted` and link its replacement.
 
 ---
 
-← [[README]] | [[catalog.base]] | [[traction-inverter-index]] | [[harness-index]]
+← [[README]] | [[catalog.base]] | [[index-traction-inverter]] | [[harness-index]]

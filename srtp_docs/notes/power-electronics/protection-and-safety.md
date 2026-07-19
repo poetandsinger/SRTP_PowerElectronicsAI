@@ -13,7 +13,7 @@ review_by: 2026-10-17
 
 ## What This Is
 
-Every protection layer and the **safety factors / derating** behind them. Consolidates the safety threads from [[procedure-design]] §7, [[gate-driver-design]], and [[control-schemes]] §6. The baseline utilization — **800 V bus on 1200 V SiC = 67% of rating** — is the anchor; this chapter is why 67%, not 85%, is the sweet spot.
+Every protection layer and the **safety factors / derating** behind them. Consolidates the safety threads from [[procedure-design]] §7, [[design-gate-driver]], and [[control-schemes]] §6. The baseline utilization — **800 V bus on 1200 V SiC = 67% of rating** — is the anchor; this chapter is why 67%, not 85%, is the sweet spot.
 
 **Citation convention:** `[NN]` → [[citations]]; `[T]` → training knowledge.
 
@@ -35,7 +35,7 @@ The hard reason SiC is not run near its rated voltage even when *static* blockin
 ## 3. Overcurrent / Short-Circuit
 
 - **SCWT < 3 µs** (Wolfspeed FM3: **2.9 µs @ 800 V/175 °C**), falls with bus voltage; critical SC energy ~constant ~**1.4 J** [110]. Fault current `ID,sat ≈ 1050 A (>11× rated)` [110].
-- **DESAT** detects in ~300 ns; detect+**soft turn-off must finish inside 1–3 µs** [110][126], [[gate-driver-design]] §3.
+- **DESAT** detects in ~300 ns; detect+**soft turn-off must finish inside 1–3 µs** [110][126], [[design-gate-driver]] §3.
 - **Failure if too slow:** thermal runaway (top-metal reflow→short), gate-oxide crack, parasitic-BJT latch [110].
 
 ## 4. Overvoltage
@@ -98,4 +98,4 @@ Common strategy: freewheel at low speed, ASC at high speed; hybrid schemes injec
 
 > **References:** [[citations]]
 
-← [[gate-driver-design]] | [[procedure-design]] | [[standards-and-compliance]] →
+← [[design-gate-driver]] | [[procedure-design]] | [[standards-and-compliance]] →
