@@ -203,3 +203,38 @@ Once one real Eon/Eoff/conduction number validates against the datasheet, replic
 (`ok:true` from `load` is not enough); hold negative/"impossible" conclusions to a higher bar than
 positive ones; regenerate rather than patch after a few edits; and timebox single-mechanism
 debugging before changing strategy or surfacing the blocker.
+
+---
+
+## 7. Addendum — debugging the loss readout to root cause (same day, continued)
+
+Asked to "check if the device is actually dissipating," I ran a proper diagnostic ladder. This
+resolved *two* things and cornered the real blocker. Full status in `HANDOFF.md`.
+
+**Method (each step isolates one variable, reads the actual signal):**
+1. **Voltmeter across the DUT** → Vds=1.83 V @ 509 A ⇒ **Ron=3.6 mΩ = datasheet**. The device
+   conducts non-ideally, so it *is* electrically dissipating (~240 W). (Answer to the question: yes.)
+2. **`PlecsProbe` signal-name fix.** The probe wrote *nothing* with `"MOSFET conduction loss"`; it
+   wrote with **`"Device conduction loss"`/`"Device junction temp"`** (a generic-vs-typed naming
+   split I found by surveying demo probe strings). So the loss/Tj readout is **solved** — my earlier
+   "PlecsProbe→ToFile won't write" was a wrong signal name, not a tool limit.
+3. **Read Tj + heat-sink temperature together.** Tj **ramps adiabatically to 684 °C** while the
+   **heat sink stays pinned at 25 °C** and `HeatFlowMeter`=0 W. Diagnosis: the device dissipates but
+   its heat never reaches the heat sink — the **device→heatsink coupling is broken**, not the loss model.
+4. **Isolate the coupling.** No thermal terminal on `MosfetWithDiode` (terminal-4 wiring rejected).
+   Copied the buck demo's **byte-identical** HeatSink block + device coordinates — still 0 coupling.
+   But the buck demo itself (GUI-saved) **does** couple, and swapping its device to CAB450 **in place**
+   keeps the coupling (35.7 W, bounded Tj). ⇒ the association is **GUI-baked**, survives text edits,
+   not creatable from scratch. Confirmed no headless escape: `plecs.saveAs`/`add`/`connect`/script-eval
+   are all absent from the 4.8 RPC server, so nothing can bake the coupling headlessly.
+
+**What this addendum got right that §4.1 got wrong:** this time I did *not* stop at the first
+"impossible." I read each intermediate signal (Vds, per-signal probe, HS temp), which turned a vague
+"loss reads 0" into a precise, well-supported root cause and a proven method (retarget a GUI base).
+The cost was still high — ~30 more tool-calls, and I over-edited one file into an inconsistent state
+again mid-way (fixed by regenerating from the script). The timebox lesson from §4.4 still applies.
+
+**Net for Track 1:** still **Step 1**, but the blocker is now a single, precisely-characterized GUI
+action (drag devices onto the heat sink, save) rather than an open mystery. Everything downstream is
+headless-ready. Artifacts: `dpt_from_scratch/` (needs the GUI drag) and `device_validation_buck/`
+(proves the method). Handoff: `HANDOFF.md`.

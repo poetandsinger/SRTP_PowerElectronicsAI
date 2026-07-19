@@ -145,14 +145,20 @@ were needed: (a) the device must be a **`MosfetWithDiode`** block, not `Mosfet` 
 Diode" class); (b) `Frame` must precede `Parameter`s in **every** block. Verified: `dpt_cab450_600v.plecs`
 runs headless and captures the correct **509 A** double-pulse current ramp.
 
-**OPEN ITEM (unresolved):** the **loss readout reads zero**. `SwitchLossCalculator` (with empty
-`Signals{}`) outputs 0; `PlecsProbe(device, {"MOSFET conduction loss",...})` writes no CSV at all
-(the switching-loss signal is a Dirac impulse that a `ToFile` won't serialize; even conduction+Tj
-alone won't write via a probe→ToFile); a `HeatFlowMeter` in the HS→ambient path reads 0 W total
-loss despite the device conducting 450 A. Root cause not yet found — candidate: the loss isn't
-reaching the measured thermal path, or the probe signal-set needs GUI configuration. **This is the
-one remaining blocker for a real Eon/Eoff/Tj number.** Everything else (circuit, gate, current
-capture, model loading, heat-sink coupling) is proven headless.
+**UPDATE — root-caused; see `HANDOFF.md` for the authoritative status.** Two things resolved and
+one real blocker isolated:
+- **Loss/Tj readout SOLVED:** `PlecsProbe` writes fine with the **`"Device conduction loss"`,
+  `"Device switching loss"`, `"Device junction temp"`** signal names (my earlier `"MOSFET …"` names
+  produced no output — a generic-vs-typed naming split). Heat sink temperature = `"Temperature"`.
+- **Device dissipates correctly:** a Voltmeter across the DUT gives Vds=1.83 V @ 509 A → Ron=3.6 mΩ,
+  exactly the datasheet.
+- **THE blocker — device→heatsink coupling is GUI-baked, not scriptable.** Authored from scratch, the
+  device does not thermally couple to the heat sink (heat sink pinned at 25 °C, Tj runs away to
+  684 °C, heat flow 0) — even with the buck demo's **byte-identical** HeatSink + device geometry. The
+  GUI-saved buck demo *does* couple and the coupling *survives* text-swapping its device to CAB450
+  (35.7 W, bounded Tj). No headless workaround (`plecs.saveAs`/`add`/`connect`/script-eval absent from
+  the 4.8 RPC server). **Method: build the device-on-heatsink coupling once in the GUI, save, then
+  retarget headlessly.** Full evidence + next steps: `HANDOFF.md`.
 
 ## 3. Retarget to the 800 V SiC operating point
 

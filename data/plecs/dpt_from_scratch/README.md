@@ -1,52 +1,32 @@
 # From-scratch CAB450 double-pulse test (Track-1, SOP corner 1)
 
-`dpt_cab450_600v.plecs` — a from-scratch double-pulse test built **fully headless** (2026-07-19,
-raw `.plecs` text + XML-RPC) to validate the Wolfspeed **CAB450M12XM3** switching/conduction losses
-against its datasheet — the foundational loss validation for the 2L-B6 SiC build
-([[design-2l-b6-800v-sic]]).
+`dpt_cab450_600v.plecs` — a from-scratch double-pulse test built headless to validate the
+Wolfspeed **CAB450M12XM3** losses vs its datasheet. **Read `../HANDOFF.md` for the full status.**
 
-## What it is
+## What works (headless, verified)
 
-A half-bridge leg of two **`MosfetWithDiode`** blocks (both `file:CAB450M12XM3`, Rgon=4/Rgoff=0):
-- **Vdc** 600 V (the datasheet's tabulated switching-loss condition), stiff source.
-- **L** 100 µH from DC+ to the switch node (`di/dt = 6 A/µs`).
-- **Shigh** freewheel (gate = 0 → body diode freewheels); **Slow** = DUT.
-- **Gate** = `Clock`→`Function` double pulse: ON `[5,80] µs` (ramp to ~450 A) then `[90,100] µs`.
-- Both devices enclosed in a `HeatSink` frame → `HeatFlowMeter` → `ConstantTemperature 25 °C` → `ThermalGround`.
-- `Ammeter`(L) → ToFile (`dpt_cur.csv`); `HeatFlowMeter` → ToFile (`dpt_loss.csv`).
+- Half-bridge leg of two **`MosfetWithDiode`** blocks (`file:CAB450M12XM3`, Rgon=4/Rgoff=0), 600 V,
+  100 µH load, `Clock`→`Function` double-pulse gate.
+- Builds, loads, simulates. **Current capture correct: 509 A peak ramp.**
+- **Device dissipates correctly** — Voltmeter across the DUT gives Vds=1.83 V @ 509 A → **Ron=3.6 mΩ,
+  exactly the CAB450 datasheet value**.
+- **Loss/Tj readout solved:** a `PlecsProbe` with signal names **`"Device conduction loss"`,
+  `"Device junction temp"`** → `ToFile` writes fine. (The earlier `"MOSFET …"` names were wrong and
+  silently produced no output.)
 
-## Status (verified headless)
+## The one blocker (needs the GUI — see `../HANDOFF.md`)
 
-- ✅ **Builds, loads, and simulates fully headless** — no GUI step needed.
-- ✅ **Current capture correct**: 509 A peak double-pulse ramp.
-- ✅ Heat-sink coupling by **spatial enclosure works from `.plecs` text** (device inside the
-  HeatSink `Frame`) — contradicting an earlier (wrong) conclusion; see below.
-- ❌ **Loss readout reads 0** — the one open blocker (see below).
+Device→heatsink coupling does **not** reproduce from scratch-scripted `.plecs`: the heat sink stays
+pinned at 25 °C while **Tj runs away to 684 °C** (adiabatic) and heat flow = 0. This persists even
+with the buck-thermal demo's **byte-identical** HeatSink + device geometry. Root cause: the
+device-on-heat-sink association is a **GUI-baked** thing (it survives text edits to a GUI-saved base —
+see `../device_validation_buck/`). No headless workaround (the 4.8 RPC server has no save/add/connect).
 
-## Three fixes that were needed (each a real PLECS gotcha)
+**To finish:** open this file in the PLECS GUI, drag `Shigh` and `Slow` onto the `HS` heat sink until
+they highlight as coupled, save. Then headless: run it and read `dpt_dev.csv` → validate Eon≈25.4 /
+Eoff≈7.51 mJ (600 V, 450 A, 25 °C).
 
-1. **`Frame` placement.** `Frame` must come **immediately after `LabelPosition`**, *before* the
-   `Parameter` blocks. Emitting it after the parameters gives *"syntax error before 'Frame'"* and
-   PLECS **silently removes the component** on load. This bug removed the HeatSink, which produced
-   the misleading *"place the component on an active heat sink"* error and my earlier false
-   conclusion that heat-sink coupling needs the GUI. **It does not.**
-2. **Block type.** The CAB450 model is class `"MOSFET with Diode"` (gate-dependent conduction). It
-   requires a **`MosfetWithDiode`** block. Both `Igbt` *and plain* `Mosfet` reject it
-   (*"Gate dependent conduction losses are not supported for this device type"*), and the library
-   `2-Level IGBT Conv.` is IGBT-type internally.
-3. **Search path.** `file:CAB450M12XM3` resolves from the `<basename>_plecs/` sibling folder
-   (`dpt_cab450_600v_plecs/`); the folder must exist before load (close+reopen after adding it).
+## Captures (ToFile → CSV, absolute scratch paths baked in — edit before reuse)
 
-## The open blocker: loss readout = 0
-
-The device conducts 450 A but the measured loss is 0 W. Attempts:
-- `SwitchLossCalculator` (empty `Signals{}`, buck-demo config) → writes to ToFile but outputs **0**.
-- `PlecsProbe(Slow, {"MOSFET conduction loss","MOSFET switching loss","MOSFET junction temp"})` →
-  **writes no CSV** (the switching-loss signal is a Dirac impulse a `ToFile` won't serialize; even
-  dropping it to conduction+Tj, a probe→ToFile still won't write).
-- `HeatFlowMeter` in the HS→ambient thermal path → writes, but reads **0 W**.
-
-Root cause unresolved. Likely one of: the loss isn't being injected into the measured thermal path,
-the `SwitchLossCalculator`/`PlecsProbe` needs signal-set configuration only doable in the GUI, or a
-thermal-wiring detail. **This is the single thing standing between "the model runs" and a real
-Eon/Eoff/Tj number.** See `../LOSS_LAYER_BUILD.md` §2b.
+`dpt_cur.csv` (current) · `dpt_vds.csv` (Vds) · `dpt_loss.csv` (heat flow) · `dpt_dev.csv`
+(device conduction loss, Tj, heat-sink temp).

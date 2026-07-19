@@ -53,62 +53,20 @@ Plecs {
   ScriptsDialogGeometry ""
   ScriptsDialogSplitterPos "0"
   Schematic {
-    Location      [0, 53; 900, 640]
+    Location      [0, 53; 950, 700]
     ZoomFactor    1
     SliderPosition [0, 0]
     ShowBrowser   off
     BrowserWidth  100
     Component {
-      Type          DCVoltageSource
-      Name          "Vdc"
-      Show          on
-      Position      [120, 330]
-      Direction     right
-      Flipped       off
-      LabelPosition south
-      Parameter {
-        Variable      "V"
-        Value         "600"
-        Show          off
-      }
-    }
-    Component {
-      Type          Inductor
-      Name          "L"
-      Show          on
-      Position      [200, 160]
-      Direction     right
-      Flipped       off
-      LabelPosition south
-      Parameter {
-        Variable      "L"
-        Value         "100e-6"
-        Show          off
-      }
-      Parameter {
-        Variable      "i_init"
-        Value         "0"
-        Show          off
-      }
-    }
-    Component {
-      Type          Ammeter
-      Name          "Am"
-      Show          on
-      Position      [300, 160]
-      Direction     right
-      Flipped       off
-      LabelPosition south
-    }
-    Component {
       Type          HeatSink
       Name          "HS"
       Show          on
-      Position      [430, 300]
+      Position      [195, 160]
       Direction     right
       Flipped       on
       LabelPosition south
-      Frame         [-70, -90; 70, 90]
+      Frame         [-37, -52; 37, 52]
       Parameter {
         Variable      "Cth"
         Value         "0"
@@ -126,7 +84,7 @@ Plecs {
       }
       Terminal {
         Type          HeatPort
-        Position      [-74, 0]
+        Position      [-57, 15]
         Direction     left
       }
     }
@@ -134,9 +92,9 @@ Plecs {
       Type          MosfetWithDiode
       Name          "Shigh"
       Show          on
-      Position      [430, 250]
-      Direction     up
-      Flipped       off
+      Position      [190, 135]
+      Direction     right
+      Flipped       on
       LabelPosition south
       Parameter {
         Variable      "Ron"
@@ -169,9 +127,9 @@ Plecs {
       Type          MosfetWithDiode
       Name          "Slow"
       Show          on
-      Position      [430, 350]
-      Direction     up
-      Flipped       off
+      Position      [215, 170]
+      Direction     right
+      Flipped       on
       LabelPosition south
       Parameter {
         Variable      "Ron"
@@ -201,10 +159,61 @@ Plecs {
       }
     }
     Component {
+      Type          DCVoltageSource
+      Name          "Vdc"
+      Show          on
+      Position      [330, 330]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "V"
+        Value         "600"
+        Show          off
+      }
+    }
+    Component {
+      Type          Inductor
+      Name          "L"
+      Show          on
+      Position      [400, 160]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "L"
+        Value         "100e-6"
+        Show          off
+      }
+      Parameter {
+        Variable      "i_init"
+        Value         "0"
+        Show          off
+      }
+    }
+    Component {
+      Type          Ammeter
+      Name          "Am"
+      Show          on
+      Position      [480, 160]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+    }
+    Component {
+      Type          Voltmeter
+      Name          "Vm"
+      Show          on
+      Position      [560, 330]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+    }
+    Component {
       Type          Constant
       Name          "zero"
       Show          on
-      Position      [300, 440]
+      Position      [330, 430]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -218,7 +227,7 @@ Plecs {
       Type          Clock
       Name          "Clk"
       Show          on
-      Position      [120, 500]
+      Position      [330, 520]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -227,7 +236,7 @@ Plecs {
       Type          Function
       Name          "gate"
       Show          on
-      Position      [230, 500]
+      Position      [430, 520]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -242,7 +251,7 @@ Plecs {
       Type          HeatFlowMeter
       Name          "Whf"
       Show          on
-      Position      [560, 300]
+      Position      [330, 240]
       Direction     left
       Flipped       off
       LabelPosition south
@@ -251,7 +260,7 @@ Plecs {
       Type          ConstantTemperature
       Name          "Tamb"
       Show          on
-      Position      [640, 300]
+      Position      [420, 240]
       Direction     down
       Flipped       on
       LabelPosition south
@@ -265,16 +274,35 @@ Plecs {
       Type          ThermalGround
       Name          "Tgnd"
       Show          on
-      Position      [700, 340]
+      Position      [480, 280]
       Direction     up
       Flipped       off
       LabelPosition south
     }
     Component {
+      Type          PlecsProbe
+      Name          "prb"
+      Show          on
+      Position      [640, 480]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Probe {
+        Component     "Slow"
+        Path          ""
+        Signals       {"Device conduction loss", "Device junction temp"}
+      }
+      Probe {
+        Component     "HS"
+        Path          ""
+        Signals       {"Temperature"}
+      }
+    }
+    Component {
       Type          ToFile
       Name          "cap"
       Show          on
-      Position      [400, 560]
+      Position      [560, 600]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -301,9 +329,38 @@ Plecs {
     }
     Component {
       Type          ToFile
+      Name          "capV"
+      Show          on
+      Position      [480, 400]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Filename"
+        Value         "C:/Users/ferre/AppData/Local/Temp/claude/D--Engineering-Projects-AI-SRTP-PowerElectronicsAI/3b676d0d-3d91-46f8-bdeb-2fab36ae94b2/scratchpad/dpt_vds.csv"
+        Show          off
+      }
+      Parameter {
+        Variable      "FileType"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "WriteSignalNames"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "SampleTime"
+        Value         "2e-7"
+        Show          off
+      }
+    }
+    Component {
+      Type          ToFile
       Name          "capL"
       Show          on
-      Position      [640, 440]
+      Position      [420, 380]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -328,6 +385,35 @@ Plecs {
         Show          off
       }
     }
+    Component {
+      Type          ToFile
+      Name          "capP"
+      Show          on
+      Position      [760, 500]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Filename"
+        Value         "C:/Users/ferre/AppData/Local/Temp/claude/D--Engineering-Projects-AI-SRTP-PowerElectronicsAI/3b676d0d-3d91-46f8-bdeb-2fab36ae94b2/scratchpad/dpt_dev.csv"
+        Show          off
+      }
+      Parameter {
+        Variable      "FileType"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "WriteSignalNames"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "SampleTime"
+        Value         "2e-7"
+        Show          off
+      }
+    }
     Connection {
       Type          Wire
       SrcComponent  "Vdc"
@@ -345,8 +431,14 @@ Plecs {
       Type          Wire
       SrcComponent  "Vdc"
       SrcTerminal   2
-      DstComponent  "Slow"
-      DstTerminal   2
+      Branch {
+        DstComponent  "Slow"
+        DstTerminal   2
+      }
+      Branch {
+        DstComponent  "Vm"
+        DstTerminal   2
+      }
     }
     Connection {
       Type          Wire
@@ -365,6 +457,10 @@ Plecs {
       }
       Branch {
         DstComponent  "Slow"
+        DstTerminal   1
+      }
+      Branch {
+        DstComponent  "Vm"
         DstTerminal   1
       }
     }
@@ -419,9 +515,23 @@ Plecs {
     }
     Connection {
       Type          Signal
+      SrcComponent  "Vm"
+      SrcTerminal   3
+      DstComponent  "capV"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
       SrcComponent  "Whf"
       SrcTerminal   3
       DstComponent  "capL"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "prb"
+      SrcTerminal   1
+      DstComponent  "capP"
       DstTerminal   1
     }
   }
