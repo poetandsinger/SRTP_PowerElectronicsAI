@@ -1,0 +1,453 @@
+Plecs {
+  Name          "dpt_cab450_600v"
+  Version       "4.8"
+  CircuitModel  "ContStateSpace"
+  StartTime     "0.0"
+  TimeSpan      "120e-6"
+  Timeout       ""
+  Solver        "dopri"
+  MaxStep       "1e-7"
+  InitStep      "-1"
+  FixedStep     "1e-3"
+  Refine        "1"
+  ZCStepSize    "1e-9"
+  RelTol        "1e-3"
+  AbsTol        "-1"
+  TurnOnThreshold "0"
+  NonIdealSwitchResistance "1"
+  SyncFixedStepTasks "2"
+  UseSingleCommonBaseRate "2"
+  LossVariableLimitExceededMsg "3"
+  NegativeSwitchLossMsg "3"
+  DivisionByZeroMsg "2"
+  DatatypeOverflowMsg "2"
+  DatatypeInheritanceConflictMsg "1"
+  ContSampleTimeConflictMsg "1"
+  StiffnessDetectionMsg "2"
+  MaxConsecutiveZCs "1000"
+  AlgebraicLoopWithStateMachineMsg "2"
+  AssertionAction "1"
+  FixedPointDatatypeOverride "1"
+  InitializationCommands ""
+  InitialState  "1"
+  SystemState   ""
+  TaskingMode   "1"
+  TaskConfigurations ""
+  CodeGenParameterInlining "2"
+  CodeGenFloatingPointFormat "2"
+  CodeGenAbsTimeUsageMsg "3"
+  CodeGenBaseName ""
+  CodeGenOutputDir ""
+  CodeGenExtraOpts ""
+  CodeGenTarget "Generic"
+  CodeGenTargetSettings ""
+  ExtendedMatrixPrecision "1"
+  MatrixSignificanceCheck "2"
+  RemoveUnusedStateSpaceOutputs "1"
+  EnableStateSpaceSplitting "2"
+  DisplayStateSpaceSplitting "1"
+  DiscretizationMethod "2"
+  ExternalModeSettings ""
+  AlgebraicLoopMethod "1"
+  AlgebraicLoopTolerance "1e-6"
+  ScriptsDialogGeometry ""
+  ScriptsDialogSplitterPos "0"
+  Schematic {
+    Location      [0, 53; 900, 620]
+    ZoomFactor    1
+    SliderPosition [0, 0]
+    ShowBrowser   off
+    BrowserWidth  100
+    Component {
+      Type          DCVoltageSource
+      Name          "Vdc"
+      Show          on
+      Position      [120, 330]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "V"
+        Value         "600"
+        Show          off
+      }
+    }
+    Component {
+      Type          Inductor
+      Name          "L"
+      Show          on
+      Position      [200, 160]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "L"
+        Value         "100e-6"
+        Show          off
+      }
+      Parameter {
+        Variable      "i_init"
+        Value         "0"
+        Show          off
+      }
+    }
+    Component {
+      Type          Ammeter
+      Name          "Am"
+      Show          on
+      Position      [300, 160]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+    }
+    Component {
+      Type          HeatSink
+      Name          "HS"
+      Show          on
+      Position      [430, 300]
+      Direction     right
+      Flipped       on
+      LabelPosition south
+      Parameter {
+        Variable      "Cth"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "T_init"
+        Value         ""
+        Show          off
+      }
+      Parameter {
+        Variable      "Width"
+        Value         "1"
+        Show          off
+      }
+      Frame         [-70, -90; 70, 90]
+      Terminal {
+        Type          HeatPort
+        Position      [-59, 0]
+        Direction     left
+      }
+    }
+    Component {
+      Type          Mosfet
+      Name          "Shigh"
+      Show          on
+      Position      [430, 250]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Ron"
+        Value         "0.0036"
+        Show          off
+      }
+      Parameter {
+        Variable      "s_init"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "thermal"
+        Value         "file:CAB450M12XM3"
+        Show          off
+        CustomVariables "struct('Rgon',4,'Rgoff',0)"
+      }
+      Parameter {
+        Variable      "Rth"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "T_init"
+        Value         "25"
+        Show          off
+      }
+    }
+    Component {
+      Type          Mosfet
+      Name          "Slow"
+      Show          on
+      Position      [430, 350]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Ron"
+        Value         "0.0036"
+        Show          off
+      }
+      Parameter {
+        Variable      "s_init"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "thermal"
+        Value         "file:CAB450M12XM3"
+        Show          off
+        CustomVariables "struct('Rgon',4,'Rgoff',0)"
+      }
+      Parameter {
+        Variable      "Rth"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "T_init"
+        Value         "25"
+        Show          off
+      }
+    }
+    Component {
+      Type          Constant
+      Name          "zero"
+      Show          on
+      Position      [300, 430]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Value"
+        Value         "0"
+        Show          off
+      }
+    }
+    Component {
+      Type          Clock
+      Name          "Clk"
+      Show          on
+      Position      [120, 500]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+    }
+    Component {
+      Type          Function
+      Name          "gate"
+      Show          on
+      Position      [230, 500]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "f(u)"
+        Value         "(u>=5e-6)*(u<80e-6) + (u>=90e-6)*(u<100e-6)"
+        Show          off
+      }
+      Frame         [-20, -10; 20, 10]
+    }
+    Component {
+      Type          ConstantTemperature
+      Name          "Tamb"
+      Show          on
+      Position      [600, 300]
+      Direction     down
+      Flipped       on
+      LabelPosition south
+      Parameter {
+        Variable      "T"
+        Value         "25"
+        Show          off
+      }
+    }
+    Component {
+      Type          ThermalGround
+      Name          "Tgnd"
+      Show          on
+      Position      [660, 340]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+    }
+    Component {
+      Type          SwitchLossCalculator
+      Name          "SLC"
+      Show          on
+      Position      [560, 490]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "T_average"
+        Value         "1e-6"
+        Show          off
+      }
+      Parameter {
+        Variable      "ConductionLoss"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "SwitchingLoss"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "TurnOnLoss"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "TurnOffLoss"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "TotalLoss"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "GroupTypes"
+        Value         "2"
+        Show          off
+      }
+      Probe {
+        Component     "Slow"
+        Path          ""
+        Signals       {}
+      }
+    }
+    Component {
+      Type          SignalMux
+      Name          "mux"
+      Show          on
+      Position      [700, 500]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Width"
+        Value         "2"
+        Show          off
+      }
+    }
+    Component {
+      Type          ToFile
+      Name          "cap"
+      Show          on
+      Position      [800, 500]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Filename"
+        Value         "C:/Users/ferre/AppData/Local/Temp/claude/D--Engineering-Projects-AI-SRTP-PowerElectronicsAI/3b676d0d-3d91-46f8-bdeb-2fab36ae94b2/scratchpad/dpt_out.csv"
+        Show          off
+      }
+      Parameter {
+        Variable      "FileType"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "WriteSignalNames"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "SampleTime"
+        Value         "2e-7"
+        Show          off
+      }
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "Vdc"
+      SrcTerminal   1
+      Branch {
+        DstComponent  "L"
+        DstTerminal   1
+      }
+      Branch {
+        DstComponent  "Shigh"
+        DstTerminal   1
+      }
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "Vdc"
+      SrcTerminal   2
+      DstComponent  "Slow"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "L"
+      SrcTerminal   2
+      DstComponent  "Am"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "Am"
+      SrcTerminal   2
+      Branch {
+        DstComponent  "Shigh"
+        DstTerminal   2
+      }
+      Branch {
+        DstComponent  "Slow"
+        DstTerminal   1
+      }
+    }
+    Connection {
+      Type          HeatPipe
+      SrcComponent  "HS"
+      SrcTerminal   1
+      DstComponent  "Tamb"
+      DstTerminal   1
+    }
+    Connection {
+      Type          HeatPipe
+      SrcComponent  "Tamb"
+      SrcTerminal   2
+      DstComponent  "Tgnd"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Clk"
+      SrcTerminal   1
+      DstComponent  "gate"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "gate"
+      SrcTerminal   2
+      DstComponent  "Slow"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "zero"
+      SrcTerminal   1
+      DstComponent  "Shigh"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Am"
+      SrcTerminal   3
+      DstComponent  "mux"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "SLC"
+      SrcTerminal   1
+      DstComponent  "mux"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "mux"
+      SrcTerminal   1
+      DstComponent  "cap"
+      DstTerminal   1
+    }
+  }
+}

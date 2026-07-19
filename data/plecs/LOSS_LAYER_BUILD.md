@@ -127,6 +127,23 @@ DC source (test V) → load inductor → one `Mosfet` (CAB450) DUT, gate it, on 
 read `SwitchLossCalculator`(DUT)→ToFile for Eon/Eoff/conduction loss and validate vs the
 CAB450 tabulated values (`E_on 25.4 / E_off 7.51 mJ @600 V,450 A,25 °C`,
 [[wolfspeed-cab450m12xm3-datasheet]]). Then replicate the leg ×3 for the full 2L bridge.
+**Built: `data/plecs/dpt_from_scratch/dpt_cab450_600v.plecs`** (electrically complete).
+
+### HARD BOUNDARY (verified 2026-07-19): device→heat-sink coupling needs the GUI
+
+The from-scratch electrical DPT **builds and simulates** headless, but **loss/Tj probing is not
+achievable headless**. PLECS couples a semiconductor to a heat sink by a **GUI association**
+(dragging the device onto the Heat Sink block), NOT by `.plecs` geometry. Tested exhaustively:
+a `SwitchLossCalculator`/probe on a device errors *"place the component on an active heat sink"*
+even when the device is geometrically dead-center inside a huge HeatSink `Frame`, and an explicit
+thermal-terminal (`terminal 4`) connection is rejected. The switching energy exists **only** in
+the thermal loss tables (PLECS switches ideally in the electrical domain → integrating Vds·Id ≈ 0),
+so Eon/Eoff is readable **only** via the heat-sink-coupled loss probe.
+
+**⇒ Split of labor for the loss/thermal build:** the **electrical circuit + gate + measurement +
+readback** are fully scriptable (done); the **device-on-heat-sink coupling is a ~1-min GUI step**
+per model. After that step the sim + corner matrix + calibration + note-filling are all headless
+via RPC (proven for readback + model loading). See `dpt_from_scratch/README.md`.
 
 ## 3. Retarget to the 800 V SiC operating point
 
