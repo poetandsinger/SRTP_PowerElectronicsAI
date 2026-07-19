@@ -14,3 +14,11 @@ desktop.ini
 .claude/
 .hermes/
 IDEA.md
+
+# PLECS sim outputs (regeneratable)
+*.csv
+data/plecs/templates/PLECS_OUT.csv
+
+# Python bytecode
+__pycache__/
+*.pyc

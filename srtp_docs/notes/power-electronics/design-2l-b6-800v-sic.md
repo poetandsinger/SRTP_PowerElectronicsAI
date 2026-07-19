@@ -6,7 +6,7 @@ created: 2026-07-17
 updated: 2026-07-19
 status: unverified
 evidence: theoretical
-sources: [sources/power-electronics/sachs-neuburger-2025-3l-tnpc, sources/power-electronics/sachs-etal-2025-single-dual-inverter]
+sources: [sources/power-electronics/sachs-neuburger-2025-3l-tnpc, sources/power-electronics/sachs-etal-2025-single-dual-inverter, sources/power-electronics/wolfspeed-cab450m12xm3-datasheet]
 tags: [power-electronics, traction-inverter, design, two-level, sic, inverter, efficiency, thd]
 review_by: 2026-10-17
 ---
@@ -34,7 +34,7 @@ The **highest-*volume* SiC design today is 400 V** (Tesla Model 3/Y class) [31],
 | Item | Value | Basis |
 |------|-------|-------|
 | Topology | 2-level B6 (six-switch VSI) | [[circuit-topologies]] §1 |
-| Device | 1200 V SiC MOSFET module, ~450 A class | [derived §2][38][39] |
+| Device | 1200 V SiC MOSFET module, ~450 A class (anchor: [[wolfspeed-cab450m12xm3-datasheet\|CAB450M12XM3]] — 2.6 mΩ, R_th,JC 0.094 °C/W) | [derived §2][38][39][166] |
 | DC-link | 750 V nom (550–850 V), 900 V clamp | [T] |
 | Peak power | 150 kW (≤30 s) | anchor |
 | Continuous power | 70 kW | anchor |

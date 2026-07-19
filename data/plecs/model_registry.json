@@ -1,0 +1,48 @@
+{
+  "_schema": "plan-plecs-harness.md §3 — validation_status gates evidence: 'unvalidated' models may be run but may NOT close the PLECS evidence gate (SOP S1-S7).",
+  "_readback": "PLECS 4.8 here returns empty simulate Values; read a ToFile CSV from disk. See procedure-simulation-and-validation.md §1 and memory plecs-readback-tofile.",
+  "models": [
+    {
+      "topology": "2L-VSI-PMSM (seed harness)",
+      "template": "data/plecs/templates/2l_vsi_pmsm_tofile.plecs",
+      "derived_from": "worked-designs/family-car-400v-sic/pmsm_mycar.plecs",
+      "status": "available",
+      "validation_status": "unvalidated",
+      "validated_against": null,
+      "tolerance": {"eta_pts": 1.0, "loss_pct": 10, "tj_c": 5},
+      "device": "library '2-Level IGBT Conv.' — ideal switches, Rth only, NO datasheet Eon/Eoff loss tables",
+      "bus_v": 355,
+      "machine": "PMSM R=0.015, Ld=0.15mH, Lq=0.30mH, phi=0.075, p=4, J=0.05",
+      "readback": {
+        "method": "ToFile->CSV",
+        "block": "cap_iabc",
+        "signals": ["ia", "ib", "ic"],
+        "filename_param": "set at runtime via set_component_param(path='<model>/cap_iabc', param='Filename')"
+      },
+      "corners_seen": [],
+      "proven": "readback pipeline end-to-end (edit->close->open->set Filename->simulate->CSV->numpy RMS/f0); 2026-07-19",
+      "not_yet": [
+        "800V SiC retarget (target Track 1: design-2l-b6-800v-sic)",
+        "datasheet SiC loss/thermal description (Eon/Eoff/Econd vs V,I,Tj) + Foster net",
+        "DC-side ammeter for inverter efficiency (P_dc vs P_ac)",
+        "defined steady-state traction operating point (seed is mid-startup ramp, f_e~5Hz at 0.2s)",
+        "S1-S7 SOP + 9-corner matrix + Wolfspeed/TI CRD calibration (S5)"
+      ]
+    },
+    {
+      "topology": "2L-B6-SiC",
+      "template": "data/plecs/templates/2l_b6_sic_pmsm.plecs (planned)",
+      "status": "planned",
+      "validation_status": "unvalidated",
+      "validated_against": "design-2l-b6-800v-sic (target) / reference-design-wolfspeed-ti-300kw-800v (S5 anchor)",
+      "device": "Wolfspeed CAB450M12XM3 (1200V/450A/2.6mOhm SiC half-bridge)",
+      "device_model": "plecs_models/wolfspeed/mosfet-with-diode/modules/CAB450M12XM3.xml (official Wolfspeed PLECS model, Version 4 2026-03-19; full Eon/Eoff/Err 4-D surface incl 800V@all Tj + Cauer net ~0.095 C/W)",
+      "device_datasheet": "sources/power-electronics/wolfspeed-cab450m12xm3-datasheet.md ([166]); model portal [167]; usage guide PRD-09611 [170]",
+      "loss_layer_recipe": "data/plecs/LOSS_LAYER_BUILD.md",
+      "tolerance": {"eta_pts": 1.0, "loss_pct": 10, "tj_c": 5, "density_pct": 10},
+      "corners_seen": [],
+      "loss_layer_status": "ACTIVATED 2026-07-19 — official CAB450M12XM3 model copied to harness _plecs/, assigned therm=file:CAB450M12XM3 + Rth + T_init=65, loads+simulates cleanly on the library converter block",
+      "not_yet": ["wire PlecsProbe(Tj)+SwitchLossCalculator(P_cond/P_sw)+DC-ammeter into the ToFile mux", "800V SiC retarget + defined steady operating point", "S1-S7 SOP + 9-corner matrix + Wolfspeed S5 calibration", "fill design-2l-b6-800v-sic, set validation_status=validated"]
+    }
+  ]
+}

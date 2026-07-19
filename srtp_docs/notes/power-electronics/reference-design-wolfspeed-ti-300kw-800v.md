@@ -6,7 +6,7 @@ created: 2026-07-17
 updated: 2026-07-19
 status: unverified
 evidence: single-study
-sources: [sources/power-electronics/sachs-neuburger-2025-3l-tnpc]
+sources: [sources/power-electronics/sachs-neuburger-2025-3l-tnpc, sources/power-electronics/wolfspeed-cab450m12xm3-datasheet]
 tags: [power-electronics, traction-inverter, design, reference-design, two-level, sic, gate-driver, dc-link, efficiency]
 review_by: 2026-10-17
 ---
@@ -42,7 +42,7 @@ This confirms the procedure-design order of magnitude: an 800 V SiC 2L inverter 
 
 | Function | Part | Spec | Unit price (1-off) | Cite |
 |----------|------|------|-------------------:|------|
-| Power module ×3 | **Wolfspeed CAB450M12XM3** | 1200 V, 450 A, half-bridge SiC | ≈ **$898** ea | [92][98] |
+| Power module ×3 | **Wolfspeed CAB450M12XM3** ([[wolfspeed-cab450m12xm3-datasheet\|datasheet]]) | 1200 V, 450 A (2.6 mΩ), half-bridge SiC | ≈ **$898** ea | [92][98][166] |
 | Gate driver ×6 | **TI UCC5880-Q1** | isolated, 20 A, real-time adjustable drive, desat, functional-safety | ≈ $11 | [93][98] |
 | Control MCU | **TI AM2634-Q1** (AM263x, Arm Cortex-R5F) | real-time, functional-safety, motor-control PWM | — (class ~$20–40) | [91][T] |
 | Phase-current sensor | **LEM LF 510-S** | closed-loop Hall, 500 A, ±0.6% | — (class ~$40–60) | [100][T] |

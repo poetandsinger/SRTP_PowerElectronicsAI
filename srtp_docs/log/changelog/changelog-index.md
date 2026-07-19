@@ -16,6 +16,7 @@ tags: [index]
 
 | Timestamp | Summary | Detail |
 |-----------|---------|--------|
+| 2026-07-19 | **PLECS readback blocker cleared + loss layer activated**: `simulate` Values is empty in 4.8 — reliable readback is a `ToFile`→CSV (corrects the "top-level Outport" claim); proven on toy + real 2L-VSI models (stale-model + TimeSpan traps found). Reusable harness under `data/plecs/` (template + direct-RPC runner + summarizer + `model_registry.json`). Official **Wolfspeed PLECS model library** organized under `plecs_models/wolfspeed/` (669 models); CAB450M12XM3 loads+simulates on the harness. SOP/plan/memories/citations corrected ([166]–[170]) | [[2026-07-19-plecs-readback-harness]] |
 | 2026-07-19 | Descriptive renames (26 files → `harness-*`/`plan-*`/`index-*` clusters) + plain-text→wikilink cleanup; **frontmatter-as-index** navigation model in SCHEMA (rg-filter on field/type/status/tags → pick by filename), index-maintenance rule, prefixes demoted to optional sugar, 5 tags registered | [[2026-07-19-naming-and-navigation]] |
 | 2026-07-19 | PLECS validation SOP (S1–S7 gates: convergence, steady-state window, energy balance, measured calibration, per-topology NP-balance); method notes → `procedure-*`; control/PLECS toolchain reconciled; SCHEMA/README updated | [[2026-07-19-validation-sop]] |
 | 2026-07-19 | Topology-unit naming: `design-<topology>-<voltage>-<device>` scheme; renamed 2L anchor to `design-2l-b6-800v-sic`; added TNPC/ANPC/NPC scaffolds; split reference-designs-index | [[2026-07-19-topology-units]] |
