@@ -129,21 +129,30 @@ CAB450 tabulated values (`E_on 25.4 / E_off 7.51 mJ @600 V,450 A,25 °C`,
 [[wolfspeed-cab450m12xm3-datasheet]]). Then replicate the leg ×3 for the full 2L bridge.
 **Built: `data/plecs/dpt_from_scratch/dpt_cab450_600v.plecs`** (electrically complete).
 
-### HARD BOUNDARY (verified 2026-07-19): device→heat-sink coupling needs the GUI
+### CORRECTED 2026-07-19 — the headless build DOES work (earlier "GUI-only" was a false negative)
 
-The from-scratch electrical DPT **builds and simulates** headless, but **loss/Tj probing is not
-achievable headless**. PLECS couples a semiconductor to a heat sink by a **GUI association**
-(dragging the device onto the Heat Sink block), NOT by `.plecs` geometry. Tested exhaustively:
-a `SwitchLossCalculator`/probe on a device errors *"place the component on an active heat sink"*
-even when the device is geometrically dead-center inside a huge HeatSink `Frame`, and an explicit
-thermal-terminal (`terminal 4`) connection is rejected. The switching energy exists **only** in
-the thermal loss tables (PLECS switches ideally in the electrical domain → integrating Vds·Id ≈ 0),
-so Eon/Eoff is readable **only** via the heat-sink-coupled loss probe.
+An earlier version of this note claimed device→heat-sink coupling *needs the GUI*. **That was
+wrong** — it was caused by a `.plecs` **syntax bug**: the generator emitted the `Frame` line
+*after* the `Parameter` blocks, but PLECS requires `Frame` **immediately after `LabelPosition`**.
+The malformed `Frame` made PLECS silently **remove the HeatSink** on load ("syntax error before
+'Frame'" → "Removing component HS"), so the device had no heat sink and threw *"place the component
+on an active heat sink"*. The user's GUI screenshot surfaced the real error.
 
-**⇒ Split of labor for the loss/thermal build:** the **electrical circuit + gate + measurement +
-readback** are fully scriptable (done); the **device-on-heat-sink coupling is a ~1-min GUI step**
-per model. After that step the sim + corner matrix + calibration + note-filling are all headless
-via RPC (proven for readback + model loading). See `dpt_from_scratch/README.md`.
+**After fixing `Frame` placement, the from-scratch discrete DPT builds, loads, and simulates fully
+headless** — heat-sink coupling by spatial enclosure **does** work from `.plecs` text. Two more fixes
+were needed: (a) the device must be a **`MosfetWithDiode`** block, not `Mosfet` (plain `Mosfet`
+*also* rejects gate-dependent conduction — only `MosfetWithDiode` matches the CAB450 "MOSFET with
+Diode" class); (b) `Frame` must precede `Parameter`s in **every** block. Verified: `dpt_cab450_600v.plecs`
+runs headless and captures the correct **509 A** double-pulse current ramp.
+
+**OPEN ITEM (unresolved):** the **loss readout reads zero**. `SwitchLossCalculator` (with empty
+`Signals{}`) outputs 0; `PlecsProbe(device, {"MOSFET conduction loss",...})` writes no CSV at all
+(the switching-loss signal is a Dirac impulse that a `ToFile` won't serialize; even conduction+Tj
+alone won't write via a probe→ToFile); a `HeatFlowMeter` in the HS→ambient path reads 0 W total
+loss despite the device conducting 450 A. Root cause not yet found — candidate: the loss isn't
+reaching the measured thermal path, or the probe signal-set needs GUI configuration. **This is the
+one remaining blocker for a real Eon/Eoff/Tj number.** Everything else (circuit, gate, current
+capture, model loading, heat-sink coupling) is proven headless.
 
 ## 3. Retarget to the 800 V SiC operating point
 

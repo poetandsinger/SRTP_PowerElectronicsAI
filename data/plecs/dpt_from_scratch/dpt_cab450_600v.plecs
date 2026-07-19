@@ -53,7 +53,7 @@ Plecs {
   ScriptsDialogGeometry ""
   ScriptsDialogSplitterPos "0"
   Schematic {
-    Location      [0, 53; 900, 620]
+    Location      [0, 53; 900, 640]
     ZoomFactor    1
     SliderPosition [0, 0]
     ShowBrowser   off
@@ -108,6 +108,7 @@ Plecs {
       Direction     right
       Flipped       on
       LabelPosition south
+      Frame         [-70, -90; 70, 90]
       Parameter {
         Variable      "Cth"
         Value         "0"
@@ -123,15 +124,14 @@ Plecs {
         Value         "1"
         Show          off
       }
-      Frame         [-70, -90; 70, 90]
       Terminal {
         Type          HeatPort
-        Position      [-59, 0]
+        Position      [-74, 0]
         Direction     left
       }
     }
     Component {
-      Type          Mosfet
+      Type          MosfetWithDiode
       Name          "Shigh"
       Show          on
       Position      [430, 250]
@@ -166,7 +166,7 @@ Plecs {
       }
     }
     Component {
-      Type          Mosfet
+      Type          MosfetWithDiode
       Name          "Slow"
       Show          on
       Position      [430, 350]
@@ -204,7 +204,7 @@ Plecs {
       Type          Constant
       Name          "zero"
       Show          on
-      Position      [300, 430]
+      Position      [300, 440]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -231,18 +231,27 @@ Plecs {
       Direction     right
       Flipped       off
       LabelPosition south
+      Frame         [-20, -10; 20, 10]
       Parameter {
         Variable      "f(u)"
         Value         "(u>=5e-6)*(u<80e-6) + (u>=90e-6)*(u<100e-6)"
         Show          off
       }
-      Frame         [-20, -10; 20, 10]
+    }
+    Component {
+      Type          HeatFlowMeter
+      Name          "Whf"
+      Show          on
+      Position      [560, 300]
+      Direction     left
+      Flipped       off
+      LabelPosition south
     }
     Component {
       Type          ConstantTemperature
       Name          "Tamb"
       Show          on
-      Position      [600, 300]
+      Position      [640, 300]
       Direction     down
       Flipped       on
       LabelPosition south
@@ -256,85 +265,22 @@ Plecs {
       Type          ThermalGround
       Name          "Tgnd"
       Show          on
-      Position      [660, 340]
+      Position      [700, 340]
       Direction     up
       Flipped       off
       LabelPosition south
     }
     Component {
-      Type          SwitchLossCalculator
-      Name          "SLC"
-      Show          on
-      Position      [560, 490]
-      Direction     right
-      Flipped       off
-      LabelPosition south
-      Parameter {
-        Variable      "T_average"
-        Value         "1e-6"
-        Show          off
-      }
-      Parameter {
-        Variable      "ConductionLoss"
-        Value         "1"
-        Show          off
-      }
-      Parameter {
-        Variable      "SwitchingLoss"
-        Value         "1"
-        Show          off
-      }
-      Parameter {
-        Variable      "TurnOnLoss"
-        Value         "1"
-        Show          off
-      }
-      Parameter {
-        Variable      "TurnOffLoss"
-        Value         "1"
-        Show          off
-      }
-      Parameter {
-        Variable      "TotalLoss"
-        Value         "1"
-        Show          off
-      }
-      Parameter {
-        Variable      "GroupTypes"
-        Value         "2"
-        Show          off
-      }
-      Probe {
-        Component     "Slow"
-        Path          ""
-        Signals       {}
-      }
-    }
-    Component {
-      Type          SignalMux
-      Name          "mux"
-      Show          on
-      Position      [700, 500]
-      Direction     right
-      Flipped       off
-      LabelPosition south
-      Parameter {
-        Variable      "Width"
-        Value         "2"
-        Show          off
-      }
-    }
-    Component {
       Type          ToFile
       Name          "cap"
       Show          on
-      Position      [800, 500]
+      Position      [400, 560]
       Direction     right
       Flipped       off
       LabelPosition south
       Parameter {
         Variable      "Filename"
-        Value         "C:/Users/ferre/AppData/Local/Temp/claude/D--Engineering-Projects-AI-SRTP-PowerElectronicsAI/3b676d0d-3d91-46f8-bdeb-2fab36ae94b2/scratchpad/dpt_out.csv"
+        Value         "C:/Users/ferre/AppData/Local/Temp/claude/D--Engineering-Projects-AI-SRTP-PowerElectronicsAI/3b676d0d-3d91-46f8-bdeb-2fab36ae94b2/scratchpad/dpt_cur.csv"
         Show          off
       }
       Parameter {
@@ -350,6 +296,35 @@ Plecs {
       Parameter {
         Variable      "SampleTime"
         Value         "2e-7"
+        Show          off
+      }
+    }
+    Component {
+      Type          ToFile
+      Name          "capL"
+      Show          on
+      Position      [640, 440]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Filename"
+        Value         "C:/Users/ferre/AppData/Local/Temp/claude/D--Engineering-Projects-AI-SRTP-PowerElectronicsAI/3b676d0d-3d91-46f8-bdeb-2fab36ae94b2/scratchpad/dpt_loss.csv"
+        Show          off
+      }
+      Parameter {
+        Variable      "FileType"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "WriteSignalNames"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "SampleTime"
+        Value         "5e-7"
         Show          off
       }
     }
@@ -397,6 +372,13 @@ Plecs {
       Type          HeatPipe
       SrcComponent  "HS"
       SrcTerminal   1
+      DstComponent  "Whf"
+      DstTerminal   1
+    }
+    Connection {
+      Type          HeatPipe
+      SrcComponent  "Whf"
+      SrcTerminal   2
       DstComponent  "Tamb"
       DstTerminal   1
     }
@@ -432,21 +414,14 @@ Plecs {
       Type          Signal
       SrcComponent  "Am"
       SrcTerminal   3
-      DstComponent  "mux"
-      DstTerminal   2
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "SLC"
-      SrcTerminal   1
-      DstComponent  "mux"
-      DstTerminal   3
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "mux"
-      SrcTerminal   1
       DstComponent  "cap"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Whf"
+      SrcTerminal   3
+      DstComponent  "capL"
       DstTerminal   1
     }
   }
