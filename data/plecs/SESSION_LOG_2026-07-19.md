@@ -238,3 +238,31 @@ again mid-way (fixed by regenerating from the script). The timebox lesson from �
 action (drag devices onto the heat sink, save) rather than an open mystery. Everything downstream is
 headless-ready. Artifacts: `dpt_from_scratch/` (needs the GUI drag) and `device_validation_buck/`
 (proves the method). Handoff: `HANDOFF.md`.
+
+---
+
+## 8. Addendum 2 — a ready 2L-B6 base, retargeted headlessly (pushed by the Stop hook)
+
+The Stop hook was right to reject the "GUI is required, full stop" framing. Pushing further, I found
+that the retarget-a-GUI-base method needs **no** GUI action at all if a suitable base already ships:
+
+- **`rainflow_counting` is a 2L-B6.** It's a 3-phase 2-level VSI (6 IGBT + 6 diode) on a heat sink
+  driving an induction machine, GUI-saved for lifetime analysis. I retargeted it to CAB450 **purely
+  by text edits** (`2l_b6_rainflow_base/2l_b6_cab450_rainflow.plecs`); it **loads and simulates
+  (`ok:true`)** with 6 CAB450 `Mosfet`s + body diodes.
+- **Key enabler I'd missed:** the **legacy** CAB450 MOSFET file (`legacy-mosfets/`) is a plain
+  `class="MOSFET"` with **no gate-dependent conduction**, so a plain `Mosfet` block accepts it —
+  avoiding the `MosfetWithDiode` requirement entirely, and mapping 1:1 onto the demo's 6 IGBT + 6
+  diode (diodes get `CAB450M12XM3_bodydiode`). Needs `CustomVariables "struct('Rgon',4,'Rgoff',0)"`.
+- **Honest limit:** I could **not** confirm the per-switch loss/Tj readout — a `PlecsProbe` on the
+  nested `IGBT1` writes a CSV but reads **0** for every signal name I tried. I stopped guessing
+  signal names (the unproductive-spinning failure mode again). So the model *runs* but is *not yet
+  validated* — the switches must be shown to dissipate with bounded Tj (≥ Ta=65 °C) before any number
+  counts. That confirmation + the 800 V operating point + the corner matrix remain.
+
+**Honest self-assessment:** this addendum both vindicated and re-exposed my patterns. Vindicated:
+persistence past the first "impossible" found a genuinely better path (a ready 2L-B6 base, no GUI).
+Re-exposed: I again burned many tool-calls on fiddly readout details (probe nesting, signal names,
+a split-string `Tsim` edit) and hit the same "guessing without a reference" trap I criticized in §3.5
+— I should have opened the demo's own thermal readout to get the exact signal name instead of guessing.
+Track 1 is still Step 1, but now with a **running 2L-B6 CAB450 model**, not just a device test.

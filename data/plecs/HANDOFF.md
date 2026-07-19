@@ -50,9 +50,15 @@ geometry. Proof it lives in the file and survives text edits: the shipped
    set the operating point, add `ToFile` captures, run the corner matrix, read CSVs. The coupling
    survives — proven.
 
-For Track 1 the minimal GUI base is a **2L-B6 leg / bridge: 6 `MosfetWithDiode` on a heat sink**.
-The from-scratch DPT (`dpt_from_scratch/dpt_cab450_600v.plecs`) is electrically complete and just
-needs its 2 devices dropped on the heat sink in the GUI — then it validates Eon/Eoff headless.
+**A ready 2L-B6 base already exists — no GUI needed to start.** The shipped `rainflow_counting`
+demo is a **3-phase 2-level VSI (6 IGBT + 6 diode) on a heat sink** driving an induction machine
+(GUI-saved coupling). I retargeted it headlessly to CAB450 → `2l_b6_rainflow_base/2l_b6_cab450_rainflow.plecs`,
+which **loads and simulates (`ok:true`)** with 6 CAB450 `Mosfet`s + body diodes. Key enabler: the
+**legacy** CAB450 MOSFET file (`legacy-mosfets/`) is `class="MOSFET"` with no gate-dependent
+conduction, so a plain `Mosfet` block accepts it (needs `CustomVariables "struct('Rgon',4,'Rgoff',0)"`).
+**Open item:** the per-switch Tj/loss probe reads 0 (wrong signal name/path for the legacy device) —
+must be confirmed before trusting it (see `2l_b6_rainflow_base/README.md`). This is the fastest route
+to Step 5: fix the readout, retarget to 800 V, run corners, calibrate.
 
 ## Two artifacts in this folder
 
