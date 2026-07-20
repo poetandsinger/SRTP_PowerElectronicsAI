@@ -3,7 +3,7 @@
 > Phases, milestones, and the definition of "done" for the multi-agent system that designs traction inverters.
 > Strategic view. Active tasks live in [TODO.md](TODO.md); the dev journal is [LOG.md](LOG.md).
 >
-> Repo reorganized 2026-07-20 to the `knowledge/ prototypes/ system/ experiments/ results/` layout (see [knowledge/SCHEMA.md](knowledge/SCHEMA.md) §Repository Organization).
+> Repo reorganized 2026-07-20 to the `knowledge/ system/ experiments/ results/` layout (see [knowledge/SCHEMA.md](knowledge/SCHEMA.md) §Repository Organization).
 
 ---
 

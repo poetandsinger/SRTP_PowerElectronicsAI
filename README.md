@@ -36,10 +36,10 @@ system/             The live MAS
   src/              PLECS harness (run_harness.py, summarize.py, templates/) + method docs
   configs/          model_registry.json
   env/models/       Wolfspeed SiC device library (669 models) + user guide   [read-only]
-prototypes/
-  inverter/         Runnable numpy loss models + .plecs artifacts (4 designs)
+experiments/        One folder per design line / run — numpy loss model + .plecs + README
+  <design>/         family-car-400v-sic, microcar-96v-mosfet, performance-800v-sic, truck-800v-sic
+  2l-b6-rainflow/   device-validation-buck/   coupled PLECS run models
   ARCHIVE/          dpt-from-scratch (superseded by the rainflow base)
-experiments/        Per-run PLECS models: 2l-b6-rainflow, device-validation-buck
 results/metrics/    Tracked run outputs (per design); figures/ + logs/ (logs gitignored)
 graphify-out/       Knowledge-graph outputs (graph.html, GRAPH_REPORT.md, obsidian/)
 ROADMAP.md TODO.md LOG.md README.md   .mcp.json (MCP `plecs` server config — stays at repo root)

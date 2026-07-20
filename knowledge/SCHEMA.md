@@ -23,9 +23,8 @@ tags: [schema, index]
 | Path | Holds |
 |------|-------|
 | `knowledge/{papers,notes,sources,synthesis}/` | Research material. `papers/` = raw PDFs (**read-only**); `notes/` = digested claims/topics/maps; `sources/` = one capture per source; `synthesis/` = cross-cutting syntheses **and research open questions**. |
-| `prototypes/{inverter,mas,ARCHIVE}/` | Experiments. `inverter/` = design prototypes; `mas/` = multi-agent prototypes; `ARCHIVE/` = abandoned (kept, never deleted). |
-| `system/{agents,env,configs,src}/` | The live MAS: agent defs, environment, config, source. |
-| `experiments/<run>/` | One folder per run: `config` + `results` + `logs/` (logs gitignored). |
+| `experiments/<run>/` | All empirical work — one folder per design line / run: model(s) + `.plecs` + config + README. Superseded work → `experiments/ARCHIVE/` (kept, never deleted). Extracted numbers → `results/metrics/`; `logs/` gitignored. |
+| `system/{agents,env,configs,src}/` | The live MAS: agent defs, environment, config, source. New MAS/prototype code starts here. |
 | `results/{figures,logs,metrics}/` | Outputs. `logs/` gitignored. |
 | `ROADMAP.md` · `TODO.md` · `LOG.md` · `README.md` | Root singletons (all four at repo root). |
 
@@ -34,7 +33,7 @@ tags: [schema, index]
 - **Two log types, never mixed.** Runtime/machine logs (sim stdout, harness output, `results.txt` dumps) → `results/logs/` or `experiments/<run>/logs/`, **gitignored**. Human dev/decision notes (dated what/why/blocked) → `LOG.md` at root.
 - **Three planning streams, sorted — never dumped together.** Strategic/milestone/definition-of-done → `ROADMAP.md`. Active actionable tasks → `TODO.md` (flat, ruthless). Research open questions → `knowledge/synthesis/` — **never** `TODO.md`. A file mixing all three is **flagged**, not force-fit.
 - **Papers ↔ notes name-match.** `knowledge/papers/x/foo.pdf` ↔ `knowledge/notes/x/foo.md`. A note with no matching paper, or a paper with no note, is **flagged**.
-- **Prototypes are active or abandoned.** Abandoned → `prototypes/ARCHIVE/` (proposed, never auto-deleted).
+- **Experiments are active or abandoned.** Abandoned/superseded → `experiments/ARCHIVE/` (kept, never auto-deleted).
 - **Read-only zones — never touch:** `knowledge/papers/` raw PDFs, `data/raw/`. Read only.
 
 ### Migration discipline

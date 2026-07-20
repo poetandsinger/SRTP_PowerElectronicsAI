@@ -7,7 +7,7 @@
 - [ ] Run the **9-corner matrix** (`procedure-simulation-and-validation` §4: double-pulse, η×3, thermal, ripple, overmod, field-weakening, SC, ASC, drive-cycle)
 - [ ] **Calibrate to the Wolfspeed/TI 300 kW CRD** (SOP gate S5) — >98 % η, 32 kW/L, 360 A rms, 175 °C anchor
 - [ ] Crack the **switching-energy readout**: `SwitchLossCalculator` with empty `Signals{}` sums to 0 in scripted mode — likely needs GUI signal selection (open sub-item)
-- [ ] Cross-check every PLECS number against the `prototypes/inverter/*/` numpy models
+- [ ] Cross-check every PLECS number against the `experiments/*/` numpy models
 
 ## Track 1 — 2L-B6 SiC (finish + register)
 - [ ] Fill `design-2l-b6-800v-sic` with validated numbers; replace all `[T]`/`[derived]`
@@ -33,6 +33,6 @@
 - [ ] Single-agent vs 3-agent A/B benchmark harness
 
 ## Housekeeping
-- [x] Repo reorg to `knowledge/ prototypes/ system/ experiments/ results/` (2026-07-20)
+- [x] Repo reorg to `knowledge/ system/ experiments/ results/` (2026-07-20)
 - [ ] Rebuild the graphify knowledge graph against the new paths (current graph indexes pre-move paths)
 - [ ] Point Obsidian at `knowledge/` as the vault root; the `.base` indexes in `knowledge/_archive/` are retired (query the old folder layout)
