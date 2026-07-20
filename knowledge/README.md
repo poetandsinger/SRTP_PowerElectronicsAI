@@ -3,113 +3,81 @@ title: README
 type: map
 field: root
 created: 2026-07-06
-updated: 2026-07-17
+updated: 2026-07-20
 tags: [index]
 ---
 
-> ⚠️ **This is the knowledge-base (research) index.** The repo was reorganized 2026-07-20: this vault now lives under `knowledge/`, and `plans/`·`trials/`·`log/` were folded into `knowledge/synthesis/`. The `.base` dataview indexes are retired to `knowledge/_archive/` (they query the old folder layout). The repo-root index is [../README.md](../README.md); structure rules are in [SCHEMA.md](SCHEMA.md) §Repository Organization.
+> **Knowledge-base (research vault) index.** The repo-root index is [../README.md](../README.md); the rules every file obeys are in [SCHEMA.md](SCHEMA.md). Reorganized 2026-07-20: this vault lives under `knowledge/`; `plans/`·`trials/`·`log/` are folded into `synthesis/`; the retired `.base` dataview indexes sit in `_archive/`.
 
-# SRTP Power Electronics AI
+# SRTP Power Electronics AI — Research Vault
 
 > **AI-powered multi-agent system for traction inverter design.**
-> **Architecture:** LangGraph + **PLECS** (XML-RPC/MCP) + LiteLLM (CLI-first, provider-agnostic)
-> **Method:** Science Research Vault — every claim carries truth-status, evidence-strength, and a mandatory red-team block.
-> **Status:** 🟡 Knowledge base built (29-chapter textbook, cited [1]–[165]) + AI-agent architecture research complete; implementation plan is spec-level and phase-ready ([[plan-ai-agent-mas]]). **PLECS confirmed licensed + XML-RPC-driveable (2026-07-18); a 2L-VSI+IPMSM+FOC drive retargeted to a family-car machine ran to completion (`worked-designs/family-car-400v-sic/`). Next: top-level outports → first quantitatively PLECS-validated 2L-B6 model.**
-
----
+> **Architecture:** LangGraph + **PLECS** (XML-RPC/MCP) + LiteLLM (CLI-first, provider-agnostic).
+> **Method:** Science Research Vault — every claim carries truth-status, evidence-strength, and a mandatory red-team block ([[SCHEMA]]).
+> **Status:** 🟡 Knowledge base built (cited [1]–[170]) + agent-architecture research complete; MAS plan is spec-level ([[plan-ai-agent-mas]]). PLECS harness proven (ToFile→CSV readback, `system/src/`); a 2L-B6 CAB450 model runs headless with confirmed heat-sink coupling (`experiments/2l-b6-rainflow/`). **Next: a per-switch loss/Tj number → first PLECS-validated 2L-B6.**
 
 ## What This Vault Is
 
-Two research fields feeding one build. **Power electronics** research defines *what* to design (traction inverters); **AI agents** research defines *how* to build the system that designs them. Every folder name is plain English, every file carries metadata, and every research claim has been red-teamed. See [[SCHEMA]] for the full rules.
+Two research fields feeding one build. **Power electronics** defines *what* to design (traction inverters); **AI agents** defines *how* to build the system that designs them. Every folder name is plain English, every file carries frontmatter, every research claim is red-teamed.
 
-## Vault Structure
+## Structure (`knowledge/`)
 
-Top folder = **lifecycle stage** (source → digested note → trial → plan). Field lives in frontmatter and one shallow subfolder; the `.base` files do the indexing. Wikilinks are bare basenames, so files move between folders without breaking links.
+Folder = lifecycle stage; `field` lives in frontmatter and one shallow subfolder. Wikilinks are bare basenames, so files move without breaking links. Full rules: [SCHEMA.md](SCHEMA.md) §Folder = Stage.
 
 ```
-srtp_docs/
-├── README.md   SCHEMA.md   citations.md    # root docs (rules, bibliography)
-├── catalog.base                            # master index — every note
-├── notes.base  sources.base  trials.base  plans.base   # per-stage indexes
-│
-├── sources/                # raw capture — immutable, never edited
-│   ├── power-electronics/  #   6 source papers
-│   └── ai-agents/          #   19 source papers
-│
-├── notes/                  # digested: claims · topics · maps
-│   ├── power-electronics/  #   traction-inverter engineering — topologies, devices, machine, control;
-│   │                       #   4 topology-unit designs (2L-B6 + 3L TNPC/ANPC/NPC) + 3 external refs;
-│   │                       #   procedures: procedure-design, procedure-control, procedure-simulation-and-validation (SOP);
-│   │                       #   thermal, gate-drive, protection, EMI, packaging, BOM, reliability, standards
-│   ├── ai-agents/          #   harness deep dives (Claude Code, Codex, LangGraph, CrewAI, AutoGen…),
-│   │                       #   agent-paper notes, red-teamed claims, workflow-patterns, design-loop
-│   └── problem-statement/  #   preface: why AI for inverter design — market, workforce
-│
-├── trials/                 # applied design runs — 5 worked examples + design-by-doing experiment
-│                           #   (runnable artifacts live in worked-designs/, outside the vault)
-│
-├── plans/                  # implementation plans — ai-agent-mas-plan hub + 8 subsystem topics
-│
-└── log/                    # operational records (no truth-status — decisions, not findings)
-    ├── changelog/          #   dated milestones
-    └── audits/             #   lint reports + vault self-audits
+knowledge/
+├── README.md  SCHEMA.md  citations.md      # vault index, rules, bibliography
+├── sources/<field>/                        # raw capture — one per source, never edited
+│   ├── power-electronics/   ai-agents/
+├── notes/<field>/                          # digested: claims · topics · maps
+│   ├── power-electronics/                  #   traction-inverter build manual + market-and-industry
+│   ├── ai-agents/                          #   harness deep-dives, surveys, workflow patterns
+│   └── problem-statement/                  #   preface: why AI for inverter design
+├── synthesis/                              # cross-cutting synthesis + open questions
+│   ├── plans/                              #   MAS implementation specs (plan-ai-agent-mas hub)
+│   ├── trials/                             #   worked design-by-doing examples
+│   └── log/{changelog,audits}/             #   dated records + self-audits (narrative → root LOG.md)
+├── papers/                                 # raw source PDFs (read-only) — currently empty
+└── _archive/                               # retired .base dataview indexes
 ```
 
-> **Outside the vault** (repo root, non-markdown — executable artifacts can't carry frontmatter, so they live outside `srtp_docs/`): `worked-designs/` holds runnable design artifacts (Python loss models, `.plecs` files, results) that back the worked examples — e.g. `worked-designs/family-car-400v-sic/` behind [[worked-example-family-car-400v-sic]]. The depth-research roadmap is [[plan-depth-research]].
+> Runnable artifacts live **outside** the vault: `experiments/<design>/` (numpy loss models + `.plecs`), `system/src/` (the PLECS harness), `system/env/models/` (Wolfspeed library), `results/metrics/` (run outputs).
 
-## Research
+## Navigating
+
+- **Relationships / "what connects to what" →** graphify (whole repo): `graphify query "…"`, `graphify path "A" "B"`, or open `graphify-out/graph.html`. See [SCHEMA.md](SCHEMA.md) §Navigating the repo.
+- **Precise filter →** ripgrep on frontmatter: `rg -l "^type: X" knowledge/`, then pick by descriptive filename.
+- **Curated entry points (hubs):**
 
 | Field | Hub | Content |
 |-------|-----|---------|
-| Power Electronics | [[index-traction-inverter]] | **Traction-inverter engineering** (red-teamed, cited [1]–[165]): 4 topology-unit designs, procedures + PLECS validation SOP, subsystem chapters, 3 external reference designs + 6 source papers |
-| Problem Statement (preface) | [[problem-statement-index]] | Why AI for traction inverter design: market, workforce, competitive landscape |
-| AI / Agent Architecture | [[harness-index]] | 12 harness deep dives, 19 source captures, 2 red-teamed claims, workflow-patterns + design-loop findings, MAS bridge |
-| *Full inventory* | [[catalog.base]] | Live table of every note (field · type · status · evidence), auto-generated |
+| Power Electronics | [[index-traction-inverter]] | Traction-inverter build manual: topologies, devices, machine/control, 4 topology-unit designs, procedures + PLECS SOP, subsystem chapters |
+| Reference designs | [[index-reference-designs]] | 4 topology units + 3 external refs (Wolfspeed/TI, Tesla, Nissan Leaf) |
+| Industry / market | [[market-and-industry]] | Production topologies, device adoption, suppliers, 2025–26 market data |
+| Problem statement | [[problem-statement-index]] | Why AI for traction inverter design: market, workforce |
+| AI / Agent Architecture | [[harness-index]] | Harness deep-dives + [[harness-survey]] (frameworks, findings) |
 
-> **Grounded but not yet PLECS-validated:** design/thermal/loss numbers are closed-form or teardown/vendor figures, flagged in each Red Team. Turning them into simulation-backed evidence is the top task, now governed by a **PLECS validation SOP** ([[procedure-simulation-and-validation]] §4, gates S1–S7) and a **serial 4-topology build program** ([[plan-depth-research]]: 2L-B6 → TNPC → ANPC → NPC).
+> **Grounded but not yet PLECS-validated:** design/thermal/loss numbers are closed-form or teardown/vendor figures, flagged in each Red Team. Turning them into simulation-backed evidence is the top task — governed by the PLECS validation SOP ([[procedure-simulation-and-validation]] §4, S1–S7) and a serial 4-topology build program ([[plan-depth-research]]: 2L-B6 → TNPC → ANPC → NPC).
 
 ## Implementation
 
-**The plan:** [[plan-ai-agent-mas]] (hub) — PLECS-backed MAS, 3-agent core (Planner + Designer + Validator, Orchestrator drives), RAG-first, evidence-gated. Split into **8 topic files, no phases**: [[plan-architecture]] · [[plan-design-loop]] · [[plan-knowledge-rag]] · [[plan-plecs-harness]] · [[plan-guardrails-and-evidence]] · [[plan-memory]] · [[plan-tech-stack]] · [[plan-evaluation-and-benchmark]]. The core mechanism is a **topology → refine → parameter-optimize** design loop with an *explicit numerical optimizer* over PLECS (the LLM picks structure, the optimizer picks numbers).
+**The plan:** [[plan-ai-agent-mas]] (hub) — PLECS-backed MAS, 3-agent core (Planner + Designer + Validator, Orchestrator drives), RAG-first, evidence-gated. Subsystem specs: [[plan-architecture]] · [[plan-design-loop]] · [[plan-knowledge-rag]] · [[plan-plecs-harness]] · [[plan-guardrails-and-evidence]] · [[plan-memory]] · [[plan-tech-stack]] · [[plan-evaluation-and-benchmark]]. Core mechanism: a **topology → refine → parameter-optimize** loop with an *explicit numerical optimizer* over PLECS (LLM picks structure, optimizer picks numbers).
 
-Grounded in: [[plan-sufficiency-review-2026-07-17]] · [[ai-agent-docs-audit-2026-07-17]] · [[design-loop-architecture]] · [[agentic-workflow-patterns]] · [[plecs-integration]]
-
-## Key Architecture Decisions
+### Key architecture decisions
 
 | ID | Decision | Rationale |
 |----|----------|-----------|
-| A1 | **CLI-first** (not GUI) | Remove UI complexity from the critical path. Prove the agent works first. |
-| A2 | **3 agents** (not 7) | Orchestrator + Simulation + Reviewer. Minimal decomposition for A/B test. |
-| A3 | **PLECS backend** (not MATLAB) | System-level PE sim with native PMSM/IM + FOC models; scriptable via XML-RPC/MCP. PySpice/ltspice-mcp for device-level only. (2026-07 pivot off MATLAB.) |
-| A4 | **SQLite** (not Postgres) | LangGraph checkpointer works with SQLite. Zero setup. |
-| A5 | **LiteLLM provider-agnostic** | Route to cheapest capable model per task (DeepSeek for sim scripts, Claude for review). |
-| A6 | **Explicit optimizer** (LLM picks structure, optimizer picks numbers) | Every 2026 PE/analog design agent converges via a numerical optimizer (DE/PSO/BO), not LLM re-guessing. PLECS-only; surrogate is a deferred *search* accelerator, never evidence. See [[plan-design-loop]]. |
+| A1 | **CLI-first** (not GUI) | Remove UI complexity from the critical path; prove the agent works first. |
+| A2 | **3 agents** (not 7) | Orchestrator + Simulation + Reviewer — minimal decomposition for the A/B test. |
+| A3 | **PLECS backend** (not MATLAB) | System-level PE sim with native PMSM/IM + FOC, scriptable via XML-RPC/MCP. (2026-07 pivot off MATLAB.) |
+| A4 | **SQLite** (not Postgres) | LangGraph checkpointer works with SQLite; zero setup. |
+| A5 | **LiteLLM provider-agnostic** | Route to the cheapest capable model per task. |
+| A6 | **Explicit optimizer** | Every 2026 PE/analog design agent converges via a numerical optimizer (DE/PSO/BO), not LLM re-guessing. PLECS-only evidence. See [[plan-design-loop]]. |
 
-## Conventions (see [[SCHEMA]])
+## Conventions
 
-- **Folder = stage.** The top folder is the lifecycle stage (`sources` → `notes` → `trials`/`plans`); `field` lives in frontmatter.
-- **Links are bare basenames**, so notes move freely. Basenames stay globally unique.
-- **Every file has frontmatter.** No metadata, no file.
-- **Frontmatter is the index.** Filter by `field`/`type`/`status`/`tags` with ripgrep, pick by descriptive filename; keep frontmatter correct on every create/rename/delete. See [[SCHEMA#Navigating this vault (CLI)]].
-- **Every claim has a red-team block.** No red-team, no claim.
-- **Truth-status** on every claim: `supported | contested | refuted | unverified` (new claims default to `unverified`).
-- **Evidence-strength** on every claim: `replicated | single-study | theoretical | disputed`.
-- **Append-first.** Search before creating. **Contradictions surface, never overwrite.**
-
-## References
-
-| File | Content |
-|------|---------|
-| [[catalog.base]] | Master index — every note (field · type · status · evidence) |
-| [[notes.base]] · [[sources.base]] · [[trials.base]] · [[plans.base]] | Per-stage indexes |
-| [[SCHEMA]] | Full conventions, taxonomy, status/evidence rules |
-| [[citations]] | Master bibliography, credits, licenses |
-
-## Programs
-
-- MATLAB: `C:\Program Files\MATLAB\R2024a\bin`
-- PLECS: `C:\Users\ferre\OneDrive\Documents\Plexim\PLECS 4.8 (64 bit)`
+Full rules in [SCHEMA.md](SCHEMA.md). In brief: folder = stage; links are bare basenames (globally unique); every file has frontmatter (the index); every claim has a red-team block; truth-status (`supported`/`contested`/`refuted`/`unverified`, default `unverified`) + evidence-strength on every claim; append-first, contradictions surface (never overwrite). After any add/move/rename, rebuild the graph (`/graphify . --update`).
 
 ---
 
-← [[catalog.base]] | [[index-traction-inverter]] | [[harness-index]]
+← repo root [../README.md](../README.md) | [[SCHEMA]] | [[index-traction-inverter]] | [[harness-index]] | [[citations]]
