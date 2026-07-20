@@ -7,26 +7,28 @@ updated: 2026-07-20
 tags: [schema, index]
 ---
 
-# SRTP Research Vault — Schema
+# SRTP Repository — Schema
 
-> The rules every file obeys. Plain-English folders, metadata on every file, and truth-status + evidence + red-team on every claim.
-> Root: `D:\Engineering Projects\AI\SRTP_PowerElectronicsAI\knowledge` (the research vault; reorganized from `srtp_docs/` 2026-07-20).
+> The rules every file obeys. Plain-English folders, metadata on every file, truth-status + evidence + red-team on every claim, and a **graphify** knowledge graph over the whole repo.
+> Repo root: `D:\Engineering Projects\AI\SRTP_PowerElectronicsAI`. The research vault lives at `knowledge/` (reorganized from `srtp_docs/` 2026-07-20).
 
 ---
 
-## Repository Organization  *(repo-root scheme — governs the whole repo, not just this vault)*
+## Repository Organization  *(governs the whole repo)*
 
-> Added 2026-07-20. The repo mixes research knowledge, prototype code, the live MAS, and runtime output. These rules place every file. **The vault-internal schema in the rest of this document governs `knowledge/`** (the research material formerly under `srtp_docs/`). Physical migration is **plan-first**: propose, get approval, then move — see [Migration discipline](#migration-discipline).
+> The repo mixes research knowledge, the live MAS, experiments, and runtime output. These rules place every file. **The vault-internal schema in the rest of this document governs `knowledge/`.** Reorganized 2026-07-20; the [Migration discipline](#migration-discipline) below is the standing rule for future moves.
 
 ### Target layout
 
 | Path | Holds |
 |------|-------|
-| `knowledge/{papers,notes,sources,synthesis}/` | Research material. `papers/` = raw PDFs (**read-only**); `notes/` = digested claims/topics/maps; `sources/` = one capture per source; `synthesis/` = cross-cutting syntheses **and research open questions**. |
-| `experiments/<run>/` | All empirical work — one folder per design line / run: model(s) + `.plecs` + config + README. Superseded work → `experiments/ARCHIVE/` (kept, never deleted). Extracted numbers → `results/metrics/`; `logs/` gitignored. |
-| `system/{agents,env,configs,src}/` | The live MAS: agent defs, environment, config, source. New MAS/prototype code starts here. |
-| `results/{figures,logs,metrics}/` | Outputs. `logs/` gitignored. |
+| `knowledge/{notes,sources,synthesis,papers}/` | Research material (the vault). `notes/<field>/` = digested claims/topics/maps; `sources/<field>/` = one capture per source; `synthesis/` = cross-cutting syntheses, research open questions, **and the folded `plans/` (implementation specs), `trials/` (worked-example write-ups), `log/` (`changelog/` + `audits/` + session retrospectives)**; `papers/` = raw PDFs (**read-only**, currently empty). `knowledge/_archive/` holds the retired `.base` indexes. |
+| `experiments/<run>/` | All empirical work — one folder per design line / run: model(s) + `.plecs` + `.py` cross-check + README. Superseded work → `experiments/ARCHIVE/` (kept, never deleted). Extracted numbers → `results/metrics/`; `logs/` gitignored. |
+| `system/{agents,env,configs,src}/` | The live MAS: agent defs, environment (`env/models/` = read-only vendor libraries), config, source (`src/` = PLECS harness + templates). New MAS/prototype code starts here. |
+| `results/{figures,logs,metrics}/` | Outputs. `metrics/` tracked; `logs/` gitignored. |
+| `graphify-out/` | The knowledge graph — `graph.html`, `GRAPH_REPORT.md`, `graph.json`, `obsidian/`. **Regenerated, never hand-edited.** |
 | `ROADMAP.md` · `TODO.md` · `LOG.md` · `README.md` | Root singletons (all four at repo root). |
+| `.mcp.json` | MCP server config (the `plecs` server). **Stays at repo root** — the loader reads `./.mcp.json`. |
 
 ### Placement rules
 
@@ -48,52 +50,74 @@ tags: [schema, index]
 
 ---
 
-## Navigating this vault (CLI)
+## Navigating the repo
 
-> **Frontmatter is the index.** Filter on `field`/`type`/`status`/`tags` with ripgrep; the **descriptive filename** carries the specifics to pick the exact note. Category lives in metadata — never duplicated as a filename taxonomy.
+Three tools, in order of reach. **graphify is primary** — its graph spans the whole repo (code, docs, experiments), so reach for it first; `rg` is the precise filter inside `knowledge/`; Obsidian is an optional GUI.
+
+### 1. graphify — relationships & semantics (whole repo)
+
+The graph in `graphify-out/` **is** the map. Use it first for any question that crosses folders — "how does X relate to Y", "what touches Z", "where did this decision come from".
+
+| Want | Command / file |
+|------|----------------|
+| Answer a question from the graph | `graphify query "how does the readback contract reach the design notes?"` — add `--dfs` to trace one path, `--budget N` to cap tokens |
+| Shortest link between two things | `graphify path "PLECS Readback Contract" "2L-B6 800V SiC Design"` |
+| Plain-language node explainer | `graphify explain "2L-B6 CAB450 Rainflow Base Model"` |
+| Browse the whole structure | open `graphify-out/graph.html` |
+| Hubs · clusters · surprises | `graphify-out/GRAPH_REPORT.md` — **God Nodes** (most-connected), **Communities** (topic clusters), **Surprising Connections**, **Suggested Questions** |
+
+> **Rule — keep the graph fresh.** After any add/move/rename/delete, rebuild before relying on navigation: `/graphify . --update` (incremental). A structural reorg warrants a full `/graphify .`. Never hand-edit `graphify-out/`.
+
+### 2. ripgrep on frontmatter — precise filter (inside `knowledge/`)
+
+**Frontmatter is the index.** Filter on `field`/`type`/`status`/`tags` with `rg`; the **descriptive filename** carries the specifics. Category lives in metadata — never duplicated as a filename taxonomy. Run from repo root or `knowledge/`.
 
 | Axis | Question | Command | Vocabulary |
 |------|----------|---------|------------|
-| **Broad** | domain? | `rg -l "^field: X"` | `power-electronics` · `ai-agents` · `problem-statement` · `project` · `root` |
-| **Kind** | note type? | `rg -l "^type: X"` | `source` · `claim` · `topic` · `map` · `trial` · `plan` · `changelog` · `audit` |
-| **Maturity** | how proven? | `rg -l "^status: X"` | `supported` · `contested` · `refuted` · `unverified` |
-| **Topic** | about what? | `rg -l "^tags:.*\bTAG\b"` | any [Tag Taxonomy](#tag-taxonomy) tag (`sic`, `thermal`, `three-level`…) |
-| **Specific** | which note? | `obsidian files` / glob → open | the descriptive filename |
-| content · graph | text · related | `obsidian search query="…"` · `obsidian backlinks file="…"` | — |
+| **Broad** | domain? | `rg -l "^field: X" knowledge/` | `power-electronics` · `ai-agents` · `problem-statement` · `project` · `root` |
+| **Kind** | note type? | `rg -l "^type: X" knowledge/` | `source` · `claim` · `topic` · `map` · `trial` · `plan` · `changelog` · `audit` |
+| **Maturity** | how proven? | `rg -l "^status: X" knowledge/` | `supported` · `contested` · `refuted` · `unverified` |
+| **Topic** | about what? | `rg -l "^tags:.*\bTAG\b" knowledge/` | any [Tag Taxonomy](#tag-taxonomy) tag (`sic`, `thermal`, `three-level`…) |
+| **Specific** | which note? | `ls` / glob → open | the descriptive filename |
+| **Related** | what connects? | `graphify query`/`graphify path` (tool 1) | — |
 
-**Two-step:** filter, then pick by filename — `rg -l "^tags:.*\bthree-level\b" notes/power-electronics/` → open `design-3l-anpc-800v-sic`. Intersect axes with `comm -12 <(rg -l …) <(rg -l …)`.
+**Two-step:** filter, then pick by filename — `rg -l "^tags:.*\bthree-level\b" knowledge/notes/power-electronics/` → open `design-3l-anpc-800v-sic`. Intersect axes with `comm -12 <(rg -l …) <(rg -l …)`.
 
-> ⚠️ Filtering is **`rg` on frontmatter**, not Obsidian: `obsidian search "#tag"` and `base:query` return no file list (`obsidian tags` gives only facet counts). `.base` files render in-app and read the same frontmatter, so they never disagree with `rg`.
+### 3. Obsidian — optional GUI
 
-**Hubs** (`type: map`): [[index-traction-inverter]] · [[harness-index]] · [[agent-papers-index]] · [[index-reference-designs]] · [[problem-statement-index]] · [[changelog-index]] · [[plan-ai-agent-mas]] · [[README]].
+Point Obsidian at `knowledge/` as the vault root. Wikilinks are **bare basenames**, so they resolve across subfolders regardless of the move. Two cautions:
+
+- ⚠️ **Obsidian races the tree.** Its linter/organizer plugins **re-stamp frontmatter and can relocate files** while open — close it before git operations, and treat `rg`/graphify (not Obsidian search) as the source of truth for what's on disk.
+- ⚠️ **The `.base` dataview indexes are retired** to `knowledge/_archive/`; their queries target the pre-reorg folder layout. Do not rely on them — indexing is now **graphify + frontmatter**.
+
+**Entry hubs.** Indices (`type: map`, pure wayfinding): [[index-traction-inverter]] · [[harness-index]] · [[index-reference-designs]] · [[changelog-index]] · [[README]]. Plan hub: [[plan-ai-agent-mas]]. Key surveys (`type: topic`): [[market-and-industry]] · [[harness-survey]] · [[agent-papers-index]] · [[problem-statement-index]].
 
 ---
 
-## Folder = Stage
+## Folder = Stage  *(inside `knowledge/`)*
 
-The top-level folder a note lives in **is** its lifecycle **stage**. `field` lives in frontmatter, mirrored by one shallow subfolder inside `sources/` and `notes/`. Bases — not deep folders — do the indexing.
+Within the vault the folder a note lives in **is** its lifecycle **stage**. `field` lives in frontmatter, mirrored by one shallow subfolder inside `sources/` and `notes/`. Frontmatter + graphify — not deep folders — do the indexing.
 
 | Folder | Stage | `field` | Holds |
 |--------|-------|---------|-------|
-| `sources/<field>/` | raw capture | matches subfolder | Immutable source, one per paper. Never edited. |
-| `notes/<field>/` | digested | matches subfolder | Claims, topics, maps. `<field>` = `power-electronics` (traction-inverter textbook), `ai-agents` (agent architectures), `problem-statement` (motivation/preface). |
-| `trials/` | applied | per note | Worked design examples + design-by-doing runs. Runnable artifacts live outside the vault in `worked-designs/`. |
-| `plans/` | plan | `project` | Implementation plans (`ai-agent-mas-plan` hub + subsystem topic files). |
-| `log/changelog/`, `log/audits/` | operational | `project` | Dated change records and vault self-audits. |
-| root `/` | index | `root` | Singletons — `README`, `SCHEMA`, `citations`, and the `.base` indexes (`catalog`, `notes`, `sources`, `trials`, `plans`). |
+| `knowledge/sources/<field>/` | raw capture | matches subfolder | Immutable source capture, one per source. Never edited. |
+| `knowledge/notes/<field>/` | digested | matches subfolder | Claims, topics, maps. `<field>` = `power-electronics` (traction-inverter textbook), `ai-agents` (agent architectures), `problem-statement` (motivation/preface). |
+| `knowledge/synthesis/` | synthesis | `project` / per note | Cross-cutting syntheses + research open questions, plus the folded `plans/` (implementation specs), `trials/` (worked-example runs), and `log/` (`changelog/` + `audits/` + session retrospectives). |
+| `knowledge/papers/<field>/` | raw PDF | matches subfolder | Raw source PDFs (**read-only**), name-matched to notes. Currently empty — captures live as markdown in `sources/`. |
+| `knowledge/` root | index | `root` | Singletons — `README`, `SCHEMA`, `citations`. `_archive/` holds the retired `.base` files. |
 
-Research content notes (`claim`/`topic`/`source`) live **only** under `sources/` or `notes/`. Navigation hubs (`type: map`) live in `notes/<field>/`. Indexing is base-driven: [[catalog.base]] is the master, one `.base` per stage. Deep per-topic folders (`harness/`, `traction-inverter/`) were flattened — the stage folder plus frontmatter + bases carry the structure.
+Research content notes (`claim`/`topic`/`source`) live **only** under `sources/` or `notes/`. Navigation hubs (`type: map`) live in `notes/<field>/`. Indexing is **frontmatter + graphify**; the legacy per-stage `.base` files are retired. Deep per-topic folders (`harness/`, `traction-inverter/`) stay flattened — the stage folder plus frontmatter carry the structure.
 
 Every note flows through the same pipeline:
 
 ```mermaid
 graph LR
     SRC["sources/<br/>raw capture · never edited"] --> NOTE["notes/<br/>claim · topic + red-team"]
-    NOTE --> TRIAL["trials/<br/>applied design run"]
+    NOTE --> SYN["synthesis/<br/>cross-cut · open questions · trials"]
     NOTE --> MAP["map<br/>navigation hub"]
-    SRC -. auto-listed .-> CAT[("*.base<br/>live indexes")]
-    NOTE -. auto-listed .-> CAT
-    TRIAL -. auto-listed .-> CAT
+    SRC -. indexed by .-> G[("graphify + rg<br/>on frontmatter")]
+    NOTE -. indexed by .-> G
+    SYN -. indexed by .-> G
 ```
 
 ---
@@ -162,15 +186,15 @@ reliability_note: "..."
 
 | `type` | Lives in | Purpose | Red-team? |
 |--------|----------|---------|-----------|
-| `source` | `sources/<field>/` | Immutable capture of one source. Never edited. | no |
-| `claim` | `notes/<field>/` | One defensible finding + evidence. Carries status + evidence. | **required** |
-| `topic` | `notes/<field>/` | Synthesis across claims/papers — state of knowledge. | if it advances a position |
-| `map` | `notes/<field>/` | Navigation hub. Pure wayfinding. | no |
-| `trial` | `trials/` | Worked design example / design-by-doing run. | no |
-| `plan` | `plans/` | Implementation plan / architecture decision. | no |
-| `changelog` | `log/changelog/` | Dated record of what changed. | no |
-| `audit` | `log/audits/` | Lint report or vault self-audit. | no |
-| `schema` / `citations` | root | Root singletons besides README. Indexes are `.base`, not `.md`. | no |
+| `source` | `knowledge/sources/<field>/` | Immutable capture of one source. Never edited. | no |
+| `claim` | `knowledge/notes/<field>/` | One defensible finding + evidence. Carries status + evidence. | **required** |
+| `topic` | `knowledge/notes/<field>/` | Synthesis across claims/papers — state of knowledge. | if it advances a position |
+| `map` | `knowledge/notes/<field>/` | Navigation hub. Pure wayfinding. | no |
+| `trial` | `knowledge/synthesis/trials/` | Worked design example / design-by-doing run. | no |
+| `plan` | `knowledge/synthesis/plans/` | Implementation plan / architecture decision. | no |
+| `changelog` | `knowledge/synthesis/log/changelog/` | Dated record of what changed (backing detail for root `LOG.md`). | no |
+| `audit` | `knowledge/synthesis/log/audits/` | Lint report or vault self-audit. | no |
+| `schema` / `citations` | `knowledge/` root | Root singletons besides README. Indexing is graphify + frontmatter; the legacy `.base` files are retired to `_archive/`. | no |
 
 **Claim vs topic** — a claim defends *one* checkable finding ("SiC switching loss ~40% below Si IGBT at 100 kHz, 650 V"); a topic synthesizes many ("wide-bandgap adoption in traction inverters"). One sharp result → claim. A landscape → topic linking its claims.
 
@@ -265,7 +289,7 @@ Every tag must already exist here. Add to the list first, then use.
 ## Naming & Linking
 
 - **Filenames are kebab-case** — `traction-inverter-index.md`, never `Traction Inverter Index.md`.
-- **Filenames describe the *specifics*, not the category** — category lives in frontmatter (the index; see [Navigating this vault](#navigating-this-vault-cli)). Name the exact subject so it's pickable from a listing without opening (`3l-anpc-800v-sic`, not `topology-note`). Prefixes (`index-`, `plan-`) and the schemes below are **optional sugar**, never a second taxonomy to sync.
+- **Filenames describe the *specifics*, not the category** — category lives in frontmatter (the index; see [Navigating the repo](#navigating-the-repo)). Name the exact subject so it's pickable from a listing without opening (`3l-anpc-800v-sic`, not `topology-note`). Prefixes (`index-`, `plan-`) and the schemes below are **optional sugar**, never a second taxonomy to sync.
 - **Basenames are globally unique.** This is the invariant that makes the next rule safe — check it before naming a new note.
 - **Wikilinks are bare basenames** — `[[components]]`, never a path. Files then move between folders without breaking a link. Labels and anchors are fine: `[[components|Label]]`, `[[components#Section]]`.
 - **Sources are referenced by path** in the `sources:` list, matching the file under `sources/<field>/`.
@@ -292,7 +316,7 @@ Keep the three cluster families distinct: our validated designs (`design-*`, evi
 
 ```mermaid
 flowchart TD
-    F["have a finding"] --> S["search the vault"]
+    F["have a finding"] --> S["search first<br/>graphify query · rg frontmatter"]
     S --> E{"extends an<br/>existing note?"}
     E -- yes --> A["append · bump updated ·<br/>re-run red-team if status shifts"]
     E -- "no, genuinely distinct" --> N["create note"]
@@ -303,10 +327,10 @@ flowchart TD
     A -. "conflicts with another note?" .-> C["set contradicts: ·<br/>both notes stand"]
 ```
 
-- **The index *is* the frontmatter — keep it correct on every change.** On create/rename/delete, in the same pass set `field`/`type`/`status`/`tags` (controlled vocab) and link the note from its `map` hub. `.base`, `obsidian tags`, and `rg` all read this frontmatter — nothing else to regenerate, nothing to drift. New tags enter the [Tag Taxonomy](#tag-taxonomy) **first**.
+- **The index *is* the frontmatter — keep it correct on every change.** On create/rename/delete, in the same pass set `field`/`type`/`status`/`tags` (controlled vocab) and link the note from its `map` hub. `rg` and graphify both read this frontmatter. New tags enter the [Tag Taxonomy](#tag-taxonomy) **first**. **After any add/move/rename/delete, rebuild the graph** (`/graphify . --update`) so navigation matches disk.
 - **Contradictions surface, never overwrite** — set `contradicts:` and let both notes stand.
 - **Delete** superseded *operational* docs (git keeps history). **Never delete** a research note that was ever `supported` or `contested` — mark it `refuted` and link its replacement.
 
 ---
 
-← [[README]] | [[catalog.base]] | [[index-traction-inverter]] | [[harness-index]]
+← [[README]] | [[index-traction-inverter]] | [[harness-index]] | repo root [../README.md](../README.md) · graph `graphify-out/graph.html`

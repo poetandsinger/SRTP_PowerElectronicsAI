@@ -7,6 +7,8 @@ updated: 2026-07-19
 tags: [power-electronics, traction-inverter, reference-design, design, index]
 ---
 
+> Pure index — TOC + reading order for the complete inverter designs. For relationships, use graphify (`graphify query …`).
+
 ## What This Is
 
 Two kinds of complete inverter design in this build manual: **topology units** we design and PLECS-validate ourselves (`design-<topology>-<voltage>-<device>`, one per topology, built serially — see [[plan-depth-research]]), and **external references** (one vendor CRD, two production teardowns) that calibrate and ground them. Together they let an LLM answer "show me a complete traction inverter of type X" with a grounded example, and give the PLECS effort its calibration targets.

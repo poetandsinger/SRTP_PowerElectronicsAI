@@ -1,11 +1,17 @@
 ---
-title: Agent Architectures from Research & Production
-type: map
+title: "Agent Architectures — Research Survey"
+type: topic
 field: ai-agents
 created: 2026-07-06
-updated: 2026-07-19
-tags: [ai-agents, multi-agent, index, review]
+updated: 2026-07-20
+status: unverified
+evidence: single-study
+sources: [citations]
+tags: [ai-agents, multi-agent, review, sota, architecture]
+review_by: 2026-10-20
 ---
+
+> **Survey note** — reclassified from a `map` index on 2026-07-20 because it carries knowledge, not wayfinding. Foundational agent architectures + production AI-for-engineering systems, as background for [[plan-ai-agent-mas]]. `[V]` = verified, `[T]` = training-knowledge needing a live check.
 
 ## Scope
 
@@ -147,6 +153,12 @@ DSO.ai and Cerebrus use this for chip design. Directly applicable to inverter de
 
 This gap is the opportunity: production AI-for-engineering tools (DSO.ai) exist but are domain-specific and proprietary. Research agents (ChemCrow, Coscientist) prove the LLM+tools pattern but are lab-scale. Building a combined system — LLM planning + MATLAB simulation + optimization loop — fills an unoccupied niche.
 
+## Red Team
+
+**Steelman against:** the "no system combines all three" gap may already be closed by a 2025–2026 system not surveyed here; several entries are `[T]` training-knowledge, not verified against primary sources.
+**How it could be false:** the survey is non-exhaustive and cutoff-limited; the analogy from chemistry/EDA to power electronics may not transfer as cleanly as claimed (simulation cost, tool maturity differ).
+**What would change my mind:** a shipped LLM + simulation + optimizer product for power/analog design (a PE analog to DSO.ai) would refute the open-niche claim.
+**Residual doubt:** the architecture patterns (simulation-as-oracle, tool augmentation) are robust; the "unoccupied niche" claim is the softest and most time-sensitive.
 
 > **References:** [[citations]]
 

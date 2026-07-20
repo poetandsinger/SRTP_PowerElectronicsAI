@@ -23,6 +23,9 @@ data/plecs/templates/PLECS_OUT.csv
 __pycache__/
 *.pyc
 
+# graphify knowledge-graph output (regeneratable via /graphify; ~900MB, mirrors source into obsidian/)
+graphify-out/
+
 # Runtime logs & experiment outputs (regeneratable)
 results/logs/
 experiments/**/logs/
