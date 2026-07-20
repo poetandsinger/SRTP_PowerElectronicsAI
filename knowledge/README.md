@@ -7,6 +7,8 @@ updated: 2026-07-17
 tags: [index]
 ---
 
+> ⚠️ **This is the knowledge-base (research) index.** The repo was reorganized 2026-07-20: this vault now lives under `knowledge/`, and `plans/`·`trials/`·`log/` were folded into `knowledge/synthesis/`. The `.base` dataview indexes are retired to `knowledge/_archive/` (they query the old folder layout). The repo-root index is [../README.md](../README.md); structure rules are in [SCHEMA.md](SCHEMA.md) §Repository Organization.
+
 # SRTP Power Electronics AI
 
 > **AI-powered multi-agent system for traction inverter design.**

@@ -3,14 +3,49 @@ title: Schema
 type: schema
 field: root
 created: 2026-07-06
-updated: 2026-07-19
+updated: 2026-07-20
 tags: [schema, index]
 ---
 
 # SRTP Research Vault — Schema
 
 > The rules every file obeys. Plain-English folders, metadata on every file, and truth-status + evidence + red-team on every claim.
-> Root: `D:\Engineering Projects\AI\SRTP_PowerElectronicsAI\srtp_docs`
+> Root: `D:\Engineering Projects\AI\SRTP_PowerElectronicsAI\knowledge` (the research vault; reorganized from `srtp_docs/` 2026-07-20).
+
+---
+
+## Repository Organization  *(repo-root scheme — governs the whole repo, not just this vault)*
+
+> Added 2026-07-20. The repo mixes research knowledge, prototype code, the live MAS, and runtime output. These rules place every file. **The vault-internal schema in the rest of this document governs `knowledge/`** (the research material formerly under `srtp_docs/`). Physical migration is **plan-first**: propose, get approval, then move — see [Migration discipline](#migration-discipline).
+
+### Target layout
+
+| Path | Holds |
+|------|-------|
+| `knowledge/{papers,notes,sources,synthesis}/` | Research material. `papers/` = raw PDFs (**read-only**); `notes/` = digested claims/topics/maps; `sources/` = one capture per source; `synthesis/` = cross-cutting syntheses **and research open questions**. |
+| `prototypes/{inverter,mas,ARCHIVE}/` | Experiments. `inverter/` = design prototypes; `mas/` = multi-agent prototypes; `ARCHIVE/` = abandoned (kept, never deleted). |
+| `system/{agents,env,configs,src}/` | The live MAS: agent defs, environment, config, source. |
+| `experiments/<run>/` | One folder per run: `config` + `results` + `logs/` (logs gitignored). |
+| `results/{figures,logs,metrics}/` | Outputs. `logs/` gitignored. |
+| `ROADMAP.md` · `TODO.md` · `LOG.md` · `README.md` | Root singletons (all four at repo root). |
+
+### Placement rules
+
+- **Two log types, never mixed.** Runtime/machine logs (sim stdout, harness output, `results.txt` dumps) → `results/logs/` or `experiments/<run>/logs/`, **gitignored**. Human dev/decision notes (dated what/why/blocked) → `LOG.md` at root.
+- **Three planning streams, sorted — never dumped together.** Strategic/milestone/definition-of-done → `ROADMAP.md`. Active actionable tasks → `TODO.md` (flat, ruthless). Research open questions → `knowledge/synthesis/` — **never** `TODO.md`. A file mixing all three is **flagged**, not force-fit.
+- **Papers ↔ notes name-match.** `knowledge/papers/x/foo.pdf` ↔ `knowledge/notes/x/foo.md`. A note with no matching paper, or a paper with no note, is **flagged**.
+- **Prototypes are active or abandoned.** Abandoned → `prototypes/ARCHIVE/` (proposed, never auto-deleted).
+- **Read-only zones — never touch:** `knowledge/papers/` raw PDFs, `data/raw/`. Read only.
+
+### Migration discipline
+
+- **Plan first, act only after approval.** Classify → propose `current → proposed → reason` → wait for approval → move. Never move on spec.
+- **When unsure, ask** — collisions, duplicates, and ambiguous files are surfaced for a decision, never guessed.
+- **Never delete** — archive instead; git keeps history.
+
+### .gitignore obligations
+
+`data/` (raw inputs), model weights, and all runtime logs (`results/logs/`, `experiments/*/logs/`, `*.csv` sim output) stay out of version control.
 
 ---
 

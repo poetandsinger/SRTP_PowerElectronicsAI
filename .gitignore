@@ -22,3 +22,18 @@ data/plecs/templates/PLECS_OUT.csv
 # Python bytecode
 __pycache__/
 *.pyc
+
+# Runtime logs & experiment outputs (regeneratable)
+results/logs/
+experiments/**/logs/
+*.log
+
+# Raw data & model weights (read-only raw inputs, large binaries)
+data/raw/
+*.pt
+*.pth
+*.onnx
+*.safetensors
+*.ckpt
+*.h5
+*.pkl
