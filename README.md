@@ -38,8 +38,8 @@ system/             The live MAS
   env/models/       Wolfspeed SiC device library (669 models) + user guide   [read-only]
 experiments/        One folder per design line / run — numpy loss model + .plecs + README
   <design>/         family-car-400v-sic, microcar-96v-mosfet, performance-800v-sic, truck-800v-sic
-  2l-b6-rainflow/   device-validation-buck/   coupled PLECS run models
-  ARCHIVE/          dpt-from-scratch (superseded by the rainflow base)
+  2l-b6-800v-sic-bench/   Track-1 model — coupled 2L-B6 CAB450 bench (800 V, first η ≈ 99.1 %)
+  ARCHIVE/          dpt-from-scratch, 2l-b6-rainflow, device-validation-buck (superseded stepping-stones)
 results/metrics/    Tracked run outputs (per design); figures/ + logs/ (logs gitignored)
 graphify-out/       Knowledge-graph outputs (graph.html, GRAPH_REPORT.md, obsidian/)
 ROADMAP.md TODO.md LOG.md README.md   .mcp.json (MCP `plecs` server config — stays at repo root)
