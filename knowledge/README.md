@@ -14,7 +14,7 @@ tags: [index]
 > **AI-powered multi-agent system for traction inverter design.**
 > **Architecture:** LangGraph + **PLECS** (XML-RPC/MCP) + LiteLLM (CLI-first, provider-agnostic).
 > **Method:** Science Research Vault — every claim carries truth-status, evidence-strength, and a mandatory red-team block ([[SCHEMA]]).
-> **Status:** 🟡 Knowledge base built (cited [1]–[170]) + agent-architecture research complete; MAS plan is spec-level ([[plan-ai-agent-mas]]). PLECS harness proven (ToFile→CSV readback, `system/src/`); a 2L-B6 CAB450 model runs headless with confirmed heat-sink coupling (`experiments/2l-b6-rainflow/`). **Next: a per-switch loss/Tj number → first PLECS-validated 2L-B6.**
+> **Status:** 🟡 Knowledge base built (cited [1]–[170]) + agent-architecture research complete; MAS plan is spec-level ([[plan-ai-agent-mas]]). PLECS harness proven (ToFile→CSV readback, `system/src/`); a purpose-fit 2L-B6 CAB450 bench runs headless with confirmed heat-sink coupling and a first η ≈ 99.1 % (`experiments/2l-b6-800v-sic-bench/`). **Next: junction-temp readout + the 9-corner matrix → first PLECS-validated 2L-B6.**
 
 ## What This Vault Is
 

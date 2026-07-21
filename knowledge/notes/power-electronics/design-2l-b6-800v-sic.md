@@ -99,11 +99,18 @@ flowchart LR
 
 ## PLECS Validation — Status & First Results (2026-07-19)
 
+> **⚠️ SUPERSEDED 2026-07-21 — this section describes the rainflow-retargeted base, now archived.**
+> The current Track-1 model is the **purpose-fit bench** `experiments/2l-b6-800v-sic-bench/bench_2l_b6_800v_sic.plecs`
+> (heat-sink coupling CONFIRMED, first **η ≈ 99.1 %** at 800 V / 357 A rms / 292 kW; PRELIMINARY, S1–S7 not
+> yet run). Method + remaining steps: `system/src/HANDOFF.md`, changelog `2026-07-21-plecs-2l-b6-bench-and-coupling`.
+> The rainflow base + buck coupling-proof moved to `experiments/ARCHIVE/`. Rewrite this section during the
+> Design-note stage. Historical rainflow status retained below.
+
 > A **runnable, confirmed-coupled 2L-B6 SiC PLECS model now exists**:
-> `data/plecs/2l_b6_rainflow_base/2l_b6_cab450_rainflow.plecs` (the PLECS `rainflow_counting`
+> `experiments/ARCHIVE/2l-b6-rainflow/2l_b6_cab450_rainflow.plecs` (the PLECS `rainflow_counting`
 > 2L-B6 demo retargeted headlessly to the **Wolfspeed CAB450M12XM3** [166]). It clears the hard
 > blocker — device→heat-sink coupling — but is **not yet calibrated to the CRD operating point**;
-> see the honest status below. Method + full record: `data/plecs/HANDOFF.md`, memory `wolfspeed-plecs-models`.
+> see the honest status below. Method + full record: `system/src/HANDOFF.md`, memory `wolfspeed-plecs-models`.
 
 **What PLECS confirms (evidence):**
 - **Device model matches the datasheet [sim][166].** Vds across the DUT gives **Ron = 3.6 mΩ**,

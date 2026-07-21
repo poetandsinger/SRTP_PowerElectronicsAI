@@ -4,7 +4,7 @@
 > **Architecture:** LangGraph + PLECS (XML-RPC/MCP) + LiteLLM (CLI-first, provider-agnostic).
 > **Method:** every research claim carries truth-status, evidence-strength, and a mandatory red-team block.
 
-**Status:** 🟡 Knowledge base complete (29-chapter textbook + agent-architecture research, cited [1]–[170]); PLECS evidence harness working headless; 2L-B6 CAB450 model **heat-sink-coupling confirmed**. Next milestone: the first PLECS-validated 2L-B6 η/loss/Tj number. See [ROADMAP.md](ROADMAP.md).
+**Status:** 🟢 Knowledge base complete (29-chapter textbook + agent-architecture research, cited [1]–[170]); PLECS evidence harness working headless; **first PLECS-validated 2L-B6 number LANDED (2026-07-21)** — the CAB450 bench is `validated`: **η = 99.07 %**, **Tj_ss = 175 °C** (CRD-calibrated), energy-balanced, across a 6-corner matrix (S1/S2/S3/S4/S5). Results: [results/metrics/2l-b6-800v-sic-bench.txt](results/metrics/2l-b6-800v-sic-bench.txt); method + templates for T2: changelog [2026-07-21-plecs-2l-b6-model-complete-and-corners](knowledge/synthesis/log/changelog/2026-07-21-plecs-2l-b6-model-complete-and-corners.md). Next: the `design-2l-b6-800v-sic` note, then Track 2 (3L-TNPC). See [ROADMAP.md](ROADMAP.md).
 
 ## Start here
 
@@ -38,8 +38,8 @@ system/             The live MAS
   env/models/       Wolfspeed SiC device library (669 models) + user guide   [read-only]
 experiments/        One folder per design line / run — numpy loss model + .plecs + README
   <design>/         family-car-400v-sic, microcar-96v-mosfet, performance-800v-sic, truck-800v-sic
-  2l-b6-rainflow/   device-validation-buck/   coupled PLECS run models
-  ARCHIVE/          dpt-from-scratch (superseded by the rainflow base)
+  2l-b6-800v-sic-bench/   Track-1 model — coupled 2L-B6 CAB450 bench (800 V, first η ≈ 99.1 %)
+  ARCHIVE/          dpt-from-scratch, 2l-b6-rainflow, device-validation-buck (superseded stepping-stones)
 results/metrics/    Tracked run outputs (per design); figures/ + logs/ (logs gitignored)
 graphify-out/       Knowledge-graph outputs (graph.html, GRAPH_REPORT.md, obsidian/)
 ROADMAP.md TODO.md LOG.md README.md   .mcp.json (MCP `plecs` server config — stays at repo root)
