@@ -6,12 +6,12 @@ Plecs {
   TimeSpan      "0.05"
   Timeout       ""
   Solver        "dopri"
-  MaxStep       "1e-3"
+  MaxStep       "1e-4"
   InitStep      "-1"
   FixedStep     "1e-3"
   Refine        "10"
   ZCStepSize    "1e-9"
-  RelTol        "1e-3"
+  RelTol        "1e-4"
   AbsTol        "-1"
   TurnOnThreshold "0"
   NonIdealSwitchResistance "1"
@@ -31,10 +31,10 @@ Plecs {
   InitializationCommands "% Grid parameters\nVg_rms  = 278;   \t\t\t% Grid vol"
 "tage (Vrms)\nVg_peak = Vg_rms*sqrt(2); % Grid voltage (Vpk)\nfac     = 200;\t"
 "  \t\t\t% grid frequency (Hz)\n\n% VSI parameters\nPr = 300e3;            \t%"
-" Rated power (W)\nZb = Vg_rms^2/Pr;     \t% Base impedance (Ohm)\nLg = 0.1*Zb"
+" Rated power (W)\nZb = Vg_rms^2/Pr;     \t% Base impedance (Ohm)\nLg = 0.5*Zb"
 "/(2*pi*fac);\t% Grid connecting reactance (H)\nRg = 0.01*Zb;         \t% Grid"
 " connecting resistance (Ohm)\nVdc = 800;             \t% DC voltage (V)\nfs ="
-" 16e3; Ta=65; \t\t\t\t\t% Switching frequency (Hz)\nts = 1/fs; \t\t\t\t\t% Sw"
+" 16e3; Ta=65; Rcs_val=0.0267;\t\t\t\t\t% Switching frequency (Hz)\nts = 1/fs; \t\t\t\t\t% Sw"
 "itching period (s)\n\n% Determining initial conditions\nZinv = Rg + 1i*2*pi*f"
 "ac*Lg;% Connecting impedance (Ohm,complex)\nIref = Pr/(3*Vg_rms);      % Refe"
 "rence current (Irms)\nVinv = Vg_rms + Iref*Zinv; % VSI generated voltage (Vrm"
@@ -949,7 +949,7 @@ Plecs {
       }
       Parameter {
         Variable      "Configuration"
-        Value         "1"
+        Value         "2"
         Show          on
       }
     }
@@ -2271,6 +2271,230 @@ Plecs {
         Show          off
       }
     }
+    Component {
+      Type          PeriodicAverage
+      Name          "paAllCond"
+      Show          off
+      Position      [370, 620]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "T_average"
+        Value         "1/fac"
+        Show          off
+      }
+    }
+    Component {
+      Type          PlecsProbe
+      Name          "allSwP"
+      Show          on
+      Position      [230, 680]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Probe {
+        Component     "Q1"
+        Path          ""
+        Signals       {"Device switching loss"}
+      }
+      Probe {
+        Component     "Q2"
+        Path          ""
+        Signals       {"Device switching loss"}
+      }
+      Probe {
+        Component     "Q3"
+        Path          ""
+        Signals       {"Device switching loss"}
+      }
+      Probe {
+        Component     "Q4"
+        Path          ""
+        Signals       {"Device switching loss"}
+      }
+      Probe {
+        Component     "Q5"
+        Path          ""
+        Signals       {"Device switching loss"}
+      }
+      Probe {
+        Component     "Q6"
+        Path          ""
+        Signals       {"Device switching loss"}
+      }
+    }
+    Component {
+      Type          PeriodicImpulseAverage
+      Name          "piaAllSw"
+      Show          off
+      Position      [330, 680]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "T_average"
+        Value         "1/fac"
+        Show          off
+      }
+    }
+    Component {
+      Type          ToFile
+      Name          "allSwCap"
+      Show          on
+      Position      [430, 680]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Filename"
+        Value         "bench_allsw.csv"
+        Show          off
+        Evaluate      off
+      }
+      Parameter {
+        Variable      "FileType"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "WriteSignalNames"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "SampleTime"
+        Value         "1e-4"
+        Show          off
+      }
+    }
+    Component {
+      Type          PlecsProbe
+      Name          "pwrProbe"
+      Show          on
+      Position      [680, 740]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Probe {
+        Component     "V_3ph"
+        Path          ""
+        Signals       {"Source voltage"}
+      }
+      Probe {
+        Component     "L1"
+        Path          ""
+        Signals       {"Inductor current"}
+      }
+      Probe {
+        Component     "L2"
+        Path          ""
+        Signals       {"Inductor current"}
+      }
+      Probe {
+        Component     "L3"
+        Path          ""
+        Signals       {"Inductor current"}
+      }
+    }
+    Component {
+      Type          ToFile
+      Name          "pwrCap"
+      Show          on
+      Position      [830, 740]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Filename"
+        Value         "bench_pwr.csv"
+        Show          off
+        Evaluate      off
+      }
+      Parameter {
+        Variable      "FileType"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "WriteSignalNames"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "SampleTime"
+        Value         "2e-6"
+        Show          off
+      }
+    }
+    Component {
+      Type          PlecsProbe
+      Name          "tjProbe"
+      Show          on
+      Position      [680, 680]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Probe {
+        Component     "Q1"
+        Path          ""
+        Signals       {"Device junction temp"}
+      }
+      Probe {
+        Component     "Q2"
+        Path          ""
+        Signals       {"Device junction temp"}
+      }
+      Probe {
+        Component     "Heat Sink"
+        Path          ""
+        Signals       {"Temperature"}
+      }
+    }
+    Component {
+      Type          ToFile
+      Name          "tjCap"
+      Show          on
+      Position      [830, 680]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Filename"
+        Value         "bench_tj.csv"
+        Show          off
+        Evaluate      off
+      }
+      Parameter {
+        Variable      "FileType"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "WriteSignalNames"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "SampleTime"
+        Value         "1e-4"
+        Show          off
+      }
+    }
+    Component {
+      Type          ThermalResistor
+      Name          "Rcs"
+      Show          on
+      Position      [90, 540]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Rth"
+        Value         "Rcs_val"
+        Show          off
+      }
+    }
     Connection {
       Type          Signal
       SrcComponent  "From"
@@ -2605,6 +2829,13 @@ Plecs {
       SrcComponent  "Whf"
       SrcTerminal   2
       Points        [100, 440]
+      DstComponent  "Rcs"
+      DstTerminal   1
+    }
+    Connection {
+      Type          HeatPipe
+      SrcComponent  "Rcs"
+      SrcTerminal   2
       DstComponent  "Tcool"
       DstTerminal   1
     }
@@ -2690,7 +2921,42 @@ Plecs {
       Type          Signal
       SrcComponent  "allP"
       SrcTerminal   1
+      DstComponent  "paAllCond"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "paAllCond"
+      SrcTerminal   1
       DstComponent  "allCap"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "allSwP"
+      SrcTerminal   1
+      DstComponent  "piaAllSw"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "piaAllSw"
+      SrcTerminal   1
+      DstComponent  "allSwCap"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "pwrProbe"
+      SrcTerminal   1
+      DstComponent  "pwrCap"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "tjProbe"
+      SrcTerminal   1
+      DstComponent  "tjCap"
       DstTerminal   1
     }
     Annotation {

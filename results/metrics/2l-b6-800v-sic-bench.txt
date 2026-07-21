@@ -1,0 +1,48 @@
+2L-B6 800V SiC CAB450 bench — PLECS validation results (2026-07-21)
+====================================================================
+Model : experiments/2l-b6-800v-sic-bench/bench_2l_b6_800v_sic.plecs
+Device: Wolfspeed CAB450M12XM3 (file:CAB450M12XM3.xml, Rgon=4/Rgoff=0 = datasheet-nominal Eon/Eoff)
+Solver: dopri variable-step, RelTol 1e-4, MaxStep 1e-4, ZCStepSize 1e-9; fs=16kHz, fac=200Hz, TimeSpan 0.05s (10 fund. periods)
+Controller: SV PWM (extended linear range); filter Lg = 0.5 p.u. reactance (motor-like, clean current)
+Readback: every metric via ToFile->CSV (simulate Values empty in 4.8); steady-state = last integer # of fundamental cycles.
+
+Loss chain: conduction = PeriodicAverage(T=1/fac) on all 6; switching = PeriodicImpulseAverage(T=1/fac) on all 6.
+Efficiency: eta = (Pin - Ploss)/Pin, Pin = Vdc*Idc, Ploss = Sigma6(conduction+switching).
+Energy balance (S3): residual = Pin - Ploss - (P_into_backEMF + P_Rg), independent AC-side measurement.
+Analytic Tj_ss (option b, thermal timescale >> 0.05s switched run): Tj = Ta + P_module*R_cs + P_switch*R_jc,
+  R_jc = 0.0948 C/W (XML Cauer sum, per switch), R_cs = 0.070 C/W/module (CRD-calibrated: puts rated 360A/800V at Tj=175C;
+  app-note [168] gives ~0.08 -> Tj~185C, pessimistic). In-model transient Tj readout ("Device junction temp") also works.
+
+CORNER MATRIX (S4)  —  all runs pass S1 (converged), S2 (>=5 periods, integer window), S3 (|ebal| < 1%)
+label                     Vdc  Ia_rms  Pin_kW  eta_%    Pcond_W  Psw_W  Ploss_W  crest  THDlo_%  Tj_ss_C  ebal_%
+C1_CRD_800V_300kW         800  359.3   302.2   99.068   1246     1569   2815     1.463  0.15     175.4    -0.37
+C2_750V_300kW             750  359.3   302.7   99.111   1243     1450   2693     1.457  0.16     170.6    -0.14
+C3_850V_300kW             850  359.4   301.8   99.026   1250     1688   2938     1.469  0.14     180.2    -0.54
+C4_thermal_800V_300Arms   800  299.8   251.9   99.157    841     1282   2123     1.463  0.15     148.2    -0.36
+C5_cont_800V_180Arms      800  179.8   150.9   99.322    288      735   1023     1.462  0.15     105.1    -0.35
+C6_lowbus_550V_180Arms    550  179.9    95.1   99.220    285      456    741     1.471  0.14      94.1    -0.40
+
+S1 CONVERGENCE: baseline at MaxStep/RelTol 1e-3 vs 1e-4 -> identical (eta 99.068%, Ploss 2815W, THD 0.15%);
+   switching edges resolved by ZC detector regardless of MaxStep. Converged.
+S2 STEADY STATE: fac=200Hz -> 5ms/period; 0.05s = 10 periods; metrics averaged over the last 4-5 whole periods.
+S3 ENERGY BALANCE: residual within [-0.54, -0.14]% of Pin across all corners (< +/-1%). PASS.
+S5 CRD CALIBRATION (non-circular anchor, reference-design-wolfspeed-ti-300kw-800v):
+   measured CRD = >98% eta, 175C, 32 kW/L. C1 (the CRD operating point 800V/360A/300kW):
+   eta 99.07% (clears >98%), Tj 175C (matches, by R_cs calibration). Within +/-1pt eta / +/-10% loss. PASS.
+
+CROSS-CHECKS (independent bounds)
+  Analytic conduction (2L-VSI closed form, per switch): Ron*Ipk^2*(1/8 + m*cosphi/(3pi))
+    = 0.0036 * 508.7^2 * 0.2311 = 215.3 W  vs  PLECS 207.7 W  ->  -3.5% (within +/-10%). PASS.
+  Switching loss: from the authoritative Wolfspeed XML 4-D Eon/Eoff(V,I,Tj) tables (more accurate than closed form).
+  numpy experiments/ models (family-car, performance, truck) use invented/class-typical device params (status unverified);
+    directional only. This PLECS-with-loss-tables result is the datasheet-backed number those hypotheses awaited.
+
+TRENDS (physical sanity)
+  eta rises as load falls (99.07 -> 99.32%); switching loss scales with bus (1450/1569/1688 W at 750/800/850V);
+  conduction ~flat with bus, scales with I^2 (1246 -> 841 -> 288 W at 360/300/180 A); current clean (crest 1.46, THD 0.15%).
+
+SCOPE / DEFERRED
+  Corners 6-9 (field-weakening sweep, ASC entry, short-circuit fault, drive-cycle) need control/fault/averaged-model
+  additions the open-loop bench lacks -> deferred (documented in HANDOFF.md STEP 2).
+  S6/S7 averaged<->switched reconciliation needs an averaged model (not yet built) -> deferred.
+  Double-pulse (corner 1) switching-energy extraction: a separate DPT model (energy needs no coupling); archived stub exists.

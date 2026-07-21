@@ -2,13 +2,14 @@
 
 `bench_2l_b6_800v_sic.plecs` — a **purpose-built** 3-phase 2-level B6 inverter for the Track-1
 CAB450M12XM3 validation, at the **Wolfspeed/TI 300 kW CRD operating point** (S5 anchor).
+**Status (2026-07-21): VALIDATED** — heat-sink-coupled, Step-1 model complete, corner matrix (S1/S3/S4/S5) run.
+Results: [`results/metrics/2l-b6-800v-sic-bench.txt`](../../results/metrics/2l-b6-800v-sic-bench.txt).
 
 Built 2026-07-21 by retargeting the shipped PLECS demo `three_phase_voltage_source_inverter`
-(a clean, proven 2L-B6 VSI + Sine-PWM skeleton) to Wolfspeed CAB450M12XM3, then adding a heat
-sink + thermal network + loss/efficiency instrumentation. Chosen over hacking the `rainflow`
-IM-drive base because the demo gives a physically-correct, parameter-clean 800 V inverter.
+(a clean, proven 2L-B6 VSI + Sine/SV-PWM skeleton) to Wolfspeed CAB450M12XM3, then adding a heat
+sink + thermal network + loss/efficiency/energy-balance/Tj instrumentation.
 
-## Operating point (set in `InitializationCommands`)
+## Operating point (defaults in `InitializationCommands`; override per corner via `model_vars`)
 | Var | Value | Meaning |
 |-----|-------|---------|
 | `Vdc` | 800 V | DC bus (CRD) |
@@ -17,45 +18,59 @@ IM-drive base because the demo gives a physically-correct, parameter-clean 800 V
 | `fac` | 200 Hz | fundamental (traction) |
 | `fs` | 16 kHz | switching frequency (design spec) |
 | `Ta` | 65 °C | coolant/ambient |
+| `Lg` | 0.5 p.u. reactance (~102 µH) | motor-like filter → clean current (crest 1.46, THD 0.15 %) |
+| Controller | **SV PWM** (Configuration=2) | extended linear range (m up to ~1.15) |
 
 Devices: 6× `MosfetWithDiode` `Q1..Q6`, `thermal=file:CAB450M12XM3`, `Ron=0.0036`,
-`CustomVariables struct('Rgon',4,'Rgoff',0)` (Rgon=4/Rgoff=0 reproduce the **datasheet-nominal**
-Eon/Eoff — the XML scales by `lookup('Eon(Rg)',Rgon)/lookup('Eon(Rg)',4)`; the 800 V and 175 °C
-loss-table grid points are exact).
+`CustomVariables struct('Rgon',4,'Rgoff',0)` (reproduce the **datasheet-nominal** Eon/Eoff).
 
-## Verified headless (2026-07-21)
-- **Operating point CONFIRMED:** Vdc=800.0 V, phase current **357.5 A rms** (target 360),
-  **Pin = 292.4 kW** (target ~300). Electrical skeleton + CAB450 loads and runs.
-- **Conduction-loss readout works** and is temperature-dependent: Q1 `Device conduction loss`
-  = 73 W @Tj0=0 °C → 94 W @Tj0=65 °C (Rds(on)(Tj) responding correctly).
-- Model instrumented: `mProbe`→`mCap` ToFile captures `[Vdc, Idc, Ia, Q1_Pcond, Q1_Psw, Q1_Tj]`.
+## Validated results (2026-07-21)
+**η = 99.07 %** at the CRD point (800 V / 359 A rms / 302 kW), clears the CRD **> 98 %** anchor.
+Per-switch (avg of 6): conduction **208 W** + switching **262 W**. Σ6 loss **2815 W**.
+**Tj_ss = 175 °C** at rated (analytic, R_cs CRD-calibrated) — matches the CRD 175 °C limit;
+148 °C at the 300 A launch corner (< 175, PASS). Energy balance within ±0.6 % (S3). See the results file
+for the full 6-corner table, the S1 convergence check, and the analytic conduction cross-check (−3.5 %).
 
-## THE ONE MANUAL STEP — couple the devices to the heat sink (GUI)
-Device→heat-sink coupling **cannot be scripted** (confirmed against the PLECS 4.8 manual:
-the RPC/scripting API is get/set/load/close/simulate/analyze/scope only — no add/connect/heat-sink
-command; coupling is GUI-established spatial enclosure, not a settable parameter). Until coupled,
-**`Q1 Device junction temp` reads 0** and losses are at the wrong temperature.
+## Coupling (the one manual step — DONE)
+Device→heat-sink coupling is GUI-established spatial enclosure, not scriptable (PLECS 4.8 RPC =
+get/set/load/close/simulate only). The `Heat Sink` block was GUI-created over Q1–Q6 and wired to the
+coolant chain; coupling is **confirmed** and now **survives text edits**. Everything since is headless.
+**Do NOT text-delete/recreate the `Heat Sink` block** — it would break the association.
 
-**Do this once in the PLECS GUI, then save:**
-1. Open `bench_2l_b6_800v_sic.plecs`.
-2. The yellow **`HS`** heat-sink box already encloses `Q1..Q6`. For each of `Q1..Q6`, click the
-   device and nudge it (drag 1 px or cut+paste **onto** the `HS` box) so PLECS registers it as
-   *on* the heat sink (it highlights when coupled).
-3. **Save.** Then tell me — I run the corner matrix headless from there.
+## How to drive it headless (recipe)
+```
+# PLECS running: PLECS.exe -server 1080
+close_model bench_2l_b6_800v_sic          # escape the stale-model trap after ANY text edit
+open_model  <abs>/bench_2l_b6_800v_sic.plecs
+# point every ToFile at an absolute path (reload resets them to relative):
+set_component_param <model>/mCap Filename <abs>/main.csv   # + condCap swCap hfCap allCap allSwCap pwrCap tjCap
+simulate <model>  model_vars={...full consistent set...}
+# read CSVs with numpy.genfromtxt(delimiter=','); average over the steady-state tail.
+```
+**model_vars are applied AFTER `InitializationCommands`** — so derived quantities (`Iref`, `Vref`, `Lg`,
+`phase_*`, `i_init`) do NOT recompute from a raw `Pr`/`Vg_rms` override. To run a consistent corner you must
+pass the **complete** variable set (see `gen_vars.py` in the run scratch, which replicates the init math).
+Overriding `Vdc` alone is safe (it only feeds the live DC source + modulation ratio).
 
-Verify coupling took: after saving, a run should show `Q1 Device junction temp` **bounded near
-Ta+ΔT** (not 0, not the 684 °C uncoupled runaway).
+## Instrumentation (each ToFile `Filename` is relative in-file; set absolute at run time)
+| Chain | ToFile | Columns (col 0 = Time) |
+|---|---|---|
+| `mProbe` V_dc1{V,I} + L1{I} + Q1{cond,sw} | `mCap` | Vdc, Idc, Ia, Q1_cond, Q1_sw |
+| `allP`{Q1..6 cond} → `paAllCond`(1/fac) | `allCap` | 6× conduction **avg** |
+| `allSwP`{Q1..6 sw} → `piaAllSw`(1/fac) | `allSwCap` | 6× switching **avg** (PeriodicImpulseAverage) |
+| `pwrProbe` V_3ph{v_abc} + L1/L2/L3{i_abc} | `pwrCap` | vg_a,b,c, i_a,b,c (2 µs — for P_out, THD, crest) |
+| `tjProbe` Q1,Q2{Device junction temp} + Heat Sink{Temperature} | `tjCap` | Q1_Tj, Q2_Tj, T_sink (in-model, transient) |
+| `Whf`:3, `condP`→`paCond`, `swP`→`piaSw` | `hfCap`,`condCap`,`swCap` | legacy single-switch references |
 
-## Remaining (headless, after coupling)
-1. Add `PeriodicImpulseAverage`(T=1/fac) on `Device switching loss` + `PeriodicAverage` on
-   conduction (raw switching sample 194 W is unreliable — impulses need the dedicated block; see
-   memory `plecs-loss-readback-periodicimpulseaverage`).
-2. Read temperature-correct per-switch losses + Tj; inverter loss = 6× (balanced); η = Pout/Pin.
-3. Confirm energy balance (S3: Pin=Pout+Ploss ±1%).
-4. Run the 9-corner matrix (`procedure-simulation-and-validation` §4); calibrate ≥1 corner to the
-   CRD (S5: >98 % η, 175 °C). Cross-check vs the `experiments/*/` numpy models.
-5. Fill `design-2l-b6-800v-sic`; set `model_registry.json` → `validated`.
+Thermal net: `Heat Sink`(Cth via RPC) → `Whf` → **`Rcs`** (ThermalResistor, `Rth=Rcs_val`=0.0267) → `Tcool`(=Ta) → `Tgnd`.
+The series `Rcs` gives the sink node a real impedance so `Device junction temp` reads (rises 65→107 °C in 0.05 s;
+full steady state needs the thermal timescale, hence the **analytic** Tj_ss for the reported number).
 
-## Runner note
-`mCap` writes `bench_meas.csv` (relative). Set an absolute path via
-`plecs.set("<model>/mCap","Filename","<abs>.csv")` before a headless run, or it lands next to the model.
+## Gotchas (each cost real time)
+- After ANY `.plecs` text edit: `close_model` **then** `open_model`. Verify new blocks with `get_component_param`.
+- Block order in a `Schematic{}`: all `Component{}` before all `Connection{}` before `Annotation{}`. Multi-line blocks only.
+- Probe signal names are exact: `"Device conduction loss"`, `"Device switching loss"`, **`"Device junction temp"`**
+  (NOT "MOSFET junction temp" — that yields no column). Heat sink: `"Temperature"`.
+- ThermalResistor resistance param is **`Rth`** (not `R`). Averaging blocks: input=term 2, output=term 1.
+- Cannot save or add components via RPC (only `plecs.set`) — persistent changes are text edits; per-run values (Filenames,
+  Heat Sink `Cth`, corner `model_vars`) are RPC/runtime.

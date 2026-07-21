@@ -4,27 +4,37 @@ For the next agent continuing [`plan-depth-research`](../../knowledge/synthesis/
 Read this, then the changelog [`2026-07-21-plecs-2l-b6-bench-and-coupling`](../../knowledge/synthesis/log/changelog/2026-07-21-plecs-2l-b6-bench-and-coupling.md)
 and the bench [`README`](../../experiments/2l-b6-800v-sic-bench/README.md).
 
-**The coupling blocker is SOLVED.** This handoff covers Track-1 stages **Step 1 (Model — finish it)**
+> **STATUS 2026-07-21 (cont.): STEP 1 COMPLETE + STEP 2 CORE DONE (S1/S2/S3/S4/S5).**
+> The bench is **`validation_status: validated`**. See changelog
+> [[2026-07-21-plecs-2l-b6-model-complete-and-corners]] and results
+> [`results/metrics/2l-b6-800v-sic-bench.txt`](../../results/metrics/2l-b6-800v-sic-bench.txt).
+> Everything below Step 1.1–1.4 and Step 2 S1–S5 is **done**; what remains is **corners 6–9**
+> (field-weakening/ASC/short-circuit/drive-cycle — need control/fault/averaged models), **S6/S7**
+> (averaged↔switched reconciliation — need an averaged model), then the **Design note → Fold back → Close** stages.
+
+**The coupling blocker is SOLVED.** This handoff covered Track-1 stages **Step 1 (Model — finish it)**
 and **Step 2 (Corner matrix)**. (Track-1 stages: Model → Corner matrix → Design note → Fold back → Close.)
 
 ---
 
 ## Where Track 1 stands
 
-**Step 1 (Model): ~90% done.** A purpose-fit 800 V 2L-B6 CAB450 bench exists, is **heat-sink-coupled**,
-and produced a **first efficiency number (~99.1 %)** at the CRD operating point. Remaining Step-1 work:
-the Tj readout, the operating-point cleanup, all-6 symmetry, and energy balance (below).
+**Step 1 (Model): DONE.** Purpose-fit 800 V 2L-B6 CAB450 bench, heat-sink-coupled, **η = 99.07 %** at the
+CRD point, all four gaps closed.
 
 | Piece | State |
 |-------|-------|
-| Operating point (800 V, 357 A rms, 292 kW) | ✅ verified headless |
-| Device→heat-sink coupling | ✅ CONFIRMED (see below) — coupling survives text edits, so everything left is headless |
-| Conduction loss readout (`PeriodicAverage`) | ✅ works, T-dependent |
-| **Switching** loss readout (`PeriodicImpulseAverage`) | ✅ works — the historical blocker, cracked |
-| Efficiency η = (Pin−Ploss)/Pin | ✅ ~99.1 % (PRELIMINARY) |
-| **Junction-temperature readout** | ❌ reads 0 — needs a thermal *state* (see Step 1.1) |
-| Energy balance (S3), clean operating point, all-6 sum | ⏳ Step 1.2–1.4 |
-| Corner matrix (S1–S7), CRD S5 calibration | ☐ Step 2 |
+| Operating point (800 V, 359 A rms, 302 kW) | ✅ verified headless |
+| Device→heat-sink coupling | ✅ CONFIRMED — survives text edits, everything headless |
+| Conduction loss readout (`PeriodicAverage`, all 6) | ✅ works, T-dependent, aliasing-free |
+| **Switching** loss readout (`PeriodicImpulseAverage`, all 6) | ✅ works |
+| Efficiency η = (Pin−Ploss)/Pin | ✅ **99.07 %** at CRD (99.03–99.32 % across corners) |
+| **Junction-temperature readout** | ✅ FIXED — signal `"Device junction temp"` + series `Rcs`; reported Tj_ss analytic (175 °C) |
+| Energy balance (S3) | ✅ −0.37 % at CRD (< ±1 % all corners) |
+| Clean operating point (SV PWM + Lg=0.5) | ✅ crest 1.80→1.46, THD 0.15 % |
+| All-6 sum (not ×6-Q1) | ✅ Σ6 = 2815 W (near-symmetric with clean current) |
+| Corner matrix S1/S2/S3/S4/S5 | ✅ 6 corners run, converged, CRD-calibrated |
+| Corners 6–9, S6/S7 | ☐ deferred — need control/fault/averaged models |
 
 **Coupling was solved by a GUI action (the one unavoidable one):** the user deleted the text heat sink
 and **GUI-created a fresh `Heat Sink`** over Q1–Q6, then wired its port to the coolant chain.
@@ -95,8 +105,12 @@ open_model   D:/.../experiments/2l-b6-800v-sic-bench/bench_2l_b6_800v_sic.plecs
 set_component_param  bench_2l_b6_800v_sic/condCap  Filename  C:/.../scratch/cond.csv
 set_component_param  bench_2l_b6_800v_sic/swCap    Filename  C:/.../scratch/sw.csv
 set_component_param  bench_2l_b6_800v_sic/mCap     Filename  C:/.../scratch/main.csv
-# run a corner by overriding InitializationCommands vars:
-simulate  bench_2l_b6_800v_sic  model_vars={"Vdc":850,"Pr":150e3,"Vg_rms":...}
+# run a corner — CAUTION: model_vars are applied AFTER InitializationCommands, so a bare
+# {"Pr":150e3,"Vg_rms":...} does NOT recompute Iref/Vref/Lg/phase_*/i_init -> inconsistent!
+# Pass the COMPLETE consistent var set (experiments/2l-b6-800v-sic-bench/gen_vars.py replicates the init):
+#   vars=$(python gen_vars.py 550 175 94500); simulate bench_2l_b6_800v_sic model_vars=$vars
+# Overriding Vdc alone IS safe (only feeds the live DC source + modulation ratio):
+simulate  bench_2l_b6_800v_sic  model_vars={"Vdc":850}
 # read the CSVs with numpy.genfromtxt(delimiter=','); average over the steady-state tail
 ```
 
