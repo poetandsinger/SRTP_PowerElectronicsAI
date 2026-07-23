@@ -103,6 +103,12 @@ Not a quote — a **relative** allocation to guide design effort, from public te
 
 **The switch dominates**, so device selection and thermal/loss design (which set how much silicon you buy) are where cost is won or lost [28][43].
 
+> [!note] **Device/loss now PLECS-validated (Track-1, 2026-07-23)** `[sim]`. The main-switch choice (row 1.1) is
+> confirmed: **6× Wolfspeed CAB450M12XM3** (1200 V/450 A/2.6 mΩ SiC), loss model loaded (Ron = 3.6 mΩ = datasheet),
+> validates at **99.07% η / 175 °C at the 300 kW CRD** and 99.32% at the design's 150 kW peak — a single half-bridge
+> module per leg carries the design well inside its limits ([[design-2l-b6-800v-sic]]). This fixes the switch
+> quantity/class the BOM's Red Team flagged as needing a validated design.
+
 ---
 
 ## Red Team

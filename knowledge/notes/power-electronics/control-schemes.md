@@ -134,6 +134,15 @@ id* = (λPM/Ld)·[(ωbase/ωe) − 1]  →  (ideal, ignoring resistance)
 
 **Deep field weakening (ωe >> ωbase):** motor enters constant-power region where id approaches the characteristic current Ichar = λPM/Ld. For IPMSM with high saliency (Lq/Ld > 2), the constant-power speed range can exceed 3:1.
 
+> [!note] **Track-1 field-weakening envelope (corner 6, 2026-07-23)** `[analytic + [sim] inverter]`. Computed for
+> a representative 300 kW IPMSM (λ=0.11 Wb, Ld/Lq=0.18/0.42 mH, Pp=4; system current limit = the 360 A rms
+> inverter rating): constant-torque ~453 N·m to **base speed 5596 rpm**, peak **327 kW**, **CPSR 2.4×** (6900→16500
+> rpm). Both corner criteria PASS — **torque ∝ ω⁻⁰·⁹¹** (≈1/ω, the reluctance term softens it below the ideal),
+> and **Vd²+Vq² ≤ Vmax²** held at **100% utilization** on the voltage ellipse (id deepens −264→−490 A). The
+> validated PLECS bench confirms the *inverter* stays efficient across the CPSR: sweeping fe 200/400/600 Hz at
+> 750 V/300 kW (pulse ratio fs/fac 80→27), **η is flat at 99.11–99.12%**. Faithful closed-loop Id/Iq
+> field-weakening would need the PMSM+FOC model; this envelope is dq-analytic. See [[design-2l-b6-800v-sic]].
+
 ---
 
 ## 3. Direct Torque Control (DTC)

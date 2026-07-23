@@ -67,6 +67,16 @@ flowchart LR
 
 **Miner's linear rule**: failure at `LC=1` [139][143]. One profile can be **2.5× more damaging** than another at the same nominal temperatures due to small superimposed oscillations [139] — so counting matters.
 
+> [!note] **Track-1 mission-profile front-end built (corner 9, 2026-07-23)** `[sim]`. The chain above is
+> implemented for the validated 2L-B6 ([[design-2l-b6-800v-sic]]): a loss map calibrated to the 6 switched PLECS
+> corners (fit < 8%) drives a **US06/WLTP-class drive cycle** → **Foster Tj(t)** (Zjc + CRD-calibrated
+> case→coolant) → **rainflow** → ΔTj bins. Result: **Tj peak 116 °C, mean 80 °C**, rainflow **26 cycles, ΔTj max
+> 28 °C** (bins 0–10:12, 10–20:3, 20–40:11). This produces the `(ΔTj, Tmean, ton)` histogram the §3 Nf models
+> consume — but **absolute Nf/Miner LC is NOT yet computed**: it needs the Coffin-Manson/LESIT coefficients here
+> (A=640, α=−5.039, Ea≈0.617 eV) applied to *this* SiC module, and those are technology-specific `[T]` (Red Team
+> point 4). A relative damage proxy `Σ ΔTj⁵` is reported; the absolute lifetime awaits an AQG-324 PC dataset for
+> the CAB450. So corner 9 delivers the **thermal mission profile**, not yet a lifetime number.
+
 ## 5. SiC-Specific Degradation (beyond package fatigue)
 
 | Mode | Test | Effect |

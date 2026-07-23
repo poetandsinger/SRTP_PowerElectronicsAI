@@ -38,6 +38,14 @@ The hard reason SiC is not run near its rated voltage even when *static* blockin
 - **DESAT** detects in ~300 ns; detect+**soft turn-off must finish inside 1–3 µs** [110][126], [[design-gate-driver]] §3.
 - **Failure if too slow:** thermal runaway (top-metal reflow→short), gate-oxide crack, parasitic-BJT latch [110].
 
+> [!note] **Track-1 CAB450 short-circuit budget (corner 7, 2026-07-23)** `[analytic/datasheet]`. Scaled from the
+> FM3 anchor to the CAB450 by die area (Ron 16/2.6 = 4.44×): **ID,sat ~4.7 kA** (~10× the 450 A rating),
+> **SCWT ~2.73 µs @ 850 V/175 °C** (measured 2.9 µs @ 800 V, voltage-scaled; < 3 µs SiC). DESAT (300 ns) + soft
+> turn-off (1 µs) = **1.3 µs reaction, inside SCWT with 2.1× margin → a single SC is survived.** Turn-off
+> overvoltage ΔV = Lσ·di/dt: soft (500 ns) 63 V vs hard (100 ns) 313 V ≈ **89% of the BV headroom** — so soft
+> turn-off is strongly preferred. NB: the PLECS loss model (constant Ron, no gm-saturation) *cannot* produce the
+> SC current — this corner is datasheet-bounded, not simulated. See [[design-2l-b6-800v-sic]] §PLECS Validation.
+
 ## 4. Overvoltage
 
 - **Turn-off overshoot** `ΔV = Lσ·di/dt`, dominated by power-loop stray inductance; keep VDS peak within **±5% of bus** by low-`Lσ` layout + `Rg` tuning [110][125], [[procedure-design]] §8.
@@ -53,6 +61,16 @@ The hard reason SiC is not run near its rated voltage even when *static* blockin
 | Use | **low speed** (back-EMF < bus) | **medium/high speed** [123][55] |
 
 Common strategy: freewheel at low speed, ASC at high speed; hybrid schemes inject freewheel intervals to damp the ASC entry transient [123]. ASC drag torque peaks near a corner speed, falls ~1/ω [123], [[pimpale-mahadik-2025-asc-discharge]].
+
+> [!note] **Track-1 ASC entry analysis (corner 8, 2026-07-23)** `[analytic dq]`, representative 300 kW IPMSM
+> ([[machine-and-load]] `[T]` params). Steady ASC current is **bounded at the characteristic current Ich = λ/Ld
+> = 611 A** at all speeds. The **entry transient** (dq RK4 from motoring at the current limit, max speed) peaks
+> **1924 A = 3.1× steady** — that **exceeds the device I_DM (900 A, 214%)**, so a **staged/hybrid ASC** (freewheel
+> pulses) or an explicit transient-SOA check is needed. **Drag torque** peaks 235 N·m near ~100 rpm, falls ~1/ω
+> (controlled braking). **No bus overvoltage** — the fault current circulates in the shorted low-side switches +
+> machine and never reaches the DC-link cap (ΔVbus ≈ 0); by contrast uncontrolled freewheel at max speed rectifies
+> back-EMF 1317 V (LL pk) > 850 V bus → **bus pumping**. This confirms ASC as the correct high-speed safe state.
+> (The open-loop bench isn't a PMSM model, so this is analytic, not simulated.) See [[design-2l-b6-800v-sic]].
 
 ## 6. Functional Safety (ISO 26262)
 

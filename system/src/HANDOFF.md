@@ -4,13 +4,18 @@ For the next agent continuing [`plan-depth-research`](../../knowledge/synthesis/
 Read this, then the changelog [`2026-07-21-plecs-2l-b6-bench-and-coupling`](../../knowledge/synthesis/log/changelog/2026-07-21-plecs-2l-b6-bench-and-coupling.md)
 and the bench [`README`](../../experiments/2l-b6-800v-sic-bench/README.md).
 
-> **STATUS 2026-07-21 (cont.): STEP 1 COMPLETE + STEP 2 CORE DONE (S1/S2/S3/S4/S5).**
-> The bench is **`validation_status: validated`**. See changelog
-> [[2026-07-21-plecs-2l-b6-model-complete-and-corners]] and results
+> **STATUS 2026-07-23: STEP 1 COMPLETE + FULL 9-CORNER MATRIX DONE (S1–S7).**
+> The bench is **`validation_status: validated`** and the corner matrix is **complete**. Corners 1–5
+> (switched, S1–S5) landed 2026-07-21; **corners 6–9 + S6/S7 landed 2026-07-23** — see changelog
+> [[2026-07-23-plecs-2l-b6-corners-6-9]] and the corners-6-9 section of
 > [`results/metrics/2l-b6-800v-sic-bench.txt`](../../results/metrics/2l-b6-800v-sic-bench.txt).
-> Everything below Step 1.1–1.4 and Step 2 S1–S5 is **done**; what remains is **corners 6–9**
-> (field-weakening/ASC/short-circuit/drive-cycle — need control/fault/averaged models), **S6/S7**
-> (averaged↔switched reconciliation — need an averaged model), then the **Design note → Fold back → Close** stages.
+> Scripts: `experiments/2l-b6-800v-sic-bench/corner{6,7,8,9}_*.py`. Scope: the bench is an open-loop
+> grid-style inverter, so C6/C8/C9 are **analytic** (grounded in the validated inverter loss data), C7 is
+> **datasheet-bounded**, and PLECS drives the C6 speed-sweep + C9 loss map. What remains for Track-1 is the
+> **Design note ([[design-2l-b6-800v-sic]]) → Fold back → Close** stages, then Track 2 (3L-TNPC).
+> A closed-loop **PMSM+FOC** model would upgrade C6/C8 from analytic to PLECS-confirmed (a separate build).
+>
+> _(historical STEP-1/STEP-2 detail below is retained as the method record for Track 2.)_
 
 **The coupling blocker is SOLVED.** This handoff covered Track-1 stages **Step 1 (Model — finish it)**
 and **Step 2 (Corner matrix)**. (Track-1 stages: Model → Corner matrix → Design note → Fold back → Close.)

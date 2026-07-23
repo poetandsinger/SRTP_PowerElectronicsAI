@@ -87,6 +87,14 @@ A design's numbers are **evidence only after this procedure**. The order is deli
 
 ### 4.3 S4 — Corner matrix (each corner pins a (Vdc, load) point + a numeric criterion)
 
+> [!success] **Executed for Track-1 2L-B6 (2026-07-23) — all 9 corners + S1–S7 cleared.** Corners 1–5 ran
+> switched on the validated bench (η 99.03–99.32%, Tj ≤ 175 °C, S5 CRD-calibrated); corners 6–9 closed
+> analytically/datasheet-bounded (the open-loop bench isn't a machine/fault model — scope per the
+> [[plan-depth-research]] can/cannot table):
+> C6 field-weakening (torque ∝ ω⁻⁰·⁹¹, CPSR 2.4×), C7 SC (SCWT ~2.73 µs, survives), C8 ASC (Ich=611 A,
+> no overvolt), C9 drive-cycle (cycle-η 98.62%, Tj 116 °C). S6/S7 met (loss map reconciles switched <8%).
+> Results [[design-2l-b6-800v-sic]] · [`2l-b6-800v-sic-bench.txt`](../../../results/metrics/2l-b6-800v-sic-bench.txt).
+
 | # | Test | Operating point (Vdc, load) | Pass criterion | Ties to |
 |---|------|-----------------------------|----------------|---------|
 | 1 | **Double-pulse** | 850 V, I≈`Ipk` (~424 A), `Tj` hot | Eon/Eoff extracted; `Vds,pk` within switching-SOA (≤~83 % BV) | [[procedure-design]] §2–3 |

@@ -41,8 +41,62 @@ TRENDS (physical sanity)
   eta rises as load falls (99.07 -> 99.32%); switching loss scales with bus (1450/1569/1688 W at 750/800/850V);
   conduction ~flat with bus, scales with I^2 (1246 -> 841 -> 288 W at 360/300/180 A); current clean (crest 1.46, THD 0.15%).
 
-SCOPE / DEFERRED
-  Corners 6-9 (field-weakening sweep, ASC entry, short-circuit fault, drive-cycle) need control/fault/averaged-model
-  additions the open-loop bench lacks -> deferred (documented in HANDOFF.md STEP 2).
-  S6/S7 averaged<->switched reconciliation needs an averaged model (not yet built) -> deferred.
-  Double-pulse (corner 1) switching-energy extraction: a separate DPT model (energy needs no coupling); archived stub exists.
+========================================================================================================
+CORNERS 6-9 (2026-07-23) — machine/fault/averaged extensions
+========================================================================================================
+Scope discipline (plan-depth-research "can/cannot" table): the switched bench is an open-loop, constant-
+per-unit grid-style inverter model (no FOC, no fault logic, no dq machine). Corners 6/8/9 are therefore
+MACHINE/SYSTEM-level (analytic, but grounded in the validated inverter loss data); corner 7 is DEVICE-physics
+(datasheet-bounded). PLECS genuinely contributes to corner 6 (speed sweep) and corner 9 (loss map calibrated
+to C1-C6). Machine params are representative 300 kW IPMSM [T] (machine-and-load.md); flagged, not measured.
+Scripts: experiments/2l-b6-800v-sic-bench/corner{6,7,8,9}_*.py ; full output plecs_runs/corners_6_9_output.txt.
+
+C6 FIELD-WEAKENING (750 V):
+  Analytic envelope (rep. IPMSM lam=0.11 Wb, Ld/Lq=0.18/0.42 mH, Pp=4, I_lim=360 Arms=inverter rating):
+    constant-torque ~453 N.m to base speed 5596 rpm (fe 373 Hz); peak 327 kW at 14100 rpm; CPSR 2.4x
+    (6900->16500 rpm). PASS torque ~ w^-0.91 (criterion ~1/w). PASS Vd^2+Vq^2 <= Vmax^2 (100% util on ellipse).
+    id deepens -264 -> -490 A (flux weakening), iq falls 435 -> 137 A.
+  PLECS inverter confirmation at 750 V / 300 kW, sweeping fe (pulse ratio fs/fac drops 80->27):
+    label                 Vdc  Ia_rms  eta_%   Pcond  Psw   Ploss  crest  THDlo_%  Tj_ss
+    C6_FW_750V_2xspeed(400Hz) 750  359.6  99.117  1240  1427  2666  1.490  3.94    169.4
+    C6_FW_750V_3xspeed(600Hz) 750  360.0  99.120  1239  1409  2648  1.531  1.35    168.8
+    (base speed = C2 = 750V/300kW/200Hz, eta 99.111%). Inverter eta FLAT (99.11-99.12%) across 1x-3x speed;
+    crest rises 1.46->1.53, THD grows as pulse ratio falls -> inverter stays efficient across the CPSR.
+  Note: faithful CLOSED-LOOP field-weakening (Id/Iq regulation) needs the PMSM+FOC model, not this bench.
+
+C7 SHORT-CIRCUIT (850 V, hard switch fault, Tj hot) — datasheet/analytic (loss model CANNOT do SC):
+  The MosfetWithDiode is a constant-Ron loss model with NO gm-saturation (verified: no transfer table in the
+  CAB450 XML). A hard SC would compute 850/0.0036 = 236 kA (unphysical). Bounded from the FM3-family anchor
+  (protection-and-safety.md sec.3, [110][126]) scaled to CAB450 by die area (Ron 16/2.6 = 4.44x):
+    ID,sat ~ 4.7 kA (~10x rated 450 A); SCWT ~2.73 us @ 850 V/175 C (measured 2.9 us @ 800 V, voltage-scaled;
+    < 3 us SiC). DESAT (300 ns) + soft turn-off (1 us) = 1.3 us reaction, inside SCWT with 2.1x margin -> a
+    single SC is SURVIVED. Turn-off overvoltage dV = Lsig*di/dt: soft 63 V (18% of BV headroom), hard 313 V
+    (89% - uncomfortably close) -> soft turn-off strongly preferred. PASS. Scaling flagged +/-30%.
+
+C8 ASC ENTRY (short all low-side at max speed) — analytic dq (bench cannot model ASC; back-EMF-source machine):
+  Steady ASC current bounded at Ich = lam/Ld = 611 A across all speeds. Entry transient (RK4 dq integration
+  from motoring at current limit, 16500 rpm) peaks 1924 A = 3.1x steady, then decays -> EXCEEDS device I_DM
+  (900 A, 214%): flags staged/hybrid ASC to damp entry, or transient-SOA verification. Drag torque peaks
+  235 N.m near 100 rpm, falls ~1/w (controlled braking). NO bus overvoltage: fault current circulates in the
+  low-side switches + machine, never reaches the DC-link cap (dV_bus ~ 0). Contrast uncontrolled freewheel:
+  back-EMF 1317 V(LL pk) > 850 V bus -> rectifies through body diodes -> BUS PUMPING. PASS: ASC is the correct
+  high-speed safe state (freewheel only safe at low speed). protection-and-safety.md sec.5.
+
+C9 DRIVE-CYCLE (averaged model) — loss map calibrated to C1-C6, US06/WLTP-class trace:
+  Loss map Pcond=9.585e-3*Irms^2 + Psw=5.974e-3*Vdc*Irms (fit to 6 validated corners, err <8%, mostly <1%).
+  Representative 300 kW performance BEV (2200 kg, CdA 0.62, gear 9.0) over a 280 s / 5.0 km cycle (v_max
+  130 km/h, v_avg 64 km/h):
+    CYCLE-AVERAGE INVERTER EFFICIENCY = 98.62 % (motoring, energy-weighted); regen recovers 604 Wh.
+    Slightly below rated 99.07% because low-speed/light-load time carries switching loss set by the full bus.
+    Tj history (Foster Zjc + CRD-cal case-coolant): peak 116 C, mean 80 C (< 175 C, OK).
+    Rainflow: 26 cycles, delta-Tj max 28 C, mean 13.6 C; bins 0-10:12 10-20:3 20-40:11. Relative Coffin-Manson
+    damage proxy sum(dTj^5) computed; absolute Nf/Miner scoped to reliability-and-lifetime.md.
+
+S6/S7 RECONCILIATION (now MET): the corner-9 averaged loss map reproduces the switched C1-C6 losses within
+  <8% (target +/-10%) -> averaged<->switched reconciliation demonstrated. The averaged model is the loss map.
+
+SCOPE / STILL OPEN
+  Closed-loop FOC field-weakening + a native PMSM ASC would upgrade C6/C8 from analytic to PLECS-confirmed
+  (needs the PMSM+FOC model, a separate build). Double-pulse (corner 1) switching-energy extraction: a separate
+  DPT model (energy needs no coupling); archived stub exists. Machine params are representative [T] until a real
+  IPMSM datasheet/FEA replaces them.

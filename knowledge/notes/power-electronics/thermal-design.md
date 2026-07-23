@@ -86,6 +86,16 @@ Mid-load `P_loss ≈ 500 W/switch`, coolant `Tc = 65 °C`, pin-fin WEG:
 
 **Sensitivity:** DSC/direct cooling halving the (TIM+cold-plate) stages (0.08→0.04) gives `ΣRth=0.134`, `Tj=132 °C` — the recovered ~20 K converts to **~15–25% more continuous current** [103]. This is why the TIM + cold-plate stages, not `Rth,jc`, are where you design.
 
+> [!success] **PLECS-validated + CRD-calibrated (Track-1, 2026-07-23)** `[sim]`. The soft `Rth,cs` placeholder
+> above is now pinned by the measured anchor: on the validated 2L-B6 bench ([[design-2l-b6-800v-sic]]), at the
+> 300 kW CRD point the per-switch loss is **470 W** (208 conduction + 262 switching) and the reported steady-state
+> **Tj = 175 °C** is analytic (`Tj = Ta + P_module·R_cs + P_switch·R_jc`, R_jc = 0.0948 °C/W = XML Cauer sum, module
+> pairs share the baseplate). **R_cs = 0.070 °C/W/module was back-calculated from the CRD's measured 175 °C**
+> (non-circular S5 calibration — app-note ~0.08 gives a pessimistic 185 °C). At the design's own 150 kW peak
+> (C5, ~170 W/switch) Tj = **105 °C**; over a US06/WLTP-class drive cycle (C9) Tj peaks **116 °C** with rainflow
+> ΔTj ≤ 28 °C. The loss→Tj chain and the "TIM+cold-plate dominate" conclusion are confirmed; the calibrated
+> R_cs replaces the `[T]` guess for this module/cold-plate.
+
 ## Red Team
 
 **Steelman against:** The chain math is textbook, but the two dominant terms in the worked example (`Rth,cs`, `Rth,s-coolant`) are `[T]` placeholders, not sourced for the CAB450's actual cold plate — and they swing 2–3× with bond-line and cold-plate design, so `Tj = 152 °C` could be anywhere from ~135–170 °C. The cooling "−45%/+79%/−39%" figures are *relative* to unstated baselines and come from research demos on small coupons, not qualified 300 kW modules.

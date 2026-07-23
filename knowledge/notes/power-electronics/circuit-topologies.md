@@ -79,6 +79,25 @@ These eight vectors form a hexagon in the α-β plane. The six active vectors (V
 - **Bearing currents** — common-mode voltage transitions (Vdc/3, 2Vdc/3) drive capacitive coupling through motor bearings, causing EDM pitting. Mitigation: ceramic bearings, shaft grounding rings, common-mode chokes.
 - **Harmonic distortion** — line-line voltage THD ranges from ~30% (at MI=0.5 with SVPWM) to ~5% (at MI=0.9)
 
+### PLECS-Validated Baseline (Track-1, 2026-07-23) `[sim]`
+
+The 2L-B6 baseline is now the project's **validated anchor** — a purpose-fit 800 V SiC bench (Wolfspeed
+CAB450M12XM3 ×6) cleared the S1–S7 SOP and the 9-corner matrix, CRD-calibrated ([[design-2l-b6-800v-sic]],
+[[reference-design-wolfspeed-ti-300kw-800v]]). Numbers every 3L variant below is now compared **against**:
+
+| Metric | 2L-B6 validated value | Corner |
+|--------|-----------------------|--------|
+| Peak efficiency | **99.32%** (180 A / 151 kW) → **99.07%** at the 300 kW CRD anchor | C5 / C1 |
+| Loss split @ CRD | conduction 1246 W + switching 1569 W = 2815 W (per-switch 208+262 W) | C1 |
+| Junction temp @ CRD | 175 °C (Tj,max 175; R_cs CRD-calibrated) | C1 |
+| Current THD (SV PWM, Lg 0.5 p.u.) | 0.15% low-order, crest 1.46 | C1 |
+| Field-weakening (rep. IPMSM) | CPSR 2.4×, torque ∝ ω⁻⁰·⁹¹; inverter η flat 99.11–99.12% to 3× speed | C6 |
+| Drive-cycle (US06/WLTP-class) | cycle-avg η 98.62%, Tj peak 116 °C | C9 |
+
+The measured **97.5%-class "SiC 2L peak"** figure sometimes quoted (see §5 Red Team) is superseded for this
+device: the CAB450 with datasheet loss tables at 800 V/unity-PF validates at **~99%** — the topology comparison
+in §5 should read the 3L gains as *increments on this ~99% 2L baseline*, not on 97.5%.
+
 ---
 
 ## 2. Three-Level Neutral-Point-Clamped (3L-NPC)
@@ -271,7 +290,7 @@ This headline result makes TNPC the most cost-effective multilevel candidate for
 | Voltage levels | 2 (Vdc, 0) | 3 (+½Vdc, 0, -½Vdc) | 3 | 3 |
 | Max switch voltage | Vdc | Vdc/2 | Vdc/2 | Vdc |
 | NP balancing needed | No | Yes (complex) | Yes (manageable) | Yes (manageable) |
-| Partial-load efficiency | Baseline | Better | Better | Best |
+| Partial-load efficiency | Baseline — **validated 99.07% @ CRD / 99.32% @ 150 kW** `[sim]` | Better | Better | Best |
 | dv/dt at motor | Highest | ~½ of 2L | ~½ of 2L | ~½ of 2L |
 | THD (same fsw) | Baseline | ~45% lower | ~45% lower | ~45% lower |
 | Gate driver count | 6 | 12 | 18 | 12 |
@@ -333,7 +352,7 @@ Documented for completeness; each has a fundamental limitation for traction use:
 **How it could be false:**
 1. **Single-source dependency:** The entire 3L-TNPC case rests on one preprint [28]. No independent reproduction exists. Device models, loss parameters, and drive cycle assumptions may not generalize.
 2. **Production viability unaddressed:** The paper evaluates electrical performance but does not examine manufacturing cost, reliability, or gate-drive complexity of 18-switch topologies. The "no known production application" caveat (line 204) is buried in one sentence.
-3. **Topology comparison table unverified:** The claims about "SiC 2L: 97.5% peak, SiC 3L-NPC: 98.7%, SiC 3L-TNPC: 99.0%" are approximate ranges. Actual efficiencies depend on device selection, switching frequency, and modulation strategy — a 0.3% difference is within measurement uncertainty at these levels.
+3. **Topology comparison table unverified:** The claims about "SiC 2L: 97.5% peak, SiC 3L-NPC: 98.7%, SiC 3L-TNPC: 99.0%" are approximate ranges. Actual efficiencies depend on device selection, switching frequency, and modulation strategy — a 0.3% difference is within measurement uncertainty at these levels. **Update 2026-07-23:** our own PLECS-validated 2L-B6 (CAB450, 800 V, datasheet loss tables, unity PF) lands at **99.07% @ 300 kW CRD / 99.32% @ 150 kW** `[sim]` — well above the quoted 97.5% "2L peak", so the 3L increments must be re-based on a ~99% 2L baseline. The 3L-TNPC absolute figures remain single-preprint [28] and unreproduced here (no validated 3L model yet — Track 2).
 4. **Production dominance claim (">95% 2L-B6"):** Unsourced. This is training knowledge [T] or extrapolated from known OEM designs. No market survey is cited.
 
 **What would change my mind:**
