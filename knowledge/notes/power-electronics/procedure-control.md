@@ -3,7 +3,7 @@ title: "Control Procedure — Tuning & Implementing FOC for a Traction Inverter"
 type: topic
 field: power-electronics
 created: 2026-07-08
-updated: 2026-07-19
+updated: 2026-07-23
 status: unverified
 evidence: theoretical
 tags: [power-electronics, traction-inverter, foc, pi-control, tuning, design]
@@ -27,6 +27,8 @@ Before tuning FOC, get these parameters from the motor datasheet or identificati
 | Max current | Is,max | A rms | 300–500 |
 | Base speed | ωbase | rpm | 3000–5000 |
 | Max DC-link voltage | Vdc,max | V | 400–800 |
+
+**Project worked-example set** (`[T]` representative, used in the [[design-2l-b6-800v-sic]] C6 field-weakening + C8 ASC corners and the `corner{6,8}_*.py` scripts, until a real IPMSM datasheet/FEA flux-map replaces it): `Rs`=8 mΩ, `Ld`=0.18 mH, `Lq`=0.42 mH (saliency 2.3), `λPM`=0.11 Wb, `Pp`=4, `Is,max`=360 A rms (= the inverter/CRD current rating), base speed ≈5600 rpm, CPSR ≈2.4×. These are placeholders per [[machine-and-load]] §3 — every gain below inherits their uncertainty (§8).
 
 ## 3. Step-by-Step FOC Implementation
 
@@ -125,6 +127,8 @@ Apply dead time (1–2 µs for IGBT, 0.2–0.5 µs for SiC) and insert it into t
 
 These closed-loop checks run in the **PLECS drive model** — PLECS hosts the FOC controller (or PLECS plant + external C controller). The project sim backend is **PLECS, not Simulink** [79][80]; the MATLAB-style code above is illustrative pseudocode for the math. Every quantitative check here obeys the run-validity gates of the [[procedure-simulation-and-validation]] SOP §4 (numerical convergence → steady-state integer-cycle window → energy balance) before its numbers count.
 
+> **Status — this procedure is not PLECS-validated yet.** Through Tracks 1–4 the machine corners run on open-loop grid-style benches, so field-weakening (C6) and fault→safe-state/ASC (C8) are closed **analytically** ([[design-2l-b6-800v-sic]] C6: CPSR 2.4×, torque ∝ ω⁻⁰·⁹¹, Vd²+Vq²≤Vmax² at 100 % util; C8: ASC bounded at Ich=611 A, no bus overvolt). The **closed-loop FOC layer is a deferred phase** ([[plan-depth-research]] §Closed-loop FOC — after the four topologies + synthesis): build the PMSM+FOC drive once (native PLECS PMSM/FOC + the family-car seed), then §4's steps below become the executable tuning runbook and C6/C8 bump from `[analytic]` to `[sim]`. Until then §3–§4 are theory, `status: unverified`.
+
 1. **Open-loop voltage test:** Apply small Vd, Vq to verify transforms and PWM direction.
 2. **Current loop only:** Set speed loop to manual; apply step in Id_ref and Iq_ref. Tune Kp/Ki for ~10–20% overshoot and fast settling.
 3. **Add speed loop:** Tune speed PI with bandwidth ~10–50 Hz. Speed loop should be much slower than current loop.
@@ -188,7 +192,7 @@ Once the FOC is validated in the **PLECS drive model** (§4), the typical produc
 - Comparison against auto-tuned (e.g., MATLAB PID Tuner, frequency response-based) PI gains.
 - Evidence that the IMC tuning rules produce gains within 10% of dynamometer-optimized gains.
 
-**Residual doubt:** The theory is correct and the procedure would produce a working FOC implementation in simulation. The gap between "works in Simulink" and "works in a vehicle" is where this guide's value is unproven.
+**Residual doubt:** The theory is correct and the procedure would produce a working FOC implementation in simulation. The gap between "works in a PLECS sim" and "works in a vehicle" is where this guide's value is unproven — and, until the deferred FOC phase runs, even the PLECS-sim end is analytic, not closed-loop-validated (§4).
 
 ---
 > **References:** [[citations]]

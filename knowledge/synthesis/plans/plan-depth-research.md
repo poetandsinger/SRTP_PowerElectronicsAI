@@ -3,7 +3,7 @@ title: "Plan — PLECS-backed depth documentation of every traction-inverter not
 type: plan
 field: project
 created: 2026-07-19
-updated: 2026-07-19
+updated: 2026-07-23
 tags: [plan, plecs, simulation, design, traction-inverter, engineering-ai]
 ---
 
@@ -53,6 +53,26 @@ PLECS validates the circuit/thermal/machine slice with *assumed* device+machine 
 
 **Corollary:** `reliability` and `thermal` share one loss→Tj(t) model. Scope `gate`/`protection`/`emi` to the confirmable subset; label the rest bench/standard.
 
+## The RAG-fidelity boundary (what this corpus can ground for the MAS)
+
+This vault is the RAG substrate for the design MAS ([[plan-ai-agent-mas]]). A retrieval corpus grounds the MAS only to the **fidelity its own evidence carries** — RAG confers the *method*, not a *data-fidelity it does not contain* (garbage-in-garbage-out at the fidelity level). State this so the MAS never overclaims production-readiness.
+
+**Fidelity ladder — where an answer grounded on this corpus lands:**
+
+| Level | Grounding inputs | Corpus state | Output class |
+|-------|------------------|--------------|--------------|
+| **L0** | datasheet-nominal device loss tables + `[T]` machine params | **today** (2L-B6 validated) | validated **concept** — reference-calibrated, honestly caveated |
+| **L1** | real datasheets across device + machine + passives (fed as **tool-data**) | achievable next | **detailed-design / pre-development** model — sizing, component pick, η within a few %, thermal targets, trade studies |
+| **L2** | **measured on *your* hardware** — bench double-pulse in your busbar, machine flux maps (FEA/dyno), layout-extracted parasitics, EMC/FuSa test | **not in RAG — a tool/data-acquisition problem** | **production sign-off** |
+
+**Two standing rules for the MAS:**
+1. **Fidelity climbs by tools, not text.** L0→L1→L2 happens only when *measured/real data enters the loop at runtime* (a datasheet-parse tool, a DPT-bench import, an FEA flux-map load) — never by retrieving more corpus text. The corpus tells the agent *which gates to clear and how to validate* (the S1–S7 SOP in [[procedure-simulation-and-validation]]); it cannot supply the measurements those gates require.
+2. **Truth-status is the guardrail — it must survive retrieval.** Every number carries `[sim]`/`[T]`/`status`/`evidence`. The retrieval/chunking layer **must keep the tag attached to the number**, or a naive agent treats a `[T]` placeholder as a spec. Test provenance survival at chunk granularity.
+
+**Coverage caveat:** RAG quality is topology-deep-narrow — only tracks that clear the SOP (2L-B6 today) ground a confident answer; outside them the agent retrieves `[T]`/scaffold content and output degrades. Finishing Tracks 2–4 is a **MAS-grounding requirement, not just completeness**.
+
+> **The honest target this corpus enables:** a MAS that delivers **validated concept-to-pre-development simulations with correct caveats** — production discipline in *method*, concept-to-detailed-design in *data* — with the sim→hardware last mile explicitly flagged as needing measured input. Even with perfect datasheets, the electrical/thermal/efficiency slice is what PLECS grounds; EMC compliance, layout parasitics, FuSa work-products, and manufacturing stay out of scope (the can/cannot table above).
+
 ## Environment & tooling
 
 | Thing | Detail |
@@ -87,6 +107,7 @@ flowchart TD
     T2 --> T3["Track 3 · 3L-ANPC<br/>(reference-PDF topology)"]
     T3 --> T4["Track 4 · 3L-NPC"]
     T4 --> SYN["Synthesis:<br/>circuit-topologies + design-tradeoffs<br/>filled with 4 validated models"]
+    SYN --> FOC["Closed-loop FOC layer<br/>(build once, retro-apply to all 4)<br/>upgrades C6/C8 analytic → PLECS"]
 ```
 
 ### Shared agnostic layer — build once  *(☐)*
@@ -104,6 +125,16 @@ Each track is one coherent build. Do **not** start the next topology until the c
 
 ### Synthesis — after all four tracks  *(☐)*
 - ☐ Fill [[circuit-topologies]] §5 and [[design-tradeoffs]] with the four validated models (the PLECS Pareto sweep its Red Team demands); regenerate [[index-traction-inverter]] and [[index-reference-designs]].
+
+### Closed-loop FOC — after the four topologies + synthesis  *(☐)*
+
+**Deferred by design until all four power stages are validated.** Through T1–T4 the machine/fault corners are run on **open-loop grid-style benches**, so **C6 (field-weakening)** and **C8 (ASC)** are closed *analytically* (dq first-principles on representative `[T]` IPMSM params), C7 datasheet-bounded — scoped honestly per the can/cannot table. The closed-loop FOC layer is the planned upgrade that turns C6/C8 from analytic into **PLECS-confirmed** across every topology.
+
+**Why after, not per-track:** the machine + control layer is **topology-agnostic** — the same IPMSM and FOC serve all four inverters. Build it **once**, then retro-apply to each track's C6/C8, rather than rebuilding a closed-loop drive four times. It also keeps each topology track a clean power-stage build (serial discipline) and lets the FOC be validated against four already-trusted power stages.
+
+**Scope (medium effort — integration, not from-scratch):** the pieces already exist — the family-car seed `experiments/family-car-400v-sic/pmsm_mycar.plecs` + the seed harness `system/src/templates/2l_vsi_pmsm_tofile.plecs` (readback proven), and shipped PLECS demos `three_phase_motor_drive_with_analysis_tools`, `look_up_table_based_pmsm` (saturation LUT), and `motor_drive_with_failure_modes` (fault/ASC). Reuse [[machine-and-load]] §8 (native PMSM/FOC), [[control-schemes]] §2 (FOC/MTPA/field-weakening), [[procedure-control]] (tuning). The real work: close the FOC loop around the **CAB450 devices on a GUI-coupled heat sink** (the Track-1 thermal pattern), add the **field-weakening voltage-limit regulator** (for C6) and a **fault-injection trigger** (for C8), then tune the current loops.
+
+**Delivers:** closed-loop id/iq trajectory, ASC entry transient with true machine dynamics (vs the RK4 dq analytic), and control↔loss↔thermal interaction. **Does NOT** remove the `[T]` machine-params gap or the sim→hardware gap — it upgrades C6/C8's *evidence class*, still bounded by the RAG-fidelity ladder above (real flux maps are the rung beyond a datasheet). Fold the PLECS-confirmed C6/C8 back into [[control-schemes]] / [[procedure-control]] / [[protection-and-safety]] and each design note; bump those corners from `[analytic]` to `[sim]`.
 
 ## Definition of done (per note / per track)
 
